@@ -84,7 +84,7 @@ class Nav extends Component {
                 admin === "admin" ?
                   (
                     <li>
-                      <Link prefetch href="/admin/dashboard">
+                      <Link href="/admin/dashboard">
                         <a>Dashboard</a>
                       </Link>
                     </li>
@@ -93,12 +93,12 @@ class Nav extends Component {
 
 
               <li>
-                <Link prefetch href="/account">
+                <Link href="/account">
                   <a>Account</a>
                 </Link>
               </li>
               <li>
-                <Link prefetch href="/">
+                <Link href="/">
                   <a onClick={action}>Logout</a>
                 </Link>
               </li>

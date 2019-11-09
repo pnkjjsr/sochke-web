@@ -4,26 +4,6 @@ import TextField from '@material-ui/core/TextField';
 
 import "./style.scss"
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        border: '1px solid rgb(158, 170, 176)',
-        overflow: 'hidden',
-        borderRadius: 4,
-        backgroundColor: '#fff',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:hover': {
-            border: '1px solid #e2e2e1',
-            backgroundColor: '#fff',
-        },
-        '&$focused': {
-            border: '1px solid #e2e2e1',
-            backgroundColor: '#fff',
-            borderColor: theme.palette.primary.light,
-        }
-    },
-    focused: {},
-}));
-
 function TextBox(props) {
     const classes = useStyles();
     return <TextField

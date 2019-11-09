@@ -1,5 +1,5 @@
 import React from "react";
-import App, { Container } from "next/app";
+import App from "next/app";
 
 import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
@@ -16,27 +16,19 @@ class MyApp extends App {
       key: false
     }
   }
-  static async getInitialProps({ Component, ctx, router }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-    return { pageProps };
-  }
+
   render() {
     const { key } = this.state;
     const { Component, ctx, router, pageProps, store } = this.props;
 
     if (router.query.key == process.env.secretKey || key == true || process.env.NODE_ENV == "development") {
       return (
-        <Container>
-          <Provider store={store}>
-            <Layout pageTitle="">
-              <Notification />
-              <Component {...pageProps} />
-            </Layout>
-          </Provider>
-        </Container>
+        <Provider store={store}>
+          <Layout pageTitle="">
+            <Notification />
+            <Component {...pageProps} />
+          </Layout>
+        </Provider>
       );
     }
     else {
@@ -55,4 +47,4 @@ class MyApp extends App {
   }
 }
 
-export default withRedux(initStore, { debug: true })(MyApp);
+export default withRedux(initStore, { debug: false })(MyApp);

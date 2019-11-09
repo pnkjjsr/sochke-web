@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import accountActions from "./actions";
 import notifictionActions from "components/Notification/actions"
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 
 import { service } from "apiConnect"
 import authSession from "utils/authSession"
@@ -231,13 +229,7 @@ class Location extends Component {
     const { view } = this.state;
     return (
       <Fragment>
-        <Container className="account" fixed>
-          <Grid container justify="center" spacing={3} >
-            <Grid item sm={4}>
-              {view === 0 ? this.renderMobile() : this.renderVerification()}
-            </Grid>
-          </Grid>
-        </Container>
+        {view === 0 ? this.renderMobile() : this.renderVerification()}
 
         <div ref={(ref) => this.recaptcha = ref}></div>
 

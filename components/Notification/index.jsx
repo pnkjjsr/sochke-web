@@ -3,9 +3,9 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import actions from "./actions";
 
-import Snackbar from "./snackbars"
+// import Snackbar from "./snackbars"
 
-import "./style.scss";
+// import "./style.scss";
 
 class Notification extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Notification extends Component {
 
         return (
             <Fragment>
-                <Snackbar type={type == undefined ? classes : type} open={open} msg={message} />
+                {/* <Snackbar type={type == undefined ? classes : type} open={open} msg={message} /> */}
             </Fragment>
         );
     }

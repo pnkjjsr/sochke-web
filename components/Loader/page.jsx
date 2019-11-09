@@ -1,5 +1,5 @@
 import React, { Component, Fragment, } from "react";
-import loader from "static/icons/loader.svg"
+import loader from "icons/loader.svg"
 
 import './style.scss'
 

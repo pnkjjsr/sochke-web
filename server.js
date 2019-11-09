@@ -20,13 +20,13 @@ const app = next({
 const handle = app.getRequestHandler()
 
 
-const serviceAccount = require("./serviceAccountKey.json");
-const firebase = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://neta-62fcb.firebaseio.com" // TODO database URL goes here
-  },
-  'server'
-)
+// const serviceAccount = require("./serviceAccountKey.json");
+// const firebase = admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: "https://neta-62fcb.firebaseio.com" // TODO database URL goes here
+//   },
+//   'server'
+// )
 
 app.prepare()
   .then(() => {
@@ -52,7 +52,7 @@ app.prepare()
     )
 
     server.use((req, res, next) => {
-      req.firebaseServer = firebase
+      // req.firebaseServer = firebase
       next()
     })
 

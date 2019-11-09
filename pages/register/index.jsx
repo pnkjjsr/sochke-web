@@ -16,7 +16,7 @@ import authSession from "utils/authSession"
 import authentication from "utils/authentication"
 
 import validation from "./validation"
-import banner from "static/images/signup/banner.jpg"
+import banner from "images/signup/banner.jpg"
 import "./style.scss";
 
 class Register extends Component {

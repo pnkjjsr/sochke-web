@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import actions from "./actions";
@@ -110,66 +107,61 @@ class Location extends Component {
     const { addressErr, addressMsg, stateErr, stateMsg, pincodeErr, pincodeMsg } = this.state;
     return (
       <Fragment>
-        <Container className="account" fixed>
-          <Grid container justify="center" spacing={3} >
-            <Grid item sm={4}>
-              <div className="form">
-                <div className="header">
-                  <h1 className="heading">Select Your Area</h1>
-                </div>
-                <div>
-                  <form onSubmit={this.handleSubmit}>
+        <div className="form">
+          <div className="header">
+            <h1 className="heading">Select Your Area</h1>
+          </div>
+          <div>
+            <form onSubmit={this.handleSubmit}>
 
-                    <Input
-                      class={`form-control ${addressErr}`}
-                      name="address"
-                      type="text"
-                      label="Address"
-                      htmlFor="address"
-                      helperText={addressMsg}
-                      onChange={this.handleChange}
-                    />
+              <Input
+                class={`form-control ${addressErr}`}
+                name="address"
+                type="text"
+                label="Address"
+                htmlFor="address"
+                helperText={addressMsg}
+                onChange={this.handleChange}
+              />
 
-                    <Input
-                      class={`form-control ${stateErr}`}
-                      name="state"
-                      type="text"
-                      label="State"
-                      htmlFor="state"
-                      helperText={stateMsg}
-                      onChange={this.handleChange}
-                    />
+              <Input
+                class={`form-control ${stateErr}`}
+                name="state"
+                type="text"
+                label="State"
+                htmlFor="state"
+                helperText={stateMsg}
+                onChange={this.handleChange}
+              />
 
-                    <Input
-                      class={`form-control ${pincodeErr}`}
-                      name="pincode"
-                      type="text"
-                      label="Pincode"
-                      htmlFor="pincode"
-                      helperText={pincodeMsg}
-                      onChange={this.handleChange}
-                    />
+              <Input
+                class={`form-control ${pincodeErr}`}
+                name="pincode"
+                type="text"
+                label="Pincode"
+                htmlFor="pincode"
+                helperText={pincodeMsg}
+                onChange={this.handleChange}
+              />
 
-                    <Input
-                      disabled={true}
-                      value="India"
-                      class={`form-control`}
-                      name="country"
-                      type="text"
-                      label="Country"
-                      htmlFor="country"
-                      onChange={this.handleChange}
-                    />
+              <Input
+                disabled={true}
+                value="India"
+                class={`form-control`}
+                name="country"
+                type="text"
+                label="Country"
+                htmlFor="country"
+                onChange={this.handleChange}
+              />
 
-                    <div className="action">
-                      <Button text="Proceed" variant="contained" color="primary" size="large" />
-                    </div>
-                  </form>
-                </div>
+              <div className="action">
+                <Button text="Proceed" variant="contained" color="primary" size="large" />
               </div>
-            </Grid>
-          </Grid>
-        </Container>
+            </form>
+          </div>
+        </div>
+
         <style jsx>{``}</style>
       </Fragment>
     )
