@@ -1,0 +1,73 @@
+@import "common/styles/global";
+
+.header[role="main"] {
+  position: fixed;
+  z-index: $header;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 10px;
+  background-color: #fff;
+
+  .menu,
+  .logo {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .menu {
+    color: $color-white;
+    cursor: pointer;
+
+    button {
+      padding: 3px 12px;
+      outline: none;
+    }
+  }
+
+  .logo {
+    margin-left: 10px;
+    color: #0073b0;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 30px;
+
+    a {
+      text-decoration: none;
+      color: #0073b0;
+    }
+  }
+
+  // After Login
+  &.bg {
+    padding: 5px 10px;
+    box-shadow: 2.1px 2.1px 10px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(0, 115, 176);
+
+    .logo {
+      a {
+        color: $color-white;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .header[role="main"] {
+    .logo {
+      font-size: 50px;
+    }
+
+    // After Login
+    &.bg {
+      .logo {
+        font-size: 24px;
+        font-weight: $font-weight-black;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(ls) {
+}
