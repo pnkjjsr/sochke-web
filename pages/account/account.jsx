@@ -11,7 +11,6 @@ import Storage from "utils/firestoreStorage"
 import UploadFile from "components/UploadFile"
 import EditText from 'components/EditText'
 import AccountNav from 'components/Nav/Account/index'
-import PanelMinister from "components/Panel/Minister";
 
 import "./style.scss";
 
@@ -68,7 +67,7 @@ class Account extends Component {
   }
 
   render() {
-    const { isMobile, imgUsr, area, pincode, state } = this.state;
+    const { isMobile, imgUsr } = this.state;
     return (
       <Fragment>
         <div className="container account">
