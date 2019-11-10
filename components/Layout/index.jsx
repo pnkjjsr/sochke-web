@@ -1,7 +1,9 @@
 import React, { Fragment, Component } from "react";
+
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import layoutActions from './actions'
+
 import authSession from 'utils/authSession'
 
 import Head from "./head";

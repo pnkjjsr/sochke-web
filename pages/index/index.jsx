@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 // import accountActions from "./actions";
 
-import userAuth from '../../utils/userAuth'
+import userAuth from 'utils/userAuth'
 
-// import "./style.scss";
+import Button from 'components/Form/Button'
+
+import "./style.scss";
 
 class Home extends Component {
   constructor(props) {
@@ -19,9 +21,31 @@ class Home extends Component {
   render() {
     return (
       <Fragment>
-        <div>
-          Home
+        <div className="home">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-2">
+                Low Level Details
+              </div>
+              <div className="col-md-7">
+                <form action="">
+                  <div className="form-group">
+                    <label for="thoughts">Let burst your thoughts</label>
+                    <textarea className="form-control" rows="3" name="thoughts"></textarea>
+                  </div>
+
+                  <div className="actions text-right">
+                    <Button text="I want" variant="btn-primary" action="" />
+                  </div>
+                </form>
+              </div>
+              <div className="col-md-3">
+                High Level Details
+              </div>
+            </div>
+          </div>
         </div>
+
         <style jsx>{``}</style>
       </Fragment>
     )
