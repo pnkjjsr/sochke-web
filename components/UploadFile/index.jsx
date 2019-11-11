@@ -9,7 +9,6 @@ import authSession from "utils/authSession"
 import Storage from "utils/firestoreStorage"
 import { service } from "apiConnect";
 
-import CreateIcon from '@material-ui/icons/Create';
 import "./style.scss";
 
 class UploadFile extends Component {
@@ -54,7 +53,7 @@ class UploadFile extends Component {
             <Fragment>
                 <div className="upload" onClick={this.handleEdit}>
                     <input type="file" onChange={this.handleUpload} />
-                    <CreateIcon />
+                    CreateIcon
                 </div>
                 <style jsx>{``}</style>
             </Fragment >

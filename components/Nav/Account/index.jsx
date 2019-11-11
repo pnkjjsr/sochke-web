@@ -2,12 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
 import Link from 'next/link'
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
-import InfoIcon from '@material-ui/icons/Info';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
-import SecurityIcon from '@material-ui/icons/Security';
-
 import './style.scss'
 
 class AccountNav extends Component {
@@ -25,7 +19,7 @@ class AccountNav extends Component {
             <li>
               <Link href="/constituency">
                 <a>
-                  <i><PersonPinCircleIcon /></i>
+                  <i>icon</i>
                   <label htmlFor="Constituency">Constituency</label>
                 </a>
               </Link>
@@ -34,7 +28,7 @@ class AccountNav extends Component {
               <Link href="/account">
                 <a>
                   <i>
-                    <AccountCircleIcon />
+                    icon
                   </i>
                   <label htmlFor="Account">Account</label>
                 </a>
@@ -43,7 +37,7 @@ class AccountNav extends Component {
             <li>
               <Link href="/personal-info">
                 <a>
-                  <i><InfoIcon /></i>
+                  <i>icon</i>
                   <label htmlFor="Personal info">Personal info</label>
                 </a>
               </Link>
@@ -51,7 +45,7 @@ class AccountNav extends Component {
             <li>
               <Link href="data-personalisation">
                 <a>
-                  <i><SettingsApplicationsIcon /></i>
+                  <i>icon</i>
                   <label htmlFor="Data &amp; personalisation">Data &amp; personalisation</label>
                 </a>
               </Link>
@@ -59,7 +53,7 @@ class AccountNav extends Component {
             <li>
               <Link href="">
                 <a>
-                  <i><SecurityIcon /></i>
+                  <i>icon</i>
                   <label htmlFor="Security">Security</label>
                 </a>
               </Link>

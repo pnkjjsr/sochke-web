@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import User from "components/User"
 import authSession from "utils/authSession"
-import MDrawer from "components/Drawer"
+// import MDrawer from "components/Drawer"
 import AccountNav from "components/Nav/Account"
 
 import "./style.scss";
@@ -61,9 +61,7 @@ class Header extends Component {
             <div className="row">
               <div className="col-5 col-sm-6 pl-0 pr-0">
                 <div className={`menu d-inline-block d-lg-none ${dMenu}`}>
-                  <MDrawer>
-                    <AccountNav />
-                  </MDrawer>
+                  {/* <AccountNav /> */}
                 </div>
 
                 <div className="logo">

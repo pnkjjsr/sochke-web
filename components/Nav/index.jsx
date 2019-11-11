@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { connect } from "react-redux";
 import authSession from 'utils/authSession'
 import Storage from "utils/firestoreStorage"
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './style.scss'
 
 class Nav extends Component {
@@ -33,7 +32,7 @@ class Nav extends Component {
   }
   renderUser(e) {
     const { imgUsr } = this.state;
-    let user = !imgUsr ? (<AccountCircleIcon />) : (<img src={imgUsr} alt="user profile image" />);
+    let user = !imgUsr ? 'icon' : (<img src={imgUsr} alt="user profile image" />);
 
     return (
       <div className={`user ${e}`} onClick={this.handleOpenNav}>

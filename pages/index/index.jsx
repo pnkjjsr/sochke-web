@@ -24,7 +24,7 @@ class Home extends Component {
         <div className="home">
           <div className="container">
             <div className="row">
-              <div className="col-md-2">
+              <div className="col-md-2 d-none d-md-block">
                 Low Level Details
               </div>
               <div className="col-md-7">
@@ -39,7 +39,7 @@ class Home extends Component {
                   </div>
                 </form>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 d-none d-md-block">
                 High Level Details
               </div>
             </div>
