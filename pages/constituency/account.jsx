@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
@@ -82,7 +81,7 @@ class Account extends Component {
                   <div className="edit">
                     <UploadFile path="images/users" />
                   </div>
-                  {!imgUsr ? <AccountCircleIcon /> : <img src={imgUsr} alt="User Image" />}
+                  {!imgUsr ? "AccountCircleIcon" : <img src={imgUsr} alt="User Image" />}
                 </figure>
                 <h2 className="title">Welcome, <EditText default="Name" /></h2>
                 <p>

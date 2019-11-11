@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import userAuth from 'utils/userAuth'
 
-import Button from 'components/Form/Button'
+import Respond from 'components/Respond'
 
 import "./style.scss";
 
@@ -28,16 +28,7 @@ class Home extends Component {
                 Low Level Details
               </div>
               <div className="col-md-7">
-                <form action="">
-                  <div className="form-group">
-                    <label for="thoughts">Let burst your thoughts</label>
-                    <textarea className="form-control" rows="3" name="thoughts"></textarea>
-                  </div>
-
-                  <div className="actions text-right">
-                    <Button text="I want" variant="btn-primary" action="" />
-                  </div>
-                </form>
+                <Respond />
               </div>
               <div className="col-md-3 d-none d-md-block">
                 High Level Details

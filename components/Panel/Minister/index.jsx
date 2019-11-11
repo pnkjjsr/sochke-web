@@ -3,12 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import ministerActions from "./actions";
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import FlagIcon from '@material-ui/icons/Flag';
-import MoneyIcon from '@material-ui/icons/Money';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import HomeIcon from '@material-ui/icons/Home';
-
 import './style.scss';
 
 class PanelMinister extends Component {
@@ -54,7 +48,7 @@ class PanelMinister extends Component {
                         <div className="row">
                             <div className="col-3 col-lg-12">
                                 <figure className="photo">
-                                    <AccountCircleIcon />
+                                    AccountCircleIcon
                                 </figure>
                             </div>
                             <div className="col-9 col-lg-12">
@@ -67,25 +61,25 @@ class PanelMinister extends Component {
                                     <ul>
                                         <li>
                                             <i>
-                                                <FlagIcon />
+                                                FlagIcon
                                             </i>
                                             <label htmlFor="party"><b>{minister.party}</b></label>
                                         </li>
                                         <li>
                                             <i>
-                                                <MoneyIcon />
+                                                MoneyIcon
                                             </i>
                                             <label htmlFor="assets">Rs {minister.assets}</label>
                                         </li>
                                         <li>
                                             <i>
-                                                <MenuBookIcon />
+                                                MenuBookIcon
                                             </i>
                                             <label htmlFor="education">{minister.education} Pass</label>
                                         </li>
                                         <li>
                                             <i>
-                                                <HomeIcon />
+                                                HomeIcon
                                             </i>
                                             <label htmlFor="address">{minister.address}, {minister.state}-{minister.pincode}</label>
                                         </li>
