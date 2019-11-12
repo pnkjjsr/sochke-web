@@ -41,7 +41,7 @@ export default class authSession {
         // Saves user token to localStorage
         localStorage.setItem('secretKey', key)
     }
-    getSecretKey(key) {
+    getSecretKey() {
         // Saves user token to localStorage
         return localStorage.getItem('secretKey')
     }

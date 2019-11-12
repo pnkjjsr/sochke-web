@@ -38,12 +38,15 @@ class MyApp extends App {
   componentDidMount() {
     const { router } = this.props;
     const session = new authSession()
-    if (router.query.key == process.env.secretKey) {
+    const secretKey = session.getSecretKey();
+
+    if (router.query.key == process.env.secretKey || secretKey) {
       session.setSecretKey(true)
       this.setState({
         key: true
       });
     }
+
   }
 }
 
