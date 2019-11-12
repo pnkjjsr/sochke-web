@@ -1,0 +1,32 @@
+@import "common/styles/global.scss";
+
+.respond {
+  padding: 10px 15px;
+  background-color: #fff;
+
+  @include box-shadow;
+  @include border-radius(3px);
+
+  figure {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    margin-bottom: 7px;
+    border-radius: 100%;
+    border: solid 1px rgb(204, 204, 204);
+  }
+
+  textarea {
+    height: 60px;
+    border: 0 none;
+    resize: none;
+    font-size: rem(20);
+    outline: none;
+
+    &::placeholder {
+      color: invert($base-color, 65%);
+    }
+  }
+}
