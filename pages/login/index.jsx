@@ -153,7 +153,7 @@ class Login extends Component {
 
                     <div className={`form-group ${emailErr}`}>
                       <label htmlFor="email">Email address</label>
-                      <input className="form-control" name="email" type="text" aria-describedby="emailHelp" placeholder="Email address" onChange={this.handleChange} />
+                      <input className="form-control" name="email" type="text" aria-label="email" placeholder="Email address" onChange={this.handleChange} />
                       <small className="form-text">
                         {emailMsg}
                       </small>
@@ -167,7 +167,7 @@ class Login extends Component {
                         </span>
                       </div>
 
-                      <input className="form-control" name="password" type="password" aria-describedby="passwordHelp" placeholder="*******" autoComplete="off" onChange={this.handleChange} />
+                      <input className="form-control" name="password" type="password" aria-label="password" placeholder="*******" autoComplete="off" onChange={this.handleChange} />
                       <small className="form-text">
                         {passwordMsg}
                       </small>
