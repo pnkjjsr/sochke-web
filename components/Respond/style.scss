@@ -7,26 +7,89 @@
   @include box-shadow;
   @include border-radius(3px);
 
-  figure {
-    width: 60px;
-    height: 60px;
-    padding: 0;
-    margin: 0;
-    margin-right: 20px;
-    margin-bottom: 7px;
-    border-radius: 100%;
-    border: solid 1px rgb(204, 204, 204);
+  .top {
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(167, 153, 153);
+
+    figure {
+      width: 60px;
+      height: 60px;
+      padding: 0;
+      margin: 0;
+      margin-right: 20px;
+      margin-bottom: 7px;
+      border-radius: 100%;
+      border: solid 1px rgb(204, 204, 204);
+    }
+
+    textarea {
+      width: 100%;
+      height: 60px;
+      border: 0 none;
+      resize: none;
+      font-size: rem(20);
+      outline: none;
+
+      &.line-height {
+        line-height: 55px;
+      }
+
+      &::placeholder {
+        color: invert($base-color, 65%);
+      }
+    }
+  }
+  .bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    figure {
+      display: block;
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      margin: 0;
+      margin-right: 5px;
+
+      img {
+      }
+    }
+    span {
+      color: $color-gray;
+    }
   }
 
-  textarea {
-    height: 60px;
-    border: 0 none;
-    resize: none;
-    font-size: rem(20);
-    outline: none;
+  .actions {
+    button {
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
 
-    &::placeholder {
-      color: invert($base-color, 65%);
+@include media-breakpoint-up(sm) {
+  .respond {
+    .top {
+      display: flex;
+      flex-direction: row;
+
+      figure {
+      }
+      textarea {
+        flex-grow: 1;
+        width: auto;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .respond {
+    .actions {
+      button {
+        font-size: rem(18);
+      }
     }
   }
 }

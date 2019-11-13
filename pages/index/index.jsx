@@ -24,13 +24,13 @@ class Home extends Component {
         <div className="home">
           <div className="container">
             <div className="row">
-              <div className="col-md-2 d-none d-md-block">
+              <div className="col-lg-2 d-none d-lg-block">
                 Low Level Details
               </div>
-              <div className="col-md-7">
+              <div className="col-lg-7">
                 <Respond />
               </div>
-              <div className="col-md-3 d-none d-md-block">
+              <div className="col-lg-3 d-none d-lg-block">
                 High Level Details
               </div>
             </div>
