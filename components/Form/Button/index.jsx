@@ -12,7 +12,6 @@ class Button extends Component {
     }
 
     handleClick = (e) => {
-        e.preventDefault()
         if (!e) {
             this.setState({
                 loadIn: "loading"
