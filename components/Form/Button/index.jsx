@@ -34,10 +34,10 @@ class Button extends Component {
 
     render() {
         const { loadIn } = this.state;
-        const { text, variant, size, action } = this.props
+        const { text, variant, size, action, type } = this.props
         return (
             <Fragment>
-                <button className={`btn ${loadIn} ${variant} ${size}`} onClick={e => this.handleClick(action)} type="submit">
+                <button className={`btn ${loadIn} ${variant} ${size}`} type={type} onClick={e => this.handleClick(action)}>
                     {text}
                 </button>
                 <style jsx>{``}</style>

@@ -255,7 +255,7 @@ class Register extends Component {
                     </div>
 
                     <div className="form-action mb-2">
-                      <Button text="Create My Account" variant="btn-success" size="btn-lg" />
+                      <Button text="Create My Account" variant="btn-success" size="btn-lg" type="submit" />
                     </div>
 
                     <div className="form-note">

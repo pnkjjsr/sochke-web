@@ -174,7 +174,7 @@ class Login extends Component {
                     </div>
 
                     <div className="form-action">
-                      <Button text="Login" variant="btn-primary" size="btn-lg" />
+                      <Button text="Login" variant="btn-primary" size="btn-lg" type="submit" />
                     </div>
                   </div>
 
