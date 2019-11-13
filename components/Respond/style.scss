@@ -1,6 +1,7 @@
 @import "common/styles/global.scss";
 
-.respond {
+.respond-box {
+  margin-bottom: 30px;
   padding: 10px 15px;
   background-color: #fff;
 
@@ -9,7 +10,7 @@
 
   .top {
     margin-bottom: 5px;
-    border-bottom: 1px solid rgb(167, 153, 153);
+    border-bottom: 1px solid #f0f5f7;
 
     figure {
       width: 60px;
@@ -62,14 +63,13 @@
 
   .actions {
     button {
-      color: $color-primary;
-      font-weight: $font-weight-bold;
+      letter-spacing: 1px;
     }
   }
 }
 
 @include media-breakpoint-up(sm) {
-  .respond {
+  .respond-box {
     .top {
       display: flex;
       flex-direction: row;
@@ -79,16 +79,6 @@
       textarea {
         flex-grow: 1;
         width: auto;
-      }
-    }
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .respond {
-    .actions {
-      button {
-        font-size: rem(18);
       }
     }
   }

@@ -66,7 +66,7 @@ class Respond extends Component {
   render() {
     return (
       <Fragment>
-        <div className="respond">
+        <div className="respond-box">
           <form>
             <div className="row">
               <div className="col-12 col-sm-9 col-md-10 col-lg-9">
@@ -88,11 +88,11 @@ class Respond extends Component {
                   <span>Add Image</span>
                 </div>
               </div>
-              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex align-items-center justify-content-end">
+              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex justify-content-end align-items-center">
                 <div className="actions">
                   <Button
                     text="Respond"
-                    variant="btn-light"
+                    variant="btn-primary"
                     type="button"
                     action={this.handleSubmit}
                   />

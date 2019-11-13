@@ -1,0 +1,112 @@
+@import "common/styles/global.scss";
+
+.respond-list {
+  padding: 10px 15px;
+  background-color: #fff;
+
+  @include box-shadow;
+  @include border-radius(3px);
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+
+    figure {
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      margin: 0;
+      margin-right: 10px;
+      border-radius: 100%;
+      border: solid 1px rgb(204, 204, 204);
+    }
+
+    .detail {
+      flex-grow: 1;
+      color: $color-gray;
+
+      span {
+        display: block;
+        color: $color-light;
+        font-size: rem(12);
+      }
+    }
+  }
+
+  .respond {
+    margin: 0 10px 15px;
+    font-size: rem(20);
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 0;
+      margin-bottom: 10px;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-right: 0;
+        cursor: pointer;
+
+        &:last-child {
+          padding: 0;
+        }
+        &:hover {
+          color: $color-primary;
+        }
+
+        i {
+          margin-right: 5px;
+        }
+        span {
+          font-size: rem(14);
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+    .detail {
+      color: $color-light;
+      font-size: rem(12);
+      font-weight: $font-weight-light;
+      text-align: right;
+      line-height: 130%;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .respond-list {
+    .respond {
+      margin: 0 20px 25px;
+    }
+    .bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .actions {
+        margin: 0;
+
+        li {
+          padding-right: 30px;
+        }
+      }
+      .detail {
+        margin-left: 30px;
+        font-size: rem(14);
+      }
+    }
+  }
+}
