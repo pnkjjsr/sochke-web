@@ -1,5 +1,13 @@
 import React, { Component, Fragment } from "react";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import respondActions from "./action";
+
+import authSession from "utils/authSession";
+import Moment from 'utils/moment'
+
+
 import iconVote from "icons/vote.svg";
 import iconOpinion from "icons/opinion.svg";
 import iconCirculate from "icons/circulate.svg";
@@ -8,25 +16,65 @@ import "./style.scss";
 class RespondList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      responds: {},
+      name: "",
+      time: "",
+      photoUrl: "",
+      pincode: "",
+      area: ""
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let data = nextProps.responds.responds
+    let len = nextProps.responds.responds.length;
+    if (len > 0) {
+      return {
+        responds: data
+      }
+    }
+
+    return null
+  }
+
+  componentDidMount() {
+    const { respondAction } = this.props;
+    const session = new authSession();
+    const token = session.getToken();
+    const profile = session.getProfile();
+
+
+    respondAction.prefetch(token)
+    this.setState({
+      name: profile.displayName,
+      photoUrl: profile.photoURL,
+      pincode: profile.pincode,
+      area: profile.area
+    });
   }
 
   render() {
-    return (
-      <Fragment>
-        <div className="respond-list">
+    const { responds, name, photoUrl, pincode, area } = this.state;
+    const moment = new Moment;
+
+    let list = Object.values(responds).map(respond => {
+      const time = moment.format(respond.createdAt)
+
+      return (
+        <div key={respond.id} className="respond-list">
           <div className="top">
             <figure>
               <img src="" alt="" />
             </figure>
             <div className="detail">
-              Pankaj Jasoria
-              <span>21 October 2019</span>
+              {name}
+              <span>{time}</span>
             </div>
           </div>
 
           <div className="respond">
-            When will Hari Nagar slums gonna be fix, rebuild and sanitize.
+            {respond.respond}
           </div>
 
           <div className="bottom">
@@ -53,12 +101,21 @@ class RespondList extends Component {
             <div className="detail">
               Responsibility: Arvind Kejriwal - CM
               <br />
-              Constituency: Hari Nagar - 110064
+              Constituency: {area} - {pincode}
             </div>
           </div>
         </div>
-      </Fragment>
-    );
+      )
+    });
+
+    return (
+      list
+    )
   }
 }
-export default RespondList;
+
+const mapDispatchToProps = dispatch => ({
+  respondAction: bindActionCreators(respondActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(RespondList);

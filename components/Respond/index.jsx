@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from "react";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import respondActions from "components/RespondList/action";
+
 import AuthSession from "utils/authSession";
 import { service } from "apiConnect";
 
@@ -39,17 +43,22 @@ class Respond extends Component {
 
   handleSubmit = () => {
     const { uid, type, respond } = this.state;
+    const { respondAction } = this.props;
     let data = {
       uid: uid,
       type: type,
       respond: respond
     };
-    console.log(data);
 
     service
       .post("/add-respond", data)
       .then(res => {
         console.log(res);
+        respondAction.prefetch(data.uid)
+
+        this.setState({
+          respond: ""
+        });
       })
       .catch(err => {
         console.log(err);
@@ -64,6 +73,7 @@ class Respond extends Component {
   }
 
   render() {
+    const { respond } = this.state;
     return (
       <Fragment>
         <div className="respond-box">
@@ -78,6 +88,7 @@ class Respond extends Component {
                     className="line-height"
                     name="respond"
                     placeholder="Let burst your thoughts"
+                    value={respond}
                     onChange={this.handleChange}
                   ></textarea>
                 </div>
@@ -105,4 +116,9 @@ class Respond extends Component {
     );
   }
 }
-export default Respond;
+
+const mapDispatchToProps = dispatch => ({
+  respondAction: bindActionCreators(respondActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(Respond);
