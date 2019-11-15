@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import 'firebase/auth'
-import clientCredentials from "./client";
+import clientCredentials from "../firebaseConfig";
 import { service } from "../apiConnect"
 
 export default class Authentication {
