@@ -101,6 +101,8 @@ export default class Storage {
       );
     });
   }
+  //* Path & type **//
+  // 'images/users', 'profile'
 
   getImage(path, type) {
     let storageRef = this.initialize();

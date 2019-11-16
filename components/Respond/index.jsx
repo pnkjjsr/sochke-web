@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import respondActions from "components/RespondList/action";
 
-import AuthSession from "utils/authSession";
 import { service } from "apiConnect";
+import AuthSession from "utils/authSession";
+import Storage from "utils/firestoreStorage";
 
 import Button from "components/Form/Button";
 
@@ -20,7 +21,7 @@ class Respond extends Component {
       uid: "",
       type: "",
       respond: "",
-      image: ""
+      imgUsr: ""
     };
   }
 
@@ -54,7 +55,7 @@ class Respond extends Component {
       .post("/add-respond", data)
       .then(res => {
         console.log(res);
-        respondAction.prefetch(data.uid)
+        respondAction.prefetch(data.uid);
 
         this.setState({
           respond: ""
@@ -66,6 +67,19 @@ class Respond extends Component {
   };
   componentDidMount() {
     const session = new AuthSession();
+    const storage = new Storage();
+
+    storage
+      .getImage("images/users", "profile")
+      .then(res => {
+        this.setState({
+          imgUsr: res.src
+        });
+      })
+      .catch(err => {
+        console.dir(err);
+      });
+
     let token = session.getToken();
     this.setState({
       uid: token
@@ -73,7 +87,7 @@ class Respond extends Component {
   }
 
   render() {
-    const { respond } = this.state;
+    const { respond, imgUsr } = this.state;
     return (
       <Fragment>
         <div className="respond-box">
@@ -82,7 +96,7 @@ class Respond extends Component {
               <div className="col-12 col-sm-9 col-md-10 col-lg-9">
                 <div className="top">
                   <figure className="user d-none d-sm-block">
-                    <img src="" alt="" />
+                    <img src={imgUsr} alt="" />
                   </figure>
                   <textarea
                     className="line-height"

@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import respondActions from "./action";
 
+import Storage from "utils/firestoreStorage";
 import authSession from "utils/authSession";
-import Moment from 'utils/moment'
-
+import Moment from "utils/moment";
 
 import iconVote from "icons/vote.svg";
 import iconOpinion from "icons/opinion.svg";
@@ -22,20 +22,21 @@ class RespondList extends Component {
       time: "",
       photoUrl: "",
       pincode: "",
-      area: ""
+      area: "",
+      imgUsr: ""
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    let data = nextProps.responds.responds
+    let data = nextProps.responds.responds;
     let len = nextProps.responds.responds.length;
     if (len > 0) {
       return {
         responds: data
-      }
+      };
     }
 
-    return null
+    return null;
   }
 
   componentDidMount() {
@@ -43,9 +44,20 @@ class RespondList extends Component {
     const session = new authSession();
     const token = session.getToken();
     const profile = session.getProfile();
+    const storage = new Storage();
 
+    storage
+      .getImage("images/users", "profile")
+      .then(res => {
+        this.setState({
+          imgUsr: res.src
+        });
+      })
+      .catch(err => {
+        console.dir(err);
+      });
 
-    respondAction.prefetch(token)
+    respondAction.prefetch(token);
     this.setState({
       name: profile.displayName,
       photoUrl: profile.photoURL,
@@ -55,17 +67,17 @@ class RespondList extends Component {
   }
 
   render() {
-    const { responds, name, photoUrl, pincode, area } = this.state;
-    const moment = new Moment;
+    const { responds, name, photoUrl, pincode, area, imgUsr } = this.state;
+    const moment = new Moment();
 
     let list = Object.values(responds).map(respond => {
-      const time = moment.format(respond.createdAt)
+      const time = moment.format(respond.createdAt);
 
       return (
         <div key={respond.id} className="respond-list">
           <div className="top">
             <figure>
-              <img src="" alt="" />
+              <img src={imgUsr} alt={name} />
             </figure>
             <div className="detail">
               {name}
@@ -73,9 +85,7 @@ class RespondList extends Component {
             </div>
           </div>
 
-          <div className="respond">
-            {respond.respond}
-          </div>
+          <div className="respond">{respond.respond}</div>
 
           <div className="bottom">
             <ul className="actions">
@@ -99,18 +109,16 @@ class RespondList extends Component {
               </li>
             </ul>
             <div className="detail">
-              Responsibility: Arvind Kejriwal - CM
+              {/* Responsibility: Arvind Kejriwal - CM */}
               <br />
               Constituency: {area} - {pincode}
             </div>
           </div>
         </div>
-      )
+      );
     });
 
-    return (
-      list
-    )
+    return list;
   }
 }
 
