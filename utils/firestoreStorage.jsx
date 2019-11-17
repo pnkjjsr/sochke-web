@@ -16,10 +16,12 @@ export default class Storage {
     }
   }
 
-  uploadImage(path, file, uid) {
+  uploadImage(path, file) {
     let storageRef = this.initialize();
     const session = new authSession();
-    let user = session.getProfile();
+    let uid = session.getToken();
+    let date = new Date();
+    let dateParse = Date.parse(date);
 
     // Create the file metadata
     var metadata = {
@@ -31,7 +33,13 @@ export default class Storage {
       case "images/users":
         // Upload file and metadata to the object 'path send via PROPS parameter'
         var uploadTask = storageRef
-          .child(`${path}/${user.uid}/profile.jpg`)
+          .child(`${path}/${uid}/${dateParse}.jpg`)
+          .put(file, metadata);
+        break;
+      case "images/responds":
+        // Upload file and metadata to the object 'path send via PROPS parameter'
+        var uploadTask = storageRef
+          .child(`${path}/${uid}/${dateParse}.jpg`)
           .put(file, metadata);
         break;
       case "images/parties":
@@ -91,11 +99,12 @@ export default class Storage {
         function() {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log("File available at", downloadURL);
-          });
-          resolve({
-            status: "done",
-            message: "upload successful"
+            // console.log("File available at", downloadURL);
+            resolve({
+              status: "done",
+              message: "upload successful",
+              imgUrl: downloadURL
+            });
           });
         }
       );
@@ -107,14 +116,14 @@ export default class Storage {
   getImage(path, type) {
     let storageRef = this.initialize();
     const session = new authSession();
-    let user = session.getProfile();
+    let uid = session.getToken();
 
     switch (type) {
       case "profile":
-        var imageRef = storageRef.child(`${path}/${user.uid}/profile.jpg`);
+        var imageRef = storageRef.child(`${path}/${uid}/profile.jpg`);
         break;
       case "gallery":
-        var imageRef = storageRef.child(`${path}/${user.uid}/profile.jpg`);
+        var imageRef = storageRef.child(`${path}/${uid}/profile.jpg`);
         break;
       default:
         console.log("Error: path not match with any path");

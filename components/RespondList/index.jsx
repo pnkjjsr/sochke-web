@@ -72,6 +72,7 @@ class RespondList extends Component {
 
     let list = Object.values(responds).map(respond => {
       const time = moment.format(respond.createdAt);
+      let diplay = respond.imageUrl ? "" : "d-none";
 
       return (
         <div key={respond.id} className="respond-list">
@@ -86,6 +87,12 @@ class RespondList extends Component {
           </div>
 
           <div className="respond">{respond.respond}</div>
+
+          <div className={`respond-image ${diplay}`}>
+            <figure>
+              <img src={respond.imageUrl} alt={respond.respond} />
+            </figure>
+          </div>
 
           <div className="bottom">
             <ul className="actions">
@@ -110,7 +117,7 @@ class RespondList extends Component {
             </ul>
             <div className="detail">
               {/* Responsibility: Arvind Kejriwal - CM */}
-              <br />
+              {/* <br /> */}
               Constituency: {area} - {pincode}
             </div>
           </div>

@@ -9,6 +9,7 @@ import AuthSession from "utils/authSession";
 import Storage from "utils/firestoreStorage";
 
 import Button from "components/Form/Button";
+import UploadFile from "components/UploadFile";
 
 import iconPhoto from "icons/photo.svg";
 
@@ -18,37 +19,31 @@ class Respond extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      imgUsr: "",
       uid: "",
       type: "",
       respond: "",
-      imgUsr: ""
+      imgResp: ""
     };
   }
 
   handleChange = e => {
-    const { image } = this.state;
-
     let elm = e.target.name;
-    if (!image) {
-      this.setState({
-        [elm]: e.target.value,
-        type: "text"
-      });
-    } else {
-      this.setState({
-        [elm]: e.target.value,
-        type: "image"
-      });
-    }
+    this.setState({
+      [elm]: e.target.value
+    });
   };
 
   handleSubmit = () => {
-    const { uid, type, respond } = this.state;
+    const { uid, respond, imgResp } = this.state;
     const { respondAction } = this.props;
+    const respType = imgResp ? "image" : "text";
+
     let data = {
       uid: uid,
-      type: type,
-      respond: respond
+      type: respType,
+      respond: respond,
+      imageUrl: imgResp
     };
 
     service
@@ -58,17 +53,58 @@ class Respond extends Component {
         respondAction.prefetch(data.uid);
 
         this.setState({
-          respond: ""
+          respond: "",
+          imgResp: ""
         });
       })
       .catch(err => {
         console.log(err);
       });
   };
+
+  getImageUrl = e => {
+    const data = e.imgUrl;
+    this.setState({
+      imgResp: data
+    });
+  };
+
+  renderAddImage = () => {
+    const { imgResp } = this.state;
+    let display = imgResp ? "" : "d-none";
+    return (
+      <Fragment>
+        <div className="bottom">
+          <UploadFile
+            path="images/responds"
+            type="respond"
+            action={e => this.getImageUrl(e)}
+          >
+            <div className="upload">
+              <figure>
+                <img src={iconPhoto} alt="Upload Photo" />
+              </figure>
+              <span>Add Image</span>
+            </div>
+          </UploadFile>
+          <div className={`preview ${display}`}>
+            <figure>
+              <img src={imgResp} alt="Preview Image" />
+            </figure>
+          </div>
+        </div>
+      </Fragment>
+    );
+  };
+
   componentDidMount() {
     const session = new AuthSession();
-    const storage = new Storage();
+    let token = session.getToken();
+    this.setState({
+      uid: token
+    });
 
+    const storage = new Storage();
     storage
       .getImage("images/users", "profile")
       .then(res => {
@@ -79,11 +115,6 @@ class Respond extends Component {
       .catch(err => {
         console.dir(err);
       });
-
-    let token = session.getToken();
-    this.setState({
-      uid: token
-    });
   }
 
   render() {
@@ -99,21 +130,18 @@ class Respond extends Component {
                     <img src={imgUsr} alt="" />
                   </figure>
                   <textarea
-                    className="line-height"
                     name="respond"
                     placeholder="Let burst your thoughts"
                     value={respond}
                     onChange={this.handleChange}
                   ></textarea>
                 </div>
-                <div className="bottom">
-                  <figure>
-                    <img src={iconPhoto} alt="Upload Photo" />
-                  </figure>
-                  <span>Add Image</span>
-                </div>
+                <div className="d-none d-sm-block">{this.renderAddImage()}</div>
               </div>
-              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex justify-content-end align-items-center">
+
+              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex flex-row justify-content-between align-items-center">
+                <div className="d-sm-none">{this.renderAddImage()}</div>
+
                 <div className="actions">
                   <Button
                     text="Respond"
