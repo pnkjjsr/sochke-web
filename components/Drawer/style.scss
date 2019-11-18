@@ -9,7 +9,6 @@
     top: 0;
     width: 100%;
     height: 100%;
-    // background-color: rgba(0, 0, 0, 0.6);
     transition: all 0.2s ease;
     transform: scale(1);
 
@@ -18,7 +17,6 @@
       height: 100%;
       padding: 10px;
       background-color: #fff;
-      box-shadow: -5px -2px 5px #00000047;
 
       li {
         display: block;
@@ -42,6 +40,7 @@
       margin-right: calc(-100% - 10px);
       ul {
         float: right;
+        box-shadow: -5px -2px 5px #00000047;
       }
     }
 
@@ -59,6 +58,7 @@
       margin-left: calc(-100% - 10px);
       ul {
         float: left;
+        box-shadow: 2px 5px 5px #00000047;
       }
     }
 

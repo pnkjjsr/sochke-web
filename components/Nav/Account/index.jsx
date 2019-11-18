@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from "react-redux"
-import Link from 'next/link'
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import Link from "next/link";
 
-import './style.scss'
+import "./style.scss";
 
 class AccountNav extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {}
+    this.state = {};
   }
 
   render() {
@@ -27,9 +27,7 @@ class AccountNav extends Component {
             <li>
               <Link href="/account">
                 <a>
-                  <i>
-                    icon
-                  </i>
+                  <i>icon</i>
                   <label htmlFor="Account">Account</label>
                 </a>
               </Link>
@@ -46,7 +44,9 @@ class AccountNav extends Component {
               <Link href="data-personalisation">
                 <a>
                   <i>icon</i>
-                  <label htmlFor="Data &amp; personalisation">Data &amp; personalisation</label>
+                  <label htmlFor="Data &amp; personalisation">
+                    Data &amp; personalisation
+                  </label>
                 </a>
               </Link>
             </li>
@@ -60,9 +60,8 @@ class AccountNav extends Component {
             </li>
           </ul>
         </nav>
-
       </Fragment>
-    )
+    );
   }
 }
 

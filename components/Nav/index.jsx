@@ -1,50 +1,51 @@
-import React, { Component, Fragment } from 'react'
-import Link from 'next/link'
+import React, { Component, Fragment } from "react";
+
+import Link from "next/link";
 import { connect } from "react-redux";
-import authSession from 'utils/authSession'
-import Storage from "utils/firestoreStorage"
-import './style.scss'
+
+import authSession from "utils/authSession";
+
+import Drawer from "components/Drawer";
+
+import "./style.scss";
 
 class Nav extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       admin: props.user.profile.userType,
       nav: "",
       anime: "",
-      imgUsr: ""
-    }
-
-    this.handleOpenNav = this.handleOpenNav.bind(this);
-    this.handleCloseNav = this.handleCloseNav.bind(this);
+      imgUsr: "",
+      openMenu: ""
+    };
   }
-
-  handleOpenNav = () => {
+  handleOpen = () => {
     this.setState({
-      nav: "active"
+      openMenu: "open"
     });
-  }
-  handleCloseNav = () => {
+  };
+  handleClose = () => {
     this.setState({
-      nav: ""
+      openMenu: ""
     });
-  }
+  };
+
   renderUser(e) {
     const { imgUsr } = this.state;
-    let user = !imgUsr ? 'icon' : (<img src={imgUsr} alt="user profile image" />);
+    let user = !imgUsr ? "icon" : <img src={imgUsr} alt="user profile image" />;
 
     return (
-      <div className={`user ${e}`} onClick={this.handleOpenNav}>
-        <figure>
-          {user}
-        </figure>
+      <div className={`user-menu ${e}`} onClick={this.handleOpen}>
+        <figure>{user}</figure>
       </div>
-    )
+    );
   }
+
   async componentDidMount() {
-    const auth = new authSession;
-    const profile = await auth.getProfile()
+    const auth = new authSession();
+    const profile = await auth.getProfile();
 
     this.setState({
       imgUsr: profile.photoURL
@@ -52,19 +53,17 @@ class Nav extends Component {
   }
 
   render() {
-    const { nav, anime } = this.state;
+    const { nav, anime, openMenu } = this.state;
     const { action } = this.props;
 
     return (
       <Fragment>
-        <div className={`nav ${nav}`}>
-          {this.renderUser()}
+        {this.renderUser()}
 
-          <nav onClick={this.handleCloseNav}>
+        <Drawer side="right" open={openMenu} action={this.handleClose}>
+          <nav>
             <ul className={anime}>
-              <li>
-                {this.renderUser('inside')}
-              </li>
+              <li>{this.renderUser("inside")}</li>
 
               <li>
                 <Link href="/account">
@@ -78,9 +77,9 @@ class Nav extends Component {
               </li>
             </ul>
           </nav>
-        </div>
+        </Drawer>
       </Fragment>
-    )
+    );
   }
 }
 
