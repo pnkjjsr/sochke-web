@@ -41,7 +41,7 @@ class EditText extends Component {
             uid: user.uid,
             displayName: name
         }
-        service.post('/addUserDetails', data)
+        service.post('/update-user', data)
             .then(res => {
                 service.post('user', { uid: user.uid })
                     .then(res => {
