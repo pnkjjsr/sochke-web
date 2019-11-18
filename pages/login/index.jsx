@@ -1,25 +1,25 @@
 import React, { Component, Fragment } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 
-import Router from 'next/router';
+import Router from "next/router";
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
-import actionNotifications from "components/Notification/actions"
-import actionUser from "components/User/actions"
-import layoutActions from "components/Layout/actions"
+import { bindActionCreators } from "redux";
+import actionNotifications from "components/Notification/actions";
+import actionUser from "components/User/actions";
+import layoutActions from "components/Layout/actions";
 
-import authSession from "utils/authSession"
-import authentication from "utils/authentication"
-import Button from "components/Form/Button"
+import authSession from "utils/authSession";
+import authentication from "utils/authentication";
+import Button from "components/Form/Button";
 
-import { service } from 'apiConnect';
+import { service } from "apiConnect";
 
-import validation from "./validation"
+import validation from "./validation";
 import "./style.scss";
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       uid: "",
       email: "",
@@ -28,20 +28,19 @@ class Login extends Component {
       passwordErr: "",
       emailMsg: "",
       passwordMsg: ""
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   static async getInitialProps({ pathname }) {
-    const path = pathname
-    return { path }
+    const path = pathname;
+    return { path };
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
     const { user, actionNotification } = this.props;
-
 
     const { valid, errors } = validation({ email, password });
     if (!valid) {
@@ -51,23 +50,24 @@ class Login extends Component {
         type: "error"
       });
       Object.keys(errors).map(e => {
-        var err = e + "Err"
-        var msg = e + "Msg"
+        var err = e + "Err";
+        var msg = e + "Msg";
         this.setState({
           [err]: "error",
           [msg]: errors[e]
         });
       });
-      return
+      return;
     }
 
-    const session = new authSession;
-    const auth = new authentication;
-    auth.signInWithEmail(email, password)
+    const session = new authSession();
+    const auth = new authentication();
+    auth
+      .signInWithEmail(email, password)
       .then(res => {
         if (res.code) {
           console.log(res);
-          actionNotification.showNotification(res)
+          actionNotification.showNotification(res);
 
           if (res.code == "auth/user-not-found") {
             this.setState({
@@ -80,55 +80,58 @@ class Login extends Component {
               passwordMsg: res.message
             });
           }
-
         } else {
           let token = res.user.uid;
           let data = {
             uid: token
-          }
+          };
           session.setToken(token);
-          service.post('/login', data)
+          service
+            .post("/login", data)
             .then(result => {
               user.updateUser(result.data);
               session.setProfile(result.data);
-              Router.push('/account')
+              Router.push("/");
             })
             .catch(error => {
               console.log(error);
 
               actionNotification.showNotification(error);
               let data = error.response.data;
-              let msg = data[Object.keys(data)[0]]
-              let obj = { message: msg }
-              actionNotification.showNotification(obj)
-            })
+              let msg = data[Object.keys(data)[0]];
+              let obj = { message: msg };
+              actionNotification.showNotification(obj);
+            });
         }
       })
       .catch(error => {
-        actionNotification.showNotification(error)
-      })
+        actionNotification.showNotification(error);
+      });
   }
 
   handleChange(e) {
     let elem = e.target.name;
-    let err = elem + "Err"
-    let msg = elem + "Msg"
+    let err = elem + "Err";
+    let msg = elem + "Msg";
 
-    this.setState({
-      [elem]: e.target.value,
-      [err]: "",
-      [msg]: ""
-    }, () => this.state);
+    this.setState(
+      {
+        [elem]: e.target.value,
+        [err]: "",
+        [msg]: ""
+      },
+      () => this.state
+    );
   }
 
   componentDidMount() {
     const { path, layoutAction } = this.props;
     layoutAction.update_path(path);
-    const session = new authSession;
+    const session = new authSession();
     let token = session.getToken();
 
     if (token) {
-      Router.push('/account')
+      Router.push("/");
     }
   }
 
@@ -143,20 +146,21 @@ class Login extends Component {
                 <form onSubmit={this.handleSubmit} autoComplete="on">
                   <div className="form">
                     <div className="header">
-                      <h1 className="heading">
-                        Login
-                      </h1>
-                      <div className="sub">
-                        One quick step for change !!
-                      </div>
+                      <h1 className="heading">Login</h1>
+                      <div className="sub">One quick step for change !!</div>
                     </div>
 
                     <div className={`form-group ${emailErr}`}>
                       <label htmlFor="email">Email address</label>
-                      <input className="form-control" name="email" type="text" aria-label="email" placeholder="Email address" onChange={this.handleChange} />
-                      <small className="form-text">
-                        {emailMsg}
-                      </small>
+                      <input
+                        className="form-control"
+                        name="email"
+                        type="text"
+                        aria-label="email"
+                        placeholder="Email address"
+                        onChange={this.handleChange}
+                      />
+                      <small className="form-text">{emailMsg}</small>
                     </div>
 
                     <div className={`form-group ${passwordErr}`}>
@@ -167,20 +171,37 @@ class Login extends Component {
                         </span>
                       </div>
 
-                      <input className="form-control" name="password" type="password" aria-label="password" placeholder="*******" autoComplete="off" onChange={this.handleChange} />
-                      <small className="form-text">
-                        {passwordMsg}
-                      </small>
+                      <input
+                        className="form-control"
+                        name="password"
+                        type="password"
+                        aria-label="password"
+                        placeholder="*******"
+                        autoComplete="off"
+                        onChange={this.handleChange}
+                      />
+                      <small className="form-text">{passwordMsg}</small>
                     </div>
 
                     <div className="form-action">
-                      <Button text="Login" variant="btn-primary" size="btn-lg" />
+                      <Button
+                        text="Login"
+                        variant="btn-primary"
+                        size="btn-lg"
+                        type="submit"
+                      />
                     </div>
                   </div>
 
                   <div className="form-link">
-                    New to Name <Link href="/">
-                      <button type="button" className="btn btn-sm btn-outline-primary">Join Now</button>
+                    New to Name{" "}
+                    <Link href="/">
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-primary"
+                      >
+                        Join Now
+                      </button>
                     </Link>
                   </div>
                 </form>
@@ -190,14 +211,14 @@ class Login extends Component {
         </div>
         <style jsx>{``}</style>
       </Fragment>
-    )
+    );
   }
-};
+}
 
 const mapDispatchToProps = dispatch => ({
   user: bindActionCreators(actionUser, dispatch),
   actionNotification: bindActionCreators(actionNotifications, dispatch),
   layoutAction: bindActionCreators(layoutActions, dispatch)
-})
+});
 
 export default connect(state => state, mapDispatchToProps)(Login);

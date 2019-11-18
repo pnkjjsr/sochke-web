@@ -45,27 +45,14 @@ class Nav extends Component {
   async componentDidMount() {
     const auth = new authSession;
     const profile = await auth.getProfile()
-    const storage = new Storage;
 
-    storage.getImage('images/users', 'profile')
-      .then(res => {
-        this.setState({
-          imgUsr: res.src
-        });
-      })
-      .catch(err => {
-        // console.log(err);
-      });
-
-    if (profile.userType == "admin") {
-      this.setState({
-        admin: "admin"
-      });
-    }
+    this.setState({
+      imgUsr: profile.photoURL
+    });
   }
 
   render() {
-    const { nav, anime, admin } = this.state;
+    const { nav, anime } = this.state;
     const { action } = this.props;
 
     return (
@@ -78,18 +65,6 @@ class Nav extends Component {
               <li>
                 {this.renderUser('inside')}
               </li>
-
-              {
-                admin === "admin" ?
-                  (
-                    <li>
-                      <Link href="/admin/dashboard">
-                        <a>Dashboard</a>
-                      </Link>
-                    </li>
-                  ) : null
-              }
-
 
               <li>
                 <Link href="/account">

@@ -1,0 +1,115 @@
+@import "common/styles/global.scss";
+
+.respond-box {
+  margin-bottom: 30px;
+  padding: 10px 15px;
+  background-color: #fff;
+
+  @include box-shadow;
+  @include border-radius(3px);
+
+  .top {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f0f5f7;
+
+    figure {
+      width: 60px;
+      height: 60px;
+      padding: 0;
+      margin: 0;
+      margin-right: 20px;
+      margin-bottom: 7px;
+      border-radius: 100%;
+      border: solid 1px rgb(204, 204, 204);
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      height: 60px;
+      border: 0 none;
+      resize: none;
+      font-size: rem(16);
+      line-height: 100%;
+      outline: none;
+
+      &.line-height {
+        line-height: 55px;
+      }
+
+      &::placeholder {
+        color: invert($base-color, 65%);
+        font-size: rem(20);
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    .preview {
+      width: 75px;
+      max-height: 75px;
+      background-color: $color-light;
+      border: 1px solid $color-light;
+      overflow: hidden;
+
+      figure {
+        margin: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .upload {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 5px;
+
+      figure {
+        display: block;
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        margin: 0;
+        margin-right: 5px;
+      }
+      span {
+        color: $color-gray;
+      }
+    }
+  }
+
+  .actions {
+    button {
+      letter-spacing: 1px;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .respond-box {
+    .top {
+      display: flex;
+      flex-direction: row;
+
+      figure {
+      }
+      textarea {
+        flex-grow: 1;
+        width: auto;
+      }
+    }
+  }
+}

@@ -6,7 +6,8 @@ import accountActions from "./actions";
 import notifictionActions from "components/Notification/actions"
 
 import authSession from "utils/authSession"
-import Storage from "utils/firestoreStorage"
+import { service } from "apiConnect"
+
 import UploadFile from "components/UploadFile"
 import EditText from 'components/EditText'
 import AccountNav from 'components/Nav/Account/index'
@@ -25,13 +26,6 @@ class Account extends Component {
     }
   }
 
-  handleIsMobile = () => {
-    if (screen.width < 768) {
-      this.setState({
-        isMobile: 'mobile'
-      });
-    }
-  }
   static getDerivedStateFromProps(props) {
     if (props.account.imgUser) {
       return {
@@ -41,27 +35,50 @@ class Account extends Component {
     return true;
   }
 
+  handleIsMobile = () => {
+    if (screen.width < 768) {
+      this.setState({
+        isMobile: 'mobile'
+      });
+    }
+  }
+
+  getImageUrl = e => {
+    const session = new authSession;
+    let token = session.getToken();
+
+    this.setState({
+      imgUsr: e.imgUrl
+    });
+
+    const data = {
+      uid: token,
+      photoURL: e.imgUrl
+    }
+    service.post('/update-user', data)
+      .then(res => {
+        service.post('/user', { uid: token })
+          .then(res => {
+            session.setProfile(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }).catch(err => {
+        console.log(err);
+      })
+  };
 
   componentDidMount() {
     this.handleIsMobile();
     const session = new authSession;
     const user = session.getProfile();
-    const storage = new Storage;
-
-    storage.getImage('images/users', 'profile')
-      .then(res => {
-        this.setState({
-          imgUsr: res.src
-        });
-      })
-      .catch(err => {
-        // console.dir(err);
-      });
 
     this.setState({
       state: user.state,
       pincode: user.pincode,
-      area: user.area
+      area: user.area,
+      imgUsr: user.photoURL
     });
   }
 
@@ -78,8 +95,10 @@ class Account extends Component {
               <div className="user">
                 <figure className={`${isMobile}`}>
                   <div className="edit">
-                    <UploadFile path="images/users" />
+                    <UploadFile path="images/users" type="user" action={e => this.getImageUrl(e)}>
+                    </UploadFile>
                   </div>
+
                   {!imgUsr ? 'Icon' : <img src={imgUsr} alt="User Image" />}
                 </figure>
                 <h2 className="title">Welcome, <EditText default="Name" /></h2>

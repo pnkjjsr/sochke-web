@@ -136,7 +136,7 @@ class Register extends Component {
               user.updateUser(result.data);
               session.setProfile(result.data);
               auth.sendEmailVerification()
-              Router.push("/account")
+              Router.push("/constituency")
             }).catch(async (error) => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]]
@@ -255,7 +255,7 @@ class Register extends Component {
                     </div>
 
                     <div className="form-action mb-2">
-                      <Button text="Create My Account" variant="btn-success" size="btn-lg" />
+                      <Button text="Create My Account" variant="btn-success" size="btn-lg" type="submit" />
                     </div>
 
                     <div className="form-note">
