@@ -136,7 +136,7 @@ class Register extends Component {
               user.updateUser(result.data);
               session.setProfile(result.data);
               auth.sendEmailVerification()
-              Router.push("/account")
+              Router.push("/constituency")
             }).catch(async (error) => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]]
