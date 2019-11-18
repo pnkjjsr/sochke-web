@@ -99,22 +99,11 @@ class Respond extends Component {
 
   componentDidMount() {
     const session = new AuthSession();
-    let token = session.getToken();
+    let profile = session.getProfile();
     this.setState({
-      uid: token
+      uid: profile.uid,
+      imgUsr: profile.photoURL
     });
-
-    const storage = new Storage();
-    storage
-      .getImage("images/users", "profile")
-      .then(res => {
-        this.setState({
-          imgUsr: res.src
-        });
-      })
-      .catch(err => {
-        console.dir(err);
-      });
   }
 
   render() {

@@ -45,17 +45,10 @@ class Nav extends Component {
   async componentDidMount() {
     const auth = new authSession;
     const profile = await auth.getProfile()
-    const storage = new Storage;
 
-    storage.getImage('images/users', 'profile')
-      .then(res => {
-        this.setState({
-          imgUsr: res.src
-        });
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+    this.setState({
+      imgUsr: profile.photoURL
+    });
 
     if (profile.userType == "admin") {
       this.setState({

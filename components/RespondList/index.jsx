@@ -44,25 +44,15 @@ class RespondList extends Component {
     const session = new authSession();
     const token = session.getToken();
     const profile = session.getProfile();
-    const storage = new Storage();
-
-    storage
-      .getImage("images/users", "profile")
-      .then(res => {
-        this.setState({
-          imgUsr: res.src
-        });
-      })
-      .catch(err => {
-        console.dir(err);
-      });
 
     respondAction.prefetch(token);
+
     this.setState({
       name: profile.displayName,
       photoUrl: profile.photoURL,
       pincode: profile.pincode,
-      area: profile.area
+      area: profile.area,
+      imgUsr: profile.photoURL
     });
   }
 
