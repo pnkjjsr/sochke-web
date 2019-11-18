@@ -2,9 +2,10 @@ import React, { Fragment, Component } from "react"
 import Link from 'next/link'
 import { connect } from "react-redux";
 
-import User from "components/User"
 import authSession from "utils/authSession"
-// import MDrawer from "components/Drawer"
+
+import User from "components/User"
+import Drawer from "components/Drawer"
 import AccountNav from "components/Nav/Account"
 
 import "./style.scss";
@@ -15,7 +16,9 @@ class Header extends Component {
     super(props)
     this.state = {
       bg: "",
-      dMenu: "d-none"
+      dMenu: "d-none",
+      openMenu: ""
+
     }
   }
 
@@ -29,6 +32,17 @@ class Header extends Component {
       })
     }
     return true;
+  }
+
+  handleOpen = () => {
+    this.setState({
+      openMenu: "open"
+    })
+  }
+  handleClose = () => {
+    this.setState({
+      openMenu: ""
+    })
   }
 
   componentDidMount() {
@@ -52,7 +66,7 @@ class Header extends Component {
   }
 
   render() {
-    const { bg, dMenu } = this.state;
+    const { bg, dMenu, openMenu } = this.state;
 
     return (
       <Fragment>
@@ -61,7 +75,10 @@ class Header extends Component {
             <div className="row">
               <div className="col-5 col-sm-6 pl-0 pr-0">
                 <div className={`menu d-inline-block d-lg-none ${dMenu}`}>
-                  {/* <AccountNav /> */}
+                  <span onClick={this.handleOpen}>Menu Icon</span>
+                  <Drawer side="left" open={openMenu} action={this.handleClose}>
+                    <AccountNav />
+                  </Drawer>
                 </div>
 
                 <div className="logo">

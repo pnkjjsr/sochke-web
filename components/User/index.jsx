@@ -78,6 +78,17 @@ class User extends Component {
     }
   }
 
+  componentDidMount() {
+    let session = new authSession();
+    let token = session.getToken();
+
+    this.handleBtnSize();
+
+    this.setState({
+      token: token
+    });
+  }
+
   render() {
     const { btnSize, token } = this.state;
     const { user, layout } = this.props;
@@ -95,16 +106,6 @@ class User extends Component {
         }
       </div>
     );
-  }
-  componentDidMount() {
-    let session = new authSession();
-    let token = session.getToken();
-
-    this.handleBtnSize();
-
-    this.setState({
-      token: token
-    });
   }
 
 }

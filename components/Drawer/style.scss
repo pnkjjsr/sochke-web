@@ -1,7 +1,73 @@
 @import "common/styles/global.scss";
 
 .drawer {
-  padding: 30px 15px 0 10px;
+  position: relative;
+
+  nav {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    // background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.2s ease;
+    transform: scale(1);
+
+    ul {
+      width: 50%;
+      height: 100%;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: -5px -2px 5px #00000047;
+
+      li {
+        display: block;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+
+        a {
+          font-size: 13px;
+
+          &:hover {
+            color: #38b2ac;
+          }
+        }
+      }
+    }
+  }
+
+  &.right {
+    nav {
+      right: 0;
+      margin-right: calc(-100% - 10px);
+      ul {
+        float: right;
+      }
+    }
+
+    &.open {
+      nav {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &.left {
+    nav {
+      right: auto;
+      left: 0;
+      margin-left: calc(-100% - 10px);
+      ul {
+        float: left;
+      }
+    }
+
+    &.open {
+      nav {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(lg) {
