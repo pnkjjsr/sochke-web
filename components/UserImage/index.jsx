@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import authSession from "utils/authSession"
+import authSession from "utils/authSession";
 
 import "./style.scss";
 
@@ -17,9 +17,8 @@ class UserImage extends Component {
   componentDidMount() {
     const { login } = this.props;
 
-    const session = new authSession;
+    const session = new authSession();
     let profile = session.getProfile();
-
     let photo = profile.photoURL;
 
     if (photo || login.user.photoURL) {
@@ -33,9 +32,7 @@ class UserImage extends Component {
     const { imgUsr } = this.state;
     let user = !imgUsr ? "icon" : <img src={imgUsr} alt="user profile image" />;
 
-    return (
-      <figure>{user}</figure>
-    );
+    return <figure>{user}</figure>;
   }
 }
 

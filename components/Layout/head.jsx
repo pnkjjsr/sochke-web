@@ -12,10 +12,7 @@ const Header = props => (
     <NextHead>
       <meta charSet="UTF-8" />
       <title>{`${props.title} | Web title`}</title>
-      <meta
-        name="description"
-        content={props.desc || defaultDescription}
-      />
+      <meta name="description" content={props.desc || defaultDescription} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
       <link rel="apple-touch-icon" href="/static/touch-icon.png" />
@@ -24,7 +21,10 @@ const Header = props => (
       <link rel="manifest" href="static/manifest.json" />
       <meta property="og:url" content={props.url || defaultOGURL} />
       <meta property="og:title" content={props.title || ""} />
-      <meta property="og:description" content={props.des || defaultDescription} />
+      <meta
+        property="og:description"
+        content={props.des || defaultDescription}
+      />
       <meta name="twitter:site" content={props.url || defaultOGURL} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={props.ogImage || defaultOGImage} />
@@ -50,21 +50,23 @@ const Header = props => (
 class Head extends React.Component {
   componentDidMount() {
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
+      window.addEventListener("load", function() {
         navigator.serviceWorker
           .register("/service-worker.js", { scope: "/" })
-          .then(function (registration) {
+          .then(function(registration) {
             // console.log("SW registered: ", registration);
           })
-          .catch(function (registrationError) {
-            console.log("SW registration failed: ", registrationError);
+          .catch(function(registrationError) {
+            // console.log("SW registration failed: ", registrationError);
           });
       });
     }
   }
 
   render() {
-    return <Header title={this.props.layout.title} desc={this.props.layout.desc} />;
+    return (
+      <Header title={this.props.layout.title} desc={this.props.layout.desc} />
+    );
   }
 }
 

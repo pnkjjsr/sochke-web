@@ -1,10 +1,10 @@
 import React, { Fragment, Component } from "react";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
-import layoutActions from './actions'
+import { bindActionCreators } from "redux";
+import layoutActions from "./actions";
 
-import authSession from 'utils/authSession'
+import authSession from "utils/authSession";
 
 import Head from "./head";
 import Header from "./Header";
@@ -14,15 +14,15 @@ import "./style.scss";
 
 class Layout extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       user: false,
       authtoken: props.authtoken
-    }
+    };
   }
 
   componentDidMount() {
-    const session = new authSession;
+    const session = new authSession();
     let user = session.getProfile();
     this.setState({
       user: user.userType
@@ -34,9 +34,7 @@ class Layout extends Component {
       <Fragment>
         <Head title={this.props.pageTitle} />
         <Header />
-        <div className="main">
-          {this.props.children}
-        </div>
+        <div className="main">{this.props.children}</div>
         <Footer />
       </Fragment>
     );
@@ -45,6 +43,6 @@ class Layout extends Component {
 
 const mapDispatchToProps = dispatch => ({
   layoutAction: bindActionCreators(layoutActions, dispatch)
-})
+});
 
 export default connect(state => state, mapDispatchToProps)(Layout);

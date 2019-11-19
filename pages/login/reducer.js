@@ -1,8 +1,8 @@
 import { AUTHENTICATE, DEAUTHENTICATE, USER } from "./constant";
 
 const initialState = {
-  token: null,
-  user: null
+  token: "",
+  user: ""
 };
 
 export default (state = initialState, action) => {

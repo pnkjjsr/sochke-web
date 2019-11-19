@@ -17,27 +17,19 @@ class Header extends Component {
   }
 
   static getDerivedStateFromProps(props) {
-    if (props.login.token) {
+    const { login } = props;
+    if (login.token) {
       return {
         loggedIn: true
       };
     }
-    return true;
+    return null;
   }
-
-  componentDidMount() {
-    const session = new authSession();
-    let token = session.getToken();
-
-    if (token) {
-      this.setState({
-        loggedIn: true
-      });
-    }
-  }
-
   componentDidUpdate(prevProps) {
-    const { login } = this.props
+    const { login } = this.props;
+    console.log(prevProps.login.token);
+    console.log(login.token);
+
     if (prevProps.login.token != login.token) {
       this.setState({
         loggedIn: false
@@ -45,9 +37,18 @@ class Header extends Component {
     }
   }
 
+  componentDidMount() {
+    const session = new authSession();
+    const token = session.getToken();
+    if (token) {
+      this.setState({
+        loggedIn: true
+      });
+    }
+  }
+
   render() {
     const { loggedIn } = this.state;
-
     return <Fragment>{!loggedIn ? <HeaderOpen /> : <HeaderUser />}</Fragment>;
   }
 }
