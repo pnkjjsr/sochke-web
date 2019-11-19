@@ -17,15 +17,12 @@ class Header extends Component {
   }
 
   static getDerivedStateFromProps(props) {
-    if (!props.login.token) return {
-      loggedIn: false
-    };
-
-    if (props.login.token) return {
-      loggedIn: true
-    };
-
-    return null;
+    if (props.login.token) {
+      return {
+        loggedIn: true
+      };
+    }
+    return true;
   }
 
   componentDidMount() {
@@ -39,8 +36,18 @@ class Header extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { login } = this.props
+    if (prevProps.login.token != login.token) {
+      this.setState({
+        loggedIn: false
+      });
+    }
+  }
+
   render() {
     const { loggedIn } = this.state;
+
     return <Fragment>{!loggedIn ? <HeaderOpen /> : <HeaderUser />}</Fragment>;
   }
 }
