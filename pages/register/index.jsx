@@ -4,7 +4,7 @@ import Router from 'next/router'
 
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import user from "components/User/actions"
+import loginActions from "pages/login/actions"
 import registerActions from "./action"
 import notification from "components/Notification/actions"
 import layoutActions from "components/Layout/actions"
@@ -324,7 +324,7 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => ({
   registerAction: bindActionCreators(registerActions, dispatch),
-  user: bindActionCreators(user, dispatch),
+  user: bindActionCreators(loginActions, dispatch),
   notification: bindActionCreators(notification, dispatch),
   layoutAction: bindActionCreators(layoutActions, dispatch)
 })

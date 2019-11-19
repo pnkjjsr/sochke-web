@@ -39,6 +39,28 @@
     }
   }
 
+  .menu-right {
+    margin-top: 3px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #00000040;
+
+    figure {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      vertical-align: top;
+      width: 24px;
+      height: 24px;
+      border-radius: 50px;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        vertical-align: top;
+      }
+    }
+  }
+
   // After Login
   &.bg {
     padding: 5px 10px;

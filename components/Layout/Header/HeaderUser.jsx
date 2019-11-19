@@ -2,11 +2,10 @@ import React, { Fragment, Component } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 
-import authSession from "utils/authSession";
-
-import User from "components/User";
+import UserImage from "components/UserImage";
 import Drawer from "components/Drawer";
 import AccountNav from "components/Nav/Account";
+import UserNav from "components/Nav/User";
 
 import "./style.scss";
 
@@ -14,67 +13,33 @@ class HeaderUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bg: "",
-      dMenu: "d-none",
-      openMenu: ""
+      openDrawer: ""
     };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    const { user } = props;
-
-    if (user.profile.uid) {
-      return {
-        bg: "bg",
-        dMenu: "d-inline-block"
-      };
-    }
-    return true;
   }
 
   handleOpen = () => {
     this.setState({
-      openMenu: "open"
+      openDrawer: "open"
     });
   };
   handleClose = () => {
     this.setState({
-      openMenu: ""
+      openDrawer: ""
     });
   };
 
-  componentDidMount() {
-    const session = new authSession();
-    let token = session.loggedIn();
-    if (token) {
-      this.setState({
-        bg: "bg",
-        dMenu: "d-inline-block"
-      });
-    }
-  }
-  componentDidUpdate(prevProps) {
-    const { user } = this.props;
-    if (prevProps.user.profile.uid != user.profile.uid) {
-      this.setState({
-        bg: "",
-        dMenu: "d-none"
-      });
-    }
-  }
-
   render() {
-    const { bg, dMenu, openMenu } = this.state;
+    const { openDrawer } = this.state;
 
     return (
       <Fragment>
-        <div className={`header bg`} role="main">
+        <div className="header bg" role="main">
           <div className="container">
             <div className="row">
               <div className="col-5 col-sm-6 pl-0 pr-0">
-                <div className={`menu d-inline-block d-lg-none ${dMenu}`}>
-                  <span onClick={this.handleOpen}>Menu</span>
-                  <Drawer side="left" open={openMenu} action={this.handleClose}>
+                <div className="menu d-inline-block d-lg-none">
+                  <span onClick={this.handleOpen}>M</span>
+                  <Drawer name="account" side="left" open={openDrawer} action={this.handleClose}>
                     <AccountNav />
                   </Drawer>
                 </div>
@@ -86,7 +51,14 @@ class HeaderUser extends Component {
                 </div>
               </div>
               <div className="col-7 col-sm-6 pr-0 text-right">
-                <User />
+                <div className="menu-right">
+                  <div onClick={this.handleOpen}>
+                    <UserImage />
+                  </div>
+                  <Drawer name="user" side="right" open={openDrawer} action={this.handleClose}>
+                    <UserNav />
+                  </Drawer>
+                </div>
               </div>
             </div>
           </div>

@@ -4,8 +4,9 @@ import Link from "next/link";
 import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import actionNotifications from "components/Notification/actions";
-import actionUser from "components/User/actions";
+import actionUser from "./actions";
 import layoutActions from "components/Layout/actions";
 
 import authSession from "utils/authSession";
@@ -89,7 +90,7 @@ class Login extends Component {
           service
             .post("/login", data)
             .then(result => {
-              user.updateUser(result.data);
+              user.authenticate(result.data);
               session.setProfile(result.data);
               Router.push("/");
             })

@@ -1,5 +1,4 @@
 import React, { Fragment, Component } from "react";
-import Link from "next/link";
 import { connect } from "react-redux";
 
 import authSession from "utils/authSession";
@@ -18,11 +17,14 @@ class Header extends Component {
   }
 
   static getDerivedStateFromProps(props) {
-    if (props.user.profile.uid) {
-      return {
-        loggedIn: true
-      };
-    }
+    if (!props.login.token) return {
+      loggedIn: false
+    };
+
+    if (props.login.token) return {
+      loggedIn: true
+    };
+
     return null;
   }
 
