@@ -27,8 +27,6 @@ class Header extends Component {
   }
   componentDidUpdate(prevProps) {
     const { login } = this.props;
-    console.log(prevProps.login.token);
-    console.log(login.token);
 
     if (prevProps.login.token != login.token) {
       this.setState({

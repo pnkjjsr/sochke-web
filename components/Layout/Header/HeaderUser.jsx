@@ -13,23 +13,26 @@ class HeaderUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openDrawer: ""
+      accountDrawer: "",
+      userDrawer: ""
     };
   }
 
-  handleOpen = () => {
+  handleOpen = (e) => {
+    let name = `${e}Drawer`;
     this.setState({
-      openDrawer: "open"
+      [name]: "open"
     });
   };
-  handleClose = () => {
+  handleClose = (e) => {
+    let name = `${e}Drawer`;
     this.setState({
-      openDrawer: ""
+      [name]: ""
     });
   };
 
   render() {
-    const { openDrawer } = this.state;
+    const { accountDrawer, userDrawer } = this.state;
 
     return (
       <Fragment>
@@ -38,8 +41,8 @@ class HeaderUser extends Component {
             <div className="row">
               <div className="col-5 col-sm-6 pl-0 pr-0">
                 <div className="menu d-inline-block d-lg-none">
-                  <span onClick={this.handleOpen}>M</span>
-                  <Drawer name="account" side="left" open={openDrawer} action={this.handleClose}>
+                  <span onClick={e => this.handleOpen('account')}>M</span>
+                  <Drawer side="left" open={accountDrawer} action={e => this.handleClose('account')}>
                     <AccountNav />
                   </Drawer>
                 </div>
@@ -52,10 +55,10 @@ class HeaderUser extends Component {
               </div>
               <div className="col-7 col-sm-6 pr-0 text-right">
                 <div className="menu-right">
-                  <div onClick={this.handleOpen}>
+                  <div onClick={e => this.handleOpen('user')}>
                     <UserImage />
                   </div>
-                  <Drawer name="user" side="right" open={openDrawer} action={this.handleClose}>
+                  <Drawer side="right" open={userDrawer} action={e => this.handleClose('user')}>
                     <UserNav />
                   </Drawer>
                 </div>
