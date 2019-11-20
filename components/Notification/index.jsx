@@ -3,26 +3,36 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import actions from "./actions";
 
-// import Snackbar from "./snackbars"
-
-// import "./style.scss";
+import "./style.scss";
 
 class Notification extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            classes: "error"
-        }
+    }
+
+
+
+    handleClose = () => {
+        const { hideNotification } = this.props
+        hideNotification();
     }
 
     render() {
-        const { classes } = this.state;
         const { open, message, type } = this.props.notification;
 
         return (
             <Fragment>
-                {/* <Snackbar type={type == undefined ? classes : type} open={open} msg={message} /> */}
-            </Fragment>
+                <div className="notification">
+                    <div className={`alert alert-${type} alert-dismissible fade ${open}`} role="alert">
+                        {message} &nbsp;
+
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleClose}>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            </Fragment >
         );
     }
 

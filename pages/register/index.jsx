@@ -76,7 +76,7 @@ class Register extends Component {
       notification.showNotification({
         code: "",
         message: "Please enter the details.",
-        type: "error"
+        type: "danger"
       });
       Object.keys(errors).map(e => {
         var err = e + "Err"
@@ -93,7 +93,11 @@ class Register extends Component {
     auth.createUserWithEmailAndPassword(email, password)
       .then(res => {
         if (res.code) {
-          notification.showNotification(res)
+          notification.showNotification({
+            code: res.code,
+            message: res.message,
+            type: 'danger'
+          })
 
           if (res.code == "auth/email-already-in-use") {
             this.setState({
@@ -106,7 +110,6 @@ class Register extends Component {
               passwordMsg: res.message
             });
           }
-
         }
         else {
           const { register } = this.props
@@ -140,14 +143,20 @@ class Register extends Component {
             }).catch(async (error) => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]]
-              let obj = { message: msg }
-
-              notification.showNotification(obj)
+              let obj = {
+                message: msg,
+                type: 'danger'
+              };
+              notification.showNotification(obj);
             });
         }
       })
       .catch(error => {
-        notification.showNotification(error)
+        let obj = {
+          message: error,
+          type: 'danger'
+        };
+        notification.showNotification(obj);
       })
   }
 
