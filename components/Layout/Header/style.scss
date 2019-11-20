@@ -39,7 +39,8 @@
     }
   }
 
-  .menu-right {
+  .nav-user {
+    position: relative;
     margin-top: 3px;
     color: #fff;
     text-shadow: 1px 1px 1px #00000040;
@@ -57,6 +58,26 @@
       img {
         height: 100%;
         vertical-align: top;
+      }
+    }
+
+    .drop-box {
+      display: none;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      width: 250px;
+      margin-top: 20px;
+      background-color: #fff;
+      @include box-shadow;
+      @include border-radius(3px);
+      transition: all 1s ease;
+    }
+
+    &:hover {
+      .drop-box {
+        display: block;
       }
     }
   }

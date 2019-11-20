@@ -54,10 +54,14 @@ class HeaderUser extends Component {
                 </div>
               </div>
               <div className="col-7 col-sm-6 pr-0 text-right">
-                <div className="menu-right">
+                <div className="nav-user">
                   <div onClick={e => this.handleOpen('user')}>
                     <UserImage />
                   </div>
+                  <div className="drop-box">
+                    <UserNav />
+                  </div>
+
                   <Drawer side="right" open={userDrawer} action={e => this.handleClose('user')}>
                     <UserNav />
                   </Drawer>
