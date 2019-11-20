@@ -1,36 +1,38 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import accountActions from "./actions";
-import notifictionActions from "components/Notification/actions"
+import notifictionActions from "components/Notification/actions";
+import loginActions from "pages/login/actions";
 
-import authSession from "utils/authSession"
-import { service } from "apiConnect"
+import authSession from "utils/authSession";
+import { service } from "apiConnect";
 
-import UploadFile from "components/UploadFile"
-import EditText from 'components/EditText'
-import AccountNav from 'components/Nav/Account/index'
+import UploadFile from "components/UploadFile";
+import UserImage from "components/UserImage";
+import EditText from "components/EditText";
+import AccountNav from "components/Nav/Account/index";
 
 import "./style.scss";
 
 class Account extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isMobile: "",
       imgUsr: "",
       state: "",
       pincode: "",
       area: ""
-    }
+    };
   }
 
   static getDerivedStateFromProps(props) {
     if (props.account.imgUser) {
       return {
         imgUsr: props.account.imgUser
-      }
+      };
     }
     return true;
   }
@@ -38,13 +40,14 @@ class Account extends Component {
   handleIsMobile = () => {
     if (screen.width < 768) {
       this.setState({
-        isMobile: 'mobile'
+        isMobile: "mobile"
       });
     }
-  }
+  };
 
   getImageUrl = e => {
-    const session = new authSession;
+    const { loginAction } = this.props;
+    const session = new authSession();
     let token = session.getToken();
 
     this.setState({
@@ -54,24 +57,28 @@ class Account extends Component {
     const data = {
       uid: token,
       photoURL: e.imgUrl
-    }
-    service.post('/update-user', data)
+    };
+    service
+      .post("/update-user", data)
       .then(res => {
-        service.post('/user', { uid: token })
+        service
+          .post("/user", { uid: token })
           .then(res => {
+            loginAction.authenticate(res.data);
             session.setProfile(res.data);
           })
           .catch(err => {
             console.log(err);
-          })
-      }).catch(err => {
-        console.log(err);
+          });
       })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   componentDidMount() {
     this.handleIsMobile();
-    const session = new authSession;
+    const session = new authSession();
     const user = session.getProfile();
 
     this.setState({
@@ -95,31 +102,38 @@ class Account extends Component {
               <div className="user">
                 <figure className={`${isMobile}`}>
                   <div className="edit">
-                    <UploadFile path="images/users" type="user" action={e => this.getImageUrl(e)}>
-                    </UploadFile>
+                    <UploadFile
+                      path="images/users"
+                      type="user"
+                      action={e => this.getImageUrl(e)}
+                    ></UploadFile>
                   </div>
 
-                  {!imgUsr ? 'Icon' : <img src={imgUsr} alt="User Image" />}
+                  <UserImage />
+
+                  {/* {!imgUsr ? "Icon" : <img src={imgUsr} alt="User Image" />} */}
                 </figure>
-                <h2 className="title">Welcome, <EditText default="Name" /></h2>
+                <h2 className="title">
+                  Welcome, <EditText default="Name" />
+                </h2>
                 <p>
-                  Manage your info, privacy and security to make {process.env.domain} work better for you
+                  Manage your info, privacy and security to make{" "}
+                  {process.env.domain} work better for you
                 </p>
               </div>
-
             </div>
           </div>
-
         </div>
         <style jsx>{``}</style>
-      </Fragment >
-    )
+      </Fragment>
+    );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   accountAction: bindActionCreators(accountActions, dispatch),
-  notificationAction: bindActionCreators(notifictionActions, dispatch)
-})
+  notificationAction: bindActionCreators(notifictionActions, dispatch),
+  loginAction: bindActionCreators(loginActions, dispatch)
+});
 
 export default connect(state => state, mapDispatchToProps)(Account);

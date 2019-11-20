@@ -1,4 +1,5 @@
 @import "common/styles/global";
+
 .notification {
   position: fixed;
   z-index: $notification;
@@ -8,6 +9,12 @@
 
   .alert {
     margin: 0;
+    @include box-shadow;
+
+    &.alert-danger {
+      color: $color-white;
+      background-color: $color-error;
+    }
 
     &.alert-warn {
       background-color: #ffa000;
@@ -20,5 +27,21 @@
     &.alert-success {
       background-color: #43a047;
     }
+
+    .close {
+      &:hover {
+        color: $color-white;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .notification {
+    bottom: auto;
+    top: 30px;
+    right: 20%;
+    width: calc(100% - 40%);
   }
 }

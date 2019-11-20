@@ -13,17 +13,26 @@ class UserImage extends Component {
       imgUsr: ""
     };
   }
+  static getDerivedStateFromProps(props) {
+    const { login } = props;
+    let photo = login.user.photoURL;
+    if (photo) {
+      return {
+        imgUsr: photo
+      };
+    }
+
+    return null;
+  }
 
   componentDidMount() {
-    const { login } = this.props;
-
     const session = new authSession();
     let profile = session.getProfile();
     let photo = profile.photoURL;
 
-    if (photo || login.user.photoURL) {
+    if (photo) {
       this.setState({
-        imgUsr: photo || login.user.photoURL
+        imgUsr: photo
       });
     }
   }
