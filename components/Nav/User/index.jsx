@@ -32,7 +32,7 @@ class UserNav extends Component {
   render() {
     return (
       <Fragment>
-        <nav className="nav-user">
+        <nav className="user">
           <ul>
             <li>
               <Link href="/account">
