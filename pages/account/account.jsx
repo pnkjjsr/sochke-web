@@ -107,6 +107,8 @@ class Account extends Component {
                       type="user"
                       action={e => this.getImageUrl(e)}
                     ></UploadFile>
+
+                    <i className="material-icons">edit</i>
                   </div>
 
                   <UserImage />

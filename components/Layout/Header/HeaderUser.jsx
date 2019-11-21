@@ -33,15 +33,19 @@ class HeaderUser extends Component {
 
   render() {
     const { accountDrawer, userDrawer } = this.state;
+    console.log(userDrawer);
+
 
     return (
       <Fragment>
         <div className="header bg" role="main">
           <div className="container">
             <div className="row">
-              <div className="col-5 col-sm-6 pl-0 pr-0">
-                <div className="menu d-inline-block d-lg-none">
-                  <span onClick={e => this.handleOpen('account')}>M</span>
+              <div className="col-5 col-sm-6 pl-0 pr-0 d-flex flex-row">
+                <div className="menu d-inline-block d-lg-none d-flex align-items-center">
+                  <i className="material-icons" onClick={e => this.handleOpen('account')}>
+                    menu
+                  </i>
                   <Drawer side="left" open={accountDrawer} action={e => this.handleClose('account')}>
                     <AccountNav />
                   </Drawer>
@@ -53,11 +57,12 @@ class HeaderUser extends Component {
                   </Link>
                 </div>
               </div>
-              <div className="col-7 col-sm-6 pr-0 text-right">
+              <div className="col-7 col-sm-6 pr-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
                   <div onClick={e => this.handleOpen('user')}>
                     <UserImage />
                   </div>
+
                   <div className="drop-box">
                     <UserNav />
                   </div>

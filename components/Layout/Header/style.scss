@@ -7,13 +7,7 @@
   left: 0;
   width: 100%;
   padding: 10px 10px;
-  background-color: #fff;
-
-  .menu,
-  .logo {
-    display: inline-block;
-    vertical-align: top;
-  }
+  background-color: $bg-color;
 
   .menu {
     color: $color-white;
@@ -42,7 +36,6 @@
   .nav-user {
     position: relative;
     display: inline-block;
-    margin-top: 3px;
     color: #fff;
     text-shadow: 1px 1px 1px #00000040;
 

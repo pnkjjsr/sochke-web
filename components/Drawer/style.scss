@@ -13,8 +13,7 @@
     transform: scale(1);
 
     ul {
-      width: 50%;
-      max-width: 160px;
+      width: 80%;
       height: 100%;
       padding: 10px;
       background-color: #fff;
@@ -52,6 +51,16 @@
     &.open {
       nav {
         margin-left: 0;
+      }
+    }
+  }
+}
+@include media-breakpoint-up(sm) {
+  .drawer {
+    nav {
+      ul {
+        width: 50%;
+        max-width: 230px;
       }
     }
   }
