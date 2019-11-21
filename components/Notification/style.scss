@@ -1,27 +1,47 @@
-.MuiSnackbar-root {
+@import "common/styles/global";
 
-    &.error {
-        .MuiSnackbarContent-root {
-            background-color: #d32f2f;
-        }
+.notification {
+  position: fixed;
+  z-index: $notification;
+  bottom: 0;
+  right: 0;
+  width: 100%;
 
+  .alert {
+    margin: 0;
+    @include box-shadow;
+
+    &.alert-danger {
+      color: $color-white;
+      background-color: $color-error;
     }
 
-    &.warn {
-        .MuiSnackbarContent-root {
-            background-color: #ffa000;
-        }
+    &.alert-warn {
+      background-color: #ffa000;
     }
 
-    &.info {
-        .MuiSnackbarContent-root {
-            background-color: #2196f3;
-        }
+    &.alert-info {
+      background-color: #2196f3;
     }
 
-    &.success {
-        .MuiSnackbarContent-root {
-            background-color: #43a047;
-        }
+    &.alert-success {
+      background-color: #43a047;
     }
+
+    .close {
+      &:hover {
+        color: $color-white;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .notification {
+    bottom: auto;
+    top: 30px;
+    right: 20%;
+    width: calc(100% - 40%);
+  }
 }

@@ -1,0 +1,20 @@
+nav.user {
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+
+      a {
+        display: block;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        font-size: 13px;
+        text-align: left;
+        text-decoration: none;
+        text-shadow: none;
+      }
+    }
+  }
+}

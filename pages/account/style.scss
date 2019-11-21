@@ -30,17 +30,18 @@
         cursor: pointer;
         text-align: center;
 
-        svg {
+        i {
           color: $color-primary;
           font-size: 15px;
         }
       }
 
       & > img,
-      & > svg {
+      & > i {
         width: 100%;
         height: 100%;
         color: $color-light;
+        font-size: rem(98);
       }
 
       &:hover,

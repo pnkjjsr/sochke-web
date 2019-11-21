@@ -1,41 +1,28 @@
-import React, { Fragment, Children } from 'react'
-// import Drawer from '@material-ui/core/Drawer';
-import MenuIcon from '@material-ui/icons/Menu';
+import React, { Component, Fragment } from "react";
 
 import "./style.scss";
 
-export default function MDrawer(props) {
-    const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false
-    });
+class Drawer extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    const toggleDrawer = (side, open) => event => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
+  handleOpen = () => {};
+  handleClose = () => {
+    const { action } = this.props;
+    action();
+  };
 
-        setState({ ...state, [side]: open });
-    };
-
-    const menu = side => (
-        <div
-            className="drawer"
-            onClick={toggleDrawer(side, false)}
-            onKeyDown={toggleDrawer(side, false)}
-        >
-            {props.children}
-        </div>
-    )
-
+  render() {
+    const { side, open } = this.props;
     return (
-        <Fragment>
-            <MenuIcon onClick={toggleDrawer('left', true)} />
-            <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
-                {menu('left')}
-            </Drawer>
-        </Fragment>
+      <Fragment>
+        <div className={`drawer ${side} ${open}`} onClick={this.handleClose}>
+          {this.props.children}
+        </div>
+      </Fragment>
     );
+  }
 }
+
+export default Drawer;

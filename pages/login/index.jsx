@@ -4,8 +4,9 @@ import Link from "next/link";
 import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import actionNotifications from "components/Notification/actions";
-import actionUser from "components/User/actions";
+import actionUser from "./actions";
 import layoutActions from "components/Layout/actions";
 
 import authSession from "utils/authSession";
@@ -45,9 +46,9 @@ class Login extends Component {
     const { valid, errors } = validation({ email, password });
     if (!valid) {
       actionNotification.showNotification({
-        code: "",
+        open: "",
         message: "Please enter the details.",
-        type: "error"
+        type: "danger"
       });
       Object.keys(errors).map(e => {
         var err = e + "Err";
@@ -66,8 +67,11 @@ class Login extends Component {
       .signInWithEmail(email, password)
       .then(res => {
         if (res.code) {
-          console.log(res);
-          actionNotification.showNotification(res);
+          actionNotification.showNotification({
+            code: res.code,
+            message: res.message,
+            type: 'danger'
+          });
 
           if (res.code == "auth/user-not-found") {
             this.setState({
@@ -89,23 +93,27 @@ class Login extends Component {
           service
             .post("/login", data)
             .then(result => {
-              user.updateUser(result.data);
+              user.authenticate(result.data);
               session.setProfile(result.data);
               Router.push("/");
             })
             .catch(error => {
-              console.log(error);
-
-              actionNotification.showNotification(error);
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]];
-              let obj = { message: msg };
+              let obj = {
+                message: msg,
+                type: 'danger'
+              };
               actionNotification.showNotification(obj);
             });
         }
       })
       .catch(error => {
-        actionNotification.showNotification(error);
+        let obj = {
+          message: error,
+          type: 'danger'
+        };
+        actionNotification.showNotification(obj);
       });
   }
 

@@ -1,36 +1,38 @@
 @import "common/styles/global";
 
 .edit-text {
-    position: relative;
-    display: inline-block;
-    padding-right: 15px;
-    border-radius: $border-radius;
-    overflow: hidden;
-    vertical-align: top;
+  position: relative;
+  display: inline-block;
+  padding-right: 15px;
+  border-radius: $border-radius;
+  overflow: hidden;
+  vertical-align: top;
 
-    .edit {
-        position: absolute;
-        top: 0;
-        right: 0;
-        line-height: 0;
-        cursor: pointer;
+  .edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 0;
+    cursor: pointer;
 
-        svg {
-            color: $color-primary;
-            font-size: 12px;
-            text-align: center;
-            vertical-align: top;
-        }
+    i {
+      color: $color-primary;
+      font-size: 12px;
+      text-align: center;
+      vertical-align: top;
     }
+  }
 
-    .text {}
+  .text {
+  }
 
-    .input {
-        max-width: 150px;
+  .input {
+    max-width: 150px;
 
-        .form-control {}
+    .form-control {
     }
+  }
 
-
-    &:hover {}
+  &:hover {
+  }
 }

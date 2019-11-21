@@ -3,22 +3,22 @@ import {
 } from './constant'
 
 const initialState = {
-    open: false,
+    open: "",
     message: "",
-    type: "error"
+    type: ""
 };
 
 const notification = (state = initialState, action) => {
     switch (action.type) {
         case SHOW:
             return Object.assign({}, state, {
-                open: true,
+                open: 'show',
                 message: action.payload.message,
                 type: action.payload.type
             });
         case HIDE:
             return Object.assign({}, state, {
-                open: false,
+                open: '',
                 message: "",
                 type: ""
             });
