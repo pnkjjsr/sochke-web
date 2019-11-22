@@ -148,8 +148,7 @@ export default class Authentication {
       _this.initialize();
 
       let actionCodeSettings = {
-        // url: `http://localhost:3000/reset-password?email=${e}`,
-        url: `http://localhost:3000/reset-password`,
+        url: `${process.env.authDomain}/login`,
         // iOS: {
         //   bundleId: "com.example.ios"
         // },
@@ -170,24 +169,6 @@ export default class Authentication {
             message: "Password reset email sent."
           });
         })
-        .catch(function(error) {
-          reject(error);
-        });
-    });
-  };
-
-  signInWithEmailLink = e => {
-    console.log(e);
-
-    let _this = this;
-    return new Promise((resolve, reject) => {
-      _this.initialize();
-
-      let emailLink = "http://localhost:3000/reset-password";
-
-      firebase
-        .auth()
-        .signInWithEmailLink(e)
         .catch(function(error) {
           reject(error);
         });

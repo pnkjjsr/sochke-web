@@ -79,7 +79,7 @@ class ForgotPassword extends Component {
         });
       } else if (res.data.code == "email/register") {
         auth
-          .signInWithEmailLink(data.email)
+          .sendPasswordResetEmail(data.email)
           .then(res => {
             console.log(res);
           })
