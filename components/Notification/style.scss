@@ -39,8 +39,7 @@
 
 @include media-breakpoint-up(md) {
   .notification {
-    bottom: auto;
-    top: 30px;
+    bottom: 100px;
     right: 20%;
     width: calc(100% - 40%);
   }
