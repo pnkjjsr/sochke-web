@@ -129,7 +129,6 @@ class Register extends Component {
             userType: "normal",
             email: email,
             mobile: mobile,
-            password: password,
             area: area,
             district: locations[0].district,
             division: locations[0].division,
