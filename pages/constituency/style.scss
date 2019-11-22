@@ -78,10 +78,10 @@
 }
 
 @include media-breakpoint-up(lg) {
-  .account {
-    padding-top: 50px;
-
+  .constituency {
     .user {
+      padding-top: 50px;
+
       figure {
         margin-bottom: 25px;
       }

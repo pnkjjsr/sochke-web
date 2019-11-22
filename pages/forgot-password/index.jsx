@@ -2,12 +2,6 @@ import React, { Component, Fragment } from "react";
 import Link from "next/link";
 
 import Router from "next/router";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-
-import actionNotifications from "components/Notification/actions";
-import actionUser from "./actions";
-import layoutActions from "components/Layout/actions";
 
 import authSession from "utils/authSession";
 import authentication from "utils/authentication";
@@ -178,10 +172,4 @@ class ForgotPassword extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  user: bindActionCreators(actionUser, dispatch),
-  actionNotification: bindActionCreators(actionNotifications, dispatch),
-  layoutAction: bindActionCreators(layoutActions, dispatch)
-});
-
-export default connect(state => state, mapDispatchToProps)(ForgotPassword);
+export default connect(state => state)(ForgotPassword);
