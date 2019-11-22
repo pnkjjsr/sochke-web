@@ -1,0 +1,26 @@
+@import "common/styles/base/_breakpoints";
+@import "components/Form/form";
+
+.login {
+
+    @include form;
+
+    .link-forgot {
+        color: rgb(0, 115, 176);
+        font-size: 12px;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .login {
+        margin-top: 50px;
+    }
+}
+@include media-breakpoint-up(lg) {}
+
+
+@include media-breakpoint-up(ms) {
+    .login {
+        padding: 100px 0;
+    }
+}

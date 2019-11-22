@@ -18,17 +18,14 @@ import { service } from "apiConnect";
 import validation from "./validation";
 import "./style.scss";
 
-class Login extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       uid: "",
       email: "",
-      password: "",
       emailErr: "",
-      passwordErr: "",
-      emailMsg: "",
-      passwordMsg: ""
+      emailMsg: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,10 +37,12 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = this.state;
-    const { user, actionNotification } = this.props;
+    const { email } = this.state;
+    const { actionNotification } = this.props;
 
-    const { valid, errors } = validation({ email, password });
+    const auth = new authentication();
+
+    const { valid, errors } = validation({ email });
     if (!valid) {
       actionNotification.showNotification({
         open: "",
@@ -61,60 +60,34 @@ class Login extends Component {
       return;
     }
 
-    const session = new authSession();
-    const auth = new authentication();
-    auth
-      .signInWithEmail(email, password)
-      .then(res => {
-        if (res.code) {
-          actionNotification.showNotification({
-            code: res.code,
-            message: res.message,
-            type: "danger"
-          });
-
-          if (res.code == "auth/user-not-found") {
-            this.setState({
-              emailErr: "error",
-              emailMsg: res.message
-            });
-          } else if (res.code == "auth/wrong-password") {
-            this.setState({
-              passwordErr: "error",
-              passwordMsg: res.message
-            });
-          }
-        } else {
-          let token = res.user.uid;
-          let data = {
-            uid: token
-          };
-          session.setToken(token);
-          service
-            .post("/login", data)
-            .then(result => {
-              user.authenticate(result.data);
-              session.setProfile(result.data);
-              Router.push("/");
-            })
-            .catch(error => {
-              let data = error.response.data;
-              let msg = data[Object.keys(data)[0]];
-              let obj = {
-                message: msg,
-                type: "danger"
-              };
-              actionNotification.showNotification(obj);
-            });
-        }
-      })
-      .catch(error => {
-        let obj = {
-          message: error,
+    let data = {
+      email: email
+    };
+    service.post("/registered-email", data).then(res => {
+      if (res.data.code == "email/not-register") {
+        console.log("aaya");
+        actionNotification.showNotification({
+          open: "",
+          code: res.data.code,
+          message: res.data.message,
           type: "danger"
-        };
-        actionNotification.showNotification(obj);
-      });
+        });
+
+        this.setState({
+          emailErr: "error",
+          emailMsg: res.data.message
+        });
+      } else if (res.data.code == "email/register") {
+        auth
+          .signInWithEmailLink(data.email)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 
   handleChange(e) {
@@ -144,7 +117,7 @@ class Login extends Component {
   }
 
   render() {
-    const { emailErr, passwordErr, emailMsg, passwordMsg } = this.state;
+    const { emailErr, emailMsg } = this.state;
     return (
       <Fragment>
         <div className="login">
@@ -154,14 +127,14 @@ class Login extends Component {
                 <form onSubmit={this.handleSubmit} autoComplete="on">
                   <div className="form">
                     <div className="header">
-                      <h1 className="heading">Login</h1>
-                      <div className="sub">
-                        Get access of your account and nation !!
-                      </div>
+                      <h1 className="heading">Forgot Password</h1>
+                      <div className="sub">Recover your password !!</div>
                     </div>
 
                     <div className={`form-group ${emailErr}`}>
-                      <label htmlFor="email">Email address</label>
+                      <label htmlFor="email">
+                        Enter registered email address
+                      </label>
                       <input
                         className="form-control"
                         name="email"
@@ -173,29 +146,9 @@ class Login extends Component {
                       <small className="form-text">{emailMsg}</small>
                     </div>
 
-                    <div className={`form-group ${passwordErr}`}>
-                      <div>
-                        <label htmlFor="password">Password</label>
-                        <span className="link-forgot float-right">
-                          <Link href="/forgot-password">Forgot Password?</Link>
-                        </span>
-                      </div>
-
-                      <input
-                        className="form-control"
-                        name="password"
-                        type="password"
-                        aria-label="password"
-                        placeholder="*******"
-                        autoComplete="off"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{passwordMsg}</small>
-                    </div>
-
                     <div className="form-action">
                       <Button
-                        text="Login"
+                        text="Submit"
                         variant="btn-primary"
                         size="btn-lg"
                         type="submit"
@@ -231,4 +184,4 @@ const mapDispatchToProps = dispatch => ({
   layoutAction: bindActionCreators(layoutActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(Login);
+export default connect(state => state, mapDispatchToProps)(ForgotPassword);
