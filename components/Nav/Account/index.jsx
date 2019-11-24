@@ -17,18 +17,18 @@ class AccountNav extends Component {
         <nav className="nav-account">
           <ul>
             <li>
-              <Link href="/constituency">
-                <a>
-                  <i className="material-icons">map</i>
-                  <label htmlFor="Constituency">Constituency</label>
-                </a>
-              </Link>
-            </li>
-            <li>
               <Link href="/account">
                 <a>
                   <i className="material-icons">account_circle</i>
                   <label htmlFor="Account">Account</label>
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/constituency">
+                <a>
+                  <i className="material-icons">map</i>
+                  <label htmlFor="Constituency">Constituency</label>
                 </a>
               </Link>
             </li>
@@ -51,7 +51,7 @@ class AccountNav extends Component {
               </Link>
             </li>
             <li>
-              <Link href="">
+              <Link href="security">
                 <a>
                   <i className="material-icons">security</i>
                   <label htmlFor="Security">Security</label>

@@ -14,7 +14,7 @@ class Account extends Component {
       <Fragment>
         <div className="container account">
           <div className="row">
-            <div className="col-lg-3 d-none d-lg-block pt-5">
+            <div className="col-lg-3 d-none d-lg-block">
               <AccountNav />
             </div>
             <div className="col-lg-9">
