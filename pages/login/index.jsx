@@ -177,7 +177,9 @@ class Login extends Component {
                       <div>
                         <label htmlFor="password">Password</label>
                         <span className="link-forgot float-right">
-                          <Link href="/forgot-password">Forgot Password?</Link>
+                          <Link href="/forgot-password">
+                            <a>Forgot Password?</a>
+                          </Link>
                         </span>
                       </div>
 

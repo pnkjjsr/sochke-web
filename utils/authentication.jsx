@@ -146,9 +146,8 @@ export default class Authentication {
     let _this = this;
     return new Promise((resolve, reject) => {
       _this.initialize();
-
       let actionCodeSettings = {
-        url: `${process.env.authDomain}/login`,
+        url: `https://www.${process.env.authDomain}/login`,
         // iOS: {
         //   bundleId: "com.example.ios"
         // },

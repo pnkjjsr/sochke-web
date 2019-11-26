@@ -2,8 +2,10 @@ import React, { Component, Fragment } from "react";
 import Link from "next/link";
 
 import Router from "next/router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import actionNotifications from "components/Notification/actions";
 
-import authSession from "utils/authSession";
 import authentication from "utils/authentication";
 import Button from "components/Form/Button";
 
@@ -59,7 +61,6 @@ class ForgotPassword extends Component {
     };
     service.post("/registered-email", data).then(res => {
       if (res.data.code == "email/not-register") {
-        console.log("aaya");
         actionNotification.showNotification({
           open: "",
           code: res.data.code,
@@ -97,17 +98,6 @@ class ForgotPassword extends Component {
       },
       () => this.state
     );
-  }
-
-  componentDidMount() {
-    const { path, layoutAction } = this.props;
-    layoutAction.update_path(path);
-    const session = new authSession();
-    let token = session.getToken();
-
-    if (token) {
-      Router.push("/");
-    }
   }
 
   render() {
@@ -172,4 +162,8 @@ class ForgotPassword extends Component {
   }
 }
 
-export default connect(state => state)(ForgotPassword);
+const mapDispatchToProps = dispatch => ({
+  actionNotification: bindActionCreators(actionNotifications, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(ForgotPassword);
