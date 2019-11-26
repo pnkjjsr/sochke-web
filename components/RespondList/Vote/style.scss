@@ -11,4 +11,9 @@
     font-size: rem(14);
     font-weight: $font-weight-bold;
   }
+  &.active {
+    span {
+      color: $color-primary;
+    }
+  }
 }

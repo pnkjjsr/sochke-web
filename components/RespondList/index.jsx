@@ -24,7 +24,8 @@ class RespondList extends Component {
       photoUrl: "",
       pincode: "",
       area: "",
-      imgUsr: ""
+      imgUsr: "",
+      uid: ""
     };
   }
 
@@ -53,12 +54,13 @@ class RespondList extends Component {
       photoUrl: profile.photoURL,
       pincode: profile.pincode,
       area: profile.area,
-      imgUsr: profile.photoURL
+      imgUsr: profile.photoURL,
+      uid: token
     });
   }
 
   render() {
-    const { responds, name, photoUrl, pincode, area, imgUsr } = this.state;
+    const { responds, name, photoUrl, pincode, area, imgUsr, uid } = this.state;
     const moment = new Moment();
 
     let list = Object.values(responds).map(respond => {
@@ -88,7 +90,7 @@ class RespondList extends Component {
           <div className="bottom">
             <ul className="actions">
               <li>
-                <VoteRespond rid={respond.id} />
+                <VoteRespond rid={respond.id} uid={uid} />
               </li>
               <li>
                 <CirculateRespond />

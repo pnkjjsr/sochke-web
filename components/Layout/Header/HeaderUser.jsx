@@ -18,13 +18,13 @@ class HeaderUser extends Component {
     };
   }
 
-  handleOpen = (e) => {
+  handleOpen = e => {
     let name = `${e}Drawer`;
     this.setState({
       [name]: "open"
     });
   };
-  handleClose = (e) => {
+  handleClose = e => {
     let name = `${e}Drawer`;
     this.setState({
       [name]: ""
@@ -33,9 +33,6 @@ class HeaderUser extends Component {
 
   render() {
     const { accountDrawer, userDrawer } = this.state;
-    console.log(userDrawer);
-
-
     return (
       <Fragment>
         <div className="header bg" role="main">
@@ -43,10 +40,17 @@ class HeaderUser extends Component {
             <div className="row">
               <div className="col-5 col-sm-6 pl-0 pr-0 d-flex flex-row">
                 <div className="menu d-inline-block d-lg-none d-flex align-items-center">
-                  <i className="material-icons" onClick={e => this.handleOpen('account')}>
+                  <i
+                    className="material-icons"
+                    onClick={e => this.handleOpen("account")}
+                  >
                     menu
                   </i>
-                  <Drawer side="left" open={accountDrawer} action={e => this.handleClose('account')}>
+                  <Drawer
+                    side="left"
+                    open={accountDrawer}
+                    action={e => this.handleClose("account")}
+                  >
                     <AccountNav />
                   </Drawer>
                 </div>
@@ -59,7 +63,7 @@ class HeaderUser extends Component {
               </div>
               <div className="col-7 col-sm-6 pr-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
-                  <div onClick={e => this.handleOpen('user')}>
+                  <div onClick={e => this.handleOpen("user")}>
                     <UserImage />
                   </div>
 
@@ -67,7 +71,11 @@ class HeaderUser extends Component {
                     <UserNav />
                   </div>
 
-                  <Drawer side="right" open={userDrawer} action={e => this.handleClose('user')}>
+                  <Drawer
+                    side="right"
+                    open={userDrawer}
+                    action={e => this.handleClose("user")}
+                  >
                     <UserNav />
                   </Drawer>
                 </div>
