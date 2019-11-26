@@ -8,9 +8,10 @@ import Storage from "utils/firestoreStorage";
 import authSession from "utils/authSession";
 import Moment from "utils/moment";
 
-import iconVote from "icons/vote.svg";
-import iconOpinion from "icons/opinion.svg";
-import iconCirculate from "icons/circulate.svg";
+import VoteRespond from "./Vote";
+import CirculateRespond from "./Circulate";
+import OpinionRespond from "./Opinion";
+
 import "./style.scss";
 
 class RespondList extends Component {
@@ -87,22 +88,13 @@ class RespondList extends Component {
           <div className="bottom">
             <ul className="actions">
               <li>
-                <i>
-                  <img src={iconVote} alt="" />
-                </i>
-                <span>Vote</span>
+                <VoteRespond rid={respond.id} />
               </li>
               <li>
-                <i>
-                  <img src={iconOpinion} alt="" />
-                </i>
-                <span>Opinion</span>
+                <CirculateRespond />
               </li>
               <li>
-                <i>
-                  <img src={iconCirculate} alt="" />
-                </i>
-                <span>Circulate</span>
+                <OpinionRespond />
               </li>
             </ul>
             <div className="detail">

@@ -1,0 +1,14 @@
+@import "common/styles/global.scss";
+
+.vote-respond {
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 5px;
+  }
+  span {
+    font-size: rem(14);
+    font-weight: $font-weight-bold;
+  }
+}
