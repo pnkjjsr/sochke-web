@@ -15,7 +15,7 @@ import iconPhoto from "icons/photo.svg";
 
 import "./style.scss";
 
-class Respond extends Component {
+class RespondBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,4 +152,4 @@ const mapDispatchToProps = dispatch => ({
   respondAction: bindActionCreators(respondActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(Respond);
+export default connect(state => state, mapDispatchToProps)(RespondBox);

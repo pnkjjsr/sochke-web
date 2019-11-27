@@ -4,28 +4,15 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import respondActions from "./action";
 
-import Storage from "utils/firestoreStorage";
 import authSession from "utils/authSession";
-import Moment from "utils/moment";
 
-import VoteRespond from "./Vote";
-import CirculateRespond from "./Circulate";
-import OpinionRespond from "./Opinion";
-
-import "./style.scss";
+import RespondItem from "components/RespondItem";
 
 class RespondList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      responds: {},
-      name: "",
-      time: "",
-      photoUrl: "",
-      pincode: "",
-      area: "",
-      imgUsr: "",
-      uid: ""
+      responds: {}
     };
   }
 
@@ -45,68 +32,15 @@ class RespondList extends Component {
     const { respondAction } = this.props;
     const session = new authSession();
     const token = session.getToken();
-    const profile = session.getProfile();
 
     respondAction.prefetch(token);
-
-    this.setState({
-      name: profile.displayName,
-      photoUrl: profile.photoURL,
-      pincode: profile.pincode,
-      area: profile.area,
-      imgUsr: profile.photoURL,
-      uid: token
-    });
   }
 
   render() {
-    const { responds, name, photoUrl, pincode, area, imgUsr, uid } = this.state;
-    const moment = new Moment();
+    const { responds } = this.state;
 
     let list = Object.values(responds).map(respond => {
-      const time = moment.format(respond.createdAt);
-      let diplay = respond.imageUrl ? "" : "d-none";
-
-      return (
-        <div key={respond.id} className="respond-list">
-          <div className="top">
-            <figure>
-              <img src={imgUsr} alt={name} />
-            </figure>
-            <div className="detail">
-              {name}
-              <span>{time}</span>
-            </div>
-          </div>
-
-          <div className="respond">{respond.respond}</div>
-
-          <div className={`respond-image ${diplay}`}>
-            <figure>
-              <img src={respond.imageUrl} alt={respond.respond} />
-            </figure>
-          </div>
-
-          <div className="bottom">
-            <ul className="actions">
-              <li>
-                <VoteRespond rid={respond.id} uid={uid} />
-              </li>
-              <li>
-                <CirculateRespond />
-              </li>
-              <li>
-                <OpinionRespond />
-              </li>
-            </ul>
-            <div className="detail">
-              {/* Responsibility: Arvind Kejriwal - CM */}
-              {/* <br /> */}
-              Constituency: {area} - {pincode}
-            </div>
-          </div>
-        </div>
-      );
+      return <RespondItem key={respond.id} respond={respond} />;
     });
 
     return list;

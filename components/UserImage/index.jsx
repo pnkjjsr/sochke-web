@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 
 import authSession from "utils/authSession";
 
-import "./style.scss";
-
 class UserImage extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +37,11 @@ class UserImage extends Component {
 
   render() {
     const { imgUsr } = this.state;
-    let user = !imgUsr ? <i className="material-icons">account_circle</i> : <img src={imgUsr} alt="user profile image" />;
+    let user = !imgUsr ? (
+      <i className="material-icons">account_circle</i>
+    ) : (
+      <img src={imgUsr} alt="user profile image" />
+    );
 
     return <figure>{user}</figure>;
   }

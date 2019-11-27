@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 
 import userAuth from "utils/userAuth";
 
-import Respond from "components/Respond";
+import RespondBox from "components/RespondBox";
 import RespondList from "components/RespondList";
 
 import "./style.scss";
@@ -29,7 +29,7 @@ class Home extends Component {
                 Low Level Details
               </div>
               <div className="col-lg-9 col-xl-7">
-                <Respond />
+                <RespondBox />
 
                 <RespondList />
               </div>

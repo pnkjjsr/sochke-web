@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
-import Router from 'next/router'
+import Router from "next/router";
 import Link from "next/link";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
-import loginActions from 'pages/login/actions'
+import { bindActionCreators } from "redux";
+import loginActions from "pages/login/actions";
 
-import authSession from "utils/authSession"
-import authentication from "utils/authentication"
+import authSession from "utils/authSession";
+import authentication from "utils/authentication";
 
 import "./style.scss";
 
@@ -17,17 +17,17 @@ class UserNav extends Component {
     this.state = {};
   }
 
-  handleLogout = (e) => {
+  handleLogout = e => {
     e.preventDefault();
     const { loginAction } = this.props;
-    const session = new authSession()
-    const auth = new authentication()
+    const session = new authSession();
+    const auth = new authentication();
 
-    loginAction.deauthenticate()
+    loginAction.deauthenticate();
     session.logout();
     auth.signOut();
-    Router.push('/login');
-  }
+    Router.push("/login");
+  };
 
   render() {
     return (
@@ -46,7 +46,6 @@ class UserNav extends Component {
             </li>
           </ul>
         </nav>
-
       </Fragment>
     );
   }
@@ -54,6 +53,6 @@ class UserNav extends Component {
 
 const mapDispatchToProps = dispatch => ({
   loginAction: bindActionCreators(loginActions, dispatch)
-})
+});
 
 export default connect(state => state, mapDispatchToProps)(UserNav);

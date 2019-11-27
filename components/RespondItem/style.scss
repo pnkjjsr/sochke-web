@@ -1,6 +1,6 @@
 @import "common/styles/global.scss";
 
-.respond-list {
+.respond-item {
   margin-bottom: 30px;
   padding: 10px 0;
   background-color: #fff;
@@ -107,7 +107,7 @@
 }
 
 @include media-breakpoint-up(md) {
-  .respond-list {
+  .respond-item {
     .respond {
       margin: 0 20px 5px;
     }

@@ -10,5 +10,10 @@
   span {
     font-size: rem(14);
     font-weight: $font-weight-bold;
+
+    a {
+      color: $base-color;
+      text-decoration: none;
+    }
   }
 }
