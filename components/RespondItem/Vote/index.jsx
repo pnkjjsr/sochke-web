@@ -9,8 +9,20 @@ export class VoteRespond extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vote: false
+      vote: false,
+      rid: "",
+      uid: ""
     };
+  }
+
+  static getDerivedStateFromProps(props) {
+    if (props.rid && props.uid) {
+      return {
+        rid: props.rid,
+        uid: props.uid
+      };
+    }
+    return null;
   }
 
   handleClick = () => {
@@ -41,7 +53,7 @@ export class VoteRespond extends Component {
       });
   };
 
-  componentDidMount() {
+  getVoteRespond = () => {
     const { rid, uid } = this.props;
 
     let data = {
@@ -49,18 +61,31 @@ export class VoteRespond extends Component {
       uid: uid
     };
 
-    service
-      .post("get-vote-respond", data)
-      .then(res => {
-        if (res.data.code == "vote/added") {
-          this.setState({
-            vote: true
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (data.rid && data.uid) {
+      service
+        .post("get-vote-respond", data)
+        .then(res => {
+          if (res.data.code == "vote/added") {
+            this.setState({
+              vote: true
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
+
+  componentDidMount() {
+    this.getVoteRespond();
+  }
+
+  componentDidUpdate(prevState) {
+    console.log(prevState.uid);
+    if (this.state.uid != prevState.uid) {
+      this.getVoteRespond();
+    }
   }
 
   render() {
