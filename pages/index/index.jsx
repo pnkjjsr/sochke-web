@@ -6,6 +6,8 @@ import { bindActionCreators } from "redux";
 
 import userAuth from "utils/userAuth";
 
+import CandidateList from "components/List/CandidateList";
+import PanelChoice from "components/Panel/Choice";
 import RespondBox from "components/RespondBox";
 import RespondList from "components/RespondList";
 
@@ -26,7 +28,9 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-                Low Level Details
+                <CandidateList />
+
+                <CandidateList />
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
@@ -34,7 +38,7 @@ class Home extends Component {
                 <RespondList />
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
-                High Level Details
+                <PanelChoice />
               </div>
             </div>
           </div>

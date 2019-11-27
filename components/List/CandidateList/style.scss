@@ -1,0 +1,53 @@
+@import "common/styles/global.scss";
+
+.candidate-list {
+  margin-bottom: 60px;
+
+  .title {
+    margin-bottom: 10px;
+    font-size: rem(18);
+    font-weight: $font-weight-black;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  ul {
+    li {
+      padding: 5px 0;
+    }
+  }
+
+  .candidate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+
+    span {
+      position: relative;
+      min-width: 35px;
+      font-size: rem(12);
+      font-weight: $font-weight-black;
+
+      &:after {
+        content: "-";
+        position: absolute;
+        z-index: 1;
+        right: 3px;
+        top: 0;
+      }
+    }
+    label {
+      width: calc(100% - 35px);
+      margin: 0;
+      font-size: rem(18);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}

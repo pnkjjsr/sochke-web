@@ -1,0 +1,83 @@
+@import "common/styles/global.scss";
+
+.panel-choice {
+  padding: 20px;
+  border: 1px solid $border-color;
+  @include border-radius($border-radius-max);
+  background-color: $bg-panel;
+
+  .title {
+    margin-bottom: 15px;
+    font-size: rem(18);
+    font-weight: $font-weight-black;
+  }
+
+  .photo {
+    figure {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 10px;
+      @include border-radius(100%);
+      border: 1px solid $border-color;
+      text-align: center;
+      overflow: hidden;
+
+      img {
+      }
+      i {
+        color: $color-light;
+        font-size: rem(100);
+      }
+    }
+    figcaption {
+      color: $color-gray-light;
+      font-size: rem(18);
+      text-align: center;
+    }
+  }
+
+  .party {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+
+    i {
+      margin-right: 5px;
+      font-size: rem(15);
+    }
+    label {
+      margin: 0;
+      color: $color-gray;
+      font-size: rem(16);
+    }
+  }
+
+  .name {
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid $border-color;
+    font-size: rem(24);
+    text-align: center;
+  }
+  .tenure {
+    margin-bottom: 15px;
+    font-size: rem(24);
+    font-weight: $font-weight-black;
+    text-align: center;
+  }
+
+  .action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    button {
+      min-width: 40%;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      text-shadow: 1.4px 1.4px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
