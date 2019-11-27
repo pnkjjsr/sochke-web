@@ -70,7 +70,7 @@ class Login extends Component {
           actionNotification.showNotification({
             code: res.code,
             message: res.message,
-            type: 'danger'
+            type: "danger"
           });
 
           if (res.code == "auth/user-not-found") {
@@ -95,14 +95,14 @@ class Login extends Component {
             .then(result => {
               user.authenticate(result.data);
               session.setProfile(result.data);
-              Router.push("/");
+              Router.push("/constituency");
             })
             .catch(error => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]];
               let obj = {
                 message: msg,
-                type: 'danger'
+                type: "danger"
               };
               actionNotification.showNotification(obj);
             });
@@ -111,7 +111,7 @@ class Login extends Component {
       .catch(error => {
         let obj = {
           message: error,
-          type: 'danger'
+          type: "danger"
         };
         actionNotification.showNotification(obj);
       });
@@ -155,7 +155,9 @@ class Login extends Component {
                   <div className="form">
                     <div className="header">
                       <h1 className="heading">Login</h1>
-                      <div className="sub">One quick step for change !!</div>
+                      <div className="sub">
+                        Get access of your account and nation !!
+                      </div>
                     </div>
 
                     <div className={`form-group ${emailErr}`}>
@@ -175,7 +177,9 @@ class Login extends Component {
                       <div>
                         <label htmlFor="password">Password</label>
                         <span className="link-forgot float-right">
-                          Forgot Password?
+                          <Link href="/forgot-password">
+                            <a>Forgot Password?</a>
+                          </Link>
                         </span>
                       </div>
 
@@ -202,7 +206,7 @@ class Login extends Component {
                   </div>
 
                   <div className="form-link">
-                    New to Name{" "}
+                    New to {`${process.env.domain} `}
                     <Link href="/">
                       <button
                         type="button"

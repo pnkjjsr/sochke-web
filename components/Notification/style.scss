@@ -1,11 +1,16 @@
 @import "common/styles/global";
 
 .notification {
+  display: none;
   position: fixed;
   z-index: $notification;
   bottom: 0;
   right: 0;
   width: 100%;
+
+  &.show {
+    display: block;
+  }
 
   .alert {
     margin: 0;
@@ -39,8 +44,8 @@
 
 @include media-breakpoint-up(md) {
   .notification {
+    top: 40px;
     bottom: auto;
-    top: 30px;
     right: 20%;
     width: calc(100% - 40%);
   }

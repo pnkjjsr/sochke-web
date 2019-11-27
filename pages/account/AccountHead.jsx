@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import accountActions from "./actions";
-import notifictionActions from "components/Notification/actions";
 import loginActions from "pages/login/actions";
 
 import authSession from "utils/authSession";
@@ -12,19 +10,16 @@ import { service } from "apiConnect";
 import UploadFile from "components/UploadFile";
 import UserImage from "components/UserImage";
 import EditText from "components/EditText";
-import AccountNav from "components/Nav/Account/index";
 
-import "./style.scss";
+import "./AccountHead.scss";
 
-class Account extends Component {
+export class AccountHead extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isMobile: "",
-      imgUsr: "",
-      state: "",
-      pincode: "",
-      area: ""
+      imgUsr: ""
     };
   }
 
@@ -82,60 +77,45 @@ class Account extends Component {
     const user = session.getProfile();
 
     this.setState({
-      state: user.state,
-      pincode: user.pincode,
-      area: user.area,
       imgUsr: user.photoURL
     });
   }
 
   render() {
-    const { isMobile, imgUsr } = this.state;
+    const { isMobile } = this.state;
+
     return (
       <Fragment>
-        <div className="container account">
-          <div className="row">
-            <div className="col-lg-3 d-none d-lg-block">
-              <AccountNav />
+        <div className="AccountHead">
+          <figure className={`${isMobile}`}>
+            <div className="edit">
+              <UploadFile
+                path="images/users"
+                type="user"
+                action={e => this.getImageUrl(e)}
+              ></UploadFile>
+
+              <i className="material-icons">edit</i>
             </div>
-            <div className="col-lg-9">
-              <div className="user">
-                <figure className={`${isMobile}`}>
-                  <div className="edit">
-                    <UploadFile
-                      path="images/users"
-                      type="user"
-                      action={e => this.getImageUrl(e)}
-                    ></UploadFile>
 
-                    <i className="material-icons">edit</i>
-                  </div>
+            <UserImage />
 
-                  <UserImage />
-
-                  {/* {!imgUsr ? "Icon" : <img src={imgUsr} alt="User Image" />} */}
-                </figure>
-                <h2 className="title">
-                  Welcome, <EditText default="Name" />
-                </h2>
-                <p>
-                  Manage your info, privacy and security to make{" "}
-                  {process.env.domain} work better for you
-                </p>
-              </div>
-            </div>
-          </div>
+            {/* {!imgUsr ? "Icon" : <img src={imgUsr} alt="User Image" />} */}
+          </figure>
+          <h2 className="title">
+            Welcome, <EditText default="Name" />
+          </h2>
+          <p>
+            Manage your info, privacy and security to make {process.env.domain}{" "}
+            work better for you
+          </p>
         </div>
-        <style jsx>{``}</style>
       </Fragment>
     );
   }
 }
-
 const mapDispatchToProps = dispatch => ({
-  accountAction: bindActionCreators(accountActions, dispatch),
-  notificationAction: bindActionCreators(notifictionActions, dispatch),
   loginAction: bindActionCreators(loginActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(Account);
+export default connect(state => state, mapDispatchToProps)(AccountHead);
