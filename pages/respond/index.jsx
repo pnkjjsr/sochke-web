@@ -8,6 +8,7 @@ import Loader from "components/Loader/page";
 import RespondItem from "components/RespondItem";
 
 import "./style.scss";
+import { fail } from "assert";
 
 class Respond extends Component {
   constructor(props) {
@@ -29,15 +30,23 @@ class Respond extends Component {
     };
   }
 
-  renderRespond = () => {
+  renderLoading = () => {
     const { view } = this.state;
-    const respond = Router.query;
 
     if (view == 0) {
       return <Loader />;
     } else {
-      return <RespondItem respond={respond} />;
+      return this.renderRespond();
     }
+  };
+
+  renderRespond = () => {
+    const respond = Router.query;
+    return (
+      <Fragment>
+        <RespondItem respond={respond} />
+      </Fragment>
+    );
   };
 
   render() {
@@ -46,7 +55,7 @@ class Respond extends Component {
         <div className="container respond">
           <div className="row">
             <div className="col-lg-2 col-xl-2 d-none d-xl-block">Left</div>
-            <div className="col-lg-9 col-xl-7">{this.renderRespond()}</div>
+            <div className="col-lg-9 col-xl-7">{this.renderLoading()}</div>
             <div className="col-lg-3 col-xl-3 d-none d-lg-block">Right</div>
           </div>
         </div>
