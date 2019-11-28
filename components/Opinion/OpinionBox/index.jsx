@@ -91,23 +91,21 @@ export class OpinionBox extends Component {
     return (
       <Fragment>
         <div className="opinion-box">
-          <div className="box form">
-            {/* <figure>
-              <UserImage />
-            </figure> */}
-
-            <div className={`form-group ${opinionErr}`}>
-              <textarea
-                className="form-control"
-                name="opinion"
-                aria-label="email"
-                placeholder="Write your opinion"
-                onChange={this.handleChange}
-              ></textarea>
+          <div className="form">
+            <div className="box">
+              <div className={`form-group ${opinionErr}`}>
+                <textarea
+                  className="form-control"
+                  name="opinion"
+                  aria-label="email"
+                  placeholder="Write your opinion"
+                  onChange={this.handleChange}
+                ></textarea>
+              </div>
             </div>
-          </div>
-          <div className="action">
-            <Button text="Respond" variant={btnClass} action={btnAction} />
+            <div className="action">
+              <Button text="Respond" variant={btnClass} action={btnAction} />
+            </div>
           </div>
         </div>
       </Fragment>
