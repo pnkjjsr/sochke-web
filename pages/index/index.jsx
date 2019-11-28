@@ -8,8 +8,8 @@ import userAuth from "utils/userAuth";
 
 import CandidateList from "components/List/CandidateList";
 import PanelChoice from "components/Panel/Choice";
-import RespondBox from "components/RespondBox";
-import RespondList from "components/RespondList";
+import RespondBox from "components/Respond/RespondBox";
+import RespondList from "components/Respond/RespondList";
 
 import "./style.scss";
 

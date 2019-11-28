@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import userAuth from "utils/userAuth";
 
 import Loader from "components/Loader/page";
-import RespondItem from "components/RespondItem";
+import RespondItem from "components/Respond/RespondItem";
+import OpinionBox from "components/Opinion/OpinionBox";
+import OpinionList from "components/Opinion/OpinionList";
 
 import "./style.scss";
-import { fail } from "assert";
 
 class Respond extends Component {
   constructor(props) {
@@ -42,9 +43,12 @@ class Respond extends Component {
 
   renderRespond = () => {
     const respond = Router.query;
+
     return (
       <Fragment>
         <RespondItem respond={respond} />
+        <OpinionBox respond={respond} />
+        <OpinionList respond={respond} />
       </Fragment>
     );
   };

@@ -20,14 +20,14 @@ export class PanelChoice extends Component {
 
           <div className="photo">
             <figure>
-              <i class="material-icons">account_circle</i>
+              <i className="material-icons">account_circle</i>
               {/* <img src="" alt="" /> */}
             </figure>
             <figcaption>Defending Minister</figcaption>
           </div>
 
           <div className="party">
-            <i class="material-icons">flag</i>
+            <i className="material-icons">flag</i>
             <label htmlFor="party">Aam Aadmi Party</label>
           </div>
 

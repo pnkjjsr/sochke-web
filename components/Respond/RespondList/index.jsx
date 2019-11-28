@@ -6,7 +6,7 @@ import respondActions from "./action";
 
 import authSession from "utils/authSession";
 
-import RespondItem from "components/RespondItem";
+import RespondItem from "../RespondItem";
 
 class RespondList extends Component {
   constructor(props) {

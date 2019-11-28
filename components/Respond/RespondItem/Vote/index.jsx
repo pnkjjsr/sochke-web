@@ -82,7 +82,6 @@ export class VoteRespond extends Component {
   }
 
   componentDidUpdate(prevState) {
-    console.log(prevState.uid);
     if (this.state.uid != prevState.uid) {
       this.getVoteRespond();
     }

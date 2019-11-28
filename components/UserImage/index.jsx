@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import authSession from "utils/authSession";
 
+import "./style.scss";
+
 class UserImage extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,11 @@ class UserImage extends Component {
       <img src={imgUsr} alt="user profile image" />
     );
 
-    return <figure>{user}</figure>;
+    return (
+      <div className="photo-box">
+        <figure>{user}</figure>
+      </div>
+    );
   }
 }
 

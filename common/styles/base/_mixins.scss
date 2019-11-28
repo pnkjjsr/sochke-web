@@ -16,7 +16,7 @@
   @extend %btn;
   background-color: $color-primary;
   border-color: $color-primary;
-  border-width: 0;
+  border-width: 1;
   box-shadow: none;
 
   &:hover {

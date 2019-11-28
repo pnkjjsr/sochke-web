@@ -2,11 +2,10 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import respondActions from "components/RespondList/action";
+import respondActions from "../RespondList/action";
 
 import { service } from "apiConnect";
 import AuthSession from "utils/authSession";
-import Storage from "utils/firestoreStorage";
 
 import Button from "components/Form/Button";
 import UploadFile from "components/UploadFile";
