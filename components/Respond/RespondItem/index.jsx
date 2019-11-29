@@ -69,7 +69,7 @@ class RespondItem extends Component {
         <div className="bottom">
           <ul className="actions">
             <li>
-              <VoteRespond rid={respond.id} uid={uid} />
+              <VoteRespond voted={respond.voted} />
             </li>
             <li>
               <CirculateRespond />

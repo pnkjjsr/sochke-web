@@ -6,11 +6,10 @@ import "./style.scss";
 export class OpinionItem extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.state = {
-      userImg: "",
-      name: "",
+      userImg: props.data.photoURL,
+      name: props.data.displayName,
       date: props.data.createdAt,
       opinion: props.data.opinion
     };

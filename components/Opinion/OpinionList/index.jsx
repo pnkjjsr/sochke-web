@@ -26,9 +26,13 @@ export class OpinionList extends Component {
       service
         .post("/opinion", data)
         .then(res => {
-          this.setState({
-            opinionObj: res.data
-          });
+          if (res.data.code == "opinion/empty") {
+            console.log("No opinion on this respond.");
+          } else {
+            this.setState({
+              opinionObj: res.data
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -38,6 +42,7 @@ export class OpinionList extends Component {
 
   render() {
     const { opinionObj } = this.state;
+
     let item = Object.values(opinionObj).map(opinion => {
       return <OpinionItem key={opinion.id} data={opinion} />;
     });
