@@ -21,12 +21,16 @@ export class OpinionItem extends Component {
     return (
       <Fragment>
         <div className="opinion-item">
-          <figure>
-            <img src={userImg} alt={name} />
-          </figure>
+          <div className="top">
+            <figure>
+              <img src={userImg} alt={name} />
+            </figure>
 
-          <div className="name">{name}</div>
-          <div className="date">{date}</div>
+            <div className="details">
+              {name}
+              <span>{date}</span>
+            </div>
+          </div>
 
           <div className="opinion">{opinion}</div>
         </div>
