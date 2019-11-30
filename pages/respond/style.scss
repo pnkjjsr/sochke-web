@@ -1,3 +1,11 @@
+@import "common/styles/global.scss";
+
 .respond {
-  margin-top: 25px;
+  margin-top: 10px;
+}
+
+@include media-breakpoint-up(lg) {
+  .respond {
+    margin-top: 25px;
+  }
 }
