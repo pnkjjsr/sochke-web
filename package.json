@@ -5,10 +5,10 @@
   "license": "ISC",
   "scripts": {
     "next": "next",
-    "start": "next start",
+    "next-start": "next start",
     "build": "yarn clean && next build",
     "dev": "NODE_ENV=development node server.js",
-    "serve": "NODE_ENV=production node server.js",
+    "prod": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
     "deploy-test": "gcloud app deploy test.yaml",
     "export": "npm run build && next export",
