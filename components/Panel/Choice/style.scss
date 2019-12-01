@@ -1,6 +1,7 @@
 @import "common/styles/global.scss";
 
 .panel-choice {
+  margin-bottom: 30px;
   padding: 20px;
   border: 1px solid $border-color;
   @include border-radius($border-radius-max);
@@ -78,6 +79,206 @@
       font-size: rem(16);
       font-weight: $font-weight-bold;
       text-shadow: 1.4px 1.4px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Result Panel
+  .result {
+    .top {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      margin-bottom: 5px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $border-color;
+
+      figure {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        margin-right: 5px;
+        border: 1px solid $border-color;
+        @include border-radius(100%);
+
+        i {
+          color: $color-light;
+          font-size: rem(48);
+        }
+      }
+      .details {
+        font-size: rem(18);
+        font-weight: $font-weight-bold;
+
+        span {
+          display: flex;
+          align-items: center;
+          color: $color-gray;
+          font-size: rem(14);
+          font-weight: normal;
+
+          i {
+            margin-right: 5px;
+            font-size: rem(16);
+          }
+        }
+      }
+    }
+
+    .bottom {
+      color: $color-gray;
+      font-size: rem(14);
+      line-height: 25px;
+
+      b {
+        font-weight: $font-weight-black;
+
+        &.success {
+          color: $color-success;
+        }
+        &.error {
+          color: $color-error;
+        }
+      }
+
+      small {
+        font-size: rem(12);
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
+  // Minster List
+  .minister-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    .minister-item {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      padding: 10px 5px;
+      @include border-radius(3px);
+      overflow: hidden;
+
+      figure {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        margin-right: 5px;
+        border: 1px solid $border-color;
+        @include border-radius(100%);
+
+        i {
+          color: $color-light;
+          font-size: rem(48);
+        }
+      }
+      .details {
+        font-size: rem(18);
+        font-weight: $font-weight-bold;
+
+        span {
+          display: flex;
+          align-items: center;
+          color: $color-gray;
+          font-size: rem(14);
+          font-weight: normal;
+
+          i {
+            margin-right: 5px;
+            font-size: rem(16);
+          }
+        }
+      }
+
+      .hover {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 7px 5px 5px;
+        background-color: rgba(255, 255, 255, 0.95);
+        border: 1px solid $border-color;
+        color: $base-color;
+        font-size: rem(12);
+        text-decoration: none;
+
+        ul,
+        li {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+        }
+        ul {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 5px;
+
+          li {
+            flex-grow: 1;
+          }
+        }
+
+        .feature {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            border: 1px solid $border-color;
+            @include border-radius(100%);
+          }
+          span {
+            color: $base-color;
+            font-size: rem(12);
+            line-height: 100%;
+            text-decoration: none;
+          }
+        }
+
+        .link {
+          text-decoration: underline;
+        }
+      }
+
+      &:hover {
+        .hover {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.poll {
+    padding: 20px 20px 0;
+    p {
+      font-size: rem(18);
+      line-height: 100%;
+    }
+
+    .action {
+      .btn {
+        background-color: transparent;
+        border: none;
+
+        &.btn-primary {
+          color: $color-primary;
+          border-bottom: 5px solid #e6f2e6;
+        }
+        &.btn-danger {
+          color: $color-error;
+          border-bottom: 5px solid #f2dada;
+        }
+      }
     }
   }
 }
