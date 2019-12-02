@@ -25,7 +25,9 @@ export class OpinionRespond extends Component {
                   respond: respond.respond,
                   type: respond.type,
                   uid: respond.uid,
-                  voted: respond.voted
+                  voted: respond.voted,
+                  likeCount: respond.likeCount,
+                  opinionCount: respond.opinionCount
                 }
               }}
             >

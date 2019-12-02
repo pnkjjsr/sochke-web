@@ -66,7 +66,9 @@ class RespondItem extends Component {
           </figure>
         </div>
 
-        <div className="counts">10 Votes ~ 10 Opinions</div>
+        <div className="counts">
+          {respond.likeCount} Votes ~ {respond.opinionCount} Opinions
+        </div>
 
         <div className="bottom">
           <ul className="actions">
