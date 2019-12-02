@@ -4,16 +4,12 @@ import clientCredentials from "../firebaseConfig";
 import { service } from "../apiConnect";
 
 export default class Authentication {
-  constructor(props) {
-    this.signInWithEmail = this.signInWithEmail.bind(this);
-  }
-
   initialize() {
     if (!firebase.apps.length) {
       firebase.initializeApp(clientCredentials);
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          console.log(user);
+          return user;
         } else {
           console.log("Not Logged In");
         }
@@ -173,4 +169,20 @@ export default class Authentication {
         });
     });
   };
+
+  updatePassword(e) {
+    let _this = this;
+    return new Promise(function(resolve, reject) {
+      _this.initialize();
+      // firebase
+      //   .auth()
+      //   .currentUser.updatePassword(e)
+      //   .then(function() {
+      //     resolve("Update successful.");
+      //   })
+      //   .catch(function(error) {
+      //     reject("An error happened.");
+      //   });
+    });
+  }
 }
