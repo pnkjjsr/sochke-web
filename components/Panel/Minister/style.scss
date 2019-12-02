@@ -16,7 +16,11 @@
     overflow: hidden;
     vertical-align: top;
 
-    svg,
+    i {
+      color: $color-light;
+      font-size: rem(58);
+    }
+
     img {
       width: auto;
       height: auto;
@@ -36,7 +40,10 @@
       margin: 0;
       font-size: 20px;
       font-weight: $font-weight-bold;
-      line-height: 15px;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 

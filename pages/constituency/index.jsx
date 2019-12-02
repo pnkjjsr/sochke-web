@@ -36,7 +36,7 @@ class Account extends Component {
     const { area, state } = this.state;
     return (
       <Fragment>
-        <div className="container account">
+        <div className="container constituency">
           <div className="row">
             <div className="col-lg-3 d-none d-lg-block">
               <AccountNav />
