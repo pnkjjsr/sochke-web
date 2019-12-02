@@ -55,13 +55,13 @@ export class PanelChoice extends Component {
           <div className="result">
             <div className="top">
               <figure>
-                <i class="material-icons">account_circle</i>
+                <i className="material-icons">account_circle</i>
               </figure>
 
               <div className="details">
                 Jagdeep Singh
                 <span>
-                  <i class="material-icons">flag</i>
+                  <i className="material-icons">flag</i>
                   Aam Aadmi Party
                 </span>
               </div>
@@ -111,12 +111,12 @@ export class PanelChoice extends Component {
                 </a>
 
                 <figure>
-                  <i class="material-icons">account_circle</i>
+                  <i className="material-icons">account_circle</i>
                 </figure>
                 <div className="details">
                   Jagdeep Singh
                   <span>
-                    <i class="material-icons">flag</i>
+                    <i className="material-icons">flag</i>
                     Aam Aadmi Party
                   </span>
                 </div>
@@ -151,12 +151,12 @@ export class PanelChoice extends Component {
                 </a>
 
                 <figure>
-                  <i class="material-icons">account_circle</i>
+                  <i className="material-icons">account_circle</i>
                 </figure>
                 <div className="details">
                   Jagdeep Singh
                   <span>
-                    <i class="material-icons">flag</i>
+                    <i className="material-icons">flag</i>
                     Aam Aadmi Party
                   </span>
                 </div>
@@ -191,12 +191,12 @@ export class PanelChoice extends Component {
                 </a>
 
                 <figure>
-                  <i class="material-icons">account_circle</i>
+                  <i className="material-icons">account_circle</i>
                 </figure>
                 <div className="details">
                   Jagdeep Singh
                   <span>
-                    <i class="material-icons">flag</i>
+                    <i className="material-icons">flag</i>
                     Aam Aadmi Party
                   </span>
                 </div>

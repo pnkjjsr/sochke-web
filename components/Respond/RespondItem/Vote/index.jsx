@@ -8,6 +8,7 @@ import "./style.scss";
 export class VoteRespond extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       vote: props.voted,
       rid: "",
@@ -45,8 +46,9 @@ export class VoteRespond extends Component {
 
   render() {
     const { vote } = this.state;
-    let vClass = vote ? "active" : "";
-    let vText = vote ? "d" : "";
+    let vClass = !vote || vote == "false" ? "" : "active";
+    let vText = !vote || (vote == "false") == true ? "" : "d";
+
     return (
       <Fragment>
         <div className={`vote-respond ${vClass}`} onClick={this.handleClick}>
