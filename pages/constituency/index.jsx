@@ -38,7 +38,7 @@ class Account extends Component {
       <Fragment>
         <div className="container constituency">
           <div className="row">
-            <div className="col-lg-3 d-none d-lg-block">
+            <div className="col-lg-3 d-none d-lg-block pt-5">
               <AccountNav />
             </div>
             <div className="col-lg-9">

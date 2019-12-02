@@ -91,58 +91,62 @@ export class Security extends Component {
   render() {
     return (
       <Fragment>
-        <div className="container personal-info">
+        <div className="container">
           <div className="row">
             <div className="col-lg-3 d-none d-lg-block pt-5">
               <AccountNav />
             </div>
             <div className="col-lg-9">
-              <h1>Security</h1>
+              <div className="security">
+                <h1>Security</h1>
 
-              <form onSubmit={this.handleSubmit} autoComplete="false">
-                <div className="form-group">
-                  <label htmlFor="currentPassword">Current password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="currentPassword"
-                    aria-describedby="currentPassword"
-                    placeholder="Current password"
-                    autoComplete="false"
-                    onBlur={this.handleBlur}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="newPassword">New password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="newPassword"
-                    aria-describedby="newPassword"
-                    placeholder="New password"
-                    autoComplete="false"
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm new password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="confirmPassword"
-                    aria-describedby="confirmPassword"
-                    placeholder="Confirm new password"
-                    autoComplete="false"
-                    onChange={this.handleChange}
-                  />
-                </div>
+                <form onSubmit={this.handleSubmit} autoComplete="false">
+                  <div className="form-group">
+                    <label htmlFor="currentPassword">Current password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="currentPassword"
+                      aria-describedby="currentPassword"
+                      placeholder="Current password"
+                      autoComplete="false"
+                      onBlur={this.handleBlur}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="newPassword">New password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="newPassword"
+                      aria-describedby="newPassword"
+                      placeholder="New password"
+                      autoComplete="false"
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="confirmPassword">
+                      Confirm new password
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="confirmPassword"
+                      aria-describedby="confirmPassword"
+                      placeholder="Confirm new password"
+                      autoComplete="false"
+                      onChange={this.handleChange}
+                    />
+                  </div>
 
-                <div className="action">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </div>
-              </form>
+                  <div className="action">
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

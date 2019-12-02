@@ -45,11 +45,7 @@ class UserImage extends Component {
       <img src={imgUsr} alt="user profile image" />
     );
 
-    return (
-      <div className="photo-box">
-        <figure>{user}</figure>
-      </div>
-    );
+    return <figure>{user}</figure>;
   }
 }
 

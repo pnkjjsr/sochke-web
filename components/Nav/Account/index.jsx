@@ -16,14 +16,14 @@ class AccountNav extends Component {
       <Fragment>
         <nav className="nav-account">
           <ul>
-            <li>
+            {/* <li>
               <Link href="/account">
                 <a>
                   <i className="material-icons">account_circle</i>
                   <label htmlFor="Account">Account</label>
                 </a>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/constituency">
                 <a>
@@ -40,7 +40,7 @@ class AccountNav extends Component {
                 </a>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="data-personalisation">
                 <a>
                   <i className="material-icons">details</i>
@@ -49,11 +49,11 @@ class AccountNav extends Component {
                   </label>
                 </a>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="security">
                 <a>
-                  <i className="material-icons">security</i>
+                  <i class="material-icons">lock</i>
                   <label htmlFor="Security">Security</label>
                 </a>
               </Link>

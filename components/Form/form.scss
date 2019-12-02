@@ -27,6 +27,10 @@
 
       .form-control {
         height: 50px;
+
+        &.text-area {
+          height: 65px;
+        }
       }
 
       .form-text {
