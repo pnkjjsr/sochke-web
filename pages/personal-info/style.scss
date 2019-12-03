@@ -1,2 +1,120 @@
+@import "common/styles/global.scss";
+@import "components/Form/form.scss";
+
 .personal-info {
+  padding-top: 20px;
+
+  .top {
+    margin-bottom: 20px;
+
+    .user-photo {
+      display: flex;
+      justify-content: center;
+
+      figure {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+        @include border-radius(100%);
+        border: 1px solid $border-color;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      h1 {
+        margin-bottom: 5px;
+        font-size: rem(24);
+      }
+
+      .upload-text {
+        position: relative;
+        color: $color-primary;
+        font-size: rem(14);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  @include form;
+
+  h2 {
+    color: $color-light;
+    font-size: rem(16);
+    font-weight: $font-weight-bold;
+  }
+
+  .action {
+    text-align: center;
+    .btn {
+      min-width: 200px;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .personal-info {
+    padding-top: 50px;
+
+    .top {
+      .user-photo {
+        display: flex;
+        justify-content: flex-end;
+
+        figure {
+          width: 80px;
+          height: 80px;
+        }
+      }
+
+      .user-details {
+        text-align: left;
+      }
+    }
+
+    .form {
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+
+      .form-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        min-height: 80px;
+
+        label {
+          width: 218px;
+          margin-top: 12px;
+          padding-right: 40px;
+          text-align: right;
+        }
+
+        .form-control {
+          max-width: 400px;
+          border-color: $border-color;
+        }
+      }
+
+      .action {
+        text-align: left;
+      }
+    }
+
+    h2,
+    .action {
+      padding-left: calc(220px);
+    }
+  }
 }

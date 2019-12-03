@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import layout from "components/Layout/reducer";
 import notification from "components/Notification/reducer";
 import minister from "components/Panel/Minister/reducer";
-import responds from "components/RespondList/reducer";
+import responds from "components/Respond/RespondList/reducer";
 
 import login from "pages/login/reducer";
 import register from "pages/register/reducer";

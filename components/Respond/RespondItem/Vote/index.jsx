@@ -8,8 +8,11 @@ import "./style.scss";
 export class VoteRespond extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      vote: false
+      vote: props.voted,
+      rid: "",
+      uid: ""
     };
   }
 
@@ -41,32 +44,11 @@ export class VoteRespond extends Component {
       });
   };
 
-  componentDidMount() {
-    const { rid, uid } = this.props;
-
-    let data = {
-      rid: rid,
-      uid: uid
-    };
-
-    service
-      .post("get-vote-respond", data)
-      .then(res => {
-        if (res.data.code == "vote/added") {
-          this.setState({
-            vote: true
-          });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   render() {
     const { vote } = this.state;
-    let vClass = vote ? "active" : "";
-    let vText = vote ? "d" : "";
+    let vClass = !vote || vote == "false" ? "" : "active";
+    let vText = !vote || (vote == "false") == true ? "" : "d";
+
     return (
       <Fragment>
         <div className={`vote-respond ${vClass}`} onClick={this.handleClick}>

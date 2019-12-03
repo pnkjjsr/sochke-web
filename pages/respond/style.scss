@@ -1,14 +1,11 @@
 @import "common/styles/global.scss";
 
-.home {
+.respond {
   margin-top: 10px;
 }
 
 @include media-breakpoint-up(lg) {
-  .home {
+  .respond {
     margin-top: 25px;
   }
-}
-
-@include media-breakpoint-up(ms) {
 }

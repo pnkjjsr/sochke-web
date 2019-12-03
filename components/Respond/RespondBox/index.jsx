@@ -2,11 +2,10 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import respondActions from "components/RespondList/action";
+import respondActions from "../RespondList/action";
 
 import { service } from "apiConnect";
 import AuthSession from "utils/authSession";
-import Storage from "utils/firestoreStorage";
 
 import Button from "components/Form/Button";
 import UploadFile from "components/UploadFile";
@@ -15,7 +14,7 @@ import iconPhoto from "icons/photo.svg";
 
 import "./style.scss";
 
-class Respond extends Component {
+class RespondBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,4 +151,4 @@ const mapDispatchToProps = dispatch => ({
   respondAction: bindActionCreators(respondActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(Respond);
+export default connect(state => state, mapDispatchToProps)(RespondBox);

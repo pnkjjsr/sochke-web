@@ -1,2 +1,61 @@
-.personal-info {
+@import "common/styles/global.scss";
+@import "components/Form/form.scss";
+
+.security {
+  padding-top: 20px;
+
+  @include form;
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: rem(24);
+    font-weight: $font-weight-bold;
+  }
+
+  .action {
+    text-align: center;
+    .btn {
+      min-width: 130px;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .security {
+    padding-top: 50px;
+
+    .form {
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+
+      .form-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        min-height: 80px;
+
+        label {
+          width: 218px;
+          margin-top: 12px;
+          padding-right: 40px;
+          text-align: right;
+        }
+
+        .form-control {
+          max-width: 400px;
+          border-color: $border-color;
+        }
+      }
+
+      .action {
+        text-align: left;
+      }
+    }
+
+    .action {
+      padding-left: calc(220px);
+    }
+  }
 }

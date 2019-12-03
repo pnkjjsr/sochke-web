@@ -82,7 +82,7 @@ class EditText extends Component {
       <Fragment>
         <div className="edit-text">
           <div className="edit" onClick={this.handleEdit}>
-            <i class="material-icons">edit</i>
+            <i className="material-icons">edit</i>
           </div>
           <div className={`text ${textDisplay}`}>{val}</div>
           <div className={`input ${inputDisplay}`}>

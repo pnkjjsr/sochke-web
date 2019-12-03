@@ -4,17 +4,14 @@
   "main": "server.js",
   "license": "ISC",
   "scripts": {
-    "dev": "NODE_ENV=development node --require dotenv/config server.js",
-    "dev-mac": "node --require dotenv/config server.js",
-    "serve": "cd functions && firebase serve --only functions",
     "next": "next",
+    "next-start": "next start",
     "build": "yarn clean && next build",
-    "nstart": "next start",
-    "export": "npm run build && next export",
-    "start": "NODE_ENV=production node server.js",
-    "start-mac": "set NODE_ENV=production && node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "prod": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
     "deploy-test": "gcloud app deploy test.yaml",
+    "export": "npm run build && next export",
     "clean": "rimraf .next"
   },
   "dependencies": {

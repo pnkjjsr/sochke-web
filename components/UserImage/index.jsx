@@ -39,7 +39,11 @@ class UserImage extends Component {
 
   render() {
     const { imgUsr } = this.state;
-    let user = !imgUsr ? <i className="material-icons">account_circle</i> : <img src={imgUsr} alt="user profile image" />;
+    let user = !imgUsr ? (
+      <i className="material-icons">account_circle</i>
+    ) : (
+      <img src={imgUsr} alt="user profile image" />
+    );
 
     return <figure>{user}</figure>;
   }
