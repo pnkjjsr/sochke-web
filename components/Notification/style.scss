@@ -27,10 +27,12 @@
 
     &.alert-info {
       background-color: #2196f3;
+      color: $color-white;
     }
 
     &.alert-success {
       background-color: #43a047;
+      color: $color-white;
     }
 
     .close {

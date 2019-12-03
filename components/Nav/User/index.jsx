@@ -35,7 +35,7 @@ class UserNav extends Component {
         <nav className="user">
           <ul>
             <li>
-              <Link href="/account">
+              <Link href="/constituency">
                 <a>Account</a>
               </Link>
             </li>

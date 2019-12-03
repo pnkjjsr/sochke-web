@@ -40,7 +40,7 @@ export class index extends Component {
                   </div>
                 </div>
 
-                <form className="form" onSubmit="">
+                <form className="form">
                   <div className="form-group">
                     <label htmlFor="name">Full name</label>
                     <input

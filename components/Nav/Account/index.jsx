@@ -53,7 +53,7 @@ class AccountNav extends Component {
             <li>
               <Link href="security">
                 <a>
-                  <i class="material-icons">lock</i>
+                  <i className="material-icons">lock</i>
                   <label htmlFor="Security">Security</label>
                 </a>
               </Link>

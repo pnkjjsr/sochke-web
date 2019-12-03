@@ -5,16 +5,18 @@ import { service } from "../apiConnect";
 
 export default class Authentication {
   initialize() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(clientCredentials);
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          return user;
-        } else {
-          console.log("Not Logged In");
-        }
-      });
-    }
+    return new Promise((resolve, reject) => {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(clientCredentials);
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            resolve(user);
+          } else {
+            console.log("Not Logged In");
+          }
+        });
+      }
+    });
   }
 
   createUserWithEmailAndPassword(email, password) {
@@ -172,17 +174,21 @@ export default class Authentication {
 
   updatePassword(e) {
     let _this = this;
-    return new Promise(function(resolve, reject) {
-      _this.initialize();
-      // firebase
-      //   .auth()
-      //   .currentUser.updatePassword(e)
-      //   .then(function() {
-      //     resolve("Update successful.");
-      //   })
-      //   .catch(function(error) {
-      //     reject("An error happened.");
-      //   });
+    return new Promise((resolve, reject) => {
+      _this
+        .initialize()
+        .then(res => {
+          firebase
+            .auth()
+            .currentUser.updatePassword(e)
+            .then(function() {
+              resolve("Update successful.");
+            })
+            .catch(function(error) {
+              resolve(error);
+            });
+        })
+        .catch();
     });
   }
 }
