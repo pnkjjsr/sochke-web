@@ -29,7 +29,6 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
                 <CandidateList />
-
                 <CandidateList />
               </div>
               <div className="col-lg-9 col-xl-7">
