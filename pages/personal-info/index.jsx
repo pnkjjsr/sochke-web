@@ -111,7 +111,7 @@ export class index extends Component {
                   </div>
 
                   <div className="action">
-                    <Button text="Submit" variant="btn-primary" />
+                    <Button text="Submit" variant="btn-primary" size="btn-lg" />
                   </div>
                 </form>
               </div>

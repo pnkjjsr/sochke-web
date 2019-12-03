@@ -77,6 +77,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
+    margin-bottom: 10px;
     padding: 0 15px;
 
     .actions {
@@ -111,6 +112,10 @@
       text-align: right;
       line-height: 130%;
     }
+  }
+
+  .opinion {
+    padding: 0 15px;
   }
 }
 

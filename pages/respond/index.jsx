@@ -47,7 +47,7 @@ class Respond extends Component {
     return (
       <Fragment>
         <RespondItem respond={respond} />
-        <OpinionBox respond={respond} />
+        {/* <OpinionBox respond={respond} /> */}
         <OpinionList respond={respond} />
       </Fragment>
     );

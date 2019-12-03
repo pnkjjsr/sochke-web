@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
+import Moment from "utils/moment";
+
 import "./style.scss";
 
 export class OpinionItem extends Component {
@@ -17,6 +19,8 @@ export class OpinionItem extends Component {
 
   render() {
     const { opinion, userImg, name, date } = this.state;
+    const moment = new Moment();
+    const time = moment.format(date);
 
     return (
       <Fragment>
@@ -28,7 +32,7 @@ export class OpinionItem extends Component {
 
             <div className="details">
               {name}
-              <span>{date}</span>
+              <span>{time}</span>
             </div>
           </div>
 
