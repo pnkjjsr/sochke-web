@@ -127,7 +127,7 @@ class RespondBox extends Component {
                 <div className="d-none d-sm-block">{this.renderAddImage()}</div>
               </div>
 
-              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex flex-row justify-content-end align-items-center">
+              <div className="col-12 col-sm-3 col-md-2 col-lg-3 d-flex flex-row justify-content-between justify-content-md-end align-items-center">
                 <div className="d-sm-none">{this.renderAddImage()}</div>
 
                 <div className="actions">
