@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import actionNotifications from "components/Notification/actions";
+import loginActions from "pages/login/actions";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -61,24 +62,26 @@ export class PersonalInfo extends Component {
       email,
       gender
     } = this.state;
-    const { actionNotification } = this.props;
+    const { actionNotification, loginAction, login } = this.props;
     const { valid, errors } = validation({ email });
-    // let dob = new Date() date + month + year;
-    console.log(dob);
+    let dob;
+    if (date && month && year) {
+      let time = `${date} ${month} ${year}`;
+      dob = new Date(`${time} UTC+05:30`).toISOString();
+    }
 
     const data = {
       uid,
-      name,
+      displayName: name,
       bio,
-      dateOfBirth: dob,
-      mobile,
+      dateOfBirth: dob || "",
+      phoneNumber: mobile,
       email,
       gender
     };
 
     if (!valid) {
       actionNotification.showNotification({
-        open: "",
         message: "Please enter the details.",
         type: "danger"
       });
@@ -92,13 +95,35 @@ export class PersonalInfo extends Component {
       });
       return;
     }
+
     service
       .post("/update-user", data)
       .then(res => {
-        console.log(res);
+        const session = new authSession();
+        let uData = login.user;
+        uData = {
+          ...uData,
+          ...data
+        };
+
+        loginAction.authenticate(uData);
+        session.setProfile(uData);
+
+        actionNotification.showNotification({
+          message: "Details saved successfully",
+          type: "success"
+        });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.log(error);
+
+        let data = error.response.data;
+        let msg = data[Object.keys(data)[0]];
+        let obj = {
+          message: msg,
+          type: "danger"
+        };
+        actionNotification.showNotification(obj);
       });
   };
 
@@ -112,9 +137,11 @@ export class PersonalInfo extends Component {
   };
 
   componentDidMount() {
+    const { loginAction } = this.props;
     const auth = new authSession();
     const profile = auth.getProfile();
     const token = auth.getToken();
+    loginAction.authenticate(profile);
 
     this.setState({
       uid: token,
@@ -131,7 +158,7 @@ export class PersonalInfo extends Component {
   }
 
   render() {
-    const { name, mobile, email, emailErr, emailMsg } = this.state;
+    const { bio, gender, name, mobile, email, emailErr, emailMsg } = this.state;
     return (
       <Fragment>
         <div className="container">
@@ -183,6 +210,7 @@ export class PersonalInfo extends Component {
                       className="form-control text-area"
                       aria-label="bio"
                       placeholder="Short bio of you"
+                      value={bio}
                       onChange={this.handleChange}
                     ></textarea>
                   </div>
@@ -226,6 +254,7 @@ export class PersonalInfo extends Component {
                       className="form-control"
                       aria-label="gender"
                       placeholder="Gender"
+                      value={gender}
                       onChange={this.handleChange}
                     >
                       <option>Select</option>
@@ -253,7 +282,8 @@ export class PersonalInfo extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actionNotification: bindActionCreators(actionNotifications, dispatch)
+  actionNotification: bindActionCreators(actionNotifications, dispatch),
+  loginAction: bindActionCreators(loginActions, dispatch)
 });
 
 export default connect(state => state, mapDispatchToProps)(PersonalInfo);
