@@ -105,15 +105,25 @@ export class CalendarSelect extends Component {
   };
 
   componentDidUpdate(prevState) {
-    const { dob } = this.props;
+    const { dob, action } = this.props;
     if (this.state.dob != prevState.dob) {
       const moment = new Moment();
       let dobMoment = moment.dob(dob);
-      this.setState({
-        date: dobMoment.date,
-        month: dobMoment.month,
-        year: dobMoment.year
-      });
+      this.setState(
+        {
+          date: dobMoment.date,
+          month: dobMoment.month,
+          year: dobMoment.year
+        },
+        () => {
+          let data = {
+            date: this.state.date,
+            month: this.state.month,
+            year: this.state.year
+          };
+          action(data);
+        }
+      );
     }
   }
 

@@ -78,7 +78,6 @@ export class PersonalInfo extends Component {
       bio,
       dateOfBirth: dob || "",
       phoneNumber: mobile,
-      email,
       gender
     };
 
@@ -226,7 +225,9 @@ export class PersonalInfo extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="date of birth">Date of birth</label>
+                    <label htmlFor="date of birth">
+                      <b>Date of birth</b>
+                    </label>
                     <CalendarSelect dob={dob} action={e => this.getDOB(e)} />
                   </div>
 
@@ -242,19 +243,6 @@ export class PersonalInfo extends Component {
                       value={mobile}
                       onChange={this.handleChange}
                     />
-                  </div>
-                  <div className={`form-group ${emailErr}`}>
-                    <label htmlFor="gender">Email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      className="form-control"
-                      aria-label="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={this.handleChange}
-                    />
-                    <small className="form-text">{emailMsg}</small>
                   </div>
                   <div className="form-group">
                     <label htmlFor="gender">Gender</label>
@@ -272,6 +260,20 @@ export class PersonalInfo extends Component {
                       <option value="female">Female</option>
                       <option value="hidden">Prefer not to say</option>
                     </select>
+                  </div>
+                  <div className={`form-group ${emailErr}`}>
+                    <label htmlFor="gender">Email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      className="form-control"
+                      aria-label="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={this.handleChange}
+                      disabled="disabled"
+                    />
+                    <small className="form-text">{emailMsg}</small>
                   </div>
                   <div className="action">
                     <Button
