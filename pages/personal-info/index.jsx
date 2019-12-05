@@ -6,6 +6,7 @@ import actionNotifications from "components/Notification/actions";
 import loginActions from "pages/login/actions";
 
 import { service } from "apiConnect";
+import userAuth from "utils/userAuth";
 import authSession from "utils/authSession";
 
 import AccountNav from "components/Nav/Account";
@@ -33,7 +34,8 @@ export class PersonalInfo extends Component {
       photoURL: "",
       email: "",
       emailErr: "",
-      emailMsg: ""
+      emailMsg: "",
+      dob: ""
     };
   }
 
@@ -141,16 +143,14 @@ export class PersonalInfo extends Component {
     const auth = new authSession();
     const profile = auth.getProfile();
     const token = auth.getToken();
-    loginAction.authenticate(profile);
 
+    loginAction.authenticate(profile);
     this.setState({
       uid: token,
       photoURL: profile.photoURL,
       name: profile.displayName,
       bio: profile.bio,
-      date: "",
-      month: "",
-      year: "",
+      dob: profile.dateOfBirth,
       mobile: profile.phoneNumber,
       email: profile.email,
       gender: profile.gender
@@ -158,7 +158,17 @@ export class PersonalInfo extends Component {
   }
 
   render() {
-    const { bio, gender, name, mobile, email, emailErr, emailMsg } = this.state;
+    const {
+      dob,
+      bio,
+      gender,
+      name,
+      mobile,
+      email,
+      emailErr,
+      emailMsg
+    } = this.state;
+
     return (
       <Fragment>
         <div className="container">
@@ -217,7 +227,7 @@ export class PersonalInfo extends Component {
 
                   <div className="form-group">
                     <label htmlFor="date of birth">Date of birth</label>
-                    <CalendarSelect action={e => this.getDOB(e)} />
+                    <CalendarSelect dob={dob} action={e => this.getDOB(e)} />
                   </div>
 
                   <h2>Private Information</h2>
@@ -259,8 +269,8 @@ export class PersonalInfo extends Component {
                     >
                       <option>Select</option>
                       <option value="male">Male</option>
-                      <option value="male">Female</option>
-                      <option value="male">Prefer not to say</option>
+                      <option value="female">Female</option>
+                      <option value="hidden">Prefer not to say</option>
                     </select>
                   </div>
                   <div className="action">
@@ -286,4 +296,7 @@ const mapDispatchToProps = dispatch => ({
   loginAction: bindActionCreators(loginActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(PersonalInfo);
+export default connect(
+  state => state,
+  mapDispatchToProps
+)(userAuth(PersonalInfo));

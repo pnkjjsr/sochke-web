@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
+import Moment from "utils/moment";
+
 import "./style.scss";
 
 export class CalendarSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dob: "",
       date: "",
       month: "",
       year: "",
@@ -25,6 +28,16 @@ export class CalendarSelect extends Component {
         "December"
       ]
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.dob) {
+      return {
+        dob: props.dob
+      };
+    }
+
+    return null;
   }
 
   handleChange = e => {
@@ -91,7 +104,21 @@ export class CalendarSelect extends Component {
     return options;
   };
 
+  componentDidUpdate(prevState) {
+    const { dob } = this.props;
+    if (this.state.dob != prevState.dob) {
+      const moment = new Moment();
+      let dobMoment = moment.dob(dob);
+      this.setState({
+        date: dobMoment.date,
+        month: dobMoment.month,
+        year: dobMoment.year
+      });
+    }
+  }
+
   render() {
+    const { date, month, year } = this.state;
     return (
       <Fragment>
         <div className="row calendar-select">
@@ -103,8 +130,9 @@ export class CalendarSelect extends Component {
                 name="date"
                 aria-label="date"
                 onChange={this.handleChange}
+                value={date}
               >
-                <option value="">Select</option>
+                <option>Select</option>
                 {this.renderDate("date")}
               </select>
             </div>
@@ -118,6 +146,7 @@ export class CalendarSelect extends Component {
                 name="month"
                 aria-label="month"
                 onChange={this.handleChange}
+                value={month}
               >
                 <option value="">Select</option>
                 {this.renderDate("month")}
@@ -133,6 +162,7 @@ export class CalendarSelect extends Component {
                 name="year"
                 aria-label="year"
                 onChange={this.handleChange}
+                value={year}
               >
                 <option value="">Select</option>
                 {this.renderDate("year")}
