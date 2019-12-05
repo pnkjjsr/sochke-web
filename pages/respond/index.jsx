@@ -6,8 +6,9 @@ import userAuth from "utils/userAuth";
 
 import Loader from "components/Loader/page";
 import RespondItem from "components/Respond/RespondItem";
-import OpinionBox from "components/Opinion/OpinionBox";
 import OpinionList from "components/Opinion/OpinionList";
+import CandidateList from "components/List/CandidateList";
+import PanelChoice from "components/Panel/Choice";
 
 import "./style.scss";
 
@@ -31,6 +32,10 @@ class Respond extends Component {
     };
   }
 
+  handleBack = () => {
+    router.push("/");
+  };
+
   renderLoading = () => {
     const { view } = this.state;
 
@@ -47,7 +52,6 @@ class Respond extends Component {
     return (
       <Fragment>
         <RespondItem respond={respond} />
-        <OpinionBox respond={respond} />
         <OpinionList respond={respond} />
       </Fragment>
     );
@@ -58,9 +62,23 @@ class Respond extends Component {
       <Fragment>
         <div className="container respond">
           <div className="row">
-            <div className="col-lg-2 col-xl-2 d-none d-xl-block">Left</div>
-            <div className="col-lg-9 col-xl-7">{this.renderLoading()}</div>
-            <div className="col-lg-3 col-xl-3 d-none d-lg-block">Right</div>
+            <div className="col-lg-2 col-xl-2 d-none d-xl-block">
+              <CandidateList />
+              <CandidateList />
+            </div>
+            <div className="col-lg-9 col-xl-7">
+              <div className="center">
+                <div className="back">
+                  <button className="btn btn-link" onClick={this.handleBack}>
+                    <i class="material-icons">keyboard_backspace</i>
+                  </button>
+                </div>
+                {this.renderLoading()}
+              </div>
+            </div>
+            <div className="col-lg-3 col-xl-3 d-none d-lg-block">
+              <PanelChoice />
+            </div>
           </div>
         </div>
       </Fragment>

@@ -2,6 +2,20 @@
 
 .respond {
   margin-top: 10px;
+
+  .center {
+    position: relative;
+
+    .back {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+
+      button {
+        height: 40px;
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(lg) {

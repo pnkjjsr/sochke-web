@@ -8,6 +8,7 @@ import authSession from "utils/authSession";
 import VoteRespond from "./Vote";
 import CirculateRespond from "./Circulate";
 import OpinionRespond from "./Opinion";
+import OpinionBox from "components/Opinion/OpinionBox";
 
 import "./style.scss";
 
@@ -40,6 +41,7 @@ class RespondItem extends Component {
 
   render() {
     const { respond } = this.props;
+
     const { name, pincode, area, imgUsr, uid } = this.state;
 
     const moment = new Moment();
@@ -87,6 +89,10 @@ class RespondItem extends Component {
             {/* <br /> */}
             Constituency: {area} - {pincode}
           </div>
+        </div>
+
+        <div className="opinion">
+          <OpinionBox respond={respond} />
         </div>
       </div>
     );

@@ -52,6 +52,14 @@ app
       next();
     });
 
+    server.get("/minister/:name", (req, res) => {
+      return app.render(req, res, "/minister", { name: req.params.name });
+    });
+
+    server.get("/user/:name", (req, res) => {
+      return app.render(req, res, "/user", { name: req.params.name });
+    });
+
     server.get("*", (req, res) => {
       const parsedUrl = parse(req.url, true);
       const { pathname, query } = parsedUrl;

@@ -2,9 +2,10 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import { service } from "apiConnect";
+import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
-import OpinionItem from "components/Opinion/OpinionItem";
+import UserImage from "components/UserImage";
 
 import "./style.scss";
 
@@ -13,10 +14,11 @@ export class OpinionBox extends Component {
     super(props);
 
     this.state = {
+      uid: "",
       opinion: "",
       opinionErr: "",
       opinionMsg: "",
-      btnClass: "btn-light",
+      btnClass: "",
       btnAction: this.handleBlankRespond
     };
   }
@@ -47,32 +49,26 @@ export class OpinionBox extends Component {
   };
 
   handleRespond = () => {
-    const { opinion } = this.state;
+    const { uid, opinion } = this.state;
     const { respond } = this.props;
     let data = {
       rid: respond.id,
-      uid: respond.uid,
+      uid: uid,
       opinion: opinion
     };
 
     service
       .post("/add-opinion", data)
       .then(res => {
-        this.setState({
-          opinion: ""
-        });
+        if (res.data.code == "opinion/added") {
+          this.setState({
+            opinion: ""
+          });
+        }
 
         let odata = {
           rid: data.rid
         };
-        service
-          .post("/opinion", odata)
-          .then(res => {
-            console.log(res.data);
-          })
-          .catch(err => {
-            console.log(res);
-          });
       })
       .catch(err => {
         console.log(err);
@@ -85,26 +81,37 @@ export class OpinionBox extends Component {
       opinionMsg: "write your opinion."
     });
   };
+  componentDidMount() {
+    const session = new authSession();
+    const token = session.getToken();
+    this.setState({
+      uid: token
+    });
+  }
 
   render() {
-    const { opinionErr, opinionMsg, btnClass, btnAction } = this.state;
+    const { opinion, opinionErr, opinionMsg, btnClass, btnAction } = this.state;
     return (
       <Fragment>
         <div className="opinion-box">
-          <div className="form">
-            <div className="box">
-              <div className={`form-group ${opinionErr}`}>
-                <textarea
-                  className="form-control"
-                  name="opinion"
-                  aria-label="email"
-                  placeholder="Write your opinion"
-                  onChange={this.handleChange}
-                ></textarea>
+          <div className="photo">
+            <UserImage />
+          </div>
+
+          <div className={`form-group ${opinionErr}`}>
+            <div className="input-group">
+              <textarea
+                className="form-control"
+                name="opinion"
+                aria-label="email"
+                aria-describedby="button-addon2"
+                placeholder="Write your opinion"
+                onChange={this.handleChange}
+                value={opinion}
+              ></textarea>
+              <div className="input-group-append">
+                <Button text="Respond" variant={btnClass} action={btnAction} />
               </div>
-            </div>
-            <div className="action">
-              <Button text="Respond" variant={btnClass} action={btnAction} />
             </div>
           </div>
         </div>
