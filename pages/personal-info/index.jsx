@@ -228,7 +228,9 @@ export class PersonalInfo extends Component {
                     <label htmlFor="date of birth">
                       <b>Date of birth</b>
                     </label>
-                    <CalendarSelect dob={dob} action={e => this.getDOB(e)} />
+                    <div className="calendar">
+                      <CalendarSelect dob={dob} action={e => this.getDOB(e)} />
+                    </div>
                   </div>
 
                   <h2>Private Information</h2>

@@ -105,6 +105,21 @@
           max-width: 400px;
           border-color: $border-color;
         }
+        .calendar {
+          max-width: 400px;
+
+          .form-group {
+            display: block;
+
+            label {
+              width: auto;
+              padding: 0;
+            }
+            .form-control {
+              // width: 100%;
+            }
+          }
+        }
       }
 
       .action {

@@ -52,9 +52,12 @@ app
       next();
     });
 
-    server.get("/user/:username", (req, res) => {
-      console.log("in");
-      return app.render(req, res, "/user", { username: req.params.username });
+    server.get("/minister/:name", (req, res) => {
+      return app.render(req, res, "/minister", { name: req.params.name });
+    });
+
+    server.get("/user/:name", (req, res) => {
+      return app.render(req, res, "/user", { name: req.params.name });
     });
 
     server.get("*", (req, res) => {
