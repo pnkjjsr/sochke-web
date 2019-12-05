@@ -52,6 +52,11 @@ app
       next();
     });
 
+    server.get("/user/:username", (req, res) => {
+      console.log("in");
+      return app.render(req, res, "/user", { username: req.params.username });
+    });
+
     server.get("*", (req, res) => {
       const parsedUrl = parse(req.url, true);
       const { pathname, query } = parsedUrl;

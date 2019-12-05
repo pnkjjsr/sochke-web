@@ -11,7 +11,6 @@ import CandidateList from "components/List/CandidateList";
 import PanelChoice from "components/Panel/Choice";
 
 import "./style.scss";
-import router from "next/dist/client/router";
 
 class Respond extends Component {
   constructor(props) {
