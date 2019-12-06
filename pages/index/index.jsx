@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
-
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-// import accountActions from "./actions";
 
 import userAuth from "utils/userAuth";
 
@@ -28,8 +25,11 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-                <CandidateList />
-                <CandidateList />
+                <CandidateList type="councillor" />
+                <CandidateList type="mla" />
+                <CandidateList type="mp" />
+                <CandidateList type="cm" />
+                <CandidateList type="pm" />
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
@@ -49,8 +49,4 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  // accountAction: bindActionCreators(accountActions, dispatch)
-});
-
-export default connect(state => state, mapDispatchToProps)(userAuth(Home));
+export default connect(state => state)(userAuth(Home));

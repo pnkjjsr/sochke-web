@@ -33,7 +33,7 @@ class Respond extends Component {
   }
 
   handleBack = () => {
-    router.push("/");
+    Router.push("/");
   };
 
   renderLoading = () => {

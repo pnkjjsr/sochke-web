@@ -56,8 +56,8 @@ app
       return app.render(req, res, "/minister", { name: req.params.name });
     });
 
-    server.get("/user/:name", (req, res) => {
-      return app.render(req, res, "/user", { name: req.params.name });
+    server.get("/profile/:name", (req, res) => {
+      return app.render(req, res, "/profile", { name: req.params.name });
     });
 
     server.get("*", (req, res) => {
@@ -65,9 +65,7 @@ app
       const { pathname, query } = parsedUrl;
 
       // Redirecting url before mount
-      // if (pathname === '/') {
-      //   app.render(req, res, '/account', query);
-      // }
+      // if (pathname === '/') { app.render(req, res, '/account', query); }
 
       // handle GET request to /service-worker.js
       if (pathname === "/service-worker.js") {
