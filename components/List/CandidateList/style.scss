@@ -7,6 +7,10 @@
     margin-bottom: 10px;
     font-size: rem(18);
     font-weight: $font-weight-black;
+
+    span {
+      text-transform: uppercase;
+    }
   }
 
   ul,
