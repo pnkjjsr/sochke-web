@@ -48,6 +48,24 @@ export class CandidateWinner extends Component {
   }
 
   handleGood = () => {
+    const { ministers } = this.state;
+    const session = new authSession();
+    const token = session.getToken();
+    const data = {
+      uid: token,
+      mid: ministers.uid,
+      vote: true
+    };
+
+    service
+      .post("/minister-vote", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
     this.setState({
       dVote: "d-none",
       dCirculate: ""
