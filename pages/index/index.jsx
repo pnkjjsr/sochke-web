@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import userAuth from "utils/userAuth";
 
 import CandidateList from "components/List/CandidateList";
-import PanelChoice from "components/Panel/Choice";
+import CandidateWinner from "components/Panel/CandidateWinner";
+import Choice from "components/Panel/Choice";
 import RespondBox from "components/Respond/RespondBox";
 import RespondList from "components/Respond/RespondList";
 
@@ -37,7 +38,26 @@ class Home extends Component {
                 <RespondList />
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
-                <PanelChoice />
+                <div className="panel">
+                  <h2 className="title">Your Counstituency</h2>
+                  <div className="panel-container">
+                    <CandidateWinner type="mla" />
+                  </div>
+                </div>
+
+                <div className="panel">
+                  <h2 className="title">Delhi want change for?</h2>
+                  <div className="panel-container">
+                    <Choice />
+                  </div>
+                </div>
+
+                <div className="panel">
+                  <h2 className="title">Hari Nagar, has?</h2>
+                  <div className="panel-container">
+                    <Choice />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

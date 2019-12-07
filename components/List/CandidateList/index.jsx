@@ -32,6 +32,7 @@ class CandidateList extends Component {
 
   loopMinister = () => {
     const { type, ministers } = this.state;
+
     let typeUpperCase = type.toUpperCase();
     return ministers.map(minister => {
       if (minister.type == typeUpperCase) {
