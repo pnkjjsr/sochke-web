@@ -14,6 +14,7 @@ export class CandidateWinner extends Component {
     this.state = {
       type: props.type,
       ministers: {},
+      ministerWinner: {},
       dVote: "",
       dCirculate: "d-none",
       dResult: "d-none",
@@ -34,10 +35,13 @@ export class CandidateWinner extends Component {
       .post(apitHit, data)
       .then(res => {
         let data = res.data;
+        this.setState({
+          ministers: data
+        });
         data.map(minister => {
           if (minister.winner == true) {
             this.setState({
-              ministers: minister
+              ministerWinner: minister
             });
           }
         });
@@ -48,34 +52,48 @@ export class CandidateWinner extends Component {
   }
 
   handleGood = () => {
-    const { ministers } = this.state;
+    const { ministerWinner } = this.state;
     const session = new authSession();
     const token = session.getToken();
     const data = {
       uid: token,
-      mid: ministers.uid,
+      mid: ministerWinner.uid,
       vote: true
     };
 
     service
       .post("/minister-vote", data)
       .then(res => {
-        console.log(res);
+        this.setState({
+          dVote: "d-none",
+          dCirculate: ""
+        });
       })
       .catch(err => {
         console.log(err);
       });
-
-    this.setState({
-      dVote: "d-none",
-      dCirculate: ""
-    });
   };
   handleBad = () => {
-    this.setState({
-      dVote: "d-none",
-      dOption: ""
-    });
+    const { ministerWinner } = this.state;
+    const session = new authSession();
+    const token = session.getToken();
+    const data = {
+      uid: token,
+      mid: ministerWinner.uid,
+      vote: false
+    };
+
+    service
+      .post("/minister-vote", data)
+      .then(res => {
+        this.setState({
+          dVote: "d-none",
+          dOption: ""
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   handleCirculate = () => {
@@ -84,12 +102,14 @@ export class CandidateWinner extends Component {
       dResult: ""
     });
   };
+
   handleCirculateCancel = () => {
     this.setState({
       dCirculate: "d-none",
       dResult: ""
     });
   };
+
   handleChoose = e => {
     e.preventDefault();
     this.setState({
@@ -99,7 +119,7 @@ export class CandidateWinner extends Component {
   };
 
   render() {
-    const { dVote, dCirculate, dResult, dOption, ministers } = this.state;
+    const { dVote, dCirculate, dResult, dOption, ministerWinner } = this.state;
 
     return (
       <Fragment>
@@ -107,19 +127,19 @@ export class CandidateWinner extends Component {
           <div className="photo">
             <figure>
               <i className="material-icons">account_circle</i>
-              {/* <img src={ministers.photoUrl} alt="" /> */}
+              {/* <img src={ministerWinner.photoUrl} alt="" /> */}
             </figure>
             <figcaption>Defending Minister</figcaption>
           </div>
 
           <div className="party">
             <i className="material-icons">flag</i>
-            <label htmlFor="party">{ministers.party}</label>
+            <label htmlFor="party">{ministerWinner.party}</label>
           </div>
 
-          <div className="name">{ministers.name}</div>
+          <div className="name">{ministerWinner.name}</div>
 
-          <div className="tenure">Last 5 Year</div>
+          <div className="tenure">Last 5 Year?</div>
 
           <div className="action">
             <Button
