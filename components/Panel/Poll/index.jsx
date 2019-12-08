@@ -1,22 +1,30 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import pollActions from "./action";
 
 import Button from "components/Form/Button";
 
 import "./style.scss";
 
-export class PanelChoice extends Component {
+export class PanelPoll extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      type: props.type
+    };
+  }
 
-    this.state = {};
+  componentDidMount() {
+    const { type } = this.state;
+    const { pollAction } = this.props;
+    pollAction.prefetchPollData(type);
   }
 
   render() {
     return (
       <Fragment>
-        {/* Delhi Poll */}
-        <div className="choice-panel">
+        <div className="poll-panel">
           <p>Pollution issue should be primary Agenda to solve.</p>
 
           <div className="action">
@@ -29,8 +37,8 @@ export class PanelChoice extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+  pollAction: bindActionCreators(pollActions, dispatch)
+});
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PanelChoice);
+export default connect(state => state, mapDispatchToProps)(PanelPoll);
