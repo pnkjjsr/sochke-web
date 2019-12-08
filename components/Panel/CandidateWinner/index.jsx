@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
+import AlertRespond from "./AlertRespond";
+import OptionMinister from "./OptionMinister";
+import ResultMinister from "./ResultMinister";
+
 import Button from "components/Form/Button";
 
 import "./style.scss";
@@ -12,6 +16,7 @@ export class CandidateWinner extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      vote: "",
       type: props.type,
       ministers: {},
       ministerWinner: {},
@@ -24,15 +29,17 @@ export class CandidateWinner extends Component {
 
   componentDidMount() {
     const { type } = this.state;
+
     const session = new authSession();
     let profile = session.getProfile();
     let data = {
       pincode: profile.pincode,
       district: profile.district
     };
-    let apitHit = `/${type}`;
+
+    let getMinister = `/${type}`;
     service
-      .post(apitHit, data)
+      .post(getMinister, data)
       .then(res => {
         let data = res.data;
         this.setState({
@@ -40,9 +47,32 @@ export class CandidateWinner extends Component {
         });
         data.map(minister => {
           if (minister.winner == true) {
-            this.setState({
-              ministerWinner: minister
-            });
+            this.setState(
+              {
+                ministerWinner: minister
+              },
+              () => {
+                const session = new authSession();
+                let token = session.getToken();
+                const vData = {
+                  uid: token,
+                  mid: minister.uid
+                };
+                service
+                  .post("/minister-voted", vData)
+                  .then(res => {
+                    if (res.data.code == "vote/voted") {
+                      this.setState({
+                        dVote: "d-none",
+                        dResult: ""
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              }
+            );
           }
         });
       })
@@ -66,13 +96,15 @@ export class CandidateWinner extends Component {
       .then(res => {
         this.setState({
           dVote: "d-none",
-          dCirculate: ""
+          dCirculate: "",
+          vote: true
         });
       })
       .catch(err => {
         console.log(err);
       });
   };
+
   handleBad = () => {
     const { ministerWinner } = this.state;
     const session = new authSession();
@@ -110,16 +142,31 @@ export class CandidateWinner extends Component {
     });
   };
 
-  handleChoose = e => {
-    e.preventDefault();
+  handleChoose = () => {
     this.setState({
-      dCirculate: "",
+      dResult: "",
+      dOption: "d-none"
+    });
+  };
+
+  handleChoseCancel = () => {
+    this.setState({
+      dResult: "",
       dOption: "d-none"
     });
   };
 
   render() {
-    const { dVote, dCirculate, dResult, dOption, ministerWinner } = this.state;
+    const {
+      type,
+      vote,
+      dVote,
+      dCirculate,
+      dResult,
+      dOption,
+      ministers,
+      ministerWinner
+    } = this.state;
 
     return (
       <Fragment>
@@ -151,186 +198,32 @@ export class CandidateWinner extends Component {
           </div>
         </div>
 
-        {/* Action Penal */}
         <div className={`candidate-winner ${dCirculate}`}>
-          <p>Circulate, on my page</p>
-          <div className="action">
-            <Button
-              text="Circulate"
-              variant="btn-primary"
-              size="btn-sm"
-              action={this.handleCirculate}
-            />
-            <Button
-              text="Cancel"
-              variant="btn-light"
-              size="btn-sm"
-              action={this.handleCirculateCancel}
-            />
-          </div>
+          <AlertRespond
+            ministerDetails={ministerWinner}
+            actionCirculate={this.handleCirculate}
+            actionCancel={this.handleCirculate}
+          />
         </div>
 
-        {/* Result */}
         <div className={`candidate-winner ${dResult}`}>
-          <div className="result">
-            <div className="top">
-              <figure>
-                <i className="material-icons">account_circle</i>
-              </figure>
-
-              <div className="details">
-                Jagdeep Singh
-                <span>
-                  <i className="material-icons">flag</i>
-                  Aam Aadmi Party
-                </span>
-              </div>
-            </div>
-
-            <div className="bottom">
-              <small>Hari Nagar, Voice</small>
-              <br />
-              <b className="success">95%,</b> people found him amazing.
-              <br />
-              <b className="error">5%,</b> people not found him good.
-            </div>
-          </div>
+          {ministerWinner.uid ? (
+            <ResultMinister ministerDetails={ministerWinner} />
+          ) : (
+            ""
+          )}
         </div>
 
-        {/* Option panel */}
         <div className={`candidate-winner ${dOption}`}>
-          <p>Your opinion?</p>
-
-          <ul className="minister-list">
-            <li>
-              <div className="minister-item" onClick={this.handleChoose}>
-                <a className="hover" href="">
-                  <ul>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>03</b>
-                          <br />
-                          Cases
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>1.85 crore</b>
-                          <br />
-                          Assets
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className="link">Click to select</div>
-                </a>
-
-                <figure>
-                  <i className="material-icons">account_circle</i>
-                </figure>
-                <div className="details">
-                  Jagdeep Singh
-                  <span>
-                    <i className="material-icons">flag</i>
-                    Aam Aadmi Party
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="minister-item" onClick={this.handleChoose}>
-                <a className="hover" href="">
-                  <ul>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>03</b>
-                          <br />
-                          Cases
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>1.85 crore</b>
-                          <br />
-                          Assets
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className="link">Click to select</div>
-                </a>
-
-                <figure>
-                  <i className="material-icons">account_circle</i>
-                </figure>
-                <div className="details">
-                  Jagdeep Singh
-                  <span>
-                    <i className="material-icons">flag</i>
-                    Aam Aadmi Party
-                  </span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="minister-item" onClick={this.handleChoose}>
-                <a className="hover" href="">
-                  <ul>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>03</b>
-                          <br />
-                          Cases
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="feature">
-                        <i></i>
-                        <span>
-                          <b>1.85 crore</b>
-                          <br />
-                          Assets
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                  <div className="link">Click to select</div>
-                </a>
-
-                <figure>
-                  <i className="material-icons">account_circle</i>
-                </figure>
-                <div className="details">
-                  Jagdeep Singh
-                  <span>
-                    <i className="material-icons">flag</i>
-                    Aam Aadmi Party
-                  </span>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <OptionMinister
+            ministers={ministers}
+            actionResult={this.handleChoose}
+            actionCancel={this.handleChoseCancel}
+          />
         </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CandidateWinner);
+export default connect(state => state)(CandidateWinner);

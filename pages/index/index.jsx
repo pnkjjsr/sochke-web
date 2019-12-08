@@ -34,7 +34,6 @@ class Home extends Component {
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
-
                 <RespondList />
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">

@@ -16,6 +16,23 @@
       }
     }
   }
+
+  .panel {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid $border-color;
+    @include border-radius($border-radius-max);
+    background-color: $bg-panel;
+
+    .title {
+      margin-bottom: 15px;
+      font-size: rem(18);
+      font-weight: $font-weight-black;
+    }
+
+    .panel-container {
+    }
+  }
 }
 
 @include media-breakpoint-up(lg) {
