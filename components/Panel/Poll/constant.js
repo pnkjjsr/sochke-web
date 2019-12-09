@@ -1,1 +1,5 @@
 export const PREFETCHPOLL = "PREFETCHPOLL";
+export const AREAPOLL = "AREAPOLL";
+export const STATEPOLL = "STATEPOLL";
+export const DISTRICTPOLL = "DISTRICTPOLL";
+export const COUNTRYPOLL = "COUNTRYPOLL";

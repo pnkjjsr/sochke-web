@@ -47,14 +47,14 @@ class Home extends Component {
                 <div className="panel">
                   <h2 className="title">Delhi want change for?</h2>
                   <div className="panel-container">
-                    <Poll type="area" />
+                    <Poll type="state" />
                   </div>
                 </div>
 
                 <div className="panel">
                   <h2 className="title">Hari Nagar, has?</h2>
                   <div className="panel-container">
-                    <Poll type="state" />
+                    <Poll type="area" />
                   </div>
                 </div>
               </div>

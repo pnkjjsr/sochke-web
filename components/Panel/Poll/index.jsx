@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import pollActions from "./action";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -14,22 +12,43 @@ export class PanelPoll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: props.type
+      type: props.type,
+      poll: []
     };
   }
 
+  apiPoll = data => {
+    service
+      .post("/poll", data)
+      .then(res => {
+        this.setState({
+          poll: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   componentDidMount() {
     const { type } = this.state;
-    const { pollAction } = this.props;
-    pollAction.prefetchPollData(type);
+
+    const session = new authSession();
+    const token = session.getToken();
+
+    let data = {
+      uid: token,
+      type: type
+    };
+
+    this.apiPoll(data);
   }
 
   handlePoll = e => {
-    const { polls, pollAction } = this.props;
+    const { type, poll } = this.state;
     const session = new authSession();
     let token = session.getToken();
 
-    let poll = polls.data;
     let data = {
       uid: token,
       pid: poll.id,
@@ -39,7 +58,11 @@ export class PanelPoll extends Component {
     service
       .post("/add-poll", data)
       .then(res => {
-        pollAction.prefetchPollData(type);
+        let pdata = {
+          uid: token,
+          type: type
+        };
+        this.apiPoll(pdata);
       })
       .catch(err => {
         console.log(err);
@@ -47,8 +70,7 @@ export class PanelPoll extends Component {
   };
 
   render() {
-    const { polls } = this.props;
-    let poll = polls.data;
+    const { poll } = this.state;
 
     return (
       <Fragment>
@@ -75,8 +97,4 @@ export class PanelPoll extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  pollAction: bindActionCreators(pollActions, dispatch)
-});
-
-export default connect(state => state, mapDispatchToProps)(PanelPoll);
+export default connect(state => state)(PanelPoll);
