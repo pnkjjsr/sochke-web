@@ -4,25 +4,27 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 const prefetchPollData = e => {
-  const session = new authSession();
-  const profile = session.getProfile();
-  let type = `profile.${e}`;
+  return dispatch => {
+    const session = new authSession();
+    const token = session.getToken();
 
-  let data = {
-    [e]: e
-  };
+    let data = {
+      uid: token,
+      type: e
+    };
 
-  service
-    .post("/poll", data)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      //   console.log(err);
-    });
-  return {
-    type: PREFETCHPOLL,
-    payload: e
+    service
+      .post("/poll", data)
+      .then(res => {
+        let pollData = res.data;
+        dispatch({
+          type: PREFETCHPOLL,
+          payload: pollData
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 
