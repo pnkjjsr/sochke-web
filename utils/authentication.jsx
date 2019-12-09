@@ -51,6 +51,21 @@ export default class Authentication {
     });
   }
 
+  getBearerToken = () => {
+    let _this = this;
+    return new Promise((resolve, reject) => {
+      _this
+        .initialize()
+        .then(res => {
+          const token = firebase.auth().currentUser.getIdToken();
+          resolve(token);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  };
+
   signOut() {
     this.initialize();
     firebase

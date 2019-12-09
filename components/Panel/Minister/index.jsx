@@ -17,14 +17,22 @@ class PanelMinister extends Component {
     };
   }
 
-  static getDerivedStateFromProps(props) {
-    // console.log(props.minister);
+  static getDerivedStateFromProps(props, state) {
+    const { type } = state;
+    let i;
+    let size = props.minister[type].length;
+    console.log(props.minister[type]);
 
-    if (props.minister) {
-      return {
-        data: props.minister
-      };
+    for (i = 0; i <= size; i++) {
+      let mData = props.minister[type][i];
+
+      if (mData && (mData.winner = true)) {
+        return {
+          data: mData
+        };
+      }
     }
+
     return true;
   }
 
@@ -36,7 +44,7 @@ class PanelMinister extends Component {
 
   render() {
     const { type, title, data } = this.state;
-    let minister = data[type];
+    let minister = data;
 
     if (!minister) {
       return <div>Loading</div>;
@@ -61,23 +69,23 @@ class PanelMinister extends Component {
                 <div className="details">
                   <ul>
                     <li>
-                      <i class="material-icons">flag</i>
+                      <i className="material-icons">flag</i>
                       <label htmlFor="party">
                         <b>{minister.party}</b>
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">money</i>
+                      <i className="material-icons">money</i>
                       <label htmlFor="assets">Rs {minister.assets}</label>
                     </li>
                     <li>
-                      <i class="material-icons">menu_book</i>
+                      <i className="material-icons">menu_book</i>
                       <label htmlFor="education">
                         {minister.education} Pass
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">home</i>
+                      <i className="material-icons">home</i>
                       <label htmlFor="address">
                         {minister.address}, {minister.state}-{minister.pincode}
                       </label>

@@ -45,6 +45,14 @@ export default class authSession {
     return localStorage.getItem("secretKey");
   }
 
+  setBearerToken(key) {
+    localStorage.setItem("bearerToken", key);
+  }
+
+  getBearerToken() {
+    return localStorage.getItem("bearerToken");
+  }
+
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("token");

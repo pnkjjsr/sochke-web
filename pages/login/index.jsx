@@ -90,6 +90,7 @@ class Login extends Component {
             uid: token
           };
           session.setToken(token);
+
           service
             .post("/login", data)
             .then(result => {
