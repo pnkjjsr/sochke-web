@@ -1,21 +1,21 @@
-import axios from 'axios';
-import isPlainObject from 'is-plain-object';
+import axios from "axios";
+import isPlainObject from "is-plain-object";
 
-const NODE = process.env.NODE_ENV === 'production'
+const NODE = process.env.NODE_ENV === "production";
 
 let req = null;
 
 export default class Service {
   constructor(axiosConfig) {
-    this.requestTimeout = process.env.requestTimeout
-    this.apiVersion = process.env.apiVersion
-    this.apiProtocol = process.env.apiProtocol
-    this.requestBaseurl = process.env.requestBaseurl
-    this.requestBaseurlLocal = process.env.requestBaseurlLocal
+    this.requestTimeout = process.env.requestTimeout;
+    this.apiVersion = process.env.apiVersion;
+    this.apiProtocol = process.env.apiProtocol;
+    this.requestBaseurl = process.env.requestBaseurl;
+    this.requestBaseurlLocal = process.env.requestBaseurlLocal;
 
     if (!isPlainObject(axiosConfig)) {
       throw new TypeError(
-        'Invalid data type of axios config. It must be a plain object.'
+        "Invalid data type of axios config. It must be a plain object."
       );
     }
 
@@ -23,7 +23,11 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: this.requestTimeout
+      timeout: this.requestTimeout,
+      headers: {
+        authorization: `Bearer Auth Token`,
+        "x-access-token": `Bearer Access Token`
+      }
     };
 
     this.axios = axios.create(
@@ -91,7 +95,7 @@ service.interceptRequest(
   config => {
     // set the cookie header for server
     if (NODE && Service.req && Service.req.header) {
-      config.headers.Cookie = Service.req.header('cookie') || '';
+      config.headers.Cookie = Service.req.header("cookie") || "";
       Service.req = null;
     }
 

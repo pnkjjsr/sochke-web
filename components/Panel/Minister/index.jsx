@@ -61,23 +61,23 @@ class PanelMinister extends Component {
                 <div className="details">
                   <ul>
                     <li>
-                      <i class="material-icons">flag</i>
+                      <i className="material-icons">flag</i>
                       <label htmlFor="party">
                         <b>{minister.party}</b>
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">money</i>
+                      <i className="material-icons">money</i>
                       <label htmlFor="assets">Rs {minister.assets}</label>
                     </li>
                     <li>
-                      <i class="material-icons">menu_book</i>
+                      <i className="material-icons">menu_book</i>
                       <label htmlFor="education">
                         {minister.education} Pass
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">home</i>
+                      <i className="material-icons">home</i>
                       <label htmlFor="address">
                         {minister.address}, {minister.state}-{minister.pincode}
                       </label>
