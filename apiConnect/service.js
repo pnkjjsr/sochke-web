@@ -1,8 +1,10 @@
 import axios from "axios";
 import isPlainObject from "is-plain-object";
+import "firebase/auth";
+import firebase from "firebase/app";
+import clientCredentials from "../firebaseConfig";
 
 const NODE = process.env.NODE_ENV === "production";
-
 let req = null;
 
 export default class Service {
@@ -23,11 +25,7 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: this.requestTimeout,
-      headers: {
-        authorization: `Bearer Auth Token`,
-        "x-access-token": `Bearer Access Token`
-      }
+      timeout: this.requestTimeout
     };
 
     this.axios = axios.create(
@@ -85,6 +83,24 @@ export default class Service {
   delete(url, config) {
     return this.axios.delete(url, config);
   }
+
+  getAuthorizationToken = () => {
+    return new Promise((resolve, reject) => {
+      if (!firebase.apps.length) firebase.initializeApp(clientCredentials);
+
+      const auth = firebase.auth();
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          auth.currentUser.getIdToken().then(token => {
+            resolve(token);
+          });
+        } else {
+          resolve("Not logged in.");
+          console.log("Not Logged In");
+        }
+      });
+    });
+  };
 }
 
 // create default service instance and interceptors
@@ -92,12 +108,15 @@ export default class Service {
 export const service = Service.create();
 
 service.interceptRequest(
-  config => {
-    // set the cookie header for server
-    if (NODE && Service.req && Service.req.header) {
-      config.headers.Cookie = Service.req.header("cookie") || "";
-      Service.req = null;
-    }
+  async config => {
+    // if (NODE && Service.req && Service.req.header) {
+    //   config.headers.Cookie = Service.req.header("cookie") || "";
+    //   Service.req = null;
+    // }
+
+    await service.getAuthorizationToken().then(res => {
+      config.headers["authorization"] = res;
+    });
 
     return config;
   },
@@ -113,3 +132,5 @@ service.interceptResponse(
   // say, when user authentication failure occured
   err => Promise.reject(err)
 );
+
+// set the cookie header for server

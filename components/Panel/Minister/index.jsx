@@ -21,7 +21,6 @@ class PanelMinister extends Component {
     const { type } = state;
     let i;
     let size = props.minister[type].length;
-    console.log(props.minister[type]);
 
     for (i = 0; i <= size; i++) {
       let mData = props.minister[type][i];
