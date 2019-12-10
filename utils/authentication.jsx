@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import clientCredentials from "../firebaseConfig";
 import { service } from "../apiConnect";
+import authSession from "./authSession";
 
 export default class Authentication {
   initialize() {
@@ -51,19 +52,10 @@ export default class Authentication {
     });
   }
 
-  getBearerToken = () => {
-    let _this = this;
-    return new Promise((resolve, reject) => {
-      _this
-        .initialize()
-        .then(res => {
-          const token = firebase.auth().currentUser.getIdToken();
-          resolve(token);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+  getBearerToken = token => {
+    const session = new authSession();
+    session.setBearerToken(token);
+    return token;
   };
 
   signOut() {

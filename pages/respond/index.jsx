@@ -9,7 +9,7 @@ import RespondItem from "components/Respond/RespondItem";
 import OpinionList from "components/Opinion/OpinionList";
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
-import Choice from "components/Panel/Choice";
+import Poll from "components/Panel/Poll";
 
 import "./style.scss";
 
@@ -91,14 +91,14 @@ class Respond extends Component {
               <div className="panel">
                 <h2 className="title">Delhi want change for?</h2>
                 <div className="panel-container">
-                  <Choice />
+                  <Poll type="state" />
                 </div>
               </div>
 
               <div className="panel">
                 <h2 className="title">Hari Nagar, has?</h2>
                 <div className="panel-container">
-                  <Choice />
+                  <Poll type="area" />
                 </div>
               </div>
             </div>
