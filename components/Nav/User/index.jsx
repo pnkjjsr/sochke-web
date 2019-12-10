@@ -14,7 +14,9 @@ import "./style.scss";
 class UserNav extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      url: ""
+    };
   }
 
   handleLogout = e => {
@@ -29,11 +31,26 @@ class UserNav extends Component {
     Router.push("/login");
   };
 
+  componentDidMount() {
+    const session = new authSession();
+    const profile = session.getProfile();
+    let name = profile.displayName;
+    this.setState({
+      url: name
+    });
+  }
+
   render() {
+    const { url } = this.state;
     return (
       <Fragment>
         <nav className="user">
           <ul>
+            <li>
+              <Link href={`/profile/${url}`}>
+                <a>Profile</a>
+              </Link>
+            </li>
             <li>
               <Link href="/constituency">
                 <a>Account</a>

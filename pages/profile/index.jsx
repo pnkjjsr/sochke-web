@@ -1,12 +1,21 @@
 import React, { Component, Fragment } from "react";
+import Router from "next/router";
+import Link from "next/link";
+
+import authSession from "utils/authSession";
+
 import UserImage from "components/UserImage";
 
+import TabsProfile from "./Tabs";
+import TabContainer from "./TabContainer";
 import "./style.scss";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: ""
+    };
   }
 
   static async getInitialProps({ query }) {
@@ -14,9 +23,19 @@ class Profile extends Component {
   }
   componentDidMount() {
     // console.log(this.props.query.name);
+    const session = new authSession();
+    const profile = session.getProfile();
+    this.setState({
+      name: profile.displayName
+    });
   }
 
+  handleEditProfile = () => {
+    Router.push("/personal-info");
+  };
+
   render() {
+    const { name } = this.state;
     return (
       <Fragment>
         <div className="container profile">
@@ -27,10 +46,20 @@ class Profile extends Component {
             </div>
 
             <div className="details">
-              <h1>Welcome, Pankaj Jasoria</h1>
+              <h1>Welcome, {name}</h1>
               <div className="action">
-                <button className="btn btn-sm btn-default">Edit Profile</button>
-                <i className="material-icons setting">settings_applications</i>
+                <button
+                  className="btn btn-sm btn-default"
+                  onClick={this.handleEditProfile}
+                >
+                  Edit Profile
+                </button>
+
+                <Link href="/security">
+                  <a className="setting">
+                    <i className="material-icons ">settings_applications</i>
+                  </a>
+                </Link>
               </div>
               <div className="count">
                 <ul>
@@ -43,34 +72,9 @@ class Profile extends Component {
             </div>
           </div>
 
-          {/* Tab */}
-          <div className="tabs">
-            <ul>
-              <li className="active">Responds</li>
-              <li>Contributions</li>
-              <li>Media</li>
-              <li>Belivers</li>
-              <li>Leaders</li>
-            </ul>
-          </div>
+          <TabsProfile />
 
-          {/* Tab Conatiner */}
-          <div className="tab-container">
-            <div className="context-empty">
-              <h2>
-                You haven’t Responed yet
-                <small>When you write a Respond, it’ll show up here.</small>
-              </h2>
-              <p>
-                Respond is general thought of your about your area, problems,
-                issue, good things and society. It can be positive or negative.
-                Respond just show other people true face of the situation.
-              </p>
-              <div className="action">
-                <button className="btn btn-lg btn-primary">Respond Now</button>
-              </div>
-            </div>
-          </div>
+          <TabContainer />
         </div>
       </Fragment>
     );

@@ -44,9 +44,15 @@
           border: 1px solid $color-lighter;
         }
         .setting {
+          display: flex;
+          align-items: center;
           color: $color-light;
-          font-size: rem(30);
           cursor: pointer;
+          text-decoration: none;
+
+          i {
+            font-size: rem(30);
+          }
         }
       }
 
@@ -150,6 +156,7 @@
     .top {
       flex-direction: row;
       justify-content: flex-start;
+      margin-bottom: 50px;
 
       .photo {
         width: 150px;
@@ -167,6 +174,7 @@
 
         .action {
           justify-content: left;
+          margin-bottom: 40px;
         }
 
         .count {
