@@ -1,33 +1,48 @@
 import React, { Component, Fragment } from "react";
 import Router from "next/router";
 import Link from "next/link";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import profileActions from "./action";
 
-import userAuth from "utils/userAuth";
-import authSession from "utils/authSession";
+import RespondList from "components/Respond/RespondList";
 
-import UserImage from "components/UserImage";
-
-import TabsProfile from "./Tabs";
-import TabContainer from "./TabContainer";
 import "./style.scss";
 
 class Profile extends Component {
+  static async getInitialProps({ query }) {
+    let user = query.userName;
+    return { user };
+  }
+
   constructor(props) {
     super(props);
-    this.state = { name: "" };
+    this.state = {
+      user: props.user,
+      userImage: ""
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { profile } = props;
+
+    let len = Object.keys(profile.data).length;
+
+    if (!len) {
+      return null;
+    } else {
+      return {
+        userImage: profile.data.userData.photoURL
+      };
+    }
   }
 
   componentDidMount() {
+    const { user } = this.state;
     const { profileAction } = this.props;
-    const session = new authSession();
-    const profile = session.getProfile();
-    if (!profile.displayName) this.setState({ name: profile.userName });
-    this.setState({ name: profile.displayName });
-    profileAction.prefetchProfileData(profile.userName);
+    profileAction.prefetchProfileData(user);
   }
 
   handleEditProfile = () => {
@@ -35,7 +50,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { name } = this.state;
+    const { user, userImage } = this.state;
     const { profile } = this.props;
 
     return (
@@ -44,11 +59,13 @@ class Profile extends Component {
           {/* Top User Details */}
           <div className="top">
             <div className="photo">
-              <UserImage />
+              <figure>
+                <img src={userImage} alt="" />
+              </figure>
             </div>
 
             <div className="details">
-              <h1>Welcome, {name}</h1>
+              <h1>Welcome, {user}</h1>
               <div className="action">
                 <button
                   className="btn btn-sm btn-default"
@@ -75,8 +92,120 @@ class Profile extends Component {
             </div>
           </div>
 
-          <TabsProfile />
-          <TabContainer />
+          <Tabs>
+            <div className="tabs">
+              <TabList>
+                <Tab>Responds</Tab>
+                <Tab>Contributions</Tab>
+                <Tab>Media</Tab>
+                <Tab>Belivers</Tab>
+                <Tab>Leaders</Tab>
+              </TabList>
+            </div>
+
+            <div className="tab-container">
+              <TabPanel>
+                <div className={`context-empty `}>
+                  <h2>
+                    You haven’t Responed yet
+                    <small>When you write a Respond, it’ll show up here.</small>
+                  </h2>
+                  <p>
+                    Respond is general thought of your about your area,
+                    problems, issue, good things and society. It can be positive
+                    or negative. Respond just show other people true face of the
+                    situation.
+                  </p>
+                  <div className="action">
+                    <button className="btn btn-lg btn-primary">
+                      Respond Now
+                    </button>
+                  </div>
+                </div>
+              </TabPanel>
+
+              <TabPanel>
+                <div className={`context-empty `}>
+                  <h2>
+                    You haven’t Contributed yet
+                    <small>
+                      When you write a Contribute, it’ll show up here.
+                    </small>
+                  </h2>
+                  <p>
+                    Contribute is a reall issue, problem, good thing or any
+                    realastic point of your area. You can write 3 contribute in
+                    a day. It will speacially show your area and other people
+                    can VOTE and give Opinion on that. Biggest the support your
+                    get from your area, biggest the value of Contribution.
+                  </p>
+                  <div className="action">
+                    <button className="btn btn-lg btn-primary">
+                      Contribute Now
+                    </button>
+                  </div>
+                </div>
+              </TabPanel>
+
+              <TabPanel>
+                <div className={`context-empty `}>
+                  <h2>
+                    You haven’t Upload Media Responed yet
+                    <small>
+                      When you add a Media Respond, it’ll show up here.
+                    </small>
+                  </h2>
+                  <p>
+                    Media Respond, is same as respond but with photo of that
+                    area, problems, issue, good things and society. It can be
+                    positive or negative. Respond just show true face of the
+                    situation.
+                  </p>
+                  <div className="action">
+                    <button className="btn btn-lg btn-primary">
+                      Respond Now
+                    </button>
+                  </div>
+                </div>
+              </TabPanel>
+
+              <TabPanel>
+                <div className={`context-empty `}>
+                  <h2>
+                    You haven’t any Beliver yet
+                    <small>Belivers, show up here.</small>
+                  </h2>
+                  <p>
+                    Belivers are the person and group of person who believe in
+                    your thoughts.
+                  </p>
+                  <div className="action">
+                    <button className="btn btn-lg btn-primary">
+                      Invite Now
+                    </button>
+                  </div>
+                </div>
+              </TabPanel>
+
+              <TabPanel>
+                <div className={`context-empty `}>
+                  <h2>
+                    You haven’t any Leader yet
+                    <small>Leaders, show up here.</small>
+                  </h2>
+                  <p>
+                    Leaders are those you believe in. Their thoughts and
+                    contriubtion is value for you.
+                  </p>
+                  <div className="action">
+                    <button className="btn btn-lg btn-primary">
+                      Show Leaders
+                    </button>
+                  </div>
+                </div>
+              </TabPanel>
+            </div>
+          </Tabs>
         </div>
       </Fragment>
     );
@@ -87,4 +216,4 @@ const mapDispatchToProps = dispatch => ({
   profileAction: bindActionCreators(profileActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(userAuth(Profile));
+export default connect(state => state, mapDispatchToProps)(Profile);

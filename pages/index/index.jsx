@@ -17,8 +17,6 @@ class Home extends Component {
     this.state = {};
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <Fragment>
