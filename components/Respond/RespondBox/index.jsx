@@ -36,7 +36,7 @@ class RespondBox extends Component {
   handleSubmit = () => {
     const { uid, respond, imgResp } = this.state;
     const { respondAction } = this.props;
-    const respType = imgResp ? "image" : "text";
+    const respType = imgResp ? "media" : "text";
 
     let data = {
       uid: uid,

@@ -94,8 +94,8 @@ class Login extends Component {
           service
             .post("/login", data)
             .then(result => {
-              user.authenticate(result.data);
               session.setProfile(result.data);
+              user.authenticate(result.data);
               Router.push("/constituency");
             })
             .catch(error => {

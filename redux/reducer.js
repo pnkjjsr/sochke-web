@@ -10,6 +10,7 @@ import polls from "components/Panel/Poll/reducer";
 import login from "pages/login/reducer";
 import register from "pages/register/reducer";
 import account from "pages/account/reducer";
+import profile from "pages/profile/reducer";
 
 const rootReducer = combineReducers({
   layout,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
 
   login,
   register,
-  account
+  account,
+  profile
 });
 
 export default rootReducer;

@@ -34,20 +34,22 @@ class UserNav extends Component {
   componentDidMount() {
     const session = new authSession();
     const profile = session.getProfile();
-    let name = profile.displayName;
+    let userName = profile.userName;
+
     this.setState({
-      url: name
+      url: userName
     });
   }
 
   render() {
     const { url } = this.state;
+
     return (
       <Fragment>
         <nav className="user">
           <ul>
             <li>
-              <Link href={`/profile/${url}`}>
+              <Link href={`/profile/${url}`} as={`/profile/${url}`}>
                 <a>Profile</a>
               </Link>
             </li>

@@ -64,8 +64,10 @@ app
       return app.render(req, res, "/");
     });
 
-    server.get("/profile/:name", (req, res) => {
-      return app.render(req, res, "/profile", { name: req.params.name });
+    server.get("/profile/:userName", (req, res) => {
+      return app.render(req, res, "/profile", {
+        userName: req.params.userName
+      });
     });
 
     server.get("*", (req, res) => {

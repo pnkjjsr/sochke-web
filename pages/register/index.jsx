@@ -141,8 +141,8 @@ class Register extends Component {
           service
             .post("/signup", data)
             .then(result => {
-              user.authenticate(result.data);
               session.setProfile(result.data);
+              user.authenticate(result.data);
               auth.sendEmailVerification();
               Router.push("/constituency");
             })
