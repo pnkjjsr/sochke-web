@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./actions";
 
+import stringModifier from "utils/stringModifier";
+
 import PhotoPanel from "../Photo";
 
 import "./style.scss";
@@ -43,7 +45,9 @@ class PanelMinister extends Component {
 
   render() {
     const { type, title, data } = this.state;
+    const string = new stringModifier();
     let minister = data;
+    let assets = string.currencyFormat(minister.assets, "long");
 
     if (!minister) {
       return <div>Loading</div>;
@@ -75,7 +79,7 @@ class PanelMinister extends Component {
                     </li>
                     <li>
                       <i className="material-icons">money</i>
-                      <label htmlFor="assets">Rs {minister.assets}</label>
+                      <label htmlFor="assets">{assets}</label>
                     </li>
                     <li>
                       <i className="material-icons">menu_book</i>
