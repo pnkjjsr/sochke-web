@@ -149,7 +149,7 @@ export class PersonalInfo extends Component {
       photoURL: profile.photoURL,
       name: profile.displayName,
       bio: profile.bio,
-      dob: profile.dateOfBirth,
+      dob: profile.dateOfBirth || "",
       mobile: profile.phoneNumber,
       email: profile.email,
       gender: profile.gender
@@ -167,6 +167,7 @@ export class PersonalInfo extends Component {
       emailErr,
       emailMsg
     } = this.state;
+    console.log(dob);
 
     return (
       <Fragment>
