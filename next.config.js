@@ -20,6 +20,7 @@ const nextConfig = {
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId,
     secretKey: process.env.SECRET_KEY,
+    xAccessKey: process.env.X_ACCESS_TOKEN,
     govKey: process.env.GOV_KEY,
     apiProtocol: process.env.API_PROTOCOL,
     requestTimeout: process.env.REQUEST_TIMEOUT,

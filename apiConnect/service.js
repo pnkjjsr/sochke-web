@@ -95,8 +95,7 @@ export default class Service {
             resolve(token);
           });
         } else {
-          resolve("Not logged in.");
-          console.log("Not Logged In");
+          resolve(process.env.xAccessKey);
         }
       });
     });
@@ -116,6 +115,7 @@ service.interceptRequest(
 
     await service.getAuthorizationToken().then(res => {
       config.headers["authorization"] = res;
+      config.headers["x-access-token"] = res;
     });
 
     return config;
