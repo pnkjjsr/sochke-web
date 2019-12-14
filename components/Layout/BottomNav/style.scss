@@ -1,0 +1,49 @@
+@import "common/styles/global";
+
+.bottomNav[role="main"] {
+  position: fixed;
+  z-index: $bottomNav;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 10px;
+  background: #fff;
+  border-top: 1px solid $border-color;
+  box-shadow: 0px -3px 10px 0 rgba(0, 0, 0, 0.2);
+  border: solid 1px #bad8da;
+  text-align: center;
+
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  ul.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    li {
+      a {
+        display: flex;
+        align-items: center;
+        padding: 7px 0;
+        text-decoration: none;
+
+        i {
+          color: $color-light;
+          font-size: rem(30);
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .bottomNav[role="main"] {
+    display: none;
+  }
+}
