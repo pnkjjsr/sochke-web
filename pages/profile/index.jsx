@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import profileActions from "./action";
 
-import RespondList from "components/Respond/RespondList";
-
+import RespondProfile from "./Respond";
+import MediaRespondProfile from "./MediaRespond";
 import "./style.scss";
 
 class Profile extends Component {
@@ -34,7 +34,7 @@ class Profile extends Component {
       return null;
     } else {
       return {
-        userImage: profile.data.userData.photoURL
+        userImage: profile.data.photoURL
       };
     }
   }
@@ -105,23 +105,7 @@ class Profile extends Component {
 
             <div className="tab-container">
               <TabPanel>
-                <div className={`context-empty `}>
-                  <h2>
-                    You haven’t Responed yet
-                    <small>When you write a Respond, it’ll show up here.</small>
-                  </h2>
-                  <p>
-                    Respond is general thought of your about your area,
-                    problems, issue, good things and society. It can be positive
-                    or negative. Respond just show other people true face of the
-                    situation.
-                  </p>
-                  <div className="action">
-                    <button className="btn btn-lg btn-primary">
-                      Respond Now
-                    </button>
-                  </div>
-                </div>
+                <RespondProfile respondArr={profile.data} />
               </TabPanel>
 
               <TabPanel>
@@ -148,25 +132,7 @@ class Profile extends Component {
               </TabPanel>
 
               <TabPanel>
-                <div className={`context-empty `}>
-                  <h2>
-                    You haven’t Upload Media Responed yet
-                    <small>
-                      When you add a Media Respond, it’ll show up here.
-                    </small>
-                  </h2>
-                  <p>
-                    Media Respond, is same as respond but with photo of that
-                    area, problems, issue, good things and society. It can be
-                    positive or negative. Respond just show true face of the
-                    situation.
-                  </p>
-                  <div className="action">
-                    <button className="btn btn-lg btn-primary">
-                      Respond Now
-                    </button>
-                  </div>
-                </div>
+                <MediaRespondProfile respondArr={profile.data} />
               </TabPanel>
 
               <TabPanel>

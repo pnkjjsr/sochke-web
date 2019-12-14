@@ -1,37 +1,48 @@
 @import "common/styles/global.scss";
 
-.drawer {
+.drawer-page {
   position: relative;
 
-  nav {
+  .container {
     position: fixed;
     z-index: 1;
     top: 0;
     width: 100%;
     height: 100%;
+    padding: 0;
     transition: all 0.2s ease;
     transform: scale(1);
 
-    ul {
-      width: 60%;
+    .content {
+      width: 100%;
       height: 100%;
       padding: 10px;
       background-color: #fff;
+      text-align: left;
+
+      .back {
+        display: flex;
+        justify-content: flex-start;
+        button {
+          height: 40px;
+        }
+      }
     }
   }
 
   &.right {
-    nav {
+    .container {
       right: 0;
       margin-right: calc(-100% - 10px);
-      ul {
+
+      .content {
         float: right;
         box-shadow: -5px -2px 5px #00000047;
       }
     }
 
     &.open {
-      nav {
+      .container {
         margin-right: 0;
       }
     }

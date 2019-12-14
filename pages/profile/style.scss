@@ -4,7 +4,7 @@
   margin-top: 10px;
 
   // Top User Details
-  .top {
+  & > .top {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
