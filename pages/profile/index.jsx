@@ -2,10 +2,14 @@ import React, { Component, Fragment } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import profileActions from "./action";
+
+import authSession from "utils/authSession";
+
+import Button from "components/Form/Button";
+import PageLoader from "components/Loader/page";
 
 import RespondProfile from "./Respond";
 import MediaRespondProfile from "./MediaRespond";
@@ -13,15 +17,17 @@ import "./style.scss";
 
 class Profile extends Component {
   static async getInitialProps({ query }) {
-    let user = query.userName;
-    return { user };
+    let queryName = query.userName;
+    return { queryName };
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
-      userImage: ""
+      userName: "",
+      userImage: "",
+      query: props.queryName,
+      view: 0
     };
   }
 
@@ -34,23 +40,65 @@ class Profile extends Component {
       return null;
     } else {
       return {
-        userImage: profile.data.photoURL
+        userImage: profile.data.photoURL,
+        view: 1
       };
     }
   }
 
   componentDidMount() {
-    const { user } = this.state;
+    const { query } = this.state;
     const { profileAction } = this.props;
-    profileAction.prefetchProfileData(user);
+    const session = new authSession();
+    const profile = session.getProfile();
+
+    this.setState({
+      userName: profile.userName
+    });
+
+    profileAction.prefetchProfileData(query);
   }
 
   handleEditProfile = () => {
     Router.push("/personal-info");
   };
 
-  render() {
-    const { user, userImage } = this.state;
+  renderAction = () => {
+    const { userName, query } = this.state;
+
+    if (userName == query) {
+      return (
+        <Button
+          text=" Edit Profile"
+          size="btn-sm"
+          variant="btn-default"
+          action={this.handleEditProfile}
+        />
+      );
+    } else {
+      return (
+        <Button
+          text="I Believe"
+          size="btn-sm"
+          variant="btn-primary"
+          action={this.handleEditProfile}
+        />
+      );
+    }
+  };
+
+  renderUserImage = () => {
+    const { userImage } = this.state;
+
+    if (userImage) {
+      return <img src={userImage} alt="" />;
+    } else {
+      return <i className="material-icons">account_circle</i>;
+    }
+  };
+
+  renderProfile = () => {
+    const { query } = this.state;
     const { profile } = this.props;
 
     return (
@@ -59,20 +107,13 @@ class Profile extends Component {
           {/* Top User Details */}
           <div className="top">
             <div className="photo">
-              <figure>
-                <img src={userImage} alt="" />
-              </figure>
+              <figure>{this.renderUserImage()}</figure>
             </div>
 
             <div className="details">
-              <h1>Welcome, {user}</h1>
+              <h1>Welcome, {query}</h1>
               <div className="action">
-                <button
-                  className="btn btn-sm btn-default"
-                  onClick={this.handleEditProfile}
-                >
-                  Edit Profile
-                </button>
+                {this.renderAction()}
 
                 <Link href="/security">
                   <a className="setting">
@@ -175,6 +216,16 @@ class Profile extends Component {
         </div>
       </Fragment>
     );
+  };
+
+  render() {
+    const { view } = this.state;
+
+    if (view == 0) {
+      return <PageLoader />;
+    } else {
+      return this.renderProfile();
+    }
   }
 }
 

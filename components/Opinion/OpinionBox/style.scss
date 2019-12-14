@@ -19,6 +19,11 @@
       @include border-radius(100%);
       overflow: hidden;
 
+      i {
+        color: $color-lighter;
+        font-size: rem(48);
+      }
+
       img {
         height: 100%;
       }
