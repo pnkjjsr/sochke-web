@@ -84,6 +84,7 @@
 
   //   Tabs
   .tabs {
+    margin-bottom: 10px;
     border-bottom: 1px solid $color-lightest;
 
     ul,
@@ -101,12 +102,12 @@
 
       li {
         padding: 5px 0;
-        border-bottom: 2px solid $color-white;
+        border-bottom: 2px solid $bg-body;
         font-size: rem(12);
         font-weight: $font-weight-bold;
         text-align: center;
 
-        &.active {
+        &.react-tabs__tab--selected {
           color: $color-primary;
           border-bottom: 2px solid $color-primary;
         }
@@ -197,8 +198,14 @@
       }
     }
     .tab-container {
+      flex-direction: column;
+
+      > div {
+        width: 100%;
+      }
     }
     .context-empty {
+      margin: auto;
       margin-top: 50px;
       text-align: left;
     }
