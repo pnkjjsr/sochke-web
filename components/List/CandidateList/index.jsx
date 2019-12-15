@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
 import Link from "next/link";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import candidateActions from "./action";
 
 import stringModifier from "utils/stringModifier";
 
@@ -18,19 +15,12 @@ class CandidateList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { candidates } = props;
-    let data = candidates.ministers;
-
-    if (data.length) {
-      return { ministers: data };
+    if (props.data) {
+      return {
+        ministers: props.data
+      };
     }
     return null;
-  }
-
-  componentDidMount() {
-    const { type } = this.state;
-    const { candidateAction } = this.props;
-    candidateAction.prefetchMinister(type);
   }
 
   loopMinister = () => {
@@ -59,7 +49,7 @@ class CandidateList extends Component {
   };
 
   render() {
-    const { type } = this.state;
+    const { type, ministers } = this.state;
 
     return (
       <Fragment>
@@ -74,8 +64,5 @@ class CandidateList extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  candidateAction: bindActionCreators(candidateActions, dispatch)
-});
 
-export default connect(state => state, mapDispatchToProps)(CandidateList);
+export default CandidateList;

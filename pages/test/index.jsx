@@ -15,19 +15,19 @@ class Test extends Component {
     this.state = {};
   }
 
-  // componentDidMount() {
-  //   let data = {
-  //     name: "Pankaj Jasoria"
-  //   };
-  //   service
-  //     .post("/test", data)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+  componentDidMount() {
+    let data = {
+      uid: "eGWIBgftsod5YShYKT1cCtJkT5j1"
+    };
+    service
+      .post("/page-home", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
