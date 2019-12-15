@@ -45,7 +45,6 @@ export class MediaRespondProfile extends Component {
 
   renderLoop = () => {
     const { respondArr, user } = this.state;
-
     return respondArr.map(respond => {
       if (respond.type == "media") {
         return <Respond key={respond.id} respond={respond} user={user} />;
@@ -54,11 +53,10 @@ export class MediaRespondProfile extends Component {
   };
 
   render() {
-    const { respondArr } = this.state;
     return (
       <Fragment>
         <div className="profile-respond">
-          {respondArr ? this.renderLoop() : this.renderEmpty()}
+          {this.renderLoop() || this.renderEmpty()}
         </div>
       </Fragment>
     );

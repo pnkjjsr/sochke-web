@@ -18,7 +18,6 @@ export class AccountHead extends Component {
     super(props);
 
     this.state = {
-      userName: "",
       isMobile: "",
       imgUsr: ""
     };
@@ -78,13 +77,12 @@ export class AccountHead extends Component {
     const profile = session.getProfile();
 
     this.setState({
-      imgUsr: profile.photoURL,
-      userName: profile.userName
+      imgUsr: profile.photoURL
     });
   }
 
   render() {
-    const { isMobile, userName } = this.state;
+    const { isMobile } = this.state;
 
     return (
       <Fragment>
@@ -104,7 +102,7 @@ export class AccountHead extends Component {
           </figure>
 
           <h2 className="title">
-            Welcome, <EditText default={userName || "your name"} />
+            Welcome, <EditText default={"your name"} />
           </h2>
           <p>
             Manage your info, privacy and security to make {process.env.domain}{" "}

@@ -68,7 +68,9 @@ class EditText extends Component {
     const session = new authSession();
     let user = session.getProfile();
     if (!user.displayName) {
-      return;
+      this.setState({
+        val: user.userName
+      });
     } else {
       this.setState({
         val: user.displayName

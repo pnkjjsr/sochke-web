@@ -53,10 +53,11 @@ export class RespondProfile extends Component {
 
   render() {
     const { respondArr } = this.state;
+
     return (
       <Fragment>
         <div className="profile-respond">
-          {respondArr ? this.renderLoop() : this.renderEmpty()}
+          {respondArr.length ? this.renderLoop() : this.renderEmpty()}
         </div>
       </Fragment>
     );
