@@ -24,6 +24,11 @@
       border: solid 1px rgb(204, 204, 204);
       overflow: hidden;
 
+      i {
+        color: $color-lighter;
+        font-size: rem(48);
+      }
+
       img {
         width: 100%;
         height: 100%;

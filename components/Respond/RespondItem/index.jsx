@@ -39,9 +39,18 @@ class RespondItem extends Component {
     });
   }
 
+  renderUserImage = () => {
+    const { imgUsr } = this.state;
+
+    if (!imgUsr) {
+      return <i className="material-icons">account_circle</i>;
+    } else {
+      return <img src={imgUsr} alt={name} />;
+    }
+  };
+
   render() {
     const { respond } = this.props;
-
     const { name, pincode, area, imgUsr, uid } = this.state;
 
     const moment = new Moment();
@@ -51,9 +60,7 @@ class RespondItem extends Component {
     return (
       <div className="respond-item">
         <div className="top">
-          <figure>
-            <img src={imgUsr} alt={name} />
-          </figure>
+          <figure>{this.renderUserImage()}</figure>
           <div className="detail">
             {name}
             <span>{time}</span>

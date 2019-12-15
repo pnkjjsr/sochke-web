@@ -33,6 +33,11 @@ class stringModifier {
     var string = /[^,]*/.exec(e)[0];
     return string;
   };
+
+  hyphenatedName = e => {
+    var string = e.replace(/ /g, "-");
+    return string;
+  };
 }
 
 export default stringModifier;

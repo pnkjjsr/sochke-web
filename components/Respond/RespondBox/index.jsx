@@ -9,6 +9,7 @@ import AuthSession from "utils/authSession";
 
 import Button from "components/Form/Button";
 import UploadFile from "components/UploadFile";
+import UserImage from "components/UserImage";
 
 import iconPhoto from "icons/photo.svg";
 
@@ -81,7 +82,7 @@ class RespondBox extends Component {
           >
             <div className="upload">
               <figure>
-                <img src={iconPhoto} alt="Upload Photo" />
+                <i className="material-icons">insert_photo</i>
               </figure>
               <span>Add Image</span>
             </div>
@@ -114,9 +115,9 @@ class RespondBox extends Component {
             <div className="row">
               <div className="col-12 col-sm-9 col-md-10 col-lg-9">
                 <div className="top">
-                  <figure className="user d-none d-sm-block">
-                    <img src={imgUsr} alt="" />
-                  </figure>
+                  <div className="user d-none d-sm-block">
+                    <UserImage />
+                  </div>
                   <textarea
                     name="respond"
                     placeholder="Let burst your thoughts"

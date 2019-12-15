@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react";
+import Link from "next/link";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import candidateActions from "./action";
+
+import stringModifier from "utils/stringModifier";
 
 import "./style.scss";
 
@@ -33,17 +36,22 @@ class CandidateList extends Component {
   loopMinister = () => {
     const { type, ministers } = this.state;
     let typeUpperCase = type.toUpperCase();
+    const string = new stringModifier();
+
     return ministers.map(minister => {
       if (minister.type == typeUpperCase) {
+        let link = string.hyphenatedName(minister.name);
         return (
           <li key={minister.uid}>
-            <a>
-              <div className="candidate">
-                <span>{minister.partyShort}</span>
-                <label htmlFor="Jagdeep Singh">{minister.name}</label>
-                {/* <i className="material-icons">arrow_drop_down</i> */}
-              </div>
-            </a>
+            <Link href={link}>
+              <a>
+                <div className="candidate">
+                  <span>{minister.partyShort}</span>
+                  <label htmlFor="Jagdeep Singh">{minister.name}</label>
+                  {/* <i className="material-icons">arrow_drop_down</i> */}
+                </div>
+              </a>
+            </Link>
           </li>
         );
       }
