@@ -43,7 +43,7 @@ class CandidateList extends Component {
         let link = string.hyphenatedName(minister.name);
         return (
           <li key={minister.uid}>
-            <Link href={link}>
+            <Link href={`minister/${link}`}>
               <a>
                 <div className="candidate">
                   <span>{minister.partyShort}</span>
