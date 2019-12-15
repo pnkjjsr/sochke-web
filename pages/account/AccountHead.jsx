@@ -18,6 +18,7 @@ export class AccountHead extends Component {
     super(props);
 
     this.state = {
+      userName: "",
       isMobile: "",
       imgUsr: ""
     };
@@ -74,15 +75,16 @@ export class AccountHead extends Component {
   componentDidMount() {
     this.handleIsMobile();
     const session = new authSession();
-    const user = session.getProfile();
+    const profile = session.getProfile();
 
     this.setState({
-      imgUsr: user.photoURL
+      imgUsr: profile.photoURL,
+      userName: profile.userName
     });
   }
 
   render() {
-    const { isMobile } = this.state;
+    const { isMobile, userName } = this.state;
 
     return (
       <Fragment>
@@ -99,11 +101,10 @@ export class AccountHead extends Component {
             </div>
 
             <UserImage />
-
-            {/* {!imgUsr ? "Icon" : <img src={imgUsr} alt="User Image" />} */}
           </figure>
+
           <h2 className="title">
-            Welcome, <EditText default="Name" />
+            Welcome, <EditText default={userName || "your name"} />
           </h2>
           <p>
             Manage your info, privacy and security to make {process.env.domain}{" "}

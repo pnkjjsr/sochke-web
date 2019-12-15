@@ -48,6 +48,7 @@ class PanelMinister extends Component {
     const string = new stringModifier();
     let minister = data;
     let assets = string.currencyFormat(minister.assets, "long");
+    let edu = string.tillFirstCommaString(minister.education);
 
     if (!minister) {
       return <div>Loading</div>;
@@ -83,9 +84,7 @@ class PanelMinister extends Component {
                     </li>
                     <li>
                       <i className="material-icons">menu_book</i>
-                      <label htmlFor="education">
-                        {minister.education} Pass
-                      </label>
+                      <label htmlFor="education">{edu}</label>
                     </li>
                     <li>
                       <i className="material-icons">home</i>

@@ -28,6 +28,11 @@ class stringModifier {
       compactDisplay: size
     }).format(e);
   };
+
+  tillFirstCommaString = e => {
+    var string = /[^,]*/.exec(e)[0];
+    return string;
+  };
 }
 
 export default stringModifier;
