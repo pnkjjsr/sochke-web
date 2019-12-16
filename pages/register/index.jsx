@@ -239,19 +239,6 @@ class Register extends Component {
                       <div className="sub">One quick step for change !!</div>
                     </div>
 
-                    <div className={`form-group ${mobileErr}`}>
-                      <label htmlFor="mobile">Mobile</label>
-                      <input
-                        className="form-control"
-                        name="mobile"
-                        type="text"
-                        aria-describedby="mobileHelp"
-                        placeholder="9210xxxx60"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{mobileMsg}</small>
-                    </div>
-
                     <div className={`form-group ${emailErr}`}>
                       <label htmlFor="email">Email</label>
                       <input
@@ -265,8 +252,21 @@ class Register extends Component {
                       <small className="form-text">{emailMsg}</small>
                     </div>
 
+                    <div className={`form-group ${mobileErr}`}>
+                      <label htmlFor="mobile">Mobile</label>
+                      <input
+                        className="form-control"
+                        name="mobile"
+                        type="text"
+                        aria-describedby="mobileHelp"
+                        placeholder="9210xxxx60"
+                        onChange={this.handleChange}
+                      />
+                      <small className="form-text">{mobileMsg}</small>
+                    </div>
+
                     <div className="row">
-                      <div className="col-12 col-sm-6">
+                      <div className="col-6 col-sm-6">
                         <div className={`form-group ${pincodeErr}`}>
                           <label htmlFor="pincode">Pincode</label>
                           <input
@@ -280,7 +280,7 @@ class Register extends Component {
                           <small className="form-text">{pincodeMsg}</small>
                         </div>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-6 col-sm-6">
                         <div className={`form-group ${areaErr}`}>
                           <label htmlFor="area">Area</label>
                           <select

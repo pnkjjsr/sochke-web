@@ -17,33 +17,6 @@ export class PanelPoll extends Component {
     };
   }
 
-  apiPoll = data => {
-    service
-      .post("/poll", data)
-      .then(res => {
-        this.setState({
-          poll: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  componentDidMount() {
-    const { type } = this.state;
-
-    const session = new authSession();
-    const token = session.getToken();
-
-    let data = {
-      uid: token,
-      type: type
-    };
-
-    this.apiPoll(data);
-  }
-
   handlePoll = e => {
     const { type, poll } = this.state;
     const session = new authSession();
@@ -62,7 +35,6 @@ export class PanelPoll extends Component {
           uid: token,
           type: type
         };
-        this.apiPoll(pdata);
       })
       .catch(err => {
         console.log(err);
@@ -70,7 +42,7 @@ export class PanelPoll extends Component {
   };
 
   render() {
-    const { poll } = this.state;
+    const { type, poll } = this.state;
 
     return (
       <Fragment>

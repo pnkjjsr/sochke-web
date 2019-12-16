@@ -25,6 +25,7 @@ class Header extends Component {
     }
     return null;
   }
+
   componentDidUpdate(prevProps) {
     const { login } = this.props;
 
