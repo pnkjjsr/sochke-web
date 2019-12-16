@@ -14,7 +14,8 @@ class BottomNav extends Component {
     this.state = {
       view: 0,
       contributionDrawer: "",
-      pollDrawer: ""
+      pollDrawer: "",
+      constituencyDrawer: ""
     };
   }
 
@@ -58,7 +59,12 @@ class BottomNav extends Component {
   }
 
   render() {
-    const { view, contributionDrawer, pollDrawer } = this.state;
+    const {
+      view,
+      contributionDrawer,
+      pollDrawer,
+      constituencyDrawer
+    } = this.state;
     let viewClass = !view ? "d-none" : "d-block";
 
     return (
@@ -107,11 +113,32 @@ class BottomNav extends Component {
               </Link>
 
               <DrawerPage
-                side="right"
+                side="left"
                 open={pollDrawer}
                 action={e => this.handleClose("poll")}
               >
                 Poll Page
+              </DrawerPage>
+            </li>
+
+            <li>
+              <Link href="/">
+                <a>
+                  <i
+                    className="material-icons"
+                    onClick={e => this.handleOpen("constituency")}
+                  >
+                    map
+                  </i>
+                </a>
+              </Link>
+
+              <DrawerPage
+                side="right"
+                open={constituencyDrawer}
+                action={e => this.handleClose("constituency")}
+              >
+                Constituency Page
               </DrawerPage>
             </li>
           </ul>

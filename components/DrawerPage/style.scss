@@ -49,18 +49,19 @@
   }
 
   &.left {
-    nav {
+    .container {
       right: auto;
       left: 0;
       margin-left: calc(-100% - 10px);
-      ul {
+
+      .content {
         float: left;
         box-shadow: 2px 5px 5px #00000047;
       }
     }
 
     &.open {
-      nav {
+      .container {
         margin-left: 0;
       }
     }

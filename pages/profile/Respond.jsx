@@ -45,9 +45,16 @@ export class RespondProfile extends Component {
 
   renderLoop = () => {
     const { respondArr, user } = this.state;
+    const userData = {
+      userName: user.userName,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      area: user.area,
+      pincode: user.pincode
+    };
 
     return respondArr.map(respond => {
-      return <Respond key={respond.id} respond={respond} user={user} />;
+      return <Respond key={respond.id} respond={respond} user={userData} />;
     });
   };
 

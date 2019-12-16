@@ -41,10 +41,17 @@ class Home extends Component {
 
   loopRespond = () => {
     const { data } = this.state;
+    const userData = {
+      userName: data.userName,
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+      area: data.area,
+      pincode: data.pincode
+    };
 
     if (data.responds) {
       return data.responds.map(respond => {
-        return <Respond key={respond.id} respond={respond} user={data} />;
+        return <Respond key={respond.id} respond={respond} user={userData} />;
       });
     }
   };

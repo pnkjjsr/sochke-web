@@ -9,6 +9,8 @@ import loginActions from "pages/login/actions";
 import authSession from "utils/authSession";
 import authentication from "utils/authentication";
 
+import UserImage from "components/UserImage";
+
 import "./style.scss";
 
 class UserNav extends Component {
@@ -48,6 +50,9 @@ class UserNav extends Component {
       <Fragment>
         <nav className="user">
           <ul>
+            <li className="photo">
+              <UserImage />
+            </li>
             <li>
               <Link href={`/profile/${url}`} as={`/profile/${url}`}>
                 <a>Profile</a>
