@@ -68,18 +68,25 @@ class Profile extends Component {
 
     if (userName == query) {
       return (
-        <Button
-          text=" Edit Profile"
-          size="btn-sm"
-          variant="btn-default"
-          action={this.handleEditProfile}
-        />
+        <Fragment>
+          <Button
+            text="Edit Profile"
+            size="btn-sm"
+            variant="btn-default"
+            action={this.handleEditProfile}
+          />
+
+          <Link href="/security">
+            <a className="setting">
+              <i className="material-icons ">settings_applications</i>
+            </a>
+          </Link>
+        </Fragment>
       );
     } else {
       return (
         <Button
           text="I Believe"
-          size="btn-sm"
           variant="btn-primary"
           action={this.handleEditProfile}
         />
@@ -112,15 +119,7 @@ class Profile extends Component {
 
             <div className="details">
               <h1>Welcome, {query}</h1>
-              <div className="action">
-                {this.renderAction()}
-
-                <Link href="/security">
-                  <a className="setting">
-                    <i className="material-icons ">settings_applications</i>
-                  </a>
-                </Link>
-              </div>
+              <div className="action">{this.renderAction()}</div>
               <div className="count">
                 <ul>
                   <li>{profile.data.respondCount} responds</li>

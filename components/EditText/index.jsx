@@ -42,7 +42,7 @@ class EditText extends Component {
       displayName: name
     };
     service
-      .post("/update-user", data)
+      .post("/add-user-name", data)
       .then(res => {
         service
           .post("user", { uid: user.uid })

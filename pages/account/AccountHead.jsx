@@ -54,7 +54,7 @@ export class AccountHead extends Component {
       photoURL: e.imgUrl
     };
     service
-      .post("/update-user", data)
+      .post("/add-user-photo", data)
       .then(res => {
         service
           .post("/user", { uid: token })
