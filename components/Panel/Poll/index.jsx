@@ -13,8 +13,17 @@ export class PanelPoll extends Component {
     super(props);
     this.state = {
       type: props.type,
-      poll: []
+      polls: []
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.data) {
+      return {
+        polls: props.data
+      };
+    }
+    return null;
   }
 
   handlePoll = e => {
@@ -41,31 +50,37 @@ export class PanelPoll extends Component {
       });
   };
 
-  render() {
-    const { type, poll } = this.state;
+  loopPoll = () => {
+    const { type, polls } = this.state;
 
-    return (
-      <Fragment>
-        <div className="poll-panel">
-          <p>{poll.poll}</p>
+    return polls.map(poll => {
+      if (poll.type == type) {
+        return (
+          <div key={poll.id} className="poll-panel">
+            <p>{poll.poll}</p>
 
-          <div className="action">
-            <Button
-              text="Yes"
-              variant="btn-success"
-              size="btn-sm"
-              action={e => this.handlePoll(true)}
-            />
-            <Button
-              text="No"
-              variant="btn-danger"
-              size="btn-sm"
-              action={e => this.handlePoll(false)}
-            />
+            <div className="action">
+              <Button
+                text="Yes"
+                variant="btn-success"
+                size="btn-sm"
+                action={e => this.handlePoll(true)}
+              />
+              <Button
+                text="No"
+                variant="btn-danger"
+                size="btn-sm"
+                action={e => this.handlePoll(false)}
+              />
+            </div>
           </div>
-        </div>
-      </Fragment>
-    );
+        );
+      }
+    });
+  };
+
+  render() {
+    return this.loopPoll();
   }
 }
 

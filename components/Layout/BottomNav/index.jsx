@@ -13,15 +13,18 @@ class BottomNav extends Component {
     super(props);
     this.state = {
       view: 0,
-      contributionDrawer: ""
+      contributionDrawer: "",
+      pollDrawer: ""
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     if (props.login.user.uid) {
-      return {
-        view: 1
-      };
+      if (screen.width < 992) {
+        return {
+          view: 1
+        };
+      }
     }
 
     return null;
@@ -45,15 +48,17 @@ class BottomNav extends Component {
     const session = new authSession();
     const profile = session.getProfile();
 
-    if (profile.uid) {
-      this.setState({
-        view: 1
-      });
+    if (screen.width < 992) {
+      if (profile.uid) {
+        this.setState({
+          view: 1
+        });
+      }
     }
   }
 
   render() {
-    const { view, contributionDrawer } = this.state;
+    const { view, contributionDrawer, pollDrawer } = this.state;
     let viewClass = !view ? "d-none" : "d-block";
 
     return (
@@ -85,7 +90,28 @@ class BottomNav extends Component {
                 open={contributionDrawer}
                 action={e => this.handleClose("contribution")}
               >
-                PJ
+                Contribution Page
+              </DrawerPage>
+            </li>
+
+            <li>
+              <Link href="/">
+                <a>
+                  <i
+                    className="material-icons"
+                    onClick={e => this.handleOpen("poll")}
+                  >
+                    poll
+                  </i>
+                </a>
+              </Link>
+
+              <DrawerPage
+                side="right"
+                open={pollDrawer}
+                action={e => this.handleClose("poll")}
+              >
+                Poll Page
               </DrawerPage>
             </li>
           </ul>

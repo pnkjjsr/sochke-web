@@ -8,6 +8,7 @@ import userAuth from "utils/userAuth";
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import Poll from "components/Panel/Poll";
+import Respond from "components/Respond";
 import RespondBox from "components/Respond/RespondBox";
 import RespondList from "components/Respond/RespondList";
 
@@ -38,6 +39,16 @@ class Home extends Component {
     homeAction.prefetchHomeData();
   }
 
+  loopRespond = () => {
+    const { data } = this.state;
+
+    if (data.responds) {
+      return data.responds.map(respond => {
+        return <Respond key={respond.id} respond={respond} user={data} />;
+      });
+    }
+  };
+
   render() {
     const { data } = this.state;
 
@@ -55,7 +66,8 @@ class Home extends Component {
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
-                <RespondList />
+                {this.loopRespond()}
+                {/* <RespondList /> */}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel">
