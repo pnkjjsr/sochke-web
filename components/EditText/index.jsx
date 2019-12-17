@@ -42,7 +42,7 @@ class EditText extends Component {
       displayName: name
     };
     service
-      .post("/update-user", data)
+      .post("/add-user-name", data)
       .then(res => {
         service
           .post("user", { uid: user.uid })
@@ -68,7 +68,9 @@ class EditText extends Component {
     const session = new authSession();
     let user = session.getProfile();
     if (!user.displayName) {
-      return;
+      this.setState({
+        val: user.userName
+      });
     } else {
       this.setState({
         val: user.displayName

@@ -119,12 +119,28 @@ class Register extends Component {
           }
         } else {
           const { register } = this.props;
-          let locations = register.area;
           const session = new authSession();
+          let locations = register.area;
           let token = res.user.uid;
-          session.setToken(token);
 
-          const data = {
+          let data = {
+            uid: token,
+            email: email,
+            mobile: mobile,
+            area: area,
+            district: locations[0].district,
+            division: locations[0].division,
+            state: locations[0].state,
+            pincode: pincode,
+            country: "India"
+          };
+          session.setToken(token);
+          session.setProfile(data);
+          auth.sendEmailVerification();
+          user.authenticate(data);
+          Router.push("/constituency");
+
+          let apiData = {
             uid: token,
             userType: "normal",
             email: email,
@@ -137,14 +153,10 @@ class Register extends Component {
             pincode: pincode,
             country: "India"
           };
-
           service
-            .post("/signup", data)
+            .post("/signup", apiData)
             .then(result => {
-              user.authenticate(result.data);
-              session.setProfile(result.data);
-              auth.sendEmailVerification();
-              Router.push("/constituency");
+              console.log(result);
             })
             .catch(async error => {
               let data = error.response.data;
@@ -227,19 +239,6 @@ class Register extends Component {
                       <div className="sub">One quick step for change !!</div>
                     </div>
 
-                    <div className={`form-group ${mobileErr}`}>
-                      <label htmlFor="mobile">Mobile</label>
-                      <input
-                        className="form-control"
-                        name="mobile"
-                        type="text"
-                        aria-describedby="mobileHelp"
-                        placeholder="9210xxxx60"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{mobileMsg}</small>
-                    </div>
-
                     <div className={`form-group ${emailErr}`}>
                       <label htmlFor="email">Email</label>
                       <input
@@ -253,8 +252,21 @@ class Register extends Component {
                       <small className="form-text">{emailMsg}</small>
                     </div>
 
+                    <div className={`form-group ${mobileErr}`}>
+                      <label htmlFor="mobile">Mobile</label>
+                      <input
+                        className="form-control"
+                        name="mobile"
+                        type="text"
+                        aria-describedby="mobileHelp"
+                        placeholder="9210xxxx60"
+                        onChange={this.handleChange}
+                      />
+                      <small className="form-text">{mobileMsg}</small>
+                    </div>
+
                     <div className="row">
-                      <div className="col-12 col-sm-6">
+                      <div className="col-6 col-sm-6">
                         <div className={`form-group ${pincodeErr}`}>
                           <label htmlFor="pincode">Pincode</label>
                           <input
@@ -268,7 +280,7 @@ class Register extends Component {
                           <small className="form-text">{pincodeMsg}</small>
                         </div>
                       </div>
-                      <div className="col-12 col-sm-6">
+                      <div className="col-6 col-sm-6">
                         <div className={`form-group ${areaErr}`}>
                           <label htmlFor="area">Area</label>
                           <select

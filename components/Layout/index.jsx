@@ -8,6 +8,7 @@ import authSession from "utils/authSession";
 
 import Head from "./head";
 import Header from "./Header";
+import BottomNav from "./BottomNav";
 import Footer from "./Footer";
 
 import "./style.scss";
@@ -35,6 +36,7 @@ class Layout extends Component {
         <Head title={this.props.pageTitle} />
         <Header />
         <div className="main">{this.props.children}</div>
+        <BottomNav />
         <Footer />
       </Fragment>
     );

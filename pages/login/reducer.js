@@ -2,7 +2,7 @@ import { AUTHENTICATE, DEAUTHENTICATE, USER } from "./constant";
 
 const initialState = {
   token: "",
-  user: ""
+  user: {}
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
     case DEAUTHENTICATE:
       return {
         token: null,
-        user: null
+        user: {}
       };
     default:
       return state;

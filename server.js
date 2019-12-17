@@ -52,12 +52,22 @@ app
       next();
     });
 
+    server.get("/minister", (req, res) => {
+      return app.render(req, res, "/");
+    });
+
     server.get("/minister/:name", (req, res) => {
       return app.render(req, res, "/minister", { name: req.params.name });
     });
 
-    server.get("/profile/:name", (req, res) => {
-      return app.render(req, res, "/profile", { name: req.params.name });
+    server.get("/profile", (req, res) => {
+      return app.render(req, res, "/");
+    });
+
+    server.get("/profile/:userName", (req, res) => {
+      return app.render(req, res, "/profile", {
+        userName: req.params.userName
+      });
     });
 
     server.get("*", (req, res) => {

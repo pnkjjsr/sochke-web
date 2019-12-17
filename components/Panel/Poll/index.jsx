@@ -13,35 +13,17 @@ export class PanelPoll extends Component {
     super(props);
     this.state = {
       type: props.type,
-      poll: []
+      polls: []
     };
   }
 
-  apiPoll = data => {
-    service
-      .post("/poll", data)
-      .then(res => {
-        this.setState({
-          poll: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  componentDidMount() {
-    const { type } = this.state;
-
-    const session = new authSession();
-    const token = session.getToken();
-
-    let data = {
-      uid: token,
-      type: type
-    };
-
-    this.apiPoll(data);
+  static getDerivedStateFromProps(props, state) {
+    if (props.data) {
+      return {
+        polls: props.data
+      };
+    }
+    return null;
   }
 
   handlePoll = e => {
@@ -62,38 +44,43 @@ export class PanelPoll extends Component {
           uid: token,
           type: type
         };
-        this.apiPoll(pdata);
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  render() {
-    const { poll } = this.state;
+  loopPoll = () => {
+    const { type, polls } = this.state;
 
-    return (
-      <Fragment>
-        <div className="poll-panel">
-          <p>{poll.poll}</p>
+    return polls.map(poll => {
+      if (poll.type == type) {
+        return (
+          <div key={poll.id} className="poll-panel">
+            <p>{poll.poll}</p>
 
-          <div className="action">
-            <Button
-              text="Yes"
-              variant="btn-success"
-              size="btn-sm"
-              action={e => this.handlePoll(true)}
-            />
-            <Button
-              text="No"
-              variant="btn-danger"
-              size="btn-sm"
-              action={e => this.handlePoll(false)}
-            />
+            <div className="action">
+              <Button
+                text="Yes"
+                variant="btn-success"
+                size="btn-sm"
+                action={e => this.handlePoll(true)}
+              />
+              <Button
+                text="No"
+                variant="btn-danger"
+                size="btn-sm"
+                action={e => this.handlePoll(false)}
+              />
+            </div>
           </div>
-        </div>
-      </Fragment>
-    );
+        );
+      }
+    });
+  };
+
+  render() {
+    return this.loopPoll();
   }
 }
 

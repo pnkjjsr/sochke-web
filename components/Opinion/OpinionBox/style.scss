@@ -8,6 +8,7 @@
   padding-bottom: 10px;
 
   .photo {
+    display: none;
     margin-right: 10px;
 
     figure {
@@ -17,6 +18,11 @@
       border: 1px solid $border-color;
       @include border-radius(100%);
       overflow: hidden;
+
+      i {
+        color: $color-lighter;
+        font-size: rem(48);
+      }
 
       img {
         height: 100%;
@@ -45,6 +51,14 @@
 
     button {
       margin-left: 5px;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .opinion-box {
+    .photo {
+      display: block;
     }
   }
 }

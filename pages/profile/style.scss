@@ -4,7 +4,7 @@
   margin-top: 10px;
 
   // Top User Details
-  .top {
+  & > .top {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
@@ -24,6 +24,11 @@
         img {
           height: 100%;
         }
+
+        i {
+          color: $color-lighter;
+          font-size: rem(98);
+        }
       }
     }
 
@@ -41,12 +46,21 @@
 
         button {
           margin-right: 20px;
-          border: 1px solid $color-lighter;
+
+          &.btn-default {
+            border: 1px solid $color-lighter;
+          }
         }
         .setting {
+          display: flex;
+          align-items: center;
           color: $color-light;
-          font-size: rem(30);
           cursor: pointer;
+          text-decoration: none;
+
+          i {
+            font-size: rem(30);
+          }
         }
       }
 
@@ -78,6 +92,7 @@
 
   //   Tabs
   .tabs {
+    margin-bottom: 10px;
     border-bottom: 1px solid $color-lightest;
 
     ul,
@@ -95,12 +110,12 @@
 
       li {
         padding: 5px 0;
-        border-bottom: 2px solid $color-white;
+        border-bottom: 2px solid $bg-body;
         font-size: rem(12);
         font-weight: $font-weight-bold;
         text-align: center;
 
-        &.active {
+        &.react-tabs__tab--selected {
           color: $color-primary;
           border-bottom: 2px solid $color-primary;
         }
@@ -117,7 +132,7 @@
 
   //   Empty Context
   .context-empty {
-    max-width: 400px;
+    max-width: 410px;
     padding-bottom: 50px;
     margin-top: 20px;
     text-align: center;
@@ -147,16 +162,24 @@
   .profile {
     margin-top: 50px;
 
-    .top {
+    > .top {
       flex-direction: row;
       justify-content: flex-start;
+      margin-bottom: 50px;
 
       .photo {
         width: 150px;
         height: 150px;
         margin-left: 0;
         margin-right: 40px;
+
+        figure {
+          i {
+            font-size: rem(149);
+          }
+        }
       }
+
       .details {
         text-align: left;
 
@@ -167,6 +190,7 @@
 
         .action {
           justify-content: left;
+          margin-bottom: 40px;
         }
 
         .count {
@@ -189,8 +213,14 @@
       }
     }
     .tab-container {
+      flex-direction: column;
+
+      > div {
+        width: 80%;
+      }
     }
     .context-empty {
+      margin: auto;
       margin-top: 50px;
       text-align: left;
     }

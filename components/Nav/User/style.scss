@@ -1,3 +1,5 @@
+@import "common/styles/global";
+
 nav.user {
   ul {
     padding: 0;
@@ -14,6 +16,31 @@ nav.user {
         text-align: left;
         text-decoration: none;
         text-shadow: none;
+      }
+
+      &.photo {
+        padding: 20px 0;
+        text-align: center;
+
+        figure {
+          display: flex;
+          justify-content: center;
+          width: 100px;
+          height: 100px;
+          margin: auto;
+          border: 1px solid $border-color;
+          @include border-radius(100%);
+          overflow: hidden;
+
+          i {
+            color: $color-lighter;
+            font-size: rem(98);
+          }
+
+          img {
+            height: 100%;
+          }
+        }
       }
     }
   }

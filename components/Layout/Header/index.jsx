@@ -18,20 +18,12 @@ class Header extends Component {
 
   static getDerivedStateFromProps(props) {
     const { login } = props;
-    if (login.token) {
+    if (!login.token) {
+      return null;
+    } else {
       return {
         loggedIn: true
       };
-    }
-    return null;
-  }
-  componentDidUpdate(prevProps) {
-    const { login } = this.props;
-
-    if (prevProps.login.token != login.token) {
-      this.setState({
-        loggedIn: false
-      });
     }
   }
 
@@ -41,6 +33,16 @@ class Header extends Component {
     if (token) {
       this.setState({
         loggedIn: true
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { login } = this.props;
+
+    if (login.token != prevProps.login.token) {
+      this.setState({
+        loggedIn: false
       });
     }
   }

@@ -2,6 +2,8 @@
 @import "components/Form/form";
 
 .login {
+  margin-top: 30px;
+
   @include form;
 
   .link-forgot {

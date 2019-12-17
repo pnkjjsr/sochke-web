@@ -14,11 +14,9 @@ class UserImage extends Component {
     };
   }
   static getDerivedStateFromProps(props) {
-    const { login } = props;
-    let photo = login.user.photoURL;
-    if (photo) {
+    if (props.login.user.photoURL) {
       return {
-        imgUsr: photo
+        imgUsr: props.login.user.photoURL
       };
     }
 

@@ -20,18 +20,23 @@ class stringModifier {
     return arr;
   };
 
-  NumberFormat = e => {
-    new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR"
-    }).format(number);
-
-    new Intl.NumberFormat("en-IN", {
+  currencyFormat = (e, size) => {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       notation: "compact",
-      compactDisplay: "short"
-    }).format(number);
+      compactDisplay: size
+    }).format(e);
+  };
+
+  tillFirstCommaString = e => {
+    var string = /[^,]*/.exec(e)[0];
+    return string;
+  };
+
+  hyphenatedName = e => {
+    var string = e.replace(/ /g, "-");
+    return string;
   };
 }
 

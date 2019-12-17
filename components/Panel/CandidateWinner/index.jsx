@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
+import VoteMinister from "./VoteMinister";
 import AlertRespond from "./AlertRespond";
 import OptionMinister from "./OptionMinister";
 import ResultMinister from "./ResultMinister";
-
-import Button from "components/Form/Button";
 
 import "./style.scss";
 
@@ -27,58 +25,12 @@ export class CandidateWinner extends Component {
     };
   }
 
-  componentDidMount() {
-    const { type } = this.state;
-
-    const session = new authSession();
-    let profile = session.getProfile();
-    let data = {
-      pincode: profile.pincode,
-      district: profile.district
-    };
-
-    let getMinister = `/${type}`;
-    service
-      .post(getMinister, data)
-      .then(res => {
-        let data = res.data;
-        this.setState({
-          ministers: data
-        });
-        data.map(minister => {
-          if (minister.winner == true) {
-            this.setState(
-              {
-                ministerWinner: minister
-              },
-              () => {
-                const session = new authSession();
-                let token = session.getToken();
-                const vData = {
-                  uid: token,
-                  mid: minister.uid
-                };
-                service
-                  .post("/minister-voted", vData)
-                  .then(res => {
-                    if (res.data.code == "vote/voted") {
-                      this.setState({
-                        dVote: "d-none",
-                        dResult: ""
-                      });
-                    }
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  });
-              }
-            );
-          }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (props.data) {
+      return {
+        ministers: props.data
+      };
+    } else return null;
   }
 
   handleGood = () => {
@@ -158,8 +110,6 @@ export class CandidateWinner extends Component {
 
   render() {
     const {
-      type,
-      vote,
       dVote,
       dCirculate,
       dResult,
@@ -171,31 +121,11 @@ export class CandidateWinner extends Component {
     return (
       <Fragment>
         <div className={`candidate-winner ${dVote}`}>
-          <div className="photo">
-            <figure>
-              <i className="material-icons">account_circle</i>
-              {/* <img src={ministerWinner.photoUrl} alt="" /> */}
-            </figure>
-            <figcaption>Defending Minister</figcaption>
-          </div>
-
-          <div className="party">
-            <i className="material-icons">flag</i>
-            <label htmlFor="party">{ministerWinner.party}</label>
-          </div>
-
-          <div className="name">{ministerWinner.name}</div>
-
-          <div className="tenure">Last 5 Year?</div>
-
-          <div className="action">
-            <Button
-              text="Good"
-              variant="btn-success"
-              action={this.handleGood}
-            />
-            <Button text="Bad" variant="btn-danger" action={this.handleBad} />
-          </div>
+          <VoteMinister
+            ministerDetails={ministers}
+            actionGood={this.handleGood}
+            actionBad={this.handleBad}
+          />
         </div>
 
         <div className={`candidate-winner ${dCirculate}`}>
@@ -226,4 +156,4 @@ export class CandidateWinner extends Component {
   }
 }
 
-export default connect(state => state)(CandidateWinner);
+export default CandidateWinner;

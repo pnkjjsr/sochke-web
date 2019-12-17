@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import candidateActions from "./action";
+import Link from "next/link";
+
+import stringModifier from "utils/stringModifier";
 
 import "./style.scss";
 
@@ -15,35 +15,33 @@ class CandidateList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { candidates } = props;
-    let data = candidates.ministers;
-
-    if (data.length) {
-      return { ministers: data };
+    if (props.data) {
+      return {
+        ministers: props.data
+      };
     }
     return null;
-  }
-
-  componentDidMount() {
-    const { type } = this.state;
-    const { candidateAction } = this.props;
-    candidateAction.prefetchMinister(type);
   }
 
   loopMinister = () => {
     const { type, ministers } = this.state;
     let typeUpperCase = type.toUpperCase();
+    const string = new stringModifier();
+
     return ministers.map(minister => {
       if (minister.type == typeUpperCase) {
+        let link = string.hyphenatedName(minister.name);
         return (
           <li key={minister.uid}>
-            <a>
-              <div className="candidate">
-                <span>{minister.partyShort}</span>
-                <label htmlFor="Jagdeep Singh">{minister.name}</label>
-                {/* <i className="material-icons">arrow_drop_down</i> */}
-              </div>
-            </a>
+            <Link href={`minister/${link}`}>
+              <a>
+                <div className="candidate">
+                  <span>{minister.partyShort}</span>
+                  <label htmlFor="Jagdeep Singh">{minister.name}</label>
+                  {/* <i className="material-icons">arrow_drop_down</i> */}
+                </div>
+              </a>
+            </Link>
           </li>
         );
       }
@@ -51,7 +49,7 @@ class CandidateList extends Component {
   };
 
   render() {
-    const { type } = this.state;
+    const { type, ministers } = this.state;
 
     return (
       <Fragment>
@@ -66,8 +64,5 @@ class CandidateList extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  candidateAction: bindActionCreators(candidateActions, dispatch)
-});
 
-export default connect(state => state, mapDispatchToProps)(CandidateList);
+export default CandidateList;

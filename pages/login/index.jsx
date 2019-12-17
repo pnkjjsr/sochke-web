@@ -94,8 +94,8 @@ class Login extends Component {
           service
             .post("/login", data)
             .then(result => {
-              user.authenticate(result.data);
               session.setProfile(result.data);
+              user.authenticate(result.data);
               Router.push("/constituency");
             })
             .catch(error => {
@@ -151,7 +151,7 @@ class Login extends Component {
         <div className="login">
           <div className="container">
             <div className="row justify-content-center">
-              <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-8 col-md-6 col-lg-5">
                 <form onSubmit={this.handleSubmit} autoComplete="on">
                   <div className="form">
                     <div className="header">

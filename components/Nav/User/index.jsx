@@ -9,12 +9,16 @@ import loginActions from "pages/login/actions";
 import authSession from "utils/authSession";
 import authentication from "utils/authentication";
 
+import UserImage from "components/UserImage";
+
 import "./style.scss";
 
 class UserNav extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      url: ""
+    };
   }
 
   handleLogout = e => {
@@ -29,11 +33,31 @@ class UserNav extends Component {
     Router.push("/login");
   };
 
+  componentDidMount() {
+    const session = new authSession();
+    const profile = session.getProfile();
+    let userName = profile.userName;
+
+    this.setState({
+      url: userName
+    });
+  }
+
   render() {
+    const { url } = this.state;
+
     return (
       <Fragment>
         <nav className="user">
           <ul>
+            <li className="photo">
+              <UserImage />
+            </li>
+            <li>
+              <Link href={`/profile/${url}`} as={`/profile/${url}`}>
+                <a>Profile</a>
+              </Link>
+            </li>
             <li>
               <Link href="/constituency">
                 <a>Account</a>

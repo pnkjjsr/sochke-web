@@ -1,9 +1,15 @@
 import React, { Component, Fragment } from "react";
+import Router from "next/router";
 import { connect } from "react-redux";
 
 import { service } from "apiConnect";
 
-export class Test extends Component {
+class Test extends Component {
+  static async getInitialProps({ query }) {
+    console.log(query);
+    return query;
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -11,10 +17,10 @@ export class Test extends Component {
 
   componentDidMount() {
     let data = {
-      name: "Pankaj Jasoria"
+      uid: "eGWIBgftsod5YShYKT1cCtJkT5j1"
     };
     service
-      .post("/test", data)
+      .post("/page-home", data)
       .then(res => {
         console.log(res);
       })

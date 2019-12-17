@@ -54,7 +54,7 @@ export class AccountHead extends Component {
       photoURL: e.imgUrl
     };
     service
-      .post("/update-user", data)
+      .post("/add-user-photo", data)
       .then(res => {
         service
           .post("/user", { uid: token })
@@ -74,10 +74,10 @@ export class AccountHead extends Component {
   componentDidMount() {
     this.handleIsMobile();
     const session = new authSession();
-    const user = session.getProfile();
+    const profile = session.getProfile();
 
     this.setState({
-      imgUsr: user.photoURL
+      imgUsr: profile.photoURL
     });
   }
 
@@ -99,11 +99,10 @@ export class AccountHead extends Component {
             </div>
 
             <UserImage />
-
-            {/* {!imgUsr ? "Icon" : <img src={imgUsr} alt="User Image" />} */}
           </figure>
+
           <h2 className="title">
-            Welcome, <EditText default="Name" />
+            Welcome, <EditText default={"your name"} />
           </h2>
           <p>
             Manage your info, privacy and security to make {process.env.domain}{" "}
