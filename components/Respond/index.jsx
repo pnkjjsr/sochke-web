@@ -22,8 +22,9 @@ class Respond extends Component {
     const time = moment.format(respond.createdAt);
     let display = respond.imageUrl ? "" : "d-none";
     let name = user.displayName ? user.displayName : user.userName;
-    let userImg = respond.photoURL ? (
-      <img src={respond.photoURL} alt={name} />
+
+    let userImg = user.photoURL ? (
+      <img src={user.photoURL} alt={name} />
     ) : (
       <i className="material-icons">account_circle</i>
     );
@@ -46,14 +47,13 @@ class Respond extends Component {
         </div>
 
         <div className="counts">
-          {/* {likeCount} Votes ~ {opinionCount} Opinions */}0 Votes ~ 0
-          Opinions
+          {respond.voteCount} Votes ~ {respond.opinionCount} Opinions
         </div>
 
         <div className="bottom">
           <ul className="actions">
             <li>
-              <VoteRespond />
+              <VoteRespond rid={respond.id} />
             </li>
             <li>
               <CirculateRespond />

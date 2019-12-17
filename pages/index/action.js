@@ -1,9 +1,9 @@
-import { PREFETCH_HOME_DATA } from "./constant";
+import { PREFETCH_HOME_DATA, UPDATE_RESPOND } from "./constant";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
-const prefetchHomeData = e => {
+const prefetchHomeData = () => {
   const session = new authSession();
   const token = session.getToken();
 
@@ -25,6 +25,14 @@ const prefetchHomeData = e => {
   };
 };
 
+const updateRespond = e => {
+  return {
+    type: UPDATE_RESPOND,
+    payload: e
+  };
+};
+
 export default {
-  prefetchHomeData
+  prefetchHomeData,
+  updateRespond
 };

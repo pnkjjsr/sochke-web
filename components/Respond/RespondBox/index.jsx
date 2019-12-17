@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import respondActions from "../RespondList/action";
+import homeActions from "pages/index/action";
 
 import { service } from "apiConnect";
 import AuthSession from "utils/authSession";
@@ -36,26 +37,30 @@ class RespondBox extends Component {
 
   handleSubmit = () => {
     const { uid, respond, imgResp } = this.state;
-    const { respondAction } = this.props;
+    const { respondAction, homeAction } = this.props;
     const respType = imgResp ? "media" : "text";
 
     let data = {
+      createdAt: new Date().toISOString(),
       uid: uid,
       type: respType,
       respond: respond,
-      imageUrl: imgResp
+      imageUrl: imgResp,
+      voteCount: 0,
+      opinionCount: 0
     };
+    homeAction.updateRespond(data);
+
+    this.setState({
+      respond: "",
+      imgResp: ""
+    });
 
     service
       .post("/add-respond", data)
       .then(res => {
         console.log(res);
-        respondAction.prefetch(data.uid);
-
-        this.setState({
-          respond: "",
-          imgResp: ""
-        });
+        homeAction.prefetchHomeData();
       })
       .catch(err => {
         console.log(err);
@@ -149,7 +154,8 @@ class RespondBox extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  respondAction: bindActionCreators(respondActions, dispatch)
+  respondAction: bindActionCreators(respondActions, dispatch),
+  homeAction: bindActionCreators(homeActions, dispatch)
 });
 
 export default connect(state => state, mapDispatchToProps)(RespondBox);

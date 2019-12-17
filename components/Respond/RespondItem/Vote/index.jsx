@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import { service } from "apiConnect";
+import authSession from "utils/authSession";
 
 import "./style.scss";
 
@@ -18,11 +19,13 @@ export class VoteRespond extends Component {
 
   handleClick = () => {
     const { vote } = this.state;
-    const { rid, uid } = this.props;
+    const { rid } = this.props;
+    const session = new authSession();
+    const token = session.getToken();
 
     let data = {
       rid: rid,
-      uid: uid
+      uid: token
     };
     if (vote == true) {
       this.setState({

@@ -22,7 +22,7 @@ class Home extends Component {
     };
   }
   static getDerivedStateFromProps(props, state) {
-    let data = props.home.data;
+    let data = props.home;
     let len = Object.keys(data).length;
 
     if (len) {
