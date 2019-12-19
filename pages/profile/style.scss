@@ -128,6 +128,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .connections {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+
+      .connection {
+        margin: 10px;
+
+        figure {
+          width: 40px;
+          height: 40px;
+          margin: auto;
+          margin-bottom: 5px;
+          @include border-radius(100%);
+          border: 1px solid $border-color;
+          overflow: hidden;
+
+          i {
+            color: $color-lighter;
+            font-size: rem(38);
+          }
+        }
+
+        .title {
+          font-size: rem(13);
+        }
+      }
+    }
   }
 
   //   Empty Context

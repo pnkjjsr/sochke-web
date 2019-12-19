@@ -14,6 +14,8 @@ import PageLoader from "components/Loader/page";
 
 import RespondProfile from "./Respond";
 import MediaRespondProfile from "./MediaRespond";
+import BelieverProfile from "./Believers";
+import LeaderProfile from "./Leaders";
 import "./style.scss";
 
 class Profile extends Component {
@@ -72,11 +74,18 @@ class Profile extends Component {
     const { profile, profileAction } = this.props;
     const session = new authSession();
     const token = session.getToken();
+    const userProfile = session.getProfile();
 
     const data = {
       createdAt: new Date().toISOString(),
-      bid: token,
-      lid: profile.uid
+      uid: token,
+      userName: userProfile.userName,
+      displayName: userProfile.displayName,
+      photoURL: userProfile.photoURL,
+      lid: profile.uid,
+      leaderUserName: profile.userName,
+      leaderDisplayName: profile.displayName,
+      leaderPhotoURL: profile.photoURL
     };
     profileAction.addLeader();
 
@@ -96,7 +105,7 @@ class Profile extends Component {
     const token = session.getToken();
 
     const data = {
-      bid: token,
+      uid: token,
       lid: profile.uid
     };
     profileAction.removeLeader();
@@ -235,38 +244,14 @@ class Profile extends Component {
               </TabPanel>
 
               <TabPanel>
-                <div className={`context-empty `}>
-                  <h2>
-                    You haven’t any Beliver yet
-                    <small>Belivers, show up here.</small>
-                  </h2>
-                  <p>
-                    Belivers are the person and group of person who believe in
-                    your thoughts.
-                  </p>
-                  <div className="action">
-                    <button className="btn btn-lg btn-primary">
-                      Invite Now
-                    </button>
-                  </div>
+                <div className="connections">
+                  <BelieverProfile believerArr={profile.believers} />
                 </div>
               </TabPanel>
 
               <TabPanel>
-                <div className={`context-empty `}>
-                  <h2>
-                    You haven’t any Leader yet
-                    <small>Leaders, show up here.</small>
-                  </h2>
-                  <p>
-                    Leaders are those you believe in. Their thoughts and
-                    contriubtion is value for you.
-                  </p>
-                  <div className="action">
-                    <button className="btn btn-lg btn-primary">
-                      Show Leaders
-                    </button>
-                  </div>
+                <div className="connections">
+                  <LeaderProfile leaderArr={profile.leaders} />
                 </div>
               </TabPanel>
             </div>
