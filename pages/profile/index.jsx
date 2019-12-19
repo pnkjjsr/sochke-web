@@ -245,19 +245,13 @@ class Profile extends Component {
 
               <TabPanel>
                 <div className="connections">
-                  <BelieverProfile
-                    believerArr={profile.believers}
-                    self={selfProfile}
-                  />
+                  <BelieverProfile believerArr={profile} self={selfProfile} />
                 </div>
               </TabPanel>
 
               <TabPanel>
                 <div className="connections">
-                  <LeaderProfile
-                    leaderArr={profile.leaders}
-                    self={selfProfile}
-                  />
+                  <LeaderProfile leaderArr={profile} self={selfProfile} />
                 </div>
               </TabPanel>
             </div>

@@ -8,14 +8,14 @@ class LeaderProfile extends Component {
     super(props);
     this.state = {
       self: props.self,
-      leaders: props.leaderArr
+      leaders: props.leaderArr.leaders
     };
   }
 
   renderEmpty = () => {
     const { self } = this.state;
-    const { respondArr } = this.props;
-    let person = !self ? respondArr.userName : "You";
+    const { leaderArr } = this.props;
+    let person = !self ? leaderArr.userName : "You";
     return (
       <div className={`context-empty `}>
         <h2>
