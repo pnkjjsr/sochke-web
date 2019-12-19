@@ -18,8 +18,8 @@ nav.user {
         text-shadow: none;
       }
 
-      &.photo {
-        padding: 20px 0;
+      &.user-details {
+        padding: 20px 0 0;
         text-align: center;
 
         figure {
@@ -39,6 +39,14 @@ nav.user {
 
           img {
             height: 100%;
+          }
+        }
+
+        .title {
+          a {
+            color: $base-color;
+            font-size: $font-size;
+            text-align: center;
           }
         }
       }

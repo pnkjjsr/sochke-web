@@ -17,7 +17,9 @@ class UserNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: ""
+      url: "",
+      userName: "",
+      displayName: ""
     };
   }
 
@@ -36,22 +38,28 @@ class UserNav extends Component {
   componentDidMount() {
     const session = new authSession();
     const profile = session.getProfile();
-    let userName = profile.userName;
 
     this.setState({
-      url: userName
+      url: profile.userName,
+      userName: profile.userName,
+      displayName: profile.displayName
     });
   }
 
   render() {
-    const { url } = this.state;
+    const { url, displayName, userName } = this.state;
 
     return (
       <Fragment>
         <nav className="user">
           <ul>
-            <li className="photo">
+            <li className="user-details">
               <UserImage />
+              <div className="title">
+                <Link href={`/profile/${userName}`}>
+                  {displayName || userName}
+                </Link>
+              </div>
             </li>
             <li>
               <Link href={`/profile/${url}`} as={`/profile/${url}`}>

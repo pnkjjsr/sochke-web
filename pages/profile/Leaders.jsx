@@ -7,20 +7,24 @@ class LeaderProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      self: props.self,
       leaders: props.leaderArr
     };
   }
 
   renderEmpty = () => {
+    const { self } = this.state;
+    const { respondArr } = this.props;
+    let person = !self ? respondArr.userName : "You";
     return (
       <div className={`context-empty `}>
         <h2>
-          You haven’t any Leader yet
+          {person} haven’t any Leader yet
           <small>Leaders, show up here.</small>
         </h2>
         <p>
-          Leaders are those you believe in. Their thoughts and contriubtion is
-          value for you.
+          Leaders are those {person} believe in. Their thoughts and contriubtion
+          is value for you.
         </p>
         <div className="action">
           <button className="btn btn-lg btn-primary">Show Leaders</button>
@@ -36,7 +40,9 @@ class LeaderProfile extends Component {
         <Link href={leader.leaderUserName}>
           <div className="connection">
             <Photo src={leader.photoURL} />
-            <div>{leader.leaderDisplayName || leader.leaderUserName}</div>
+            <div className="title">
+              {leader.leaderDisplayName || leader.leaderUserName}
+            </div>
           </div>
         </Link>
       );

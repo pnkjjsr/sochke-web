@@ -173,7 +173,7 @@ class Profile extends Component {
   };
 
   renderProfile = () => {
-    const { query } = this.state;
+    const { query, selfProfile } = this.state;
     const { profile } = this.props;
 
     return (
@@ -213,7 +213,7 @@ class Profile extends Component {
 
             <div className="tab-container">
               <TabPanel>
-                <RespondProfile respondArr={profile} />
+                <RespondProfile respondArr={profile} self={selfProfile} />
               </TabPanel>
 
               <TabPanel>
@@ -240,18 +240,24 @@ class Profile extends Component {
               </TabPanel>
 
               <TabPanel>
-                <MediaRespondProfile respondArr={profile} />
+                <MediaRespondProfile respondArr={profile} self={selfProfile} />
               </TabPanel>
 
               <TabPanel>
                 <div className="connections">
-                  <BelieverProfile believerArr={profile.believers} />
+                  <BelieverProfile
+                    believerArr={profile.believers}
+                    self={selfProfile}
+                  />
                 </div>
               </TabPanel>
 
               <TabPanel>
                 <div className="connections">
-                  <LeaderProfile leaderArr={profile.leaders} />
+                  <LeaderProfile
+                    leaderArr={profile.leaders}
+                    self={selfProfile}
+                  />
                 </div>
               </TabPanel>
             </div>

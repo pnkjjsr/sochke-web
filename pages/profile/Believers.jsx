@@ -7,15 +7,19 @@ class BelieverProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      self: props.self,
       believers: props.believerArr
     };
   }
 
   renderEmpty = () => {
+    const { self } = this.state;
+    const { respondArr } = this.props;
+    let person = !self ? respondArr.userName : "You";
     return (
       <div className={`context-empty `}>
         <h2>
-          You haven’t any Beliver yet
+          {person} haven’t any Beliver yet
           <small>Belivers, show up here.</small>
         </h2>
         <p>

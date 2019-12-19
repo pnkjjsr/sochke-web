@@ -155,6 +155,7 @@
 
         .title {
           font-size: rem(13);
+          text-align: center;
         }
       }
     }
@@ -247,6 +248,35 @@
 
       > div {
         width: 80%;
+      }
+
+      .connections {
+        .connection {
+          cursor: pointer;
+
+          figure {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+
+            i {
+              font-size: rem(98.5);
+            }
+          }
+
+          .title {
+            font-size: $font-size;
+          }
+
+          &:hover {
+            figure {
+              border-color: $color-primary;
+            }
+            .title {
+              color: $color-primary;
+            }
+          }
+        }
       }
     }
     .context-empty {
