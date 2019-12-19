@@ -154,8 +154,8 @@ class Register extends Component {
           };
           service
             .post("/signup", apiData)
-            .then(result => {
-              console.log(result);
+            .then(res => {
+              session.setProfile(res.data.data);
             })
             .catch(async error => {
               let data = error.response.data;
