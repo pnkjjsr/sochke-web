@@ -9,6 +9,7 @@ export class MediaRespondProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      self: props.self,
       user: {},
       respondArr: []
     };
@@ -25,11 +26,15 @@ export class MediaRespondProfile extends Component {
   }
 
   renderEmpty = () => {
+    const { self } = this.state;
+    const { respondArr } = this.props;
+    let person = !self ? respondArr.userName : "You";
+
     return (
       <div className={`context-empty `}>
         <h2>
-          You haven’t Upload Media Responed yet
-          <small>When you add a Media Respond, it’ll show up here.</small>
+          {person} haven’t Upload Media Responed yet
+          <small>When {person} add a Media Respond, it’ll show up here.</small>
         </h2>
         <p>
           Media Respond, is same as respond but with photo of that area,
@@ -45,19 +50,22 @@ export class MediaRespondProfile extends Component {
 
   renderLoop = () => {
     const { respondArr, user } = this.state;
-    return respondArr.map(respond => {
-      if (respond.type == "media") {
-        return <Respond key={respond.id} respond={respond} user={user} />;
-      }
-    });
+    let len = respondArr.length;
+    if (!len) {
+      return this.renderEmpty();
+    } else {
+      return respondArr.map(respond => {
+        if (respond.type == "media") {
+          return <Respond key={respond.id} respond={respond} user={user} />;
+        }
+      });
+    }
   };
 
   render() {
     return (
       <Fragment>
-        <div className="profile-respond">
-          {this.renderLoop() || this.renderEmpty()}
-        </div>
+        <div className="profile-respond">{this.renderLoop()}</div>
       </Fragment>
     );
   }

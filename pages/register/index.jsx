@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Link from "next/link";
 import Router from "next/router";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import loginActions from "pages/login/actions";
@@ -155,8 +154,8 @@ class Register extends Component {
           };
           service
             .post("/signup", apiData)
-            .then(result => {
-              console.log(result);
+            .then(res => {
+              session.setProfile(res.data.data);
             })
             .catch(async error => {
               let data = error.response.data;
@@ -382,6 +381,19 @@ class Register extends Component {
 
     layoutAction.update_path(path);
     registerAction.check_login();
+
+    const data = {
+      createdAt: new Date().toISOString()
+    };
+
+    service
+      .post("/session", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {

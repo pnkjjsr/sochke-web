@@ -9,6 +9,7 @@ export class RespondProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      self: props.self,
       user: {},
       respondArr: []
     };
@@ -25,11 +26,15 @@ export class RespondProfile extends Component {
   }
 
   renderEmpty = () => {
+    const { self } = this.state;
+    const { respondArr } = this.props;
+    let person = !self ? respondArr.userName : "You";
+
     return (
       <div className={`context-empty`}>
         <h2>
-          You haven’t Responed yet
-          <small>When you write a Respond, it’ll show up here.</small>
+          {person} haven’t Responed yet
+          <small>When {person} write a Respond, it’ll show up here.</small>
         </h2>
         <p>
           Respond is general thought of your about your area, problems, issue,
