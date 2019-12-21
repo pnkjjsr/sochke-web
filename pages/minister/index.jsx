@@ -7,6 +7,7 @@ import ministerActions from "./action";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
+import stringModifier from "utils/stringModifier";
 
 import Button from "components/Form/Button";
 import PageLoader from "components/Loader/page";
@@ -23,8 +24,9 @@ class Minister extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      view: 0,
       query: props.queryName,
-      view: 0
+      minister: {}
     };
   }
 
@@ -35,7 +37,8 @@ class Minister extends Component {
       return null;
     } else {
       return {
-        view: 1
+        view: 1,
+        minister: ministerPage
       };
     }
   }
@@ -46,9 +49,24 @@ class Minister extends Component {
     ministerAction.prefetchMinisterData(query);
   }
 
+  renderConstituencyArea = () => {
+    const { minister } = this.state;
+    let areas = minister.constituencyArea.area;
+
+    return areas.map((area, key) => {
+      return `${area.area}, `;
+    });
+  };
+
   renderMinister = () => {
-    const { query } = this.state;
-    const { ministerPage } = this.props;
+    const { minister } = this.state;
+    const string = new stringModifier();
+    let assets = string.currencyFormat(minister.assets);
+    let assetsCompact = string.currencyFormatCompact(minister.assets);
+    let edu = string.tillFirstCommaString(minister.education);
+    let type = minister.type.toLowerCase();
+    let winner = minister.winner ? "Winner" : "Didn't Win";
+    let areas = this.renderConstituencyArea();
 
     return (
       <Fragment>
@@ -60,17 +78,72 @@ class Minister extends Component {
             </div>
 
             <div className="details">
-              <h1>Welcome, {ministerPage.name}</h1>
-              <div className="action">
-                <button className="btn btn-primary">Button</button>
+              <h1>{minister.name}</h1>
+              <div className="type">
+                {type} ({winner})
               </div>
-              <div className="count">
+              <div className="action">
+                {/* <button className="btn btn-primary">Button</button> */}
+              </div>
+              <div className="pointer">
                 <ul>
-                  <li>0 responds</li>
-                  <li>0 contributions</li>
-                  <li>0 Media</li>
-                  <li>0 believers</li>
-                  <li>0 leaders</li>
+                  <li>
+                    <i className="material-icons">map</i>
+                    <label htmlFor="party">
+                      <b>{minister.constituency}</b>
+                      <br />
+                      <span>{areas}</span>
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">access_time</i>
+                    <label htmlFor="party">
+                      <b>{minister.year}</b>
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">flag</i>
+                    <label htmlFor="party">
+                      <b>{minister.party}</b>
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">gavel</i>
+                    <label htmlFor="assets">
+                      <b>{minister.cases}</b> case(s)
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">money</i>
+                    <label htmlFor="assets">
+                      <b>{assetsCompact} ~</b>
+                      <br />
+                      <span>{assets}</span>
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">portrait</i>
+                    <label htmlFor="address">{minister.age}</label>
+                  </li>
+                  <li>
+                    <i className="material-icons">menu_book</i>
+                    <label htmlFor="education">
+                      <b>{edu}</b>,
+                      <br />
+                      <span>{minister.education}</span>
+                    </label>
+                  </li>
+                  <li>
+                    <i className="material-icons">home</i>
+                    <label htmlFor="address">
+                      <b>{minister.pincode}</b>
+                      <br />
+                      <span>
+                        {minister.address}, {minister.state} -{" "}
+                        {minister.pincode}
+                      </span>
+                    </label>
+                  </li>
                 </ul>
               </div>
             </div>

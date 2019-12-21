@@ -7,25 +7,40 @@ class stringModifier {
       let nameBefore = i.officename;
       let index = nameBefore.search(word);
       let name = nameBefore.slice(0, index);
-      let state = i.taluk;
+      let taluk = i.taluk;
+      let state = i.statename;
       let district = i.districtname;
       let division = i.divisionname;
+      let regionName = i.regionname;
+      let circleName = i.circleName;
+
       arr.push({
         area: name.trim(),
         division: division,
         district: district,
-        state: state
+        state: state,
+        taluk: taluk,
+        regionName: regionName,
+        circleName: circleName
       });
     });
     return arr;
   };
 
-  currencyFormat = (e, size) => {
+  currencyFormat = e => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      compactDisplay: "long"
+    }).format(e);
+  };
+
+  currencyFormatCompact = e => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       notation: "compact",
-      compactDisplay: size
+      compactDisplay: "long"
     }).format(e);
   };
 

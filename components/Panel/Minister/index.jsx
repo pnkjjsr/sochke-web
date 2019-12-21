@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Link from "next/Link";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./actions";
@@ -56,46 +57,51 @@ class PanelMinister extends Component {
       return (
         <Fragment>
           <div className="panel-minister">
-            <div className="row">
-              <div className="col-3 col-lg-12">
-                <div className="photo">
-                  <PhotoPanel />
-                </div>
-              </div>
-              <div className="col-9 col-lg-12">
-                <div className="heading">
-                  <label htmlFor="ministerName">{title}</label>
-                  <h3 className="title" name="ministerName">
-                    {minister.name}
-                  </h3>
-                </div>
+            <Link href={`/minister/${minister.userName}`}>
+              <a>
+                <div className="row">
+                  <div className="col-3 col-lg-12">
+                    <div className="photo">
+                      <PhotoPanel />
+                    </div>
+                  </div>
+                  <div className="col-9 col-lg-12">
+                    <div className="heading">
+                      <label htmlFor="ministerName">{title}</label>
+                      <h3 className="title" name="ministerName">
+                        {minister.name}
+                      </h3>
+                    </div>
 
-                <div className="details">
-                  <ul>
-                    <li>
-                      <i className="material-icons">flag</i>
-                      <label htmlFor="party">
-                        <b>{minister.party}</b>
-                      </label>
-                    </li>
-                    <li>
-                      <i className="material-icons">money</i>
-                      <label htmlFor="assets">{assets}</label>
-                    </li>
-                    <li>
-                      <i className="material-icons">menu_book</i>
-                      <label htmlFor="education">{edu}</label>
-                    </li>
-                    <li>
-                      <i className="material-icons">home</i>
-                      <label htmlFor="address">
-                        {minister.address}, {minister.state}-{minister.pincode}
-                      </label>
-                    </li>
-                  </ul>
+                    <div className="details">
+                      <ul>
+                        <li>
+                          <i className="material-icons">flag</i>
+                          <label htmlFor="party">
+                            <b>{minister.party}</b>
+                          </label>
+                        </li>
+                        <li>
+                          <i className="material-icons">money</i>
+                          <label htmlFor="assets">{assets}</label>
+                        </li>
+                        <li>
+                          <i className="material-icons">menu_book</i>
+                          <label htmlFor="education">{edu}</label>
+                        </li>
+                        <li>
+                          <i className="material-icons">home</i>
+                          <label htmlFor="address">
+                            {minister.address}, {minister.state}-
+                            {minister.pincode}
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </a>
+            </Link>
           </div>
         </Fragment>
       );

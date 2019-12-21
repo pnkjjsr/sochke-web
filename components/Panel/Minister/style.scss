@@ -7,6 +7,15 @@
   border: solid 1px rgb(207, 217, 230);
   background-color: rgb(255, 255, 255);
 
+  > a {
+    color: $base-color;
+    text-decoration: none;
+  }
+  &:hover {
+    border-color: $color-primary;
+    text-decoration: none;
+  }
+
   .photo {
     width: 60px;
     height: 60px;

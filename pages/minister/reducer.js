@@ -19,7 +19,8 @@ const initialState = {
   winner: true,
   pincode: "",
   id: "",
-  createdAt: ""
+  createdAt: "",
+  constituencyArea: []
 };
 
 const minister = (state = initialState, action) => {
@@ -44,7 +45,8 @@ const minister = (state = initialState, action) => {
         winner: action.payload.winner,
         pincode: action.payload.pincode,
         id: action.payload.id,
-        createdAt: action.payload.createdAt
+        createdAt: action.payload.createdAt,
+        constituencyArea: action.payload.constituencyArea
       });
     default:
       return state;
