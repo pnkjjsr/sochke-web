@@ -1,0 +1,167 @@
+@import "common/styles/global.scss";
+
+.minister {
+  margin-top: 10px;
+
+  & > .top {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .photo {
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      margin-bottom: 10px;
+      border: 1px solid $border-color;
+      @include border-radius(100%);
+      overflow: hidden;
+
+      figure {
+        height: 100%;
+
+        img {
+          height: 100%;
+        }
+
+        i {
+          color: $color-lighter;
+          font-size: rem(98);
+        }
+      }
+    }
+
+    .details {
+      text-align: center;
+
+      h1 {
+        font-size: rem(24);
+      }
+
+      .type {
+        text-transform: capitalize;
+      }
+
+      .action {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        button {
+          margin-right: 20px;
+
+          &.btn-default {
+            border: 1px solid $color-lighter;
+          }
+        }
+        .setting {
+          display: flex;
+          align-items: center;
+          color: $color-light;
+          cursor: pointer;
+          text-decoration: none;
+
+          i {
+            font-size: rem(30);
+          }
+        }
+      }
+
+      .pointer {
+        ul,
+        li {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
+        }
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          li {
+            display: flex;
+            padding: 10px 0;
+            font-size: rem(14);
+            text-align: left;
+
+            &:last-child {
+              padding-bottom: 0;
+            }
+
+            i {
+              margin-right: 10px;
+            }
+
+            label {
+              margin: 0;
+              margin-top: 1px;
+
+              span {
+                color: $color-gray;
+                font-size: rem(13);
+                font-weight: $font-weight-light;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .minister {
+    margin-top: 50px;
+
+    > .top {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-bottom: 50px;
+
+      .photo {
+        width: 150px;
+        height: 150px;
+        margin: 0;
+        margin-right: 40px;
+
+        figure {
+          i {
+            font-size: rem(149);
+          }
+        }
+      }
+
+      .details {
+        text-align: left;
+
+        h1 {
+          font-size: rem(40);
+          font-weight: $font-weight-light;
+        }
+
+        .action {
+          justify-content: left;
+          margin-bottom: 40px;
+        }
+
+        .pointer {
+          ul {
+            li {
+              padding-right: 50px;
+              font-size: rem(18);
+
+              label {
+                margin: 0;
+              }
+
+              i {
+                padding-top: 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

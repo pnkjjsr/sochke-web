@@ -56,8 +56,10 @@ app
       return app.render(req, res, "/");
     });
 
-    server.get("/minister/:name", (req, res) => {
-      return app.render(req, res, "/minister", { name: req.params.name });
+    server.get("/minister/:userName", (req, res) => {
+      return app.render(req, res, "/minister", {
+        userName: req.params.userName
+      });
     });
 
     server.get("/profile", (req, res) => {

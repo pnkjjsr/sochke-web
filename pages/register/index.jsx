@@ -68,7 +68,7 @@ class Register extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { mobile, email, pincode, area, password } = this.state;
-    const { notification, user } = this.props;
+    const { notification, loginAction } = this.props;
     const { valid, errors } = validation({
       email,
       mobile,
@@ -118,6 +118,7 @@ class Register extends Component {
           }
         } else {
           const { register } = this.props;
+
           const session = new authSession();
           let locations = register.area;
           let token = res.user.uid;
@@ -133,10 +134,12 @@ class Register extends Component {
             pincode: pincode,
             country: "India"
           };
+          console.log(data);
+
           session.setToken(token);
           session.setProfile(data);
           auth.sendEmailVerification();
-          user.authenticate(data);
+          loginAction.authenticate(data);
           Router.push("/constituency");
 
           let apiData = {
@@ -386,14 +389,14 @@ class Register extends Component {
       createdAt: new Date().toISOString()
     };
 
-    service
-      .post("/session", data)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // service
+    //   .post("/session", data)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   render() {
@@ -403,7 +406,7 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => ({
   registerAction: bindActionCreators(registerActions, dispatch),
-  user: bindActionCreators(loginActions, dispatch),
+  loginAction: bindActionCreators(loginActions, dispatch),
   notification: bindActionCreators(notification, dispatch),
   layoutAction: bindActionCreators(layoutActions, dispatch)
 });

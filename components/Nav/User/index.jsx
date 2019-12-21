@@ -57,7 +57,7 @@ class UserNav extends Component {
               <UserImage />
               <div className="title">
                 <Link href={`/profile/${userName}`}>
-                  {displayName || userName}
+                  <a>{displayName || userName}</a>
                 </Link>
               </div>
             </li>

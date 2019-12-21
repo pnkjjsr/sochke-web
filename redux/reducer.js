@@ -10,8 +10,9 @@ import polls from "components/Panel/Poll/reducer";
 import login from "pages/login/reducer";
 import register from "pages/register/reducer";
 import account from "pages/account/reducer";
-import profile from "pages/profile/reducer";
 import home from "pages/index/reducer";
+import profile from "pages/profile/reducer";
+import ministerPage from "pages/minister/reducer";
 
 const rootReducer = combineReducers({
   layout,
@@ -20,11 +21,12 @@ const rootReducer = combineReducers({
   responds,
   polls,
 
-  home,
   login,
   register,
   account,
-  profile
+  home,
+  profile,
+  ministerPage
 });
 
 export default rootReducer;

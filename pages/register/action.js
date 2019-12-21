@@ -22,6 +22,8 @@ const get_area = function(pincode) {
     const data = new dataGov();
     const location = await data.getLocation(pincode);
     const updatedArea = await string.removeWord(location, "S.O");
+    console.log(updatedArea);
+
     const areadata = {
       pincode: pincode,
       area: updatedArea
