@@ -5,6 +5,7 @@ import Link from "next/link";
 import authSession from "utils/authSession";
 
 import DrawerPage from "components/DrawerPage";
+import Contribution from "components/Contribution";
 
 import "./style.scss";
 
@@ -13,7 +14,7 @@ class BottomNav extends Component {
     super(props);
     this.state = {
       view: 0,
-      contributionDrawer: "",
+      contributionDrawer: "open",
       pollDrawer: "",
       constituencyDrawer: ""
     };
@@ -96,7 +97,7 @@ class BottomNav extends Component {
                 open={contributionDrawer}
                 action={e => this.handleClose("contribution")}
               >
-                Contribution Page
+                <Contribution />
               </DrawerPage>
             </li>
 
