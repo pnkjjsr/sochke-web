@@ -3,9 +3,10 @@
 .contribution {
   display: flex;
   align-items: center;
-  height: calc(100% - 100px);
+  height: calc(100% - 40px);
 
   .empty {
+    padding: 0 20px;
     text-align: center;
 
     i {
@@ -26,6 +27,84 @@
     }
   }
 
+  .photo {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
   .contribution-box {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+
+    .title {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.7);
+      // border: 1px solid $border-color;
+      font-size: rem(18);
+
+      .form-control {
+        border: 0px none;
+        text-align: center;
+
+        &::placeholder {
+          color: $color-gray;
+        }
+      }
+    }
+
+    .para {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.7);
+      // border: 1px solid $border-color;
+      font-size: rem(16);
+      .form-control {
+        border: 0px none;
+        text-align: center;
+
+        &::placeholder {
+          color: $color-gray;
+        }
+      }
+
+      .note {
+        display: block;
+        margin-top: 10px;
+        color: $color-gray;
+        font-size: rem(12);
+      }
+    }
+
+    .middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+
+      .icon {
+        color: $color-light;
+        font-size: rem(100);
+        line-height: 80%;
+      }
+
+      span {
+        font-size: rem(14);
+        color: $color-light;
+      }
+    }
+
+    .action {
+      .btn {
+      }
+    }
   }
 }
