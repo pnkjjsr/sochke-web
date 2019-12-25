@@ -51,7 +51,7 @@ export default class Storage {
       case "images/contributions":
         // Upload file and metadata to the object 'path send via PROPS parameter'
         var uploadTask = storageRef
-          .child(`${path}/${uid}/party.jpg`)
+          .child(`${path}/${uid}/${dateParse}.jpg`)
           .put(file, metadata);
         break;
       default:

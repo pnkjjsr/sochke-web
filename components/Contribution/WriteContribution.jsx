@@ -9,7 +9,8 @@ export default class WriteContribution extends Component {
     this.state = {
       title: "",
       discription: "",
-      photo: ""
+      photo: "",
+      imgUrl: ""
     };
   }
 
@@ -22,16 +23,18 @@ export default class WriteContribution extends Component {
   };
 
   getImageUrl = e => {
-    console.log(e);
+    this.setState({
+      imgUrl: e.imgUrl
+    });
   };
 
   render() {
-    const { title, description } = this.state;
+    const { title, description, imgUrl } = this.state;
     return (
       <Fragment>
         <div className="contribution">
           <div className="photo">
-            {/* <img src="/static/images/default-image.jpg" alt="" /> */}
+            <img src={imgUrl} alt="" />
           </div>
 
           <div className="contribution-box">
@@ -39,7 +42,7 @@ export default class WriteContribution extends Component {
               <input
                 className="form-control"
                 type="text"
-                name={title}
+                name="title"
                 placeholder="Title of your contribution"
               />
             </h1>
@@ -57,9 +60,9 @@ export default class WriteContribution extends Component {
             <p className="para">
               <textarea
                 className="form-control"
-                name={description}
+                name="description"
                 placeholder="Describe your contribution."
-                value=""
+                value={description}
               ></textarea>
 
               <small className="note">

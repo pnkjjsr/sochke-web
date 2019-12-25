@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import Link from "next/link";
-import Router from "next/router";
 import base64 from "base-64";
 import utf8 from "utf8";
+import Link from "next/link";
+import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import loginActions from "pages/login/actions";

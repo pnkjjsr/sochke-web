@@ -52,7 +52,10 @@
       font-size: rem(18);
 
       .form-control {
+        height: auto;
+        padding: 0;
         border: 0px none;
+        background-color: transparent;
         text-align: center;
 
         &::placeholder {
@@ -66,8 +69,12 @@
       background-color: rgba(255, 255, 255, 0.7);
       // border: 1px solid $border-color;
       font-size: rem(16);
+
       .form-control {
+        height: auto;
+        padding: 0;
         border: 0px none;
+        background-color: transparent;
         text-align: center;
 
         &::placeholder {
@@ -84,11 +91,22 @@
     }
 
     .middle {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 150px;
+
+      .upload-file {
+        width: 100%;
+        height: 100%;
+
+        input {
+          width: 100%;
+          height: 100%;
+        }
+      }
 
       .icon {
         color: $color-light;
