@@ -10,7 +10,9 @@ export default class WriteContribution extends Component {
       title: "",
       discription: "",
       photo: "",
-      imgUrl: ""
+      imgUrl: "",
+      dMiddle: "",
+      dNote: ""
     };
   }
 
@@ -23,13 +25,16 @@ export default class WriteContribution extends Component {
   };
 
   getImageUrl = e => {
+    const { displayAdded } = this.state;
+
     this.setState({
-      imgUrl: e.imgUrl
+      imgUrl: e.imgUrl,
+      displayAdded: "added"
     });
   };
 
   render() {
-    const { title, description, imgUrl } = this.state;
+    const { title, description, imgUrl, displayAdded } = this.state;
     return (
       <Fragment>
         <div className="contribution">
@@ -37,7 +42,7 @@ export default class WriteContribution extends Component {
             <img src={imgUrl} alt="" />
           </div>
 
-          <div className="contribution-box">
+          <div className={`contribution-box ${displayAdded}`}>
             <h1 className="title">
               <input
                 className="form-control"
@@ -57,7 +62,7 @@ export default class WriteContribution extends Component {
               <span>add contribution's photo</span>
             </div>
 
-            <p className="para">
+            <div className="para">
               <textarea
                 className="form-control"
                 name="description"
@@ -70,7 +75,7 @@ export default class WriteContribution extends Component {
                 vote on your contri. User can contribute 1 contribution per day.
                 Use this feature wisely to raise the real problems in you area.
               </small>
-            </p>
+            </div>
 
             <div className="action">
               <button className="btn btn-primary">Contribute</button>
