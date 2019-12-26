@@ -1,15 +1,21 @@
 import React, { Component, Fragment } from "react";
 
+import { service } from "apiConnect";
+import authSession from "utils/authSession";
+
+import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
 
 import WriteContribution from "./WriteContribution";
+import ViewContribution from "./ViewContribution";
 import "./style.scss";
 
 export default class Contribution extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "write-contribution"
+      view: "loading", //loading, empty, write-contribution, view-contribution
+      contributions: {}
     };
   }
 
@@ -46,12 +52,43 @@ export default class Contribution extends Component {
     );
   };
 
+  componentDidMount() {
+    const session = new authSession();
+    const profile = session.getProfile();
+    const data = {
+      uid: profile.uid,
+      constituency: profile.area,
+      district: profile.district
+    };
+    service
+      .post("/contribution", data)
+      .then(res => {
+        if (res.code == "contribution/empty") {
+          this.setState({
+            view: "empty"
+          });
+        }
+
+        this.setState({
+          view: "view-contribution",
+          contributions: res.data.contributions
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
-    const { view } = this.state;
-    if (view == "empty") {
+    const { view, contributions } = this.state;
+    if (view == "loading") {
+      return <PageLoader />;
+    } else if (view == "empty") {
       return this.renderEmpty();
     } else if (view == "write-contribution") {
       return <WriteContribution />;
+    } else if (view == "view-contribution") {
+      return <ViewContribution data={contributions} />;
     }
   }
 }

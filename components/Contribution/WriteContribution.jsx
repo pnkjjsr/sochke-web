@@ -84,7 +84,7 @@ class WriteContribution extends Component {
             <img src={imgUrl} alt="" />
           </div>
 
-          <div className={`contribution-box ${displayAdded}`}>
+          <div className={`contribution_box ${displayAdded}`}>
             <h1 className="title">
               <input
                 className="form-control"

@@ -43,7 +43,7 @@
     }
   }
 
-  .contribution-box {
+  .contribution_box {
     position: relative;
     width: 100%;
     padding: 10px;
@@ -129,7 +129,7 @@
       .btn {
       }
     }
-
+    // Contribution Write Form
     &.added {
       .title {
         margin-bottom: 150px;
@@ -145,6 +145,21 @@
         .note {
           display: none;
         }
+      }
+    }
+
+    // Contribution Preview Box
+    &.preview {
+      height: 100%;
+      padding: 0;
+
+      .para {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
       }
     }
   }
