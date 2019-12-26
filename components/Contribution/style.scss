@@ -157,9 +157,10 @@
         position: absolute;
         z-index: 1;
         left: 0;
-        bottom: 0;
+        bottom: 6px;
         width: 100%;
         margin: 0;
+        font-size: rem(13);
       }
     }
   }

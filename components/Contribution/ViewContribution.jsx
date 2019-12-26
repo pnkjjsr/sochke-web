@@ -6,7 +6,7 @@ class ViewContribution extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contributions: props.data
+      contributions: props.data[0]
     };
   }
 
