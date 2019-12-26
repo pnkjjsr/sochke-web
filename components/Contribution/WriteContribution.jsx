@@ -1,18 +1,24 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import notificationActions from "components/Notification/actions";
+
+import { service } from "apiConnect";
+import authSession from "utils/authSession";
+
 import UploadFile from "components/UploadFile";
+import Button from "components/Form/Button";
 
 import "./style.scss";
 
-export default class WriteContribution extends Component {
+class WriteContribution extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      discription: "",
-      photo: "",
+      description: "",
       imgUrl: "",
-      dMiddle: "",
-      dNote: ""
+      displayAdded: ""
     };
   }
 
@@ -25,16 +31,52 @@ export default class WriteContribution extends Component {
   };
 
   getImageUrl = e => {
-    const { displayAdded } = this.state;
-
     this.setState({
       imgUrl: e.imgUrl,
       displayAdded: "added"
     });
   };
 
+  handleSubmit = () => {
+    const { title, description, imgUrl } = this.state;
+    const { notificationAction } = this.props;
+    const session = new authSession();
+    const profile = session.getProfile();
+
+    const data = {
+      createdAt: new Date().toISOString(),
+      uid: profile.uid,
+      constituency: profile.area,
+      district: profile.district,
+      state: profile.state,
+      title: title,
+      description: description,
+      imgUrl: imgUrl
+    };
+
+    service
+      .post("/add-contribution", data)
+      .then(res => {
+        this.setState({
+          title: "",
+          description: "",
+          imgUrl: "",
+          displayAdded: ""
+        });
+
+        notificationAction.showNotification({
+          message: "Your contribution added.",
+          type: "success"
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     const { title, description, imgUrl, displayAdded } = this.state;
+
     return (
       <Fragment>
         <div className="contribution">
@@ -49,6 +91,8 @@ export default class WriteContribution extends Component {
                 type="text"
                 name="title"
                 placeholder="Title of your contribution"
+                value={title}
+                onChange={this.handleChange}
               />
             </h1>
 
@@ -68,6 +112,7 @@ export default class WriteContribution extends Component {
                 name="description"
                 placeholder="Describe your contribution."
                 value={description}
+                onChange={this.handleChange}
               ></textarea>
 
               <small className="note">
@@ -78,7 +123,11 @@ export default class WriteContribution extends Component {
             </div>
 
             <div className="action">
-              <button className="btn btn-primary">Contribute</button>
+              <Button
+                text="Contribute"
+                variant="btn-primary"
+                action={this.handleSubmit}
+              />
             </div>
           </div>
         </div>
@@ -86,3 +135,9 @@ export default class WriteContribution extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  notificationAction: bindActionCreators(notificationActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(WriteContribution);
