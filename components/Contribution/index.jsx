@@ -71,7 +71,8 @@ export default class Contribution extends Component {
 
         this.setState({
           view: "view-contribution",
-          contributions: res.data.contributions
+          contributions: res.data.contributions,
+          contributionVoted: res.data.contributionVoted
         });
       })
       .catch(err => {
@@ -88,7 +89,7 @@ export default class Contribution extends Component {
     } else if (view == "write-contribution") {
       return <WriteContribution />;
     } else if (view == "view-contribution") {
-      return <ViewContribution data={contributions} />;
+      return <ViewContribution data={this.state} />;
     }
   }
 }

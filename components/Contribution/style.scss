@@ -3,7 +3,7 @@
 .contribution {
   display: flex;
   align-items: center;
-  height: calc(100% - 40px);
+  height: calc(100% - 46px);
 
   .empty {
     padding: 0 20px;
@@ -125,10 +125,6 @@
       }
     }
 
-    .action {
-      .btn {
-      }
-    }
     // Contribution Write Form
     &.added {
       .title {
@@ -157,10 +153,36 @@
         position: absolute;
         z-index: 1;
         left: 0;
-        bottom: 6px;
+        bottom: 0;
         width: 100%;
+        padding-bottom: 90px;
         margin: 0;
         font-size: rem(13);
+      }
+
+      .action {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        bottom: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        .btn {
+          width: 60px;
+          height: 60px;
+          font-size: rem(30);
+          @include border-radius(100%);
+          box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.4);
+
+          &.btn-light {
+            font-weight: $font-weight;
+            border: 0 none;
+            background: none;
+            box-shadow: none;
+          }
+        }
       }
     }
   }
