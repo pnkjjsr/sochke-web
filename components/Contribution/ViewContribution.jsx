@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from "react";
 
+import authSession from "utils/authSession";
+import { service } from "apiConnect";
+
 import Button from "components/Form/Button";
 
 import "./style.scss";
@@ -9,9 +12,37 @@ class ViewContribution extends Component {
     super(props);
     this.state = {
       contributions: props.data.contributions,
-      contributionVoted: props.data.contributionVoted
+      contributionVoted: props.data.contributionVoted,
+
+      isUpdate: 0
     };
   }
+
+  handleVote = (cid, vote) => {
+    const { isUpdate } = this.state;
+    const session = new authSession();
+    const token = session.getToken();
+    let data = {
+      createdAt: new Date().toISOString(),
+      uid: token,
+      cid: cid,
+      vote: vote
+    };
+
+    service
+      .post("/vote-contribution", data)
+      .then(() => {
+        this.setState({
+          isUpdate: isUpdate + 1
+        });
+      })
+      .catch();
+  };
+
+  handleAdd = () => {
+    const { actionWriteView } = this.props;
+    actionWriteView();
+  };
 
   loopContribution = () => {
     const { contributions, contributionVoted } = this.state;
@@ -30,9 +61,21 @@ class ViewContribution extends Component {
 
               <div className="para">{contribute.description}</div>
               <div className="action">
-                <Button text="&#10004;" variant="btn-success" />
-                <Button text="&#10010;" variant="btn-light" />
-                <Button text="&#10008;" variant="btn-danger" />
+                <Button
+                  text="&#10004;"
+                  variant="btn-success"
+                  action={() => this.handleVote(contribute.id, true)}
+                />
+                <Button
+                  text="&#10010;"
+                  variant="btn-light"
+                  action={this.handleAdd}
+                />
+                <Button
+                  text="&#10008;"
+                  variant="btn-danger"
+                  action={() => this.handleVote(contribute.id, false)}
+                />
               </div>
             </div>
           </div>
@@ -42,6 +85,9 @@ class ViewContribution extends Component {
   };
 
   render() {
+    const { isUpdate } = this.state;
+    // console.log(isUpdate);
+
     return this.loopContribution();
   }
 }

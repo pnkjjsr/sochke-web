@@ -39,7 +39,7 @@ class WriteContribution extends Component {
 
   handleSubmit = () => {
     const { title, description, imgUrl } = this.state;
-    const { notificationAction } = this.props;
+    const { notificationAction, actionPreviewView } = this.props;
     const session = new authSession();
     const profile = session.getProfile();
 
@@ -53,6 +53,8 @@ class WriteContribution extends Component {
       description: description,
       imgUrl: imgUrl
     };
+
+    actionPreviewView();
 
     service
       .post("/add-contribution", data)

@@ -25,6 +25,18 @@ export default class Contribution extends Component {
     });
   };
 
+  handleWriteView = () => {
+    this.setState({
+      view: "write-contribution"
+    });
+  };
+
+  handlePreviewView = () => {
+    this.setState({
+      view: "view-contribution"
+    });
+  };
+
   renderEmpty = () => {
     return (
       <Fragment>
@@ -87,9 +99,14 @@ export default class Contribution extends Component {
     } else if (view == "empty") {
       return this.renderEmpty();
     } else if (view == "write-contribution") {
-      return <WriteContribution />;
+      return <WriteContribution actionPreviewView={this.handlePreviewView} />;
     } else if (view == "view-contribution") {
-      return <ViewContribution data={this.state} />;
+      return (
+        <ViewContribution
+          data={this.state}
+          actionWriteView={this.handleWriteView}
+        />
+      );
     }
   }
 }
