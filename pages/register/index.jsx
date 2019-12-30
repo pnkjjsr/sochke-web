@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import base64 from "base-64";
+import utf8 from "utf8";
 import Link from "next/link";
 import Router from "next/router";
 import { connect } from "react-redux";
@@ -142,12 +144,16 @@ class Register extends Component {
           loginAction.authenticate(data);
           Router.push("/constituency");
 
+          let bytesPassword = utf8.encode(password);
+          let encodedPassword = base64.encode(bytesPassword);
+          console.log(encodedPassword);
+
           let apiData = {
             uid: token,
             userType: "normal",
             email: email,
             mobile: mobile,
-            password: password,
+            password: encodedPassword,
             area: area,
             district: locations[0].district,
             division: locations[0].division,

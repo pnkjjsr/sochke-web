@@ -1,8 +1,6 @@
 import { AUTHENTICATE, DEAUTHENTICATE } from "./constant";
 
 const authenticate = el => {
-  console.log(el);
-
   return {
     type: AUTHENTICATE,
     payload: el

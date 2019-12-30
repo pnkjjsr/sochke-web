@@ -17,6 +17,7 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: false,
       user: false,
       authtoken: props.authtoken
     };
@@ -26,18 +27,30 @@ class Layout extends Component {
     const session = new authSession();
     let user = session.getProfile();
     this.setState({
-      user: user.userType
+      user: user.userType,
+      loggedIn: user.uid ? true : false
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { login } = this.props;
+    const session = new authSession();
+    let token = session.getToken();
+
+    if (prevProps.login.token != login.token) {
+      if (login.token || token) this.setState({ loggedIn: true });
+      else this.setState({ loggedIn: false });
+    }
+  }
+
   render() {
+    const { loggedIn } = this.state;
     return (
       <Fragment>
         <Head title={this.props.pageTitle} />
         <Header />
         <div className="main">{this.props.children}</div>
-        <BottomNav />
-        <Footer />
+        {!loggedIn ? <Footer /> : <BottomNav />}
       </Fragment>
     );
   }

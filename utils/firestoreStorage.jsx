@@ -48,15 +48,21 @@ export default class Storage {
           .child(`${path}/${uid}/party.jpg`)
           .put(file, metadata);
         break;
+      case "images/contributions":
+        // Upload file and metadata to the object 'path send via PROPS parameter'
+        var uploadTask = storageRef
+          .child(`${path}/${uid}/${dateParse}.jpg`)
+          .put(file, metadata);
+        break;
       default:
         console.log("Error: path not match with any path");
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        function (snapshot) {
+        function(snapshot) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -70,7 +76,7 @@ export default class Storage {
               break;
           }
         },
-        function (error) {
+        function(error) {
           // A full list of error codes is available at
           // https://firebase.google.com/docs/storage/web/handle-errors
           switch (error.code) {
@@ -96,9 +102,9 @@ export default class Storage {
               break;
           }
         },
-        function () {
+        function() {
           // Upload completed successfully, now we can get the download URL
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             // console.log("File available at", downloadURL);
             resolve({
               status: "done",
@@ -129,17 +135,17 @@ export default class Storage {
         console.log("Error: path not match with any path");
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       imageRef
         .getDownloadURL()
-        .then(function (url) {
+        .then(function(url) {
           resolve({
             status: "done",
             message: "upload successful",
             src: url
           });
         })
-        .catch(function (error) {
+        .catch(function(error) {
           reject({
             status: "error",
             message: error
