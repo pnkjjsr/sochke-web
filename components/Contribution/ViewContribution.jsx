@@ -11,15 +11,15 @@ class ViewContribution extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contributions: props.data.contributions,
-      contributionVoted: props.data.contributionVoted,
+      contributions: props.data,
 
-      isUpdate: 0
+      contributeView: 0
     };
   }
 
   handleVote = (cid, vote) => {
-    const { isUpdate } = this.state;
+    const { contributions, contributeView } = this.state;
+    const { actionAllDone } = this.props;
     const session = new authSession();
     const token = session.getToken();
     let data = {
@@ -32,11 +32,23 @@ class ViewContribution extends Component {
     service
       .post("/vote-contribution", data)
       .then(() => {
-        this.setState({
-          isUpdate: isUpdate + 1
-        });
+        this.setState(
+          {
+            contributeView: contributeView + 1
+          },
+          () => {
+            let size = contributions.length;
+            console.log(this.state.contributeView, size);
+
+            if (this.state.contributeView >= size) {
+              actionAllDone();
+            }
+          }
+        );
       })
-      .catch();
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   handleAdd = () => {
@@ -44,51 +56,43 @@ class ViewContribution extends Component {
     actionWriteView();
   };
 
-  loopContribution = () => {
-    const { contributions, contributionVoted } = this.state;
-    return contributions.map(contribute => {
-      let isArrContain = contributionVoted.includes(contribute.id);
+  render() {
+    const { contributions, contributeView } = this.state;
 
-      if (!isArrContain) {
-        return (
-          <div key={contribute.id} className="contribution">
-            <div className="photo">
-              <img src={contribute.imgUrl} alt="" />
-            </div>
+    return contributions.map((contribute, i) => {
+      let activeClass = i == contributeView ? "active" : "";
 
-            <div className="contribution_box preview">
-              <h1 className="title">{contribute.title}</h1>
+      return (
+        <div key={i} className={`contribution ${activeClass}`}>
+          <div className="photo">
+            <img src={contribute.imgUrl} alt="" />
+          </div>
 
-              <div className="para">{contribute.description}</div>
-              <div className="action">
-                <Button
-                  text="&#10004;"
-                  variant="btn-success"
-                  action={() => this.handleVote(contribute.id, true)}
-                />
-                <Button
-                  text="&#10010;"
-                  variant="btn-light"
-                  action={this.handleAdd}
-                />
-                <Button
-                  text="&#10008;"
-                  variant="btn-danger"
-                  action={() => this.handleVote(contribute.id, false)}
-                />
-              </div>
+          <div className="contribution_box preview">
+            <h1 className="title">{contribute.title}</h1>
+
+            <div className="para">{contribute.description}</div>
+            <div className="action">
+              <Button
+                text="&#10004;"
+                variant="btn-success"
+                action={() => this.handleVote(contribute.id, true)}
+              />
+              <Button
+                text="&#10010;"
+                variant="btn-light"
+                action={this.handleAdd}
+              />
+              <Button
+                text="&#10008;"
+                variant="btn-danger"
+                action={() => this.handleVote(contribute.id, false)}
+              />
             </div>
           </div>
-        );
-      }
+        </div>
+      );
     });
-  };
-
-  render() {
-    const { isUpdate } = this.state;
-    // console.log(isUpdate);
-
-    return this.loopContribution();
   }
 }
 

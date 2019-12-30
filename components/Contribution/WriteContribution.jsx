@@ -54,8 +54,6 @@ class WriteContribution extends Component {
       imgUrl: imgUrl
     };
 
-    actionPreviewView();
-
     service
       .post("/add-contribution", data)
       .then(res => {
@@ -65,6 +63,8 @@ class WriteContribution extends Component {
           imgUrl: "",
           displayAdded: ""
         });
+
+        actionPreviewView(data);
 
         notificationAction.showNotification({
           message: "Your contribution added.",
@@ -81,7 +81,7 @@ class WriteContribution extends Component {
 
     return (
       <Fragment>
-        <div className="contribution">
+        <div className="contribution active">
           <div className="photo">
             <img src={imgUrl} alt="" />
           </div>
