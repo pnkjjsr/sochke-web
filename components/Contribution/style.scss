@@ -1,9 +1,13 @@
 @import "common/styles/global.scss";
 
 .contribution {
-  display: flex;
+  display: none;
   align-items: center;
   height: calc(100% - 46px);
+
+  &.active {
+    display: flex;
+  }
 
   .empty {
     padding: 0 20px;

@@ -15,7 +15,8 @@ export default class Contribution extends Component {
     super(props);
     this.state = {
       view: "loading", //loading, empty, write-contribution, view-contribution
-      contributions: {}
+      contributions: [],
+      contributionVoted: []
     };
   }
 
@@ -31,16 +32,23 @@ export default class Contribution extends Component {
     });
   };
 
-  handlePreviewView = () => {
+  handlePreviewView = e => {
     this.setState({
-      view: "view-contribution"
+      view: "view-contribution",
+      contributions: [e]
+    });
+  };
+
+  handleAllDone = () => {
+    this.setState({
+      view: "all-done"
     });
   };
 
   renderEmpty = () => {
     return (
       <Fragment>
-        <div className="contribution">
+        <div className="contribution active">
           <div className="empty">
             <i className="material-icons">group_work</i>
             <h1 className="title">
@@ -64,6 +72,58 @@ export default class Contribution extends Component {
     );
   };
 
+  renderAllDone = () => {
+    return (
+      <Fragment>
+        <div className="contribution active">
+          <div className="empty">
+            <i className="material-icons">group_work</i>
+            <h1 className="title">
+              You vote all the contribution in your area.
+              <small>
+                "Contribution" is the way to collect right issue/problem/work in
+                your area. All the member of your area can see this
+                'Contriubtion' agree or disagree for the same. Highest the vote,
+                highest the value of your 'Contribution'.
+              </small>
+            </h1>
+
+            <Button
+              text="Write 'Contribution'"
+              variant="btn-link"
+              action={this.handleContribution}
+            />
+          </div>
+        </div>
+      </Fragment>
+    );
+  };
+
+  renderPreview = () => {
+    const { contributions, contributionVoted } = this.state;
+    let filterContribution = [];
+
+    contributions.map(contribute => {
+      let isArrContain = contributionVoted.includes(contribute.id);
+      if (!isArrContain) {
+        filterContribution.push(contribute);
+      }
+
+      if (filterContribution.length == 0) {
+        this.setState({
+          view: "all-done"
+        });
+      }
+    });
+    return (
+      <ViewContribution
+        data={filterContribution}
+        actionWriteView={this.handleWriteView}
+        actionAllDone={this.handleAllDone}
+      />
+    );
+  };
+
   componentDidMount() {
     const session = new authSession();
     const profile = session.getProfile();
@@ -75,8 +135,8 @@ export default class Contribution extends Component {
     service
       .post("/contribution", data)
       .then(res => {
-        if (res.code == "contribution/empty") {
-          this.setState({
+        if (res.data.code == "contribution/empty") {
+          return this.setState({
             view: "empty"
           });
         }
@@ -93,20 +153,20 @@ export default class Contribution extends Component {
   }
 
   render() {
-    const { view, contributions } = this.state;
-    if (view == "loading") {
-      return <PageLoader />;
-    } else if (view == "empty") {
-      return this.renderEmpty();
-    } else if (view == "write-contribution") {
-      return <WriteContribution actionPreviewView={this.handlePreviewView} />;
-    } else if (view == "view-contribution") {
-      return (
-        <ViewContribution
-          data={this.state}
-          actionWriteView={this.handleWriteView}
-        />
-      );
+    const { view } = this.state;
+    switch (view) {
+      case "loading":
+        return <PageLoader />;
+      case "empty":
+        return this.renderEmpty();
+      case "all-done":
+        return this.renderAllDone();
+      case "write-contribution":
+        return <WriteContribution actionPreviewView={this.handlePreviewView} />;
+      case "view-contribution":
+        return this.renderPreview();
+      default:
+        return <PageLoader />;
     }
   }
 }
