@@ -100,24 +100,11 @@ export default class Contribution extends Component {
   };
 
   renderPreview = () => {
-    const { contributions, contributionVoted } = this.state;
-    let filterContribution = [];
+    const { contributions } = this.state;
 
-    contributions.map(contribute => {
-      let isArrContain = contributionVoted.includes(contribute.id);
-      if (!isArrContain) {
-        filterContribution.push(contribute);
-      }
-
-      if (filterContribution.length == 0) {
-        this.setState({
-          view: "all-done"
-        });
-      }
-    });
     return (
       <ViewContribution
-        data={filterContribution}
+        data={contributions}
         actionWriteView={this.handleWriteView}
         actionAllDone={this.handleAllDone}
       />
@@ -135,15 +122,31 @@ export default class Contribution extends Component {
     service
       .post("/contribution", data)
       .then(res => {
+        let contributionArr = res.data.contributions;
+        let contributionVoteArr = res.data.contributionVoted;
         if (res.data.code == "contribution/empty") {
           return this.setState({
             view: "empty"
           });
         }
 
+        let filterContribution = [];
+        contributionArr.map(contribute => {
+          let isArrContain = contributionVoteArr.includes(contribute.id);
+          if (!isArrContain) {
+            filterContribution.push(contribute);
+          }
+        });
+
+        if (filterContribution.length == 0) {
+          return this.setState({
+            view: "all-done"
+          });
+        }
+
         this.setState({
           view: "view-contribution",
-          contributions: res.data.contributions,
+          contributions: filterContribution,
           contributionVoted: res.data.contributionVoted
         });
       })

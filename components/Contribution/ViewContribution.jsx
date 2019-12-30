@@ -18,7 +18,8 @@ class ViewContribution extends Component {
   }
 
   handleVote = (cid, vote) => {
-    const { contributeView } = this.state;
+    const { contributions, contributeView } = this.state;
+    const { actionAllDone } = this.props;
     const session = new authSession();
     const token = session.getToken();
     let data = {
@@ -31,9 +32,19 @@ class ViewContribution extends Component {
     service
       .post("/vote-contribution", data)
       .then(() => {
-        this.setState({
-          contributeView: contributeView + 1
-        });
+        this.setState(
+          {
+            contributeView: contributeView + 1
+          },
+          () => {
+            let size = contributions.length;
+            console.log(this.state.contributeView, size);
+
+            if (this.state.contributeView >= size) {
+              actionAllDone();
+            }
+          }
+        );
       })
       .catch(err => {
         console.log(err);
@@ -47,15 +58,9 @@ class ViewContribution extends Component {
 
   render() {
     const { contributions, contributeView } = this.state;
-    const { actionAllDone } = this.props;
 
     return contributions.map((contribute, i) => {
       let activeClass = i == contributeView ? "active" : "";
-      console.log(i == contributeView);
-
-      if (i < contributeView) {
-        actionAllDone();
-      }
 
       return (
         <div key={i} className={`contribution ${activeClass}`}>

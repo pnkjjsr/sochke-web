@@ -14,7 +14,7 @@ class BottomNav extends Component {
     super(props);
     this.state = {
       view: 0,
-      contributionDrawer: "open",
+      contributionDrawer: "",
       pollDrawer: "",
       constituencyDrawer: ""
     };
