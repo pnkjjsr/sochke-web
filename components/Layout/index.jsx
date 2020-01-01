@@ -18,6 +18,7 @@ class Layout extends Component {
     super(props);
     this.state = {
       loggedIn: false,
+      isMobile: false,
       user: false,
       authtoken: props.authtoken
     };
@@ -28,7 +29,8 @@ class Layout extends Component {
     let user = session.getProfile();
     this.setState({
       user: user.userType,
-      loggedIn: user.uid ? true : false
+      loggedIn: user.uid ? true : false,
+      isMobile: screen.width <= 768 ? true : false
     });
   }
 
@@ -44,13 +46,14 @@ class Layout extends Component {
   }
 
   render() {
-    const { loggedIn } = this.state;
+    const { loggedIn, isMobile } = this.state;
+
     return (
       <Fragment>
         <Head title={this.props.pageTitle} />
         <Header />
         <div className="main">{this.props.children}</div>
-        {!loggedIn ? <Footer /> : <BottomNav />}
+        {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
       </Fragment>
     );
   }

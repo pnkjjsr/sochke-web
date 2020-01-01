@@ -30,10 +30,10 @@ class Respond extends Component {
     const moment = new Moment();
     const time = moment.format(respond.createdAt);
     let display = respond.imageUrl ? "" : "d-none";
-    let name = user.displayName ? user.displayName : user.userName;
+    let name = respond.displayName ? respond.displayName : respond.userName;
 
-    let userImg = user.photoURL ? (
-      <img src={user.photoURL} alt={name} />
+    let userImg = respond.photoURL ? (
+      <img src={respond.photoURL} alt={name} />
     ) : (
       <i className="material-icons">account_circle</i>
     );
@@ -79,7 +79,7 @@ class Respond extends Component {
           <div className="detail">
             {/* Responsibility: Arvind Kejriwal - CM */}
             {/* <br /> */}
-            Constituency: {user.area} - {user.pincode}
+            Constituency: {respond.area} - {respond.pincode}
           </div>
         </div>
 
