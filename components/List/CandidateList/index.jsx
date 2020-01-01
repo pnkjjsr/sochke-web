@@ -10,14 +10,16 @@ class CandidateList extends Component {
     super(props);
     this.state = {
       type: props.type,
-      ministers: []
+      ministers: [],
+      view: "d-block"
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     if (props.data) {
       return {
-        ministers: props.data
+        ministers: props.data,
+        view: props.data.length ? "d-block" : "d-none"
       };
     }
     return null;
@@ -25,8 +27,8 @@ class CandidateList extends Component {
 
   loopMinister = () => {
     const { type, ministers } = this.state;
-    let typeUpperCase = type.toUpperCase();
     const string = new stringModifier();
+    let typeUpperCase = type.toUpperCase();
 
     return ministers.map(minister => {
       if (minister.type == typeUpperCase) {
@@ -49,11 +51,11 @@ class CandidateList extends Component {
   };
 
   render() {
-    const { type, ministers } = this.state;
+    const { type, view } = this.state;
 
     return (
       <Fragment>
-        <div className="candidate-list">
+        <div className={`candidate-list`}>
           <h2 className="title">
             <span>{type}</span>
           </h2>

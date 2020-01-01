@@ -5,6 +5,7 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import "./style.scss";
+import action from "../../../../pages/index/action";
 
 export class VoteRespond extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export class VoteRespond extends Component {
 
   handleClick = () => {
     const { vote } = this.state;
-    const { rid } = this.props;
+    const { rid, action } = this.props;
     const session = new authSession();
     const token = session.getToken();
 
@@ -31,10 +32,12 @@ export class VoteRespond extends Component {
       this.setState({
         vote: false
       });
+      action(false);
     } else {
       this.setState({
         vote: true
       });
+      action(true);
     }
 
     service

@@ -13,10 +13,19 @@ import "./style.scss";
 class Respond extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      voteCount: props.respond.voteCount
+    };
   }
 
+  handleVoteCount = e => {
+    const { voteCount } = this.state;
+    if (e) this.setState({ voteCount: voteCount + 1 });
+    else this.setState({ voteCount: voteCount - 1 });
+  };
+
   render() {
+    const { voteCount } = this.state;
     const { respond, user } = this.props;
     const moment = new Moment();
     const time = moment.format(respond.createdAt);
@@ -47,13 +56,18 @@ class Respond extends Component {
         </div>
 
         <div className="counts">
-          {respond.voteCount} Votes ~ {respond.opinionCount} Opinions
+          {voteCount} Votes ~ {respond.opinionCount} Opinions
         </div>
 
         <div className="bottom">
           <ul className="actions">
             <li>
-              <VoteRespond rid={respond.id} />
+              <VoteRespond
+                rid={respond.id}
+                voted={respond.vote}
+                count={respond.voteCount}
+                action={e => this.handleVoteCount(e)}
+              />
             </li>
             <li>
               <CirculateRespond />

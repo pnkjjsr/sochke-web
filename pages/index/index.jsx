@@ -49,8 +49,21 @@ class Home extends Component {
       pincode: data.pincode
     };
 
-    if (data.responds) {
-      return data.responds.map(respond => {
+    let respondArr = data.responds;
+    let respondVoteArr = data.respondVoted;
+    let respondFilter = [];
+
+    respondArr.map(respond => {
+      let isArrContain = respondVoteArr.includes(respond.id);
+      if (isArrContain) {
+        respond.vote = true;
+      }
+
+      respondFilter.push(respond);
+    });
+
+    if (respondFilter) {
+      return respondFilter.map(respond => {
         return <Respond key={respond.id} respond={respond} user={userData} />;
       });
     }

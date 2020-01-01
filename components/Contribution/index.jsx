@@ -122,14 +122,14 @@ export default class Contribution extends Component {
     service
       .post("/contribution", data)
       .then(res => {
-        let contributionArr = res.data.contributions;
-        let contributionVoteArr = res.data.contributionVoted;
         if (res.data.code == "contribution/empty") {
           return this.setState({
             view: "empty"
           });
         }
 
+        let contributionArr = res.data.contributions;
+        let contributionVoteArr = res.data.contributionVoted;
         let filterContribution = [];
         contributionArr.map(contribute => {
           let isArrContain = contributionVoteArr.includes(contribute.id);
