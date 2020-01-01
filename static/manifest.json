@@ -1,6 +1,6 @@
 {
   "short_name": "Sochke",
-  "name": "Sochke",
+  "name": "Sochke App",
   "icons": [
     {
       "src": "/static/graphics/icon-144.png",
@@ -20,6 +20,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000",
+  "theme_color": "#0073b0",
   "background_color": "#0073b0"
 }
