@@ -11,7 +11,7 @@ const Header = props => (
   <Fragment>
     <NextHead>
       <meta charSet="UTF-8" />
-      <title>{`${props.title} | Web title`}</title>
+      <title>{`${props.title} | ${props.desc}`}</title>
       <meta name="description" content={props.desc || defaultDescription} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
@@ -64,8 +64,19 @@ class Head extends React.Component {
   }
 
   render() {
+    const { pageTitle, layout } = this.props;
+    let newPageTitle = pageTitle;
+
+    if (pageTitle == "/") {
+      newPageTitle = "Home";
+    }
+
     return (
-      <Header title={this.props.layout.title} desc={this.props.layout.desc} />
+      <Header
+        title={layout.title}
+        pageTitle={newPageTitle}
+        desc={this.props.layout.desc}
+      />
     );
   }
 }

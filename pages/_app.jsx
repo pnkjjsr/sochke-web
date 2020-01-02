@@ -42,7 +42,7 @@ class MyApp extends App {
     ) {
       return (
         <Provider store={store}>
-          <Layout pageTitle="">
+          <Layout pageTitle={router.route}>
             <Notification />
             <Component {...pageProps} />
           </Layout>

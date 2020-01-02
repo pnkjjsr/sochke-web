@@ -47,10 +47,9 @@ class Layout extends Component {
 
   render() {
     const { loggedIn, isMobile } = this.state;
-
     return (
       <Fragment>
-        <Head title={this.props.pageTitle} />
+        <Head pageTitle={this.props.pageTitle} />
         <Header />
         <div className="main">{this.props.children}</div>
         {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
