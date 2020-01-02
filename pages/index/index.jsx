@@ -10,7 +10,6 @@ import CandidateWinner from "components/Panel/CandidateWinner";
 import Poll from "components/Panel/Poll";
 import Respond from "components/Respond";
 import RespondBox from "components/Respond/RespondBox";
-import RespondList from "components/Respond/RespondList";
 
 import "./style.scss";
 
@@ -41,13 +40,6 @@ class Home extends Component {
 
   loopRespond = () => {
     const { data } = this.state;
-    const userData = {
-      userName: data.userName,
-      displayName: data.displayName,
-      photoURL: data.photoURL,
-      area: data.area,
-      pincode: data.pincode
-    };
 
     let respondArr = data.responds;
     let respondVoteArr = data.respondVoted;
@@ -64,7 +56,7 @@ class Home extends Component {
 
     if (respondFilter) {
       return respondFilter.map(respond => {
-        return <Respond key={respond.id} respond={respond} user={userData} />;
+        return <Respond key={respond.id} respond={respond} />;
       });
     }
   };
@@ -87,7 +79,6 @@ class Home extends Component {
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
                 {this.loopRespond()}
-                {/* <RespondList /> */}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel">

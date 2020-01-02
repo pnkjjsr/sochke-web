@@ -18,17 +18,7 @@ export class OpinionRespond extends Component {
             <Link
               href={{
                 pathname: "/respond",
-                query: {
-                  createdAt: respond.createdAt,
-                  id: respond.id,
-                  imageUrl: respond.imageUrl,
-                  respond: respond.respond,
-                  type: respond.type,
-                  uid: respond.uid,
-                  voted: respond.voted,
-                  likeCount: respond.likeCount,
-                  opinionCount: respond.opinionCount
-                }
+                query: respond
               }}
             >
               <a>Opinion</a>

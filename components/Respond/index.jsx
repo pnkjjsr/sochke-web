@@ -14,7 +14,8 @@ class Respond extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      voteCount: props.respond.voteCount
+      voteCount: props.respond.voteCount,
+      opinionCount: props.respond.opinionCount
     };
   }
 
@@ -24,8 +25,15 @@ class Respond extends Component {
     else this.setState({ voteCount: voteCount - 1 });
   };
 
+  handleOpinionCount = () => {
+    const { opinionCount } = this.state;
+    let count = parseInt(opinionCount);
+
+    this.setState({ opinionCount: count + 1 });
+  };
+
   render() {
-    const { voteCount } = this.state;
+    const { voteCount, opinionCount } = this.state;
     const { respond, user } = this.props;
     const moment = new Moment();
     const time = moment.format(respond.createdAt);
@@ -56,7 +64,7 @@ class Respond extends Component {
         </div>
 
         <div className="counts">
-          {voteCount} Votes ~ {respond.opinionCount} Opinions
+          {voteCount} Votes ~ {opinionCount} Opinions
         </div>
 
         <div className="bottom">
@@ -84,7 +92,7 @@ class Respond extends Component {
         </div>
 
         <div className="opinion">
-          <OpinionBox respond={respond} />
+          <OpinionBox respond={respond} action={this.handleOpinionCount} />
         </div>
       </div>
     );
