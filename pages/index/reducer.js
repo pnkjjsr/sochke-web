@@ -28,6 +28,7 @@ const home = (state = initialState, action) => {
         cms: action.payload.cms,
         pms: action.payload.pms,
         polls: action.payload.polls,
+        pollVoted: action.payload.pollVoted,
         userName: action.payload.userName,
         displayName: action.payload.displayName,
         photoURL: action.payload.photoURL,

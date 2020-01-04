@@ -126,7 +126,7 @@ class Register extends Component {
           let token = res.user.uid;
 
           let data = {
-            uid: token,
+            id: token,
             email: email,
             mobile: mobile,
             area: area,
@@ -136,7 +136,6 @@ class Register extends Component {
             pincode: pincode,
             country: "India"
           };
-          console.log(data);
 
           session.setToken(token);
           session.setProfile(data);
@@ -146,7 +145,6 @@ class Register extends Component {
 
           let bytesPassword = utf8.encode(password);
           let encodedPassword = base64.encode(bytesPassword);
-          console.log(encodedPassword);
 
           let apiData = {
             uid: token,
@@ -164,7 +162,7 @@ class Register extends Component {
           service
             .post("/signup", apiData)
             .then(res => {
-              session.setProfile(res.data.data);
+              session.setProfile(res.data);
             })
             .catch(async error => {
               let data = error.response.data;

@@ -12,6 +12,7 @@ export class PanelPoll extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      pollView: 0,
       type: props.type,
       polls: []
     };
@@ -26,24 +27,25 @@ export class PanelPoll extends Component {
     return null;
   }
 
-  handlePoll = e => {
-    const { type, poll } = this.state;
+  handlePoll = (pollVote, pollId) => {
+    const { type, pollView } = this.state;
     const session = new authSession();
     let token = session.getToken();
 
     let data = {
       uid: token,
-      pid: poll.id,
-      poll: e
+      pid: pollId,
+      poll: pollVote
     };
+
+    this.setState({
+      pollView: pollView + 1
+    });
 
     service
       .post("/add-poll", data)
       .then(res => {
-        let pdata = {
-          uid: token,
-          type: type
-        };
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -51,31 +53,38 @@ export class PanelPoll extends Component {
   };
 
   loopPoll = () => {
-    const { type, polls } = this.state;
+    const { type, polls, pollView } = this.state;
 
-    return polls.map(poll => {
+    let filterPolls = [];
+
+    polls.map(poll => {
       if (poll.type == type) {
-        return (
-          <div key={poll.id} className="poll-panel">
-            <p>{poll.poll}</p>
-
-            <div className="action">
-              <Button
-                text="Yes"
-                variant="btn-success"
-                size="btn-sm"
-                action={e => this.handlePoll(true)}
-              />
-              <Button
-                text="No"
-                variant="btn-danger"
-                size="btn-sm"
-                action={e => this.handlePoll(false)}
-              />
-            </div>
-          </div>
-        );
+        filterPolls.push(poll);
       }
+    });
+
+    return filterPolls.map((poll, key) => {
+      let activeClass = pollView == key ? "active" : "";
+      return (
+        <div key={poll.id} className={`poll-panel ${activeClass}`}>
+          <p>{poll.question}</p>
+
+          <div className="action">
+            <Button
+              text="Yes"
+              variant="btn-success"
+              size="btn-sm"
+              action={e => this.handlePoll(true, poll.id)}
+            />
+            <Button
+              text="No"
+              variant="btn-danger"
+              size="btn-sm"
+              action={e => this.handlePoll(false, poll.id)}
+            />
+          </div>
+        </div>
+      );
     });
   };
 

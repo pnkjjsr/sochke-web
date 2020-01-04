@@ -46,7 +46,7 @@ export class OptionMinister extends Component {
 
     return Object.values(ministers).map(minister => {
       return (
-        <li key={minister.uid}>
+        <li key={minister.id}>
           <div className="minister-item">
             <div
               className="hover"

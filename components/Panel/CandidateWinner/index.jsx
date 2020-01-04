@@ -33,13 +33,27 @@ export class CandidateWinner extends Component {
     } else return null;
   }
 
-  handleGood = () => {
-    const { ministerWinner } = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    const { ministers } = this.state;
+    const oldMinisters = prevState.ministers;
+
+    if (ministers != oldMinisters) {
+      ministers.map(minister => {
+        if (minister.winner == true) {
+          this.setState({
+            ministerWinner: minister
+          });
+        }
+      });
+    }
+  }
+
+  handleGood = ministerId => {
     const session = new authSession();
     const token = session.getToken();
     const data = {
       uid: token,
-      mid: ministerWinner.uid,
+      mid: ministerId,
       vote: true
     };
 
@@ -57,13 +71,13 @@ export class CandidateWinner extends Component {
       });
   };
 
-  handleBad = () => {
+  handleBad = ministerId => {
     const { ministerWinner } = this.state;
     const session = new authSession();
     const token = session.getToken();
     const data = {
       uid: token,
-      mid: ministerWinner.uid,
+      mid: ministerId,
       vote: false
     };
 
@@ -121,11 +135,15 @@ export class CandidateWinner extends Component {
     return (
       <Fragment>
         <div className={`candidate-winner ${dVote}`}>
-          <VoteMinister
-            ministerDetails={ministers}
-            actionGood={this.handleGood}
-            actionBad={this.handleBad}
-          />
+          {ministerWinner.id ? (
+            <VoteMinister
+              minister={ministerWinner}
+              actionGood={e => this.handleGood(e)}
+              actionBad={e => this.handleBad(e)}
+            />
+          ) : (
+            "loading"
+          )}
         </div>
 
         <div className={`candidate-winner ${dCirculate}`}>

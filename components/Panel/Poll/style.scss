@@ -1,6 +1,12 @@
 @import "common/styles/global.scss";
 
 .poll-panel {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
   p {
     font-size: rem(18);
     line-height: 100%;

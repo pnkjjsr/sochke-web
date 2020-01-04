@@ -10,6 +10,7 @@ export class ResultMinister extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      minister: {},
       area: "",
       happy: 0,
       sad: 0
@@ -26,7 +27,18 @@ export class ResultMinister extends Component {
       area: area
     });
 
-    let mid = ministerDetails.uid;
+    let mid;
+
+    ministerDetails.map(minister => {
+      if (minister.winner == true) {
+        this.setState({
+          minister: minister
+        });
+
+        mid = minister.uid;
+      }
+    });
+
     let data = {
       mid: mid
     };

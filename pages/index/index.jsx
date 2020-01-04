@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import homeActions from "./action";
 
 import userAuth from "utils/userAuth";
+import authSession from "utils/authSession";
 
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
@@ -17,7 +18,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {}
+      profile: "",
+      data: {},
+      polls: [],
+      pollVoted: []
     };
   }
   static getDerivedStateFromProps(props, state) {
@@ -26,7 +30,9 @@ class Home extends Component {
 
     if (len) {
       return {
-        data: data
+        data: data,
+        polls: data.polls,
+        pollVoted: data.pollVoted
       };
     } else {
       return null;
@@ -34,7 +40,18 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    const { polls, pollVoted } = this.state;
     const { homeAction } = this.props;
+    const session = new authSession();
+    const profile = session.getProfile();
+    this.setState({
+      profile: profile
+    });
+
+    if (polls.length) {
+      console.log(1);
+    }
+
     homeAction.prefetchHomeData();
   }
 
@@ -62,7 +79,7 @@ class Home extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, profile } = this.state;
 
     return (
       <Fragment>
@@ -89,14 +106,14 @@ class Home extends Component {
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Delhi want change for?</h2>
+                  <h2 className="title">{profile.state} want change for?</h2>
                   <div className="panel-container">
                     <Poll type="state" data={data.polls} />
                   </div>
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Hari Nagar, has?</h2>
+                  <h2 className="title">{profile.area}, has?</h2>
                   <div className="panel-container">
                     <Poll type="area" data={data.polls} />
                   </div>
