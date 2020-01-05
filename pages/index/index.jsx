@@ -20,8 +20,7 @@ class Home extends Component {
     this.state = {
       profile: "",
       data: {},
-      polls: [],
-      pollVoted: []
+      polls: []
     };
   }
   static getDerivedStateFromProps(props, state) {
@@ -31,8 +30,7 @@ class Home extends Component {
     if (len) {
       return {
         data: data,
-        polls: data.polls,
-        pollVoted: data.pollVoted
+        polls: data.polls
       };
     } else {
       return null;
@@ -40,17 +38,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { polls, pollVoted } = this.state;
     const { homeAction } = this.props;
     const session = new authSession();
     const profile = session.getProfile();
     this.setState({
       profile: profile
     });
-
-    if (polls.length) {
-      console.log(1);
-    }
 
     homeAction.prefetchHomeData();
   }
@@ -79,7 +72,7 @@ class Home extends Component {
   };
 
   render() {
-    const { data, profile } = this.state;
+    const { data, profile, polls } = this.state;
 
     return (
       <Fragment>
@@ -108,14 +101,14 @@ class Home extends Component {
                 <div className="panel">
                   <h2 className="title">{profile.state} want change for?</h2>
                   <div className="panel-container">
-                    <Poll type="state" data={data.polls} />
+                    <Poll type="state" data={polls} />
                   </div>
                 </div>
 
                 <div className="panel">
                   <h2 className="title">{profile.area}, has?</h2>
                   <div className="panel-container">
-                    <Poll type="area" data={data.polls} />
+                    <Poll type="area" data={polls} />
                   </div>
                 </div>
               </div>
