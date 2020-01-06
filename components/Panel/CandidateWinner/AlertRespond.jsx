@@ -31,9 +31,12 @@ export class AlertRespond extends Component {
     const session = new authSession();
     const token = session.getToken();
     let data = {
+      createdAt: new Date().toISOString(),
       uid: token,
       type: "text",
-      respond: `I support ${minister.name}, ${minister.type} from ${minister.constituency}`
+      respond: `I support ${minister.name}, ${minister.type} from ${minister.constituency}`,
+      voteCount: 0,
+      opinionCount: 0
     };
 
     service

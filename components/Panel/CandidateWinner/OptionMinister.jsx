@@ -50,7 +50,7 @@ export class OptionMinister extends Component {
           <div className="minister-item">
             <div
               className="hover"
-              onClick={e => this.handleChoose(minister.uid)}
+              onClick={e => this.handleChoose(minister.id)}
             >
               <ul>
                 <li>

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import ministerActions from "./actions";
+import homeActions from "pages/index/action";
 
 import stringModifier from "utils/stringModifier";
 
@@ -22,41 +22,39 @@ class PanelMinister extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { type } = state;
-    let i;
-    let size = props.minister[type].length;
+    const { home } = props;
 
-    for (i = 0; i <= size; i++) {
-      let mData = props.minister[type][i];
-
-      if (mData && (mData.winner = true)) {
-        return {
-          data: mData
-        };
-      }
+    switch (type) {
+      case "pm":
+        return { data: home.pms };
+      case "cm":
+        return { data: home.cms };
+      case "mp":
+        return { data: home.mps };
+      case "mla":
+        return { data: home.mlas };
+      case "councillor":
+        return { data: home.councillors };
+      default:
+        return null;
     }
-
-    return true;
   }
 
   componentDidMount() {
-    const { type } = this.state;
-    const { ministerAction } = this.props;
-    ministerAction.prefetchData(type);
+    const { homeAction } = this.props;
+    homeAction.prefetchHomeData();
   }
 
-  render() {
-    const { type, title, data } = this.state;
+  loopMinister = () => {
+    const { title, data } = this.state;
     const string = new stringModifier();
-    let minister = data;
-    let assets = string.currencyFormat(minister.assets, "long");
-    let edu = string.tillFirstCommaString(minister.education);
 
-    if (!minister) {
-      return <div>Loading</div>;
-    } else {
-      return (
-        <Fragment>
-          <div className="panel-minister">
+    return data.map(minister => {
+      if (minister.winner == true) {
+        let assets = string.currencyFormat(minister.assets, "long");
+        let edu = string.tillFirstCommaString(minister.education);
+        return (
+          <div key={minister.id} className="panel-minister">
             <Link href={`/minister/${minister.userName}`}>
               <a>
                 <div className="row">
@@ -103,13 +101,17 @@ class PanelMinister extends Component {
               </a>
             </Link>
           </div>
-        </Fragment>
-      );
-    }
+        );
+      }
+    });
+  };
+
+  render() {
+    return this.loopMinister();
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  ministerAction: bindActionCreators(ministerActions, dispatch)
+  homeAction: bindActionCreators(homeActions, dispatch)
 });
 export default connect(state => state, mapDispatchToProps)(PanelMinister);

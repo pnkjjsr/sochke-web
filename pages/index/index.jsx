@@ -101,14 +101,14 @@ class Home extends Component {
                 <div className="panel">
                   <h2 className="title">{profile.state} want change for?</h2>
                   <div className="panel-container">
-                    <Poll type="state" data={polls} />
+                    <Poll type="state" />
                   </div>
                 </div>
 
                 <div className="panel">
                   <h2 className="title">{profile.area}, has?</h2>
                   <div className="panel-container">
-                    <Poll type="area" data={polls} />
+                    <Poll type="area" />
                   </div>
                 </div>
               </div>

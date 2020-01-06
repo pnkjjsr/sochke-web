@@ -32,10 +32,9 @@ class CandidateList extends Component {
 
     return ministers.map(minister => {
       if (minister.type == typeUpperCase) {
-        let link = string.hyphenatedName(minister.name);
         return (
           <li key={minister.id}>
-            <Link href={`minister/${link}`}>
+            <Link href={`minister/${minister.userName}`}>
               <a>
                 <div className="candidate">
                   <span>{minister.partyShort}</span>

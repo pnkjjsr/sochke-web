@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "pages/index/action";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -26,6 +29,8 @@ export class CandidateWinner extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
+    let minister = props.home.ministers;
+
     if (props.data) {
       return {
         ministers: props.data
@@ -57,14 +62,16 @@ export class CandidateWinner extends Component {
       vote: true
     };
 
+    this.setState({
+      dVote: "d-none",
+      dCirculate: "",
+      vote: true
+    });
+
     service
       .post("/minister-vote", data)
       .then(res => {
-        this.setState({
-          dVote: "d-none",
-          dCirculate: "",
-          vote: true
-        });
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -81,13 +88,15 @@ export class CandidateWinner extends Component {
       vote: false
     };
 
+    this.setState({
+      dVote: "d-none",
+      dOption: ""
+    });
+
     service
       .post("/minister-vote", data)
       .then(res => {
-        this.setState({
-          dVote: "d-none",
-          dOption: ""
-        });
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -155,7 +164,7 @@ export class CandidateWinner extends Component {
         </div>
 
         <div className={`candidate-winner ${dResult}`}>
-          {ministerWinner.uid ? (
+          {ministerWinner.id ? (
             <ResultMinister ministerDetails={ministerWinner} />
           ) : (
             ""
@@ -174,4 +183,8 @@ export class CandidateWinner extends Component {
   }
 }
 
-export default CandidateWinner;
+const mapDispatchToProps = dispatch => ({
+  homeAction: bindActionCreators(homeActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(CandidateWinner);

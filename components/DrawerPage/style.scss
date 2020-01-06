@@ -18,6 +18,8 @@
       height: 100%;
       background-color: $color-white;
       text-align: left;
+      overflow: hidden;
+      overflow-y: auto;
 
       .back {
         position: relative;

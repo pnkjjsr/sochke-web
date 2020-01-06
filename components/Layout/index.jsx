@@ -25,13 +25,19 @@ class Layout extends Component {
   }
 
   componentDidMount() {
+    const { login } = this.props;
     const session = new authSession();
     let user = session.getProfile();
+    let token = session.getToken();
+
     this.setState({
       user: user.userType,
       loggedIn: user.uid ? true : false,
-      isMobile: screen.width <= 768 ? true : false
+      isMobile: screen.width <= 992 ? true : false
     });
+
+    if (login.token || token) this.setState({ loggedIn: true });
+    else this.setState({ loggedIn: false });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,6 +53,7 @@ class Layout extends Component {
 
   render() {
     const { loggedIn, isMobile } = this.state;
+
     return (
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />

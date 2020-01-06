@@ -5,6 +5,7 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
+import PageLoader from "components/Loader/page";
 
 import "./style.scss";
 
@@ -20,9 +21,11 @@ export class PanelPoll extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.data.length) {
+    let pollArr = props.home.polls;
+
+    if (pollArr.length) {
       return {
-        polls: props.data,
+        polls: pollArr,
         renderView: "polls"
       };
     }
@@ -100,11 +103,10 @@ export class PanelPoll extends Component {
 
   render() {
     const { renderView } = this.state;
-    console.log(renderView);
 
     switch (renderView) {
       case "loading":
-        return "Loading...";
+        return <PageLoader />;
       case "polls":
         return this.loopPoll();
       case "end":

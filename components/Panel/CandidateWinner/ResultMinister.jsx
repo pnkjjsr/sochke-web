@@ -19,6 +19,7 @@ export class ResultMinister extends Component {
 
   componentDidMount() {
     const { ministerDetails } = this.props;
+
     const session = new authSession();
     const profile = session.getProfile();
     const area = profile.area;
@@ -27,20 +28,8 @@ export class ResultMinister extends Component {
       area: area
     });
 
-    let mid;
-
-    ministerDetails.map(minister => {
-      if (minister.winner == true) {
-        this.setState({
-          minister: minister
-        });
-
-        mid = minister.uid;
-      }
-    });
-
     let data = {
-      mid: mid
+      mid: ministerDetails.id
     };
     service
       .post("/minister-value", data)
