@@ -251,7 +251,7 @@ class Register extends Component {
                         className="form-control"
                         name="email"
                         type="text"
-                        aria-describedby="emailHelp"
+                        aria-label="email"
                         placeholder="abc@gmail.com"
                         onChange={this.handleChange}
                       />
@@ -264,7 +264,7 @@ class Register extends Component {
                         className="form-control"
                         name="mobile"
                         type="tel"
-                        aria-describedby="mobileHelp"
+                        aria-label="mobile"
                         placeholder="9210xxxx60"
                         onChange={this.handleChange}
                       />
@@ -279,7 +279,7 @@ class Register extends Component {
                             className="form-control"
                             name="pincode"
                             type="number"
-                            aria-describedby="pincodeHelp"
+                            aria-label="pincode"
                             placeholder="110064"
                             onChange={this.handleChange}
                           />
@@ -292,6 +292,7 @@ class Register extends Component {
                           <select
                             className="form-control"
                             name="area"
+                            aria-label="area"
                             onChange={this.handleChange}
                           >
                             <option value="">Select</option>
@@ -308,7 +309,7 @@ class Register extends Component {
                         className="form-control"
                         name="password"
                         type="password"
-                        aria-describedby="passwordHelp"
+                        aria-label="password"
                         placeholder="******"
                         autoComplete="off"
                         onChange={this.handleChange}
