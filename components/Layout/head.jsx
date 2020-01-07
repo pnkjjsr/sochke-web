@@ -31,7 +31,8 @@ const Header = props => (
       <meta property="og:image" content={props.ogImage || defaultOGImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta name="theme-color" content="#000" />
+      <meta name="theme-color" content="#0073b0" />
+      <meta name="apple-mobile-web-app-capable" content="black-translucent" />
     </NextHead>
 
     <noscript>

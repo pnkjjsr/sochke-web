@@ -90,13 +90,13 @@ class Login extends Component {
             uid: token
           };
           session.setToken(token);
+          Router.push("/");
 
           service
             .post("/login", data)
             .then(result => {
               session.setProfile(result.data);
               user.authenticate(result.data);
-              Router.push("/constituency");
             })
             .catch(error => {
               let data = error.response.data;

@@ -141,7 +141,6 @@ class Register extends Component {
           session.setProfile(data);
           auth.sendEmailVerification();
           loginAction.authenticate(data);
-          Router.push("/constituency");
 
           let bytesPassword = utf8.encode(password);
           let encodedPassword = base64.encode(bytesPassword);
@@ -163,6 +162,7 @@ class Register extends Component {
             .post("/signup", apiData)
             .then(res => {
               session.setProfile(res.data);
+              Router.push("/");
             })
             .catch(async error => {
               let data = error.response.data;
@@ -263,7 +263,7 @@ class Register extends Component {
                       <input
                         className="form-control"
                         name="mobile"
-                        type="text"
+                        type="tel"
                         aria-describedby="mobileHelp"
                         placeholder="9210xxxx60"
                         onChange={this.handleChange}
@@ -278,7 +278,7 @@ class Register extends Component {
                           <input
                             className="form-control"
                             name="pincode"
-                            type="text"
+                            type="number"
                             aria-describedby="pincodeHelp"
                             placeholder="110064"
                             onChange={this.handleChange}
