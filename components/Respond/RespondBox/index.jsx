@@ -106,7 +106,7 @@ class RespondBox extends Component {
     const session = new AuthSession();
     let profile = session.getProfile();
     this.setState({
-      uid: profile.uid,
+      uid: profile.id,
       imgUsr: profile.photoURL
     });
   }

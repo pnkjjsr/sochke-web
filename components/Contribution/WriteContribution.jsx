@@ -45,7 +45,7 @@ class WriteContribution extends Component {
 
     const data = {
       createdAt: new Date().toISOString(),
-      uid: profile.uid,
+      uid: profile.id,
       constituency: profile.area,
       district: profile.district,
       state: profile.state,

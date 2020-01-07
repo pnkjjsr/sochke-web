@@ -115,7 +115,7 @@ export default class Contribution extends Component {
     const session = new authSession();
     const profile = session.getProfile();
     const data = {
-      uid: profile.uid,
+      uid: profile.id,
       constituency: profile.area,
       district: profile.district
     };
