@@ -7,7 +7,6 @@
   left: 0;
   width: 100%;
   padding: 0 10px 5px;
-  background: #fff;
   border-top: 1px solid rgb(229, 241, 255);
   text-align: center;
 
@@ -37,7 +36,7 @@
   }
 
   .copyright {
-    color: $base-color;
+    color: $color-gray-light;
     font-size: 10px;
     font-weight: 300;
   }
@@ -46,15 +45,15 @@
 @include media-breakpoint-up(md) {
   .footer[role="main"] {
     position: static;
-    margin-top: 50px;
+    margin-top: -100px;
     padding: 25px 10px 20px;
     font-size: 12px;
     text-align: left;
 
     ul.links {
-      margin-bottom: 20px;
-
       li {
+        padding-right: 30px;
+
         a {
           font-size: 14px;
         }
