@@ -20,9 +20,7 @@ class HeaderOpen extends Component {
               <div className="col-5 col-sm-6 pl-0 pr-0">
                 <div className="logo">
                   <Link href="/">
-                    <a>
-                      <img src={images.logo} alt="sochke.com" />
-                    </a>
+                    <a>{process.env.domain}</a>
                   </Link>
                 </div>
               </div>
