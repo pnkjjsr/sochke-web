@@ -5,6 +5,7 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
+import PageLoader from "components/Loader/page";
 
 import "./style.scss";
 
@@ -13,37 +14,50 @@ export class PanelPoll extends Component {
     super(props);
     this.state = {
       type: props.type,
-      polls: []
+      pollView: 0,
+      polls: [],
+      renderView: "loading"
     };
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.data) {
+    let pollArr = props.home.polls;
+
+    if (pollArr.length) {
       return {
-        polls: props.data
+        polls: pollArr,
+        renderView: "polls"
       };
     }
     return null;
   }
 
-  handlePoll = e => {
-    const { type, poll } = this.state;
+  handlePoll = (pollVote, pollId, len) => {
+    const { pollView } = this.state;
     const session = new authSession();
     let token = session.getToken();
 
     let data = {
       uid: token,
-      pid: poll.id,
-      poll: e
+      pid: pollId,
+      vote: pollVote
     };
+
+    this.setState(
+      {
+        pollView: pollView + 1
+      },
+      () => {
+        if (this.state.pollView == len) {
+          console.log("render Last View Components.");
+        }
+      }
+    );
 
     service
       .post("/add-poll", data)
       .then(res => {
-        let pdata = {
-          uid: token,
-          type: type
-        };
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -51,36 +65,53 @@ export class PanelPoll extends Component {
   };
 
   loopPoll = () => {
-    const { type, polls } = this.state;
+    const { type, polls, pollView } = this.state;
+    let filterPolls = [];
 
-    return polls.map(poll => {
+    polls.map(poll => {
       if (poll.type == type) {
-        return (
-          <div key={poll.id} className="poll-panel">
-            <p>{poll.poll}</p>
-
-            <div className="action">
-              <Button
-                text="Yes"
-                variant="btn-success"
-                size="btn-sm"
-                action={e => this.handlePoll(true)}
-              />
-              <Button
-                text="No"
-                variant="btn-danger"
-                size="btn-sm"
-                action={e => this.handlePoll(false)}
-              />
-            </div>
-          </div>
-        );
+        filterPolls.push(poll);
       }
+    });
+
+    let lenArr = filterPolls.length;
+
+    return filterPolls.map((poll, key) => {
+      let activeClass = pollView == key ? "active" : "";
+      return (
+        <div key={poll.id} className={`poll-panel ${activeClass}`}>
+          <p>{poll.question}</p>
+
+          <div className="action">
+            <Button
+              text="Yes"
+              variant="btn-success"
+              size="btn-sm"
+              action={e => this.handlePoll(true, poll.id, lenArr)}
+            />
+            <Button
+              text="No"
+              variant="btn-danger"
+              size="btn-sm"
+              action={e => this.handlePoll(false, poll.id, lenArr)}
+            />
+          </div>
+        </div>
+      );
     });
   };
 
   render() {
-    return this.loopPoll();
+    const { renderView } = this.state;
+
+    switch (renderView) {
+      case "loading":
+        return <PageLoader />;
+      case "polls":
+        return this.loopPoll();
+      case "end":
+        return "Last Screen";
+    }
   }
 }
 

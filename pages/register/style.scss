@@ -1,17 +1,14 @@
 @import "components/Form/form";
 
 .signup {
-  .banner {
-    height: 100%;
+  &__top {
+    margin-bottom: 30px;
+    padding-top: 10px;
+    background: url("https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Ftop.jpg?alt=media&token=4d278bd5-a038-489d-9a6a-97e86af5bdc3")
+      center top no-repeat;
 
     .title {
-      padding: 0;
-      margin: 0;
-      margin-bottom: 50px;
-      color: rgb(0, 115, 176);
-      font-size: 70px;
-      font-weight: 300;
-      line-height: 1.43;
+      display: none;
     }
 
     figure {
@@ -24,11 +21,133 @@
     }
   }
 
+  &__info {
+    text-align: center;
+
+    &__banner {
+      display: none;
+    }
+  }
+
+  &__section {
+    margin-bottom: 30px;
+
+    .title {
+      margin: 0;
+      color: $base-color;
+      font-size: rem(20);
+    }
+    .para {
+      margin-bottom: 10px;
+      color: $color-gray;
+      font-size: rem(16);
+      font-weight: $font-weight-light;
+      line-height: 170%;
+    }
+    .action {
+      .btn-primary {
+        width: 200px;
+        height: 48px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+        font-size: rem(14);
+        font-weight: $font-weight-light;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  &__bottom {
+    padding: 10px;
+
+    background: url("https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Fbottom.jpg?alt=media&token=ca5aa0c9-03c5-4845-bc44-7a964713ebd0")
+      center top no-repeat;
+  }
+
   @include form;
 }
 
 @include media-breakpoint-up(md) {
   .signup {
-      margin-top: 50px;
+    margin-top: 16px;
+
+    &__top {
+    }
+
+    &__info {
+      position: relative;
+      z-index: 1;
+      min-height: 902px;
+      overflow: hidden;
+
+      &__banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+      }
+    }
+
+    &__section {
+      margin: 100px 0;
+
+      .title {
+        margin-bottom: 10px;
+        font-size: rem(40);
+        font-weight: $font-weight-light;
+      }
+      .para {
+        margin-bottom: 20px;
+        font-size: rem(24);
+        line-height: 150%;
+      }
+      .action {
+        .btn-primary {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &__bottom {
+      position: relative;
+
+      margin-top: -100px;
+      padding-top: 30px;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .signup {
+    &__top {
+      height: 616px;
+
+      .title {
+        display: block;
+        padding: 0;
+        margin: 0;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        color: $color-primary;
+        font-size: 60px;
+        font-weight: $font-weight-light;
+        line-height: 130%;
+      }
+    }
+
+    &__section {
+      margin: 120px 0;
+
+      .title {
+        font-size: rem(50);
+      }
+      .para {
+        font-size: rem(30);
+      }
+    }
+
+    &__bottom {
+      height: 826px;
+    }
   }
 }

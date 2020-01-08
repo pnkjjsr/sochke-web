@@ -115,21 +115,21 @@ export default class Contribution extends Component {
     const session = new authSession();
     const profile = session.getProfile();
     const data = {
-      uid: profile.uid,
+      uid: profile.id,
       constituency: profile.area,
       district: profile.district
     };
     service
       .post("/contribution", data)
       .then(res => {
-        let contributionArr = res.data.contributions;
-        let contributionVoteArr = res.data.contributionVoted;
         if (res.data.code == "contribution/empty") {
           return this.setState({
             view: "empty"
           });
         }
 
+        let contributionArr = res.data.contributions;
+        let contributionVoteArr = res.data.contributionVoted;
         let filterContribution = [];
         contributionArr.map(contribute => {
           let isArrContain = contributionVoteArr.includes(contribute.id);

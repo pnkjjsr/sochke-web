@@ -12,8 +12,6 @@ import Button from "components/Form/Button";
 import UploadFile from "components/UploadFile";
 import UserImage from "components/UserImage";
 
-import iconPhoto from "icons/photo.svg";
-
 import "./style.scss";
 
 class RespondBox extends Component {
@@ -106,7 +104,7 @@ class RespondBox extends Component {
     const session = new AuthSession();
     let profile = session.getProfile();
     this.setState({
-      uid: profile.uid,
+      uid: profile.id,
       imgUsr: profile.photoURL
     });
   }

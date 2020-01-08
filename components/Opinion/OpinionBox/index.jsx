@@ -50,12 +50,14 @@ export class OpinionBox extends Component {
 
   handleRespond = () => {
     const { uid, opinion } = this.state;
-    const { respond } = this.props;
+    const { respond, action } = this.props;
     let data = {
       rid: respond.id,
       uid: uid,
       opinion: opinion
     };
+
+    action();
 
     service
       .post("/add-opinion", data)

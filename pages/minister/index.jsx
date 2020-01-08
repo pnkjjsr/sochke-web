@@ -49,15 +49,6 @@ class Minister extends Component {
     ministerAction.prefetchMinisterData(query);
   }
 
-  renderConstituencyArea = () => {
-    const { minister } = this.state;
-    let areas = minister.constituencyArea.area;
-
-    return areas.map((area, key) => {
-      return `${area.area}, `;
-    });
-  };
-
   renderMinister = () => {
     const { minister } = this.state;
     const string = new stringModifier();
@@ -66,7 +57,6 @@ class Minister extends Component {
     let edu = string.tillFirstCommaString(minister.education);
     let type = minister.type.toLowerCase();
     let winner = minister.winner ? "Winner" : "Didn't Win";
-    let areas = this.renderConstituencyArea();
 
     return (
       <Fragment>
@@ -90,15 +80,13 @@ class Minister extends Component {
                   <li>
                     <i className="material-icons">map</i>
                     <label htmlFor="party">
-                      <b>{minister.constituency}</b>
-                      <br />
-                      <span>{areas}</span>
+                      <b>{minister.constituency} - Constituency</b>
                     </label>
                   </li>
                   <li>
                     <i className="material-icons">access_time</i>
                     <label htmlFor="party">
-                      <b>{minister.year}</b>
+                      <b>{minister.year} - Election</b>
                     </label>
                   </li>
                   <li>
@@ -116,19 +104,19 @@ class Minister extends Component {
                   <li>
                     <i className="material-icons">money</i>
                     <label htmlFor="assets">
-                      <b>{assetsCompact} ~</b>
+                      <b>{assetsCompact} ~ Assets</b>
                       <br />
                       <span>{assets}</span>
                     </label>
                   </li>
                   <li>
                     <i className="material-icons">portrait</i>
-                    <label htmlFor="address">{minister.age}</label>
+                    <label htmlFor="address">{minister.age} - Age</label>
                   </li>
                   <li>
                     <i className="material-icons">menu_book</i>
                     <label htmlFor="education">
-                      <b>{edu}</b>,
+                      <b>{edu} - Education</b>,
                       <br />
                       <span>{minister.education}</span>
                     </label>
@@ -136,7 +124,7 @@ class Minister extends Component {
                   <li>
                     <i className="material-icons">home</i>
                     <label htmlFor="address">
-                      <b>{minister.pincode}</b>
+                      <b>{minister.pincode} - Address</b>
                       <br />
                       <span>
                         {minister.address}, {minister.state} -{" "}

@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "pages/index/action";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -26,6 +29,8 @@ export class CandidateWinner extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
+    let minister = props.home.ministers;
+
     if (props.data) {
       return {
         ministers: props.data
@@ -33,47 +38,65 @@ export class CandidateWinner extends Component {
     } else return null;
   }
 
-  handleGood = () => {
-    const { ministerWinner } = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    const { ministers } = this.state;
+    const oldMinisters = prevState.ministers;
+
+    if (ministers != oldMinisters) {
+      ministers.map(minister => {
+        if (minister.winner == true) {
+          this.setState({
+            ministerWinner: minister
+          });
+        }
+      });
+    }
+  }
+
+  handleGood = ministerId => {
     const session = new authSession();
     const token = session.getToken();
     const data = {
       uid: token,
-      mid: ministerWinner.uid,
+      mid: ministerId,
       vote: true
     };
+
+    this.setState({
+      dVote: "d-none",
+      dCirculate: "",
+      vote: true
+    });
 
     service
       .post("/minister-vote", data)
       .then(res => {
-        this.setState({
-          dVote: "d-none",
-          dCirculate: "",
-          vote: true
-        });
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  handleBad = () => {
+  handleBad = ministerId => {
     const { ministerWinner } = this.state;
     const session = new authSession();
     const token = session.getToken();
     const data = {
       uid: token,
-      mid: ministerWinner.uid,
+      mid: ministerId,
       vote: false
     };
+
+    this.setState({
+      dVote: "d-none",
+      dOption: ""
+    });
 
     service
       .post("/minister-vote", data)
       .then(res => {
-        this.setState({
-          dVote: "d-none",
-          dOption: ""
-        });
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -121,11 +144,15 @@ export class CandidateWinner extends Component {
     return (
       <Fragment>
         <div className={`candidate-winner ${dVote}`}>
-          <VoteMinister
-            ministerDetails={ministers}
-            actionGood={this.handleGood}
-            actionBad={this.handleBad}
-          />
+          {ministerWinner.id ? (
+            <VoteMinister
+              minister={ministerWinner}
+              actionGood={e => this.handleGood(e)}
+              actionBad={e => this.handleBad(e)}
+            />
+          ) : (
+            "loading"
+          )}
         </div>
 
         <div className={`candidate-winner ${dCirculate}`}>
@@ -137,7 +164,7 @@ export class CandidateWinner extends Component {
         </div>
 
         <div className={`candidate-winner ${dResult}`}>
-          {ministerWinner.uid ? (
+          {ministerWinner.id ? (
             <ResultMinister ministerDetails={ministerWinner} />
           ) : (
             ""
@@ -156,4 +183,8 @@ export class CandidateWinner extends Component {
   }
 }
 
-export default CandidateWinner;
+const mapDispatchToProps = dispatch => ({
+  homeAction: bindActionCreators(homeActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(CandidateWinner);

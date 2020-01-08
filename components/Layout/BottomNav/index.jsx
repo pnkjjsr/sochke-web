@@ -1,11 +1,15 @@
 import React, { Fragment, Component } from "react";
-import { connect } from "react-redux";
 import Link from "next/link";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "pages/index/action";
 
 import authSession from "utils/authSession";
 
 import DrawerPage from "components/DrawerPage";
 import Contribution from "components/Contribution";
+import Poll from "components/Panel/Poll";
+import PanelMinister from "components/Panel/Minister";
 
 import "./style.scss";
 
@@ -22,11 +26,9 @@ class BottomNav extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.login.user.uid) {
-      if (screen.width < 992) {
-        return {
-          view: 1
-        };
-      }
+      return {
+        view: 1
+      };
     }
 
     return null;
@@ -51,12 +53,18 @@ class BottomNav extends Component {
     const profile = session.getProfile();
 
     if (screen.width < 992) {
-      if (profile.uid) {
+      if (profile.id) {
         this.setState({
           view: 1
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      view: 0
+    });
   }
 
   render() {
@@ -66,6 +74,7 @@ class BottomNav extends Component {
       pollDrawer,
       constituencyDrawer
     } = this.state;
+    const { homeAction } = this.props;
     let viewClass = !view ? "d-none" : "d-block";
 
     return (
@@ -81,7 +90,7 @@ class BottomNav extends Component {
             </li>
 
             <li>
-              <Link href="/">
+              <Link href="">
                 <a>
                   <i
                     className="material-icons"
@@ -102,8 +111,8 @@ class BottomNav extends Component {
             </li>
 
             <li>
-              <Link href="/">
-                <a>
+              <Link href="">
+                <a onClick={homeAction.prefetchHomeData}>
                   <i
                     className="material-icons"
                     onClick={e => this.handleOpen("poll")}
@@ -118,12 +127,12 @@ class BottomNav extends Component {
                 open={pollDrawer}
                 action={e => this.handleClose("poll")}
               >
-                Poll Page
+                <Poll type="state" />
               </DrawerPage>
             </li>
 
             <li>
-              <Link href="/">
+              <Link href="">
                 <a>
                   <i
                     className="material-icons"
@@ -139,7 +148,13 @@ class BottomNav extends Component {
                 open={constituencyDrawer}
                 action={e => this.handleClose("constituency")}
               >
-                Constituency Page
+                <div className="p-3">
+                  <PanelMinister title="MCD Councillor" type="councillor" />
+                  <PanelMinister title="MLA" type="mla" />
+                  <PanelMinister title="MP" type="mp" />
+                  <PanelMinister title="CM" type="cm" />
+                  <PanelMinister title="PM" type="pm" />
+                </div>
               </DrawerPage>
             </li>
           </ul>
@@ -149,4 +164,8 @@ class BottomNav extends Component {
   }
 }
 
-export default connect(state => state)(BottomNav);
+const mapDispatchToProps = dispatch => ({
+  homeAction: bindActionCreators(homeActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(BottomNav);

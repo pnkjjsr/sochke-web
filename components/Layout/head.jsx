@@ -11,7 +11,7 @@ const Header = props => (
   <Fragment>
     <NextHead>
       <meta charSet="UTF-8" />
-      <title>{`${props.title} | Web title`}</title>
+      <title>{`${props.title} | ${props.desc}`}</title>
       <meta name="description" content={props.desc || defaultDescription} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
@@ -31,7 +31,8 @@ const Header = props => (
       <meta property="og:image" content={props.ogImage || defaultOGImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta name="theme-color" content="#000" />
+      <meta name="theme-color" content="#0073b0" />
+      {/* <meta name="apple-mobile-web-app-capable" content="black-translucent" /> */}
     </NextHead>
 
     <noscript>
@@ -64,8 +65,19 @@ class Head extends React.Component {
   }
 
   render() {
+    const { pageTitle, layout } = this.props;
+    let newPageTitle = pageTitle;
+
+    if (pageTitle == "/") {
+      newPageTitle = "Home";
+    }
+
     return (
-      <Header title={this.props.layout.title} desc={this.props.layout.desc} />
+      <Header
+        title={layout.title}
+        pageTitle={newPageTitle}
+        desc={layout.desc}
+      />
     );
   }
 }

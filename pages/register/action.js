@@ -29,7 +29,7 @@ const get_area = function(pincode) {
       area: updatedArea
     };
     service
-      .post("/add-area", areadata)
+      .post("/add-pincode-area", areadata)
       .then(res => {
         console.log(res);
       })

@@ -25,7 +25,7 @@ const profile = (state = initialState, action) => {
         responds: action.payload.responds,
         believers: action.payload.believers,
         leaders: action.payload.leaders,
-        uid: action.payload.uid,
+        uid: action.payload.id,
         userName: action.payload.userName,
         displayName: action.payload.displayName,
         photoURL: action.payload.photoURL,

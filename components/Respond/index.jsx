@@ -13,18 +13,35 @@ import "./style.scss";
 class Respond extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      voteCount: props.respond.voteCount,
+      opinionCount: props.respond.opinionCount
+    };
   }
 
+  handleVoteCount = e => {
+    const { voteCount } = this.state;
+    if (e) this.setState({ voteCount: voteCount + 1 });
+    else this.setState({ voteCount: voteCount - 1 });
+  };
+
+  handleOpinionCount = () => {
+    const { opinionCount } = this.state;
+    let count = parseInt(opinionCount);
+
+    this.setState({ opinionCount: count + 1 });
+  };
+
   render() {
+    const { voteCount, opinionCount } = this.state;
     const { respond, user } = this.props;
     const moment = new Moment();
     const time = moment.format(respond.createdAt);
     let display = respond.imageUrl ? "" : "d-none";
-    let name = user.displayName ? user.displayName : user.userName;
+    let name = respond.displayName ? respond.displayName : respond.userName;
 
-    let userImg = user.photoURL ? (
-      <img src={user.photoURL} alt={name} />
+    let userImg = respond.photoURL ? (
+      <img src={respond.photoURL} alt={name} />
     ) : (
       <i className="material-icons">account_circle</i>
     );
@@ -47,13 +64,18 @@ class Respond extends Component {
         </div>
 
         <div className="counts">
-          {respond.voteCount} Votes ~ {respond.opinionCount} Opinions
+          {voteCount} Votes ~ {opinionCount} Opinions
         </div>
 
         <div className="bottom">
           <ul className="actions">
             <li>
-              <VoteRespond rid={respond.id} />
+              <VoteRespond
+                rid={respond.id}
+                voted={respond.vote}
+                count={respond.voteCount}
+                action={e => this.handleVoteCount(e)}
+              />
             </li>
             <li>
               <CirculateRespond />
@@ -65,12 +87,12 @@ class Respond extends Component {
           <div className="detail">
             {/* Responsibility: Arvind Kejriwal - CM */}
             {/* <br /> */}
-            Constituency: {user.area} - {user.pincode}
+            Constituency: {respond.area} - {respond.pincode}
           </div>
         </div>
 
         <div className="opinion">
-          <OpinionBox respond={respond} />
+          <OpinionBox respond={respond} action={this.handleOpinionCount} />
         </div>
       </div>
     );

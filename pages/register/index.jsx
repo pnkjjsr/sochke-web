@@ -17,7 +17,7 @@ import authSession from "utils/authSession";
 import authentication from "utils/authentication";
 
 import validation from "./validation";
-import banner from "images/signup/banner.jpg";
+
 import "./style.scss";
 
 class Register extends Component {
@@ -49,6 +49,36 @@ class Register extends Component {
   static async getInitialProps({ pathname }) {
     const path = pathname;
     return { path };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { register } = props;
+
+    if (register.view === 1) {
+      Router.push("/");
+    }
+    return null;
+  }
+
+  componentDidMount() {
+    const { registerAction } = this.props;
+    const { path, layoutAction } = this.props;
+
+    layoutAction.update_path(path);
+    registerAction.check_login();
+
+    const data = {
+      createdAt: new Date().toISOString()
+    };
+
+    // service
+    //   .post("/session", data)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   handleChange(e) {
@@ -126,7 +156,7 @@ class Register extends Component {
           let token = res.user.uid;
 
           let data = {
-            uid: token,
+            id: token,
             email: email,
             mobile: mobile,
             area: area,
@@ -136,17 +166,14 @@ class Register extends Component {
             pincode: pincode,
             country: "India"
           };
-          console.log(data);
 
           session.setToken(token);
           session.setProfile(data);
           auth.sendEmailVerification();
           loginAction.authenticate(data);
-          Router.push("/constituency");
 
           let bytesPassword = utf8.encode(password);
           let encodedPassword = base64.encode(bytesPassword);
-          console.log(encodedPassword);
 
           let apiData = {
             uid: token,
@@ -164,7 +191,8 @@ class Register extends Component {
           service
             .post("/signup", apiData)
             .then(res => {
-              session.setProfile(res.data.data);
+              session.setProfile(res.data);
+              Router.push("/");
             })
             .catch(async error => {
               let data = error.response.data;
@@ -197,6 +225,7 @@ class Register extends Component {
   };
 
   renderRegistration() {
+    const mainClass = "signup";
     const {
       areaMsg,
       areaErr,
@@ -211,7 +240,6 @@ class Register extends Component {
     } = this.state;
     const { register } = this.props;
     let locations = register.area;
-
     let selectOptions;
     if (locations.length > 0) {
       selectOptions = locations.map((location, key) => (
@@ -223,129 +251,189 @@ class Register extends Component {
 
     return (
       <Fragment>
-        <div className="signup">
-          <div className="container">
-            <div className="row">
-              <div className="col-12 col-md-6 col-lg-7">
-                <div className="banner d-none d-md-block">
-                  <h2 className="title">
-                    Lets build our
-                    <br />
-                    India together !!
-                  </h2>
+        <div className={mainClass}>
+          {/* Top Banner */}
+          <div className={`${mainClass}__top`}>
+            <div className="container">
+              <div className="row">
+                <div className="col-12 col-md-12 col-lg-7">
+                  {/* Top Text */}
 
-                  <figure>
-                    <img src={banner} alt="banner of the website" />
-                  </figure>
+                  <h2 className="title">
+                    Welcome to your
+                    <br />
+                    polity network platform
+                  </h2>
+                </div>
+                <div className="col-12 col-md-12 col-lg-5">
+                  {/* Registration Form */}
+                  <form autoComplete="on" onSubmit={this.handleSubmit}>
+                    <div className="form">
+                      <div className="header">
+                        <h1 className="heading">Create your account</h1>
+                        <div className="sub">One quick step for change !!</div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-12 col-md-6 col-lg-12">
+                          <div className={`form-group ${emailErr}`}>
+                            <label htmlFor="email">Email</label>
+                            <input
+                              className="form-control"
+                              name="email"
+                              type="text"
+                              aria-label="email"
+                              placeholder="abc@gmail.com"
+                              onChange={this.handleChange}
+                            />
+                            <small className="form-text">{emailMsg}</small>
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6 col-lg-12">
+                          <div className={`form-group ${mobileErr}`}>
+                            <label htmlFor="mobile">Mobile</label>
+                            <input
+                              className="form-control"
+                              name="mobile"
+                              type="tel"
+                              aria-label="mobile"
+                              placeholder="9210xxxx60"
+                              onChange={this.handleChange}
+                            />
+                            <small className="form-text">{mobileMsg}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-6 col-sm-6">
+                          <div className={`form-group ${pincodeErr}`}>
+                            <label htmlFor="pincode">Pincode</label>
+                            <input
+                              className="form-control"
+                              name="pincode"
+                              type="number"
+                              aria-label="pincode"
+                              placeholder="110064"
+                              onChange={this.handleChange}
+                            />
+                            <small className="form-text">{pincodeMsg}</small>
+                          </div>
+                        </div>
+                        <div className="col-6 col-sm-6">
+                          <div className={`form-group ${areaErr}`}>
+                            <label htmlFor="area">Area</label>
+                            <select
+                              className="form-control"
+                              name="area"
+                              aria-label="area"
+                              onChange={this.handleChange}
+                            >
+                              <option value="">Select</option>
+                              {selectOptions}
+                            </select>
+                            <small className="form-text">{areaMsg}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={`form-group ${passwordErr}`}>
+                        <label htmlFor="password">Password</label>
+                        <input
+                          className="form-control"
+                          name="password"
+                          type="password"
+                          aria-label="password"
+                          placeholder="******"
+                          autoComplete="off"
+                          onChange={this.handleChange}
+                        />
+                        <small className="form-text">{passwordMsg}</small>
+                      </div>
+
+                      <div className="form-action mb-2">
+                        <Button
+                          text="Create My Account"
+                          variant="btn-success"
+                          size="btn-lg"
+                          type="submit"
+                        />
+                      </div>
+
+                      <div className="form-note">
+                        By clicking Sign Up, you agree to our Terms, Data Policy
+                        and Cookie Policy. You may receive SMS notifications
+                        from us and can opt out at any time.
+                      </div>
+                    </div>
+
+                    <div className="form-link">
+                      Already a member?{" "}
+                      <Link href="/login">
+                        <button type="button" className="btn btn-sm btn-link">
+                          Login
+                        </button>
+                      </Link>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <div className="col-12 col-md-6 col-lg-5">
-                <form autoComplete="on" onSubmit={this.handleSubmit}>
-                  <div className="form">
-                    <div className="header">
-                      <h1 className="heading">Create your account</h1>
-                      <div className="sub">One quick step for change !!</div>
-                    </div>
+            </div>
+          </div>
 
-                    <div className={`form-group ${emailErr}`}>
-                      <label htmlFor="email">Email</label>
-                      <input
-                        className="form-control"
-                        name="email"
-                        type="text"
-                        aria-describedby="emailHelp"
-                        placeholder="abc@gmail.com"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{emailMsg}</small>
-                    </div>
+          {/* Info Section */}
+          <div className={`${mainClass}__info`}>
+            <div className="container">
+              <div className="row">
+                <div className="col-12 col-md-8">
+                  {/* Feedback */}
+                  <div className={`${mainClass}__section`}>
+                    <h2 className="title">Your feedback, our development!</h2>
+                    <p className="para">
+                      We are your developers, your feedback is our first
+                      priority. We build what you want about your constituency,
+                      ministers and area progress.
+                    </p>
 
-                    <div className={`form-group ${mobileErr}`}>
-                      <label htmlFor="mobile">Mobile</label>
-                      <input
-                        className="form-control"
-                        name="mobile"
-                        type="text"
-                        aria-describedby="mobileHelp"
-                        placeholder="9210xxxx60"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{mobileMsg}</small>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-6 col-sm-6">
-                        <div className={`form-group ${pincodeErr}`}>
-                          <label htmlFor="pincode">Pincode</label>
-                          <input
-                            className="form-control"
-                            name="pincode"
-                            type="text"
-                            aria-describedby="pincodeHelp"
-                            placeholder="110064"
-                            onChange={this.handleChange}
-                          />
-                          <small className="form-text">{pincodeMsg}</small>
-                        </div>
-                      </div>
-                      <div className="col-6 col-sm-6">
-                        <div className={`form-group ${areaErr}`}>
-                          <label htmlFor="area">Area</label>
-                          <select
-                            className="form-control"
-                            name="area"
-                            onChange={this.handleChange}
-                          >
-                            <option value="">Select</option>
-                            {selectOptions}
-                          </select>
-                          <small className="form-text">{areaMsg}</small>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className={`form-group ${passwordErr}`}>
-                      <label htmlFor="password">Password</label>
-                      <input
-                        className="form-control"
-                        name="password"
-                        type="password"
-                        aria-describedby="passwordHelp"
-                        placeholder="******"
-                        autoComplete="off"
-                        onChange={this.handleChange}
-                      />
-                      <small className="form-text">{passwordMsg}</small>
-                    </div>
-
-                    <div className="form-action mb-2">
-                      <Button
-                        text="Create My Account"
-                        variant="btn-success"
-                        size="btn-lg"
-                        type="submit"
-                      />
-                    </div>
-
-                    <div className="form-note">
-                      By clicking Sign Up, you agree to our Terms, Data Policy
-                      and Cookie Policy. You may receive SMS notifications from
-                      us and can opt out at any time.
-                    </div>
-                  </div>
-
-                  <div className="form-link">
-                    Already a member?{" "}
-                    <Link href="/login">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-primary"
-                      >
-                        Login
+                    <div className="action">
+                      <button className="btn btn-primary btn-lg">
+                        Write your feedback
                       </button>
-                    </Link>
+                      <button className="btn btn-link btn-sm">
+                        Support Sochke
+                      </button>
+                    </div>
                   </div>
-                </form>
+
+                  {/* About */}
+                  <div className={`${mainClass}__section`}>
+                    <h2 className="title">What is sochke?</h2>
+                    <p className="para">
+                      Sochke is social networking platform between people and
+                      minister, build on user's feedback. With Sochke you will
+                      get all the information about your constituency ministers.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-12 col-md-4">
+                  <div className={`${mainClass}__info__banner`}>
+                    <figure>
+                      <img
+                        src="https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Finfo.png?alt=media&token=abe3240e-0610-404f-9321-7b753482f4d0"
+                        alt="Sochke Feedback"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contribution */}
+          <div className={`${mainClass}__bottom`}>
+            <div className="container">
+              <div className={`${mainClass}__section m-0`}>
+                <h2 className="title">Contribute in progress of your area</h2>
               </div>
             </div>
           </div>
@@ -375,38 +463,8 @@ class Register extends Component {
     );
   };
 
-  static getDerivedStateFromProps(props, state) {
-    const { register } = props;
-
-    if (register.view === 1) {
-      Router.push("/");
-    }
-    return null;
-  }
-
-  componentDidMount() {
-    const { registerAction } = this.props;
-    const { path, layoutAction } = this.props;
-
-    layoutAction.update_path(path);
-    registerAction.check_login();
-
-    const data = {
-      createdAt: new Date().toISOString()
-    };
-
-    // service
-    //   .post("/session", data)
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  }
-
   render() {
-    return this.renderRegistration();
+    return <Fragment>{this.renderRegistration()}</Fragment>;
   }
 }
 

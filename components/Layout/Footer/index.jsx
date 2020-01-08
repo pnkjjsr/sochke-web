@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
 import "./style.scss";
 
@@ -30,22 +30,19 @@ export default class Footer extends Component {
                   <a>Cookies</a>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/jobs">
                   <a>Jobs</a>
                 </Link>
-
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link href="/settings">
                   <a>Settings</a>
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
-            <div className="copyright">
-              © 2019 {process.env.domain} .Ltd
-            </div>
+            <div className="copyright">© 2019 {process.env.domain} .Ltd</div>
           </div>
         </div>
       </Fragment>

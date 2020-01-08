@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case AUTHENTICATE:
       return Object.assign({}, state, {
-        token: action.payload.uid,
+        token: action.payload.id,
         user: action.payload
       });
     case DEAUTHENTICATE:

@@ -10,6 +10,7 @@ export class ResultMinister extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      minister: {},
       area: "",
       happy: 0,
       sad: 0
@@ -18,6 +19,7 @@ export class ResultMinister extends Component {
 
   componentDidMount() {
     const { ministerDetails } = this.props;
+
     const session = new authSession();
     const profile = session.getProfile();
     const area = profile.area;
@@ -26,9 +28,8 @@ export class ResultMinister extends Component {
       area: area
     });
 
-    let mid = ministerDetails.uid;
     let data = {
-      mid: mid
+      mid: ministerDetails.id
     };
     service
       .post("/minister-value", data)

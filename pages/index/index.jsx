@@ -4,13 +4,13 @@ import { bindActionCreators } from "redux";
 import homeActions from "./action";
 
 import userAuth from "utils/userAuth";
+import authSession from "utils/authSession";
 
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import Poll from "components/Panel/Poll";
 import Respond from "components/Respond";
 import RespondBox from "components/Respond/RespondBox";
-import RespondList from "components/Respond/RespondList";
 
 import "./style.scss";
 
@@ -18,7 +18,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {}
+      profile: "",
+      data: {},
+      polls: []
     };
   }
   static getDerivedStateFromProps(props, state) {
@@ -27,7 +29,8 @@ class Home extends Component {
 
     if (len) {
       return {
-        data: data
+        data: data,
+        polls: data.polls
       };
     } else {
       return null;
@@ -36,28 +39,40 @@ class Home extends Component {
 
   componentDidMount() {
     const { homeAction } = this.props;
+    const session = new authSession();
+    const profile = session.getProfile();
+    this.setState({
+      profile: profile
+    });
+
     homeAction.prefetchHomeData();
   }
 
   loopRespond = () => {
     const { data } = this.state;
-    const userData = {
-      userName: data.userName,
-      displayName: data.displayName,
-      photoURL: data.photoURL,
-      area: data.area,
-      pincode: data.pincode
-    };
 
-    if (data.responds) {
-      return data.responds.map(respond => {
-        return <Respond key={respond.id} respond={respond} user={userData} />;
+    let respondArr = data.responds;
+    let respondVoteArr = data.respondVoted;
+    let respondFilter = [];
+
+    respondArr.map(respond => {
+      let isArrContain = respondVoteArr.includes(respond.id);
+      if (isArrContain) {
+        respond.vote = true;
+      }
+
+      respondFilter.push(respond);
+    });
+
+    if (respondFilter) {
+      return respondFilter.map(respond => {
+        return <Respond key={respond.id} respond={respond} />;
       });
     }
   };
 
   render() {
-    const { data } = this.state;
+    const { data, profile, polls } = this.state;
 
     return (
       <Fragment>
@@ -74,7 +89,6 @@ class Home extends Component {
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
                 {this.loopRespond()}
-                {/* <RespondList /> */}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel">
@@ -85,16 +99,16 @@ class Home extends Component {
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Delhi want change for?</h2>
+                  <h2 className="title">{profile.state} want change for?</h2>
                   <div className="panel-container">
-                    <Poll type="state" data={data.polls} />
+                    <Poll type="state" />
                   </div>
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Hari Nagar, has?</h2>
+                  <h2 className="title">{profile.area}, has?</h2>
                   <div className="panel-container">
-                    <Poll type="area" data={data.polls} />
+                    <Poll type="area" />
                   </div>
                 </div>
               </div>

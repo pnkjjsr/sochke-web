@@ -1,22 +1,19 @@
-import React, { Component, Fragment, } from "react";
-import loader from "icons/loader.svg"
+import React, { Component, Fragment } from "react";
 
-import './style.scss'
+import "./style.scss";
 
 export default class PageLoader extends Component {
-    constructor(props) {
-        super(props)
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <Fragment>
-                <div className="page-loader">
-                    <figure>
-                        <img src={loader} alt="page loader" />
-                    </figure>
-                </div>
-            </Fragment>
-        )
-    }
+  render() {
+    return (
+      <Fragment>
+        <div className="page-loader">
+          <span></span>
+        </div>
+      </Fragment>
+    );
+  }
 }

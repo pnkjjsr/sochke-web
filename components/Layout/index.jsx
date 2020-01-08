@@ -18,18 +18,26 @@ class Layout extends Component {
     super(props);
     this.state = {
       loggedIn: false,
+      isMobile: false,
       user: false,
       authtoken: props.authtoken
     };
   }
 
   componentDidMount() {
+    const { login } = this.props;
     const session = new authSession();
     let user = session.getProfile();
+    let token = session.getToken();
+
     this.setState({
       user: user.userType,
-      loggedIn: user.uid ? true : false
+      loggedIn: user.uid ? true : false,
+      isMobile: screen.width <= 992 ? true : false
     });
+
+    if (login.token || token) this.setState({ loggedIn: true });
+    else this.setState({ loggedIn: false });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -44,13 +52,14 @@ class Layout extends Component {
   }
 
   render() {
-    const { loggedIn } = this.state;
+    const { loggedIn, isMobile } = this.state;
+
     return (
       <Fragment>
-        <Head title={this.props.pageTitle} />
+        <Head pageTitle={this.props.pageTitle} />
         <Header />
         <div className="main">{this.props.children}</div>
-        {!loggedIn ? <Footer /> : <BottomNav />}
+        {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
       </Fragment>
     );
   }
