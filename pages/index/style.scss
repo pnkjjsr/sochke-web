@@ -4,16 +4,16 @@
   margin-top: 10px;
 
   .panel {
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 10px;
+    padding: 10px 10px 15px;
     border: 1px solid $border-color;
-    @include border-radius($border-radius-max);
+    @include border-radius($border-radius-min);
     background-color: $bg-panel;
 
     .title {
-      margin-bottom: 15px;
-      font-size: rem(18);
-      font-weight: $font-weight-black;
+      margin-bottom: 10px;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
     }
 
     .panel-container {

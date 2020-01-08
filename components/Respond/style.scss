@@ -1,9 +1,9 @@
 @import "common/styles/global.scss";
 
 .respond-item {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   padding: 10px 0;
-  background-color: #fff;
+  background-color: $color-white;
 
   @include box-shadow;
   @include border-radius(3px);
@@ -37,11 +37,11 @@
 
     .detail {
       flex-grow: 1;
-      color: $color-gray;
+      color: $base-color;
 
       span {
         display: block;
-        color: $color-light;
+        color: $color-gray-light;
         font-size: rem(12);
       }
     }
@@ -50,7 +50,7 @@
   .respond {
     margin: 0 10px 10px;
     padding: 0 15px;
-    font-size: rem(20);
+    font-size: rem(16);
     line-height: 100%;
   }
 
@@ -73,7 +73,7 @@
   .counts {
     margin-top: 10px;
     padding: 0 15px;
-    color: $color-light;
+    color: $color-gray-light;
     font-size: rem(12);
   }
 
@@ -112,7 +112,7 @@
       }
     }
     .detail {
-      color: $color-light;
+      color: $color-gray;
       font-size: rem(12);
       font-weight: $font-weight-light;
       text-align: right;
@@ -128,11 +128,11 @@
 @include media-breakpoint-up(md) {
   .respond-item {
     .top {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .respond {
-      margin: 0 20px 20px;
+      margin: 0 20px 10px;
     }
 
     .respond-image {
@@ -160,7 +160,7 @@
       }
       .detail {
         margin-left: 30px;
-        font-size: rem(14);
+        font-size: rem(12);
       }
     }
   }

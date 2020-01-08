@@ -82,7 +82,7 @@
 
   @include media-breakpoint-up(md) {
     .form {
-      padding: 15px 30px;
+      padding: 15px 30px 30px;
       margin-bottom: 10px;
       @include border-radius(3px);
       border: solid 1px rgba(141, 164, 176, 0.18);
@@ -144,7 +144,7 @@
       text-align: center;
 
       a {
-        color: #0073b0;
+        color: $color-link;
         text-decoration: none;
 
         &:hover {

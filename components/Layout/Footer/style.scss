@@ -23,7 +23,7 @@
       padding-right: 10px;
 
       a {
-        color: rgb(0, 115, 176);
+        color: $color-link;
         font-size: 10px;
         font-weight: 500;
         text-decoration: none;
@@ -36,7 +36,7 @@
   }
 
   .copyright {
-    color: $color-gray-light;
+    color: $color-gray;
     font-size: 10px;
     font-weight: 300;
   }

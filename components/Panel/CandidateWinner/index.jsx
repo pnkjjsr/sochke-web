@@ -6,6 +6,8 @@ import homeActions from "pages/index/action";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
+import PageLoader from "components/Loader/page";
+
 import VoteMinister from "./VoteMinister";
 import AlertRespond from "./AlertRespond";
 import OptionMinister from "./OptionMinister";
@@ -151,7 +153,7 @@ export class CandidateWinner extends Component {
               actionBad={e => this.handleBad(e)}
             />
           ) : (
-            "loading"
+            <PageLoader />
           )}
         </div>
 
