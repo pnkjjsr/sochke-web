@@ -256,7 +256,7 @@ class Register extends Component {
           <div className={`${mainClass}__top`}>
             <div className="container">
               <div className="row">
-                <div className="col-12 col-md-6 col-lg-7">
+                <div className="col-12 col-md-12 col-lg-7">
                   {/* Top Text */}
 
                   <h2 className="title">
@@ -265,7 +265,7 @@ class Register extends Component {
                     polity network platform
                   </h2>
                 </div>
-                <div className="col-12 col-md-6 col-lg-5">
+                <div className="col-12 col-md-12 col-lg-5">
                   {/* Registration Form */}
                   <form autoComplete="on" onSubmit={this.handleSubmit}>
                     <div className="form">
@@ -274,30 +274,35 @@ class Register extends Component {
                         <div className="sub">One quick step for change !!</div>
                       </div>
 
-                      <div className={`form-group ${emailErr}`}>
-                        <label htmlFor="email">Email</label>
-                        <input
-                          className="form-control"
-                          name="email"
-                          type="text"
-                          aria-label="email"
-                          placeholder="abc@gmail.com"
-                          onChange={this.handleChange}
-                        />
-                        <small className="form-text">{emailMsg}</small>
-                      </div>
-
-                      <div className={`form-group ${mobileErr}`}>
-                        <label htmlFor="mobile">Mobile</label>
-                        <input
-                          className="form-control"
-                          name="mobile"
-                          type="tel"
-                          aria-label="mobile"
-                          placeholder="9210xxxx60"
-                          onChange={this.handleChange}
-                        />
-                        <small className="form-text">{mobileMsg}</small>
+                      <div className="row">
+                        <div className="col-12 col-md-6 col-lg-12">
+                          <div className={`form-group ${emailErr}`}>
+                            <label htmlFor="email">Email</label>
+                            <input
+                              className="form-control"
+                              name="email"
+                              type="text"
+                              aria-label="email"
+                              placeholder="abc@gmail.com"
+                              onChange={this.handleChange}
+                            />
+                            <small className="form-text">{emailMsg}</small>
+                          </div>
+                        </div>
+                        <div className="col-12 col-md-6 col-lg-12">
+                          <div className={`form-group ${mobileErr}`}>
+                            <label htmlFor="mobile">Mobile</label>
+                            <input
+                              className="form-control"
+                              name="mobile"
+                              type="tel"
+                              aria-label="mobile"
+                              placeholder="9210xxxx60"
+                              onChange={this.handleChange}
+                            />
+                            <small className="form-text">{mobileMsg}</small>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="row">

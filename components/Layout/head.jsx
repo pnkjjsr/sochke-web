@@ -76,7 +76,7 @@ class Head extends React.Component {
       <Header
         title={layout.title}
         pageTitle={newPageTitle}
-        desc={this.props.layout.desc}
+        desc={layout.desc}
       />
     );
   }

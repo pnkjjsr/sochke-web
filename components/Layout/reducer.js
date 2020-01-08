@@ -2,7 +2,7 @@ import { UPDATE, UPDATE_PATH } from "./constant";
 
 const initialState = {
   title: "Sochke",
-  desc: "Main page description.",
+  desc: "Polity Social Network",
   path: ""
 };
 
