@@ -167,11 +167,6 @@ class Register extends Component {
             country: "India"
           };
 
-          session.setToken(token);
-          session.setProfile(data);
-          auth.sendEmailVerification();
-          loginAction.authenticate(data);
-
           let bytesPassword = utf8.encode(password);
           let encodedPassword = base64.encode(bytesPassword);
 
@@ -191,7 +186,10 @@ class Register extends Component {
           service
             .post("/signup", apiData)
             .then(res => {
+              session.setToken(token);
               session.setProfile(res.data);
+              loginAction.authenticate(data);
+              auth.sendEmailVerification();
               Router.push("/");
             })
             .catch(async error => {

@@ -36,7 +36,11 @@
       text-align: center;
 
       h1 {
+        max-width: 500px;
         font-size: rem(24);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .action {

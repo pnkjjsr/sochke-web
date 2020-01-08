@@ -45,9 +45,11 @@ nav.user {
 
         .title {
           a {
-            color: $base-color;
-            font-size: $font-size;
+            font-size: rem(14);
             text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
         }
       }

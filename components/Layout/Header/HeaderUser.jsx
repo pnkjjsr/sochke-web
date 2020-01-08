@@ -9,10 +9,6 @@ import UserNav from "components/Nav/User";
 
 import "./style.scss";
 
-const images = {
-  logo:
-    "https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fglobal%2Flogo.svg?alt=media&token=c15ffc04-2485-4047-a3f0-16f6509bda70"
-};
 class HeaderUser extends Component {
   constructor(props) {
     super(props);
@@ -61,9 +57,7 @@ class HeaderUser extends Component {
 
                 <div className="logo">
                   <Link href="/">
-                    <a>
-                      <img src={images.logo} alt="sochke" />
-                    </a>
+                    <a>Sochke</a>
                   </Link>
                 </div>
               </div>
