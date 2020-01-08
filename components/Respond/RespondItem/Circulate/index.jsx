@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
-import iconCirculate from "icons/circulate.svg";
 import "./style.scss";
 
 export class CirculateRespond extends Component {
