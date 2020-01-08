@@ -20,7 +20,8 @@
   }
 
   .logo {
-    margin-left: 10px;
+    width: 125px;
+    margin-left: 0;
     color: #0073b0;
     font-size: 24px;
     font-weight: 800;
@@ -30,6 +31,16 @@
     a {
       text-decoration: none;
       color: #0073b0;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .auth {
+    .btn {
+      min-width: 70px;
     }
   }
 
@@ -77,6 +88,7 @@
 @include media-breakpoint-up(md) {
   .header[role="main"] {
     .logo {
+      width: 165px;
       font-size: 50px;
     }
 

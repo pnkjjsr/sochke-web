@@ -253,7 +253,7 @@ class Register extends Component {
       <Fragment>
         <div className={mainClass}>
           {/* Top Banner */}
-          <div className={`${mainClass}__top d-none d-md-block`}>
+          <div className={`${mainClass}__top`}>
             <div className="container">
               <div className="row">
                 <div className="col-12 col-md-6 col-lg-7">
