@@ -33,8 +33,12 @@ export class MediaRespondProfile extends Component {
     return (
       <div className={`context-empty `}>
         <h2>
-          {person} haven’t Upload Media Responed yet
-          <small>When {person} add a Media Respond, it’ll show up here.</small>
+          <span className="person">{person}</span> haven’t Upload Media Responed
+          yet
+          <small>
+            When <span className="person">{person}</span> add a Media Respond,
+            it’ll show up here.
+          </small>
         </h2>
         <p>
           Media Respond, is same as respond but with photo of that area,

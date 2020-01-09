@@ -20,7 +20,7 @@ class BelieverProfile extends Component {
     return (
       <div className={`context-empty `}>
         <h2>
-          {person} haven’t any Beliver yet
+          <span className="person">{person}</span> haven’t any Beliver yet
           <small>Belivers, show up here.</small>
         </h2>
         <p>

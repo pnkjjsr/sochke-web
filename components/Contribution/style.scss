@@ -196,6 +196,12 @@
 
   &__web {
     position: relative;
+    margin-right: 1px;
+    margin-bottom: 1px;
+
+    &:nth-child(3n + 3) {
+      margin-right: 0;
+    }
 
     .details {
       display: none;
@@ -250,7 +256,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 296px;
+      width: 295px;
       height: 300px;
       margin: 0;
       background: $color-black;

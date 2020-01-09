@@ -33,8 +33,11 @@ export class ContributionProfile extends Component {
     return (
       <div className={`context-empty`}>
         <h2>
-          {person} haven’t Contributed yet
-          <small>When {person} write a Contribute, it’ll show up here.</small>
+          <span className="person">{person}</span> haven’t Contributed yet
+          <small>
+            When <span className="person">{person}</span> write a Contribute,
+            it’ll show up here.
+          </small>
         </h2>
         <p>
           Contribute is a reall issue, problem, good thing or any realastic

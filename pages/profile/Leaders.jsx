@@ -19,12 +19,12 @@ class LeaderProfile extends Component {
     return (
       <div className={`context-empty `}>
         <h2>
-          {person} haven’t any Leader yet
+          <span className="person">{person}</span> haven’t any Leader yet
           <small>Leaders, show up here.</small>
         </h2>
         <p>
-          Leaders are those {person} believe in. Their thoughts and contriubtion
-          is value for you.
+          Leaders are those <span className="person">{person}</span> believe in.
+          Their thoughts and contriubtion is value for you.
         </p>
         <div className="action">
           <button className="btn btn-lg btn-primary">Show Leaders</button>

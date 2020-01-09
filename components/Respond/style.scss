@@ -16,7 +16,9 @@
 
     figure {
       width: 50px;
+      min-width: 50px;
       height: 50px;
+      min-height: 50px;
       padding: 0;
       margin: 0;
       margin-right: 10px;
@@ -36,8 +38,10 @@
     }
 
     .detail {
-      flex-grow: 1;
       color: $base-color;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
       span {
         display: block;
