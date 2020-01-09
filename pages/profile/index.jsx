@@ -13,6 +13,7 @@ import Button from "components/Form/Button";
 import PageLoader from "components/Loader/page";
 
 import RespondProfile from "./Respond";
+import ContributionProfile from "./Contribution";
 import MediaRespondProfile from "./MediaRespond";
 import BelieverProfile from "./Believers";
 import LeaderProfile from "./Leaders";
@@ -217,26 +218,10 @@ class Profile extends Component {
               </TabPanel>
 
               <TabPanel>
-                <div className={`context-empty `}>
-                  <h2>
-                    You haven’t Contributed yet
-                    <small>
-                      When you write a Contribute, it’ll show up here.
-                    </small>
-                  </h2>
-                  <p>
-                    Contribute is a reall issue, problem, good thing or any
-                    realastic point of your area. You can write 3 contribute in
-                    a day. It will speacially show your area and other people
-                    can VOTE and give Opinion on that. Biggest the support your
-                    get from your area, biggest the value of Contribution.
-                  </p>
-                  <div className="action">
-                    <button className="btn btn-lg btn-primary">
-                      Contribute Now
-                    </button>
-                  </div>
-                </div>
+                <ContributionProfile
+                  contributionArr={profile}
+                  self={selfProfile}
+                />
               </TabPanel>
 
               <TabPanel>

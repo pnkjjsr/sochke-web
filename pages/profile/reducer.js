@@ -2,6 +2,7 @@ import { PREFETCH_PROFILE_DATA, ADD_LEADER, REMOVE_LEADER } from "./constant";
 
 const initialState = {
   responds: [],
+  contributions: [],
   believers: [],
   leaders: [],
   uid: "",
@@ -23,6 +24,7 @@ const profile = (state = initialState, action) => {
     case PREFETCH_PROFILE_DATA:
       return Object.assign({}, state, {
         responds: action.payload.responds,
+        contributions: action.payload.contributions,
         believers: action.payload.believers,
         leaders: action.payload.leaders,
         uid: action.payload.id,
