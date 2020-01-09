@@ -47,13 +47,41 @@ export class CandidateWinner extends Component {
     if (ministers != oldMinisters) {
       ministers.map(minister => {
         if (minister.winner == true) {
-          this.setState({
-            ministerWinner: minister
-          });
+          this.setState(
+            {
+              ministerWinner: minister
+            },
+            () => this.checkVoted()
+          );
         }
       });
     }
   }
+
+  checkVoted = () => {
+    const { ministerWinner } = this.state;
+    const session = new authSession();
+    const token = session.getToken();
+    if (ministerWinner.id) {
+      const data = {
+        uid: token,
+        mid: ministerWinner.id
+      };
+      service
+        .post("/minister-voted", data)
+        .then(res => {
+          if (res.data.code == "vote/voted") {
+            this.setState({
+              dVote: "d-none",
+              dResult: ""
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
 
   handleGood = ministerId => {
     const session = new authSession();
