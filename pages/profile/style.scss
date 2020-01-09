@@ -191,6 +191,13 @@
       font-size: rem(15);
     }
   }
+
+  .profile-contribution {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    // flex-wrap: wrap;
+  }
 }
 
 @include media-breakpoint-up(md) {

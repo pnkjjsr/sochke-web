@@ -91,6 +91,13 @@ class Home extends Component {
                 {this.loopRespond()}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
+                <div className="panel contribute">
+                  <span>
+                    Your count: <b>15</b>
+                  </span>
+                  <button className="btn btn-primary">Contribute</button>
+                </div>
+
                 <div className="panel">
                   <h2 className="title">Your Counstituency</h2>
                   <div className="panel-container">

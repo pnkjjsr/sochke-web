@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
+import ContributionWeb from "components/Contribution/Web";
+
 import "./style.scss";
 
 export class ContributionProfile extends Component {
@@ -60,26 +62,17 @@ export class ContributionProfile extends Component {
 
     return contributionArr.map(contribution => {
       return (
-        <div key={contribution.id}>
-          <div>
-            <h2>{contribution.title}</h2>
-            <p>{contribution.description}</p>
-          </div>
-          <figure>
-            <img src={contribution.imgUrl} alt="contribution image" />
-          </figure>
-        </div>
+        <ContributionWeb key={contribution.id} contribution={contribution} />
       );
     });
   };
 
   render() {
     const { contributionArr } = this.state;
-    console.log(contributionArr);
 
     return (
       <Fragment>
-        <div className="profile-respond">
+        <div className="profile-contribution">
           {contributionArr.length ? this.renderLoop() : this.renderEmpty()}
         </div>
       </Fragment>

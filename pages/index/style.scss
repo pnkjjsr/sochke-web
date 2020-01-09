@@ -16,7 +16,18 @@
       font-weight: $font-weight-bold;
     }
 
-    .panel-container {
+    &.contribute {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 0 none;
+      @include box-shadow;
+
+      span {
+        font-size: rem(14);
+      }
     }
   }
 }
