@@ -78,6 +78,7 @@ class Home extends Component {
 
   render() {
     const { data, profile, polls } = this.state;
+    console.log(data);
 
     return (
       <Fragment>
@@ -98,7 +99,7 @@ class Home extends Component {
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel contribute">
                   <span>
-                    Your count: <b>15</b>
+                    Your count: <b>{data.contributionCount}</b>
                   </span>
                   <button
                     className="btn btn-primary"

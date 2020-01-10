@@ -39,7 +39,7 @@ class WriteContribution extends Component {
 
   handleSubmit = () => {
     const { title, description, imgUrl } = this.state;
-    const { notificationAction, actionPreviewView } = this.props;
+    const { notificationAction, actionPreview } = this.props;
     const session = new authSession();
     const profile = session.getProfile();
 
@@ -64,7 +64,7 @@ class WriteContribution extends Component {
           displayAdded: ""
         });
 
-        actionPreviewView(data);
+        actionPreview(data);
 
         notificationAction.showNotification({
           message: "Your contribution added.",
@@ -94,6 +94,7 @@ class WriteContribution extends Component {
                 name="title"
                 placeholder="Title of your contribution"
                 value={title}
+                autoComplete="off"
                 onChange={this.handleChange}
               />
             </h1>
