@@ -11,20 +11,21 @@ export class ContributionProfile extends Component {
     this.state = {
       self: props.self,
       user: {},
-      contributionArr: [],
+      data: [],
       view: 0
     };
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (!props.contributionArr) return null;
-    else {
-      return {
-        user: props.contributionArr,
-        contributionArr: props.contributionArr.contributions,
-        view: 1
-      };
-    }
+    let arr = props.contributionArr.contributions;
+
+    if (arr.length == 0) return null;
+
+    return {
+      user: props.contributionArr,
+      data: arr,
+      view: 1
+    };
   }
 
   renderEmpty = () => {
@@ -56,7 +57,7 @@ export class ContributionProfile extends Component {
   };
 
   renderLoop = () => {
-    const { contributionArr, user } = this.state;
+    const { data, user } = this.state;
     const userData = {
       userName: user.userName,
       displayName: user.displayName,
@@ -65,9 +66,11 @@ export class ContributionProfile extends Component {
       pincode: user.pincode
     };
 
-    return contributionArr.map(contribution => {
+    return data.map(contribution => {
       return (
-        <ContributionWeb key={contribution.id} contribution={contribution} />
+        <div key={contribution.id} className="profile-contribution__items">
+          <ContributionWeb data={contribution} />
+        </div>
       );
     });
   };
@@ -78,7 +81,7 @@ export class ContributionProfile extends Component {
     return (
       <Fragment>
         <div className="profile-contribution">
-          {view ? this.renderEmpty() : this.renderLoop()}
+          {!view ? this.renderEmpty() : this.renderLoop()}
         </div>
       </Fragment>
     );

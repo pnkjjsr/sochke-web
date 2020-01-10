@@ -147,7 +147,6 @@ class Contribution extends Component {
 
   render() {
     const { view } = this.state;
-    console.log(view);
 
     switch (view) {
       case "loading":

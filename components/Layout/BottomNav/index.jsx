@@ -90,7 +90,7 @@ class BottomNav extends Component {
             </li>
 
             <li>
-              <Link href="">
+              <Link href="/">
                 <a>
                   <i
                     className="material-icons"
@@ -111,7 +111,7 @@ class BottomNav extends Component {
             </li>
 
             <li>
-              <Link href="">
+              <Link href="/">
                 <a onClick={homeAction.prefetchHomeData}>
                   <i
                     className="material-icons"
@@ -132,7 +132,7 @@ class BottomNav extends Component {
             </li>
 
             <li>
-              <Link href="">
+              <Link href="/">
                 <a>
                   <i
                     className="material-icons"

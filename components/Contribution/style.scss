@@ -210,7 +210,6 @@
     // }
 
     .details {
-      display: none;
       position: absolute;
       z-index: 1;
       top: 0;
@@ -272,12 +271,6 @@
         width: 100%;
       }
     }
-
-    &:hover {
-      .details {
-        display: block;
-      }
-    }
   }
 }
 
@@ -297,6 +290,17 @@
       &.preview {
         .para {
           position: static;
+        }
+      }
+    }
+
+    &__web {
+      .details {
+        display: none;
+      }
+      &:hover {
+        .details {
+          display: block;
         }
       }
     }
