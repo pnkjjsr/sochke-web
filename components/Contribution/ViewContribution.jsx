@@ -12,7 +12,6 @@ class ViewContribution extends Component {
     super(props);
     this.state = {
       contributions: props.data,
-
       contributeView: 0
     };
   }
@@ -63,7 +62,7 @@ class ViewContribution extends Component {
       let activeClass = i == contributeView ? "active" : "";
 
       return (
-        <div key={i} className={`contribution ${activeClass}`}>
+        <div key={i} className={`contribution_component ${activeClass}`}>
           <div className="photo">
             <img src={contribute.imgUrl} alt="" />
           </div>

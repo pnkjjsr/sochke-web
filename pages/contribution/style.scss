@@ -1,0 +1,10 @@
+@import "common/styles/global.scss";
+
+.contribution {
+}
+
+@include media-breakpoint-up(lg) {
+  .contribution {
+    margin-top: 25px;
+  }
+}

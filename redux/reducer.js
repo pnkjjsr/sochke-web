@@ -9,7 +9,8 @@ import register from "pages/register/reducer";
 import account from "pages/account/reducer";
 import home from "pages/index/reducer";
 import profile from "pages/profile/reducer";
-import ministerPage from "pages/minister/reducer";
+import minister from "pages/minister/reducer";
+import contribution from "pages/contribution/reducer";
 
 const rootReducer = combineReducers({
   layout,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   account,
   home,
   profile,
-  ministerPage
+  minister,
+  contribution
 });
 
 export default rootReducer;

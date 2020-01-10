@@ -15,8 +15,7 @@ export default class Contribution extends Component {
     super(props);
     this.state = {
       view: "loading", //loading, empty, write-contribution, view-contribution
-      contributions: [],
-      contributionVoted: []
+      contributions: []
     };
   }
 
@@ -48,7 +47,7 @@ export default class Contribution extends Component {
   renderEmpty = () => {
     return (
       <Fragment>
-        <div className="contribution active">
+        <div className="contribution_component active">
           <div className="empty">
             <i className="material-icons">group_work</i>
             <h1 className="title">
@@ -75,7 +74,7 @@ export default class Contribution extends Component {
   renderAllDone = () => {
     return (
       <Fragment>
-        <div className="contribution active">
+        <div className="contribution_component active">
           <div className="empty">
             <i className="material-icons">group_work</i>
             <h1 className="title">
@@ -116,7 +115,7 @@ export default class Contribution extends Component {
     const profile = session.getProfile();
     const data = {
       uid: profile.id,
-      constituency: profile.area,
+      constituency: profile.constituency,
       district: profile.district
     };
     service
@@ -128,26 +127,17 @@ export default class Contribution extends Component {
           });
         }
 
-        let contributionArr = res.data.contributions;
-        let contributionVoteArr = res.data.contributionVoted;
-        let filterContribution = [];
-        contributionArr.map(contribute => {
-          let isArrContain = contributionVoteArr.includes(contribute.id);
-          if (!isArrContain) {
-            filterContribution.push(contribute);
-          }
-        });
+        let len = res.data.contributions.length;
 
-        if (filterContribution.length == 0) {
+        if (!len) {
           return this.setState({
-            view: "all-done"
+            view: "empty"
           });
         }
 
-        this.setState({
-          view: "view-contribution",
-          contributions: filterContribution,
-          contributionVoted: res.data.contributionVoted
+        return this.setState({
+          contributions: res.data.contributions,
+          view: "view-contribution"
         });
       })
       .catch(err => {

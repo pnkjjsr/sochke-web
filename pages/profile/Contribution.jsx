@@ -11,7 +11,8 @@ export class ContributionProfile extends Component {
     this.state = {
       self: props.self,
       user: {},
-      contributionArr: []
+      contributionArr: [],
+      view: 0
     };
   }
 
@@ -20,7 +21,8 @@ export class ContributionProfile extends Component {
     else {
       return {
         user: props.contributionArr,
-        contributionArr: props.contributionArr.contributions
+        contributionArr: props.contributionArr.contributions,
+        view: 1
       };
     }
   }
@@ -71,12 +73,12 @@ export class ContributionProfile extends Component {
   };
 
   render() {
-    const { contributionArr } = this.state;
+    const { view } = this.state;
 
     return (
       <Fragment>
         <div className="profile-contribution">
-          {contributionArr.length ? this.renderLoop() : this.renderEmpty()}
+          {view ? this.renderEmpty() : this.renderLoop()}
         </div>
       </Fragment>
     );

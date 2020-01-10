@@ -81,7 +81,7 @@ class WriteContribution extends Component {
 
     return (
       <Fragment>
-        <div className="contribution active">
+        <div className="contribution_component active">
           <div className="photo">
             <img src={imgUrl} alt="" />
           </div>

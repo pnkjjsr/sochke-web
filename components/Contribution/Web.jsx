@@ -1,19 +1,23 @@
 import React, { Component, Fragment } from "react";
+// import PropTypes from "prop-types";
 
 import "./style.scss";
 
+// ContributionWeb.propTypes = {
+//   data: PropTypes.array
+// };
 class ContributionWeb extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: props.contribution
+      data: props.data
     };
   }
 
   render() {
     const { data } = this.state;
-    const main = "contribution";
+    const main = "contribution_component";
 
     let voteTotal = data.voteTrueCount + data.voteFalseCount;
     let voteTrue = data.voteTrueCount;

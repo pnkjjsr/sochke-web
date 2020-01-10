@@ -178,7 +178,7 @@
 
     .person {
       display: inline-block;
-      width: 100px;
+      max-width: 100px;
       vertical-align: top;
       overflow: hidden;
       text-overflow: ellipsis;

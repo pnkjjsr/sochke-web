@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import homeActions from "./action";
@@ -48,6 +49,10 @@ class Home extends Component {
     homeAction.prefetchHomeData();
   }
 
+  handleContribute = () => {
+    Router.push("/contribution");
+  };
+
   loopRespond = () => {
     const { data } = this.state;
 
@@ -95,7 +100,12 @@ class Home extends Component {
                   <span>
                     Your count: <b>15</b>
                   </span>
-                  <button className="btn btn-primary">Contribute</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={this.handleContribute}
+                  >
+                    Contribute
+                  </button>
                 </div>
 
                 <div className="panel">
