@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import homeActions from "./action";
@@ -48,6 +49,10 @@ class Home extends Component {
     homeAction.prefetchHomeData();
   }
 
+  handleContribute = () => {
+    Router.push("/contribution");
+  };
+
   loopRespond = () => {
     const { data } = this.state;
 
@@ -73,6 +78,7 @@ class Home extends Component {
 
   render() {
     const { data, profile, polls } = this.state;
+    console.log(data);
 
     return (
       <Fragment>
@@ -80,7 +86,7 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-                <CandidateList type="councillor" data={data.councillors} />
+                {/* <CandidateList type="councillor" data={data.councillors} /> */}
                 <CandidateList type="mla" data={data.mlas} />
                 <CandidateList type="mp" data={data.mps} />
                 <CandidateList type="cm" data={data.cms} />
@@ -91,6 +97,18 @@ class Home extends Component {
                 {this.loopRespond()}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
+                <div className="panel contribute">
+                  <span>
+                    Your count: <b>{data.contributionCount}</b>
+                  </span>
+                  <button
+                    className="btn btn-primary"
+                    onClick={this.handleContribute}
+                  >
+                    Contribute
+                  </button>
+                </div>
+
                 <div className="panel">
                   <h2 className="title">Your Counstituency</h2>
                   <div className="panel-container">

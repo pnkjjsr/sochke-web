@@ -24,30 +24,18 @@ export class ResultMinister extends Component {
     const profile = session.getProfile();
     const area = profile.area;
 
+    let voteTotal =
+      ministerDetails.voteTrueCount + ministerDetails.voteFalseCount;
+    let voteTrue = ministerDetails.voteTrueCount;
+
+    let good = (voteTrue * 100) / voteTotal;
+    let bad = 100 - good;
+
     this.setState({
+      happy: good.toFixed(1),
+      sad: bad.toFixed(1),
       area: area
     });
-
-    let data = {
-      mid: ministerDetails.id
-    };
-    service
-      .post("/minister-value", data)
-      .then(res => {
-        let voteTotal = res.data.vote_total;
-        let voteTrue = res.data.vote_true;
-
-        let good = (voteTrue * 100) / voteTotal;
-        let bad = 100 - good;
-
-        this.setState({
-          happy: good.toFixed(1),
-          sad: bad.toFixed(1)
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   render() {

@@ -36,7 +36,11 @@
       text-align: center;
 
       h1 {
+        max-width: 500px;
         font-size: rem(24);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .action {
@@ -154,8 +158,12 @@
         }
 
         .title {
+          width: 70px;
           font-size: rem(13);
           text-align: center;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }
@@ -167,6 +175,15 @@
     padding-bottom: 50px;
     margin-top: 20px;
     text-align: center;
+
+    .person {
+      display: inline-block;
+      max-width: 100px;
+      vertical-align: top;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     h2 {
       margin-bottom: 15px;
@@ -185,6 +202,20 @@
       margin-bottom: 30px;
       color: $color-gray-light;
       font-size: rem(15);
+    }
+  }
+
+  .profile-contribution {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    &__items {
+      &:nth-child(3n + 3) {
+        margin-right: 0;
+      }
     }
   }
 }

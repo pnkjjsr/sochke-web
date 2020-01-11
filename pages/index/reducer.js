@@ -3,6 +3,8 @@ import { PREFETCH_HOME_DATA, UPDATE_RESPOND } from "./constant";
 const initialState = {
   responds: [],
   respondVoted: [],
+  contirubtions: [],
+  contributionCount: 0,
   councillors: [],
   mlas: [],
   mps: [],
@@ -22,6 +24,8 @@ const home = (state = initialState, action) => {
       return Object.assign({}, state, {
         responds: action.payload.responds,
         respondVoted: action.payload.respondVoted,
+        contributions: action.payload.contributions,
+        contributionCount: action.payload.contributionCount,
         councillors: action.payload.councillors,
         mlas: action.payload.mlas,
         mps: action.payload.mps,

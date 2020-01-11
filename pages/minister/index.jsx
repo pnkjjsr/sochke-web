@@ -31,14 +31,14 @@ class Minister extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { ministerPage } = props;
+    const { minister } = props;
 
-    if (!ministerPage.id) {
+    if (!minister.id) {
       return null;
     } else {
       return {
         view: 1,
-        minister: ministerPage
+        minister: minister
       };
     }
   }

@@ -10,9 +10,13 @@ body {
   font-size: 1rem;
 }
 
+.main {
+  padding-bottom: 10px;
+  background-color: $bg-color;
+}
+
 @include media-breakpoint-up(md) {
   body {
-    // padding-top: 100px;
-    padding-bottom: 0;
+    padding-bottom: 88px;
   }
 }

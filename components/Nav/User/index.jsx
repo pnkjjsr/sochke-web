@@ -29,10 +29,10 @@ class UserNav extends Component {
     const session = new authSession();
     const auth = new authentication();
 
+    Router.push("/login");
     loginAction.deauthenticate();
     session.logout();
     auth.signOut();
-    Router.push("/login");
   };
 
   componentDidMount() {

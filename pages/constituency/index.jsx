@@ -49,20 +49,23 @@ class Account extends Component {
               </h1>
 
               <div className="row">
-                <div className="col-12 col-lg-6 col-xl-4">
+                {/* <div className="col-12 col-lg-6 col-xl-4">
                   <PanelMinister title="MCD Councillor" type="councillor" />
+                </div> */}
+                <div className="col-12 col-lg-6 col-xl-4">
+                  <PanelMinister
+                    title="Member of legislative assembly"
+                    type="mla"
+                  />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="MLA" type="mla" />
+                  <PanelMinister title="Member of parliament" type="mp" />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="MP" type="mp" />
+                  <PanelMinister title="Chief minister" type="cm" />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  {/* <PanelMinister type="cm" /> */}
-                </div>
-                <div className="col-12 col-lg-6 col-xl-4">
-                  {/* <PanelMinister type="pm" /> */}
+                  <PanelMinister title="Prime minister" type="pm" />
                 </div>
               </div>
             </div>

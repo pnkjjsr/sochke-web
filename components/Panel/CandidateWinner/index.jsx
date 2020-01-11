@@ -6,6 +6,8 @@ import homeActions from "pages/index/action";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
+import PageLoader from "components/Loader/page";
+
 import VoteMinister from "./VoteMinister";
 import AlertRespond from "./AlertRespond";
 import OptionMinister from "./OptionMinister";
@@ -45,13 +47,41 @@ export class CandidateWinner extends Component {
     if (ministers != oldMinisters) {
       ministers.map(minister => {
         if (minister.winner == true) {
-          this.setState({
-            ministerWinner: minister
-          });
+          this.setState(
+            {
+              ministerWinner: minister
+            },
+            () => this.checkVoted()
+          );
         }
       });
     }
   }
+
+  checkVoted = () => {
+    const { ministerWinner } = this.state;
+    const session = new authSession();
+    const token = session.getToken();
+    if (ministerWinner.id) {
+      const data = {
+        uid: token,
+        mid: ministerWinner.id
+      };
+      service
+        .post("/minister-voted", data)
+        .then(res => {
+          if (res.data.code == "vote/voted") {
+            this.setState({
+              dVote: "d-none",
+              dResult: ""
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
 
   handleGood = ministerId => {
     const session = new authSession();
@@ -151,7 +181,7 @@ export class CandidateWinner extends Component {
               actionBad={e => this.handleBad(e)}
             />
           ) : (
-            "loading"
+            <PageLoader />
           )}
         </div>
 

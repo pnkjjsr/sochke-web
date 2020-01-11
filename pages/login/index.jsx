@@ -89,14 +89,14 @@ class Login extends Component {
           let data = {
             uid: token
           };
-          session.setToken(token);
-          Router.push("/");
 
           service
             .post("/login", data)
             .then(result => {
               session.setProfile(result.data);
               user.authenticate(result.data);
+              session.setToken(token);
+              Router.push("/");
             })
             .catch(error => {
               let data = error.response.data;
@@ -151,7 +151,7 @@ class Login extends Component {
         <div className="login">
           <div className="container">
             <div className="row justify-content-center">
-              <div className="col-12 col-sm-8 col-md-6 col-lg-5">
+              <div className="col-12 col-sm-8 col-md-6 col-lg-4">
                 <form onSubmit={this.handleSubmit} autoComplete="on">
                   <div className="form">
                     <div className="header">
@@ -209,10 +209,7 @@ class Login extends Component {
                   <div className="form-link">
                     New to {`${process.env.domain} `}
                     <Link href="/">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-primary"
-                      >
+                      <button type="button" className="btn btn-sm btn-link">
                         Join Now
                       </button>
                     </Link>

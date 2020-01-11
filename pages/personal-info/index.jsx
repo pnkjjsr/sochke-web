@@ -39,6 +39,25 @@ export class PersonalInfo extends Component {
     };
   }
 
+  componentDidMount() {
+    const { loginAction } = this.props;
+    const auth = new authSession();
+    const profile = auth.getProfile();
+    const token = auth.getToken();
+
+    loginAction.authenticate(profile);
+    this.setState({
+      uid: token,
+      photoURL: profile.photoURL,
+      name: profile.displayName,
+      bio: profile.bio,
+      dob: profile.dateOfBirth || "",
+      mobile: profile.phoneNumber,
+      email: profile.email,
+      gender: profile.gender
+    });
+  }
+
   handleChange = e => {
     let elem = e.target.name;
     let err = elem + "Err";
@@ -137,24 +156,36 @@ export class PersonalInfo extends Component {
     });
   };
 
-  componentDidMount() {
+  getImageUrl = e => {
     const { loginAction } = this.props;
-    const auth = new authSession();
-    const profile = auth.getProfile();
-    const token = auth.getToken();
+    const session = new authSession();
+    let token = session.getToken();
 
-    loginAction.authenticate(profile);
     this.setState({
-      uid: token,
-      photoURL: profile.photoURL,
-      name: profile.displayName,
-      bio: profile.bio,
-      dob: profile.dateOfBirth || "",
-      mobile: profile.phoneNumber,
-      email: profile.email,
-      gender: profile.gender
+      photoURL: e.imgUrl
     });
-  }
+
+    const data = {
+      uid: token,
+      photoURL: e.imgUrl
+    };
+    service
+      .post("/add-user-photo", data)
+      .then(res => {
+        service
+          .post("/user", { uid: token })
+          .then(res => {
+            loginAction.authenticate(res.data);
+            session.setProfile(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     const {
@@ -167,7 +198,6 @@ export class PersonalInfo extends Component {
       emailErr,
       emailMsg
     } = this.state;
-    console.log(dob);
 
     return (
       <Fragment>
@@ -192,7 +222,13 @@ export class PersonalInfo extends Component {
                         </h1>
 
                         <div className="upload-text">
-                          <UploadFile>Upload Your Image</UploadFile>
+                          <UploadFile
+                            path="images/users"
+                            type="user"
+                            action={e => this.getImageUrl(e)}
+                          >
+                            Upload Your Image
+                          </UploadFile>
                         </div>
                       </div>
                     </div>

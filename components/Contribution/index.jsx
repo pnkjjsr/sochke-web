@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import contributionActions from "pages/contribution/action";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -10,14 +13,47 @@ import WriteContribution from "./WriteContribution";
 import ViewContribution from "./ViewContribution";
 import "./style.scss";
 
-export default class Contribution extends Component {
+class Contribution extends Component {
   constructor(props) {
     super(props);
     this.state = {
       view: "loading", //loading, empty, write-contribution, view-contribution
-      contributions: [],
-      contributionVoted: []
+      contributions: []
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { contributions } = props.contribution;
+    let len = contributions.length;
+
+    if (len) {
+      return {
+        contributions: contributions
+      };
+    }
+
+    return null;
+  }
+
+  componentDidMount() {
+    const { contributionAction } = this.props;
+    contributionAction.prefetchContributionData();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const { contributions } = prevProps.contribution;
+    const { contribution } = this.props;
+
+    if (contributions != contribution.contributions) {
+      if (!contribution.contributions.length) {
+        return this.setState({
+          view: "empty"
+        });
+      }
+
+      this.setState({
+        view: "view-contribution"
+      });
+    }
   }
 
   handleContribution = () => {
@@ -32,11 +68,9 @@ export default class Contribution extends Component {
     });
   };
 
-  handlePreviewView = e => {
-    this.setState({
-      view: "view-contribution",
-      contributions: [e]
-    });
+  handlePreview = e => {
+    const { contributionAction } = this.props;
+    return contributionAction.prefetchContributionData();
   };
 
   handleAllDone = () => {
@@ -48,11 +82,11 @@ export default class Contribution extends Component {
   renderEmpty = () => {
     return (
       <Fragment>
-        <div className="contribution active">
+        <div className="contribution_component active">
           <div className="empty">
             <i className="material-icons">group_work</i>
             <h1 className="title">
-              Write first "contribution" for your area progress.
+              Write "contribution" for your area progress.
               <small>
                 "Contribution" is the way to collect right issue/problem/work in
                 your area. All the member of your area can see this
@@ -75,7 +109,7 @@ export default class Contribution extends Component {
   renderAllDone = () => {
     return (
       <Fragment>
-        <div className="contribution active">
+        <div className="contribution_component active">
           <div className="empty">
             <i className="material-icons">group_work</i>
             <h1 className="title">
@@ -111,52 +145,9 @@ export default class Contribution extends Component {
     );
   };
 
-  componentDidMount() {
-    const session = new authSession();
-    const profile = session.getProfile();
-    const data = {
-      uid: profile.id,
-      constituency: profile.area,
-      district: profile.district
-    };
-    service
-      .post("/contribution", data)
-      .then(res => {
-        if (res.data.code == "contribution/empty") {
-          return this.setState({
-            view: "empty"
-          });
-        }
-
-        let contributionArr = res.data.contributions;
-        let contributionVoteArr = res.data.contributionVoted;
-        let filterContribution = [];
-        contributionArr.map(contribute => {
-          let isArrContain = contributionVoteArr.includes(contribute.id);
-          if (!isArrContain) {
-            filterContribution.push(contribute);
-          }
-        });
-
-        if (filterContribution.length == 0) {
-          return this.setState({
-            view: "all-done"
-          });
-        }
-
-        this.setState({
-          view: "view-contribution",
-          contributions: filterContribution,
-          contributionVoted: res.data.contributionVoted
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   render() {
     const { view } = this.state;
+
     switch (view) {
       case "loading":
         return <PageLoader />;
@@ -165,7 +156,7 @@ export default class Contribution extends Component {
       case "all-done":
         return this.renderAllDone();
       case "write-contribution":
-        return <WriteContribution actionPreviewView={this.handlePreviewView} />;
+        return <WriteContribution actionPreview={this.handlePreview} />;
       case "view-contribution":
         return this.renderPreview();
       default:
@@ -173,3 +164,9 @@ export default class Contribution extends Component {
     }
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  contributionAction: bindActionCreators(contributionActions, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(Contribution);

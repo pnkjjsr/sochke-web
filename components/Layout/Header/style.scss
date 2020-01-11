@@ -21,8 +21,8 @@
 
   .logo {
     width: 125px;
-    margin-left: 0;
-    color: #0073b0;
+    margin-left: 5px;
+    color: $color-primary;
     font-size: 24px;
     font-weight: 800;
     letter-spacing: 0;
@@ -30,7 +30,7 @@
 
     a {
       text-decoration: none;
-      color: #0073b0;
+      color: $color-link;
 
       img {
         width: 100%;
@@ -75,7 +75,7 @@
   &.bg {
     padding: 5px 10px;
     box-shadow: 2.1px 2.1px 10px 0 rgba(0, 0, 0, 0.2);
-    background-color: rgb(0, 115, 176);
+    background-color: $color-primary;
 
     .logo {
       a {

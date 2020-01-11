@@ -33,8 +33,11 @@ export class RespondProfile extends Component {
     return (
       <div className={`context-empty`}>
         <h2>
-          {person} haven’t Responed yet
-          <small>When {person} write a Respond, it’ll show up here.</small>
+          <span className="person">{person}</span> haven’t Responed yet
+          <small>
+            When <span className="person">{person}</span> write a Respond, it’ll
+            show up here.
+          </small>
         </h2>
         <p>
           Respond is general thought of your about your area, problems, issue,
