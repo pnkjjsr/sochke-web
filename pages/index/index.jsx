@@ -86,7 +86,7 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-                <CandidateList type="councillor" data={data.councillors} />
+                {/* <CandidateList type="councillor" data={data.councillors} /> */}
                 <CandidateList type="mla" data={data.mlas} />
                 <CandidateList type="mp" data={data.mps} />
                 <CandidateList type="cm" data={data.cms} />
