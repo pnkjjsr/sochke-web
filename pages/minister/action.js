@@ -4,9 +4,7 @@ import { service } from "apiConnect";
 
 const prefetchMinisterData = e => {
   return dispatch => {
-    const data = {
-      userName: e
-    };
+    const data = e;
     service
       .post("/page-minister", data)
       .then(res => {

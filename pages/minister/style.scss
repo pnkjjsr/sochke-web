@@ -3,16 +3,18 @@
 .minister {
   margin-top: 10px;
 
-  & > .top {
+  &__top {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border-color;
 
     .photo {
-      width: 100px;
-      height: 100px;
-      margin: auto;
-      margin-bottom: 10px;
+      width: 70px;
+      height: 70px;
+      margin: 0;
+      margin-right: 10px;
       border: 1px solid $border-color;
       @include border-radius(100%);
       overflow: hidden;
@@ -26,82 +28,72 @@
 
         i {
           color: $color-lighter;
-          font-size: rem(98);
+          font-size: rem(68.5);
         }
       }
     }
 
     .details {
-      text-align: center;
+      padding-top: 5px;
 
       h1 {
-        font-size: rem(24);
+        margin-bottom: 0;
+        font-size: rem(20);
+        font-weight: $font-weight-bold;
       }
 
       .type {
+        margin-bottom: 10px;
         text-transform: capitalize;
+
+        span {
+          color: $color-gray-light;
+          font-size: rem(12);
+        }
       }
 
       .action {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
-
-        button {
-          margin-right: 20px;
-
-          &.btn-default {
-            border: 1px solid $color-lighter;
-          }
-        }
-        .setting {
-          display: flex;
-          align-items: center;
-          color: $color-light;
-          cursor: pointer;
-          text-decoration: none;
-
-          i {
-            font-size: rem(30);
-          }
+        .btn {
+          font-size: rem(14);
         }
       }
+    }
+  }
 
-      .pointer {
-        ul,
-        li {
-          padding: 0;
-          margin: 0;
-          list-style-type: none;
+  &__pointer {
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+
+      li {
+        display: flex;
+        padding: 10px 0;
+        font-size: rem(14);
+        text-align: left;
+
+        &:last-child {
+          padding-bottom: 0;
         }
-        ul {
-          display: flex;
-          flex-direction: column;
 
-          li {
-            display: flex;
-            padding: 10px 0;
-            font-size: rem(14);
-            text-align: left;
+        i {
+          margin-right: 10px;
+        }
 
-            &:last-child {
-              padding-bottom: 0;
-            }
+        label {
+          margin: 0;
+          margin-top: 1px;
 
-            i {
-              margin-right: 10px;
-            }
-
-            label {
-              margin: 0;
-              margin-top: 1px;
-
-              span {
-                color: $color-gray;
-                font-size: rem(13);
-                font-weight: $font-weight-light;
-              }
-            }
+          span {
+            display: block;
+            color: $color-gray;
+            font-size: rem(13);
+            font-weight: $font-weight-light;
           }
         }
       }
@@ -113,11 +105,11 @@
   .minister {
     margin-top: 50px;
 
-    > .top {
+    &__top {
       flex-direction: row;
       justify-content: flex-start;
       align-items: flex-start;
-      margin-bottom: 50px;
+      margin-bottom: 10px;
 
       .photo {
         width: 150px;
@@ -144,24 +136,36 @@
           justify-content: left;
           margin-bottom: 40px;
         }
+      }
+    }
 
-        .pointer {
-          ul {
-            li {
-              padding-right: 50px;
-              font-size: rem(18);
+    &__pointer {
+      ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        // justify-content: space-between;
 
-              label {
-                margin: 0;
-              }
+        li {
+          min-width: 30%;
+          font-size: rem(14);
 
-              i {
-                padding-top: 2px;
-              }
+          label {
+            margin: 0;
+
+            span {
+              color: $color-gray-light;
+              font-size: rem(11);
+              font-weight: $font-weight-bold;
             }
+          }
+
+          i {
+            padding-top: 2px;
           }
         }
       }
     }
+
+    @include Panel();
   }
 }
