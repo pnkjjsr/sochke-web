@@ -28,13 +28,31 @@
     li {
       a {
         display: flex;
+        flex-direction: column;
         align-items: center;
         padding: 7px 0;
         text-decoration: none;
 
         > i {
+          display: block;
           color: $color-light;
           font-size: rem(30);
+        }
+
+        > span {
+          display: block;
+          color: $color-gray-light;
+          font-size: rem(10);
+          text-transform: uppercase;
+        }
+
+        &.active {
+          > i {
+            color: $color-link;
+          }
+          > span {
+            color: $color-link;
+          }
         }
       }
     }
