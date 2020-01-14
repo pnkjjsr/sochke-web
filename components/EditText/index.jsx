@@ -38,7 +38,7 @@ class EditText extends Component {
     let user = session.getProfile();
 
     const data = {
-      uid: user.uid,
+      uid: user.id,
       displayName: name
     };
     service

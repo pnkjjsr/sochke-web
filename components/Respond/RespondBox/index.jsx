@@ -36,8 +36,10 @@ class RespondBox extends Component {
   handleSubmit = () => {
     const { uid, respond, imgResp } = this.state;
     const { respondAction, homeAction } = this.props;
-    const respType = imgResp ? "media" : "text";
+    const session = new AuthSession();
+    const profile = session.getProfile();
 
+    const respType = imgResp ? "media" : "text";
     let data = {
       createdAt: new Date().toISOString(),
       uid: uid,
@@ -45,7 +47,12 @@ class RespondBox extends Component {
       respond: respond,
       imageUrl: imgResp,
       voteCount: 0,
-      opinionCount: 0
+      opinionCount: 0,
+      userName: profile.userName,
+      displayName: profile.displayName,
+      photoURL: profile.photoURL,
+      area: profile.area,
+      pincode: profile.pincode
     };
     homeAction.updateRespond(data);
 
