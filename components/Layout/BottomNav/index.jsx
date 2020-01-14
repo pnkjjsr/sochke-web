@@ -83,8 +83,9 @@ class BottomNav extends Component {
           <ul className="links">
             <li>
               <Link href="/">
-                <a>
+                <a className="active">
                   <i className="material-icons">home</i>
+                  <span>Home</span>
                 </a>
               </Link>
             </li>
@@ -98,6 +99,7 @@ class BottomNav extends Component {
                   >
                     group_work
                   </i>
+                  <span>Contribution</span>
                 </a>
               </Link>
 
@@ -119,6 +121,7 @@ class BottomNav extends Component {
                   >
                     poll
                   </i>
+                  <span>Poll</span>
                 </a>
               </Link>
 
@@ -140,6 +143,7 @@ class BottomNav extends Component {
                   >
                     map
                   </i>
+                  <span>Constituency</span>
                 </a>
               </Link>
 

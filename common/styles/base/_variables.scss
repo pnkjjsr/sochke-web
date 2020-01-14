@@ -2,11 +2,14 @@
 $gap: 10px;
 
 $base-color: #26264c;
-$color-link: #000088;
+$color-safron: #ef873d;
+$color-chakra: #000088;
+$color-green: #5fbe40;
 
 // Color
-$color-primary: #000088;
-$color-secondary: rgb(0, 164, 0);
+$color-link: $color-chakra;
+$color-primary: $color-chakra;
+$color-secondary: $color-green;
 
 $color-gray: #404040;
 $color-gray-light: #808080;
@@ -20,8 +23,8 @@ $color-lightest: #f2f2f2;
 
 $color-error: #c00;
 $color-danger: #c00;
-$color-warning: #f80;
-$color-success: #00a400;
+$color-warning: $color-safron;
+$color-success: $color-green;
 $color-info: #09c;
 
 // BG
