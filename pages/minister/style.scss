@@ -43,11 +43,18 @@
       }
 
       .type {
+        margin-bottom: 10px;
         text-transform: capitalize;
 
         span {
           color: $color-gray-light;
           font-size: rem(12);
+        }
+      }
+
+      .action {
+        .btn {
+          font-size: rem(14);
         }
       }
     }

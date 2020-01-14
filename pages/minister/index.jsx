@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 
+import { service } from "apiConnect";
 import stringModifier from "utils/stringModifier";
 import authSession from "utils/authSession";
 
+import Button from "components/Form/Button";
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import PageLoader from "components/Loader/page";
@@ -23,6 +25,7 @@ class Minister extends Component {
     super(props);
     this.state = {
       view: 0,
+      actionView: 0,
       query: props.queryName,
       minister: {},
       ministers: {}
@@ -56,6 +59,54 @@ class Minister extends Component {
     ministerAction.prefetchMinisterData(data);
   }
 
+  handleBelieve = e => {
+    const { minister } = this.state;
+    const session = new authSession();
+    const profile = session.getProfile();
+
+    const data = {
+      createdAt: new Date().toISOString(),
+      uid: profile.id,
+      mid: minister.id,
+      believe: e,
+      userName: profile.userName,
+      displayName: profile.displayName,
+      photoURL: profile.photoURL
+    };
+    service
+      .post("/minister-connection", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    if (e) this.setState({ actionView: 1 });
+    else this.setState({ actionView: 0 });
+  };
+
+  renderAction = () => {
+    const { actionView } = this.state;
+    if (!actionView) {
+      return (
+        <Button
+          text="I believe"
+          variant="btn-success"
+          action={e => this.handleBelieve(true)}
+        />
+      );
+    } else {
+      return (
+        <Button
+          text="Rethink"
+          variant="btn-danger"
+          action={e => this.handleBelieve(false)}
+        />
+      );
+    }
+  };
+
   renderMinister = () => {
     const mainClass = "minister";
     const { minister } = this.state;
@@ -84,6 +135,8 @@ class Minister extends Component {
                   <div className="type">
                     {type} <span>({winner})</span>
                   </div>
+
+                  <div className="action">{this.renderAction()}</div>
                 </div>
               </div>
 
@@ -156,7 +209,7 @@ class Minister extends Component {
                 </ul>
               </div>
             </div>
-            <div className="col-12 col-md-3">
+            <div className="col-12 d-none d-md-block col-md-3">
               {/* <div className="panel">
                 <h2 className="panel__title">Rate, {minister.name}</h2>
                 <div className="panel-container">
