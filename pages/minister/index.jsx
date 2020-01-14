@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 
 import stringModifier from "utils/stringModifier";
+import authSession from "utils/authSession";
 
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
@@ -23,7 +24,8 @@ class Minister extends Component {
     this.state = {
       view: 0,
       query: props.queryName,
-      minister: {}
+      minister: {},
+      ministers: {}
     };
   }
 
@@ -35,7 +37,7 @@ class Minister extends Component {
     } else {
       return {
         view: 1,
-        minister: minister
+        minister: props.minister
       };
     }
   }
@@ -43,7 +45,15 @@ class Minister extends Component {
   componentDidMount() {
     const { query } = this.state;
     const { ministerAction } = this.props;
-    ministerAction.prefetchMinisterData(query);
+    const session = new authSession();
+    const profile = session.getProfile();
+    const data = {
+      ministerUserName: query,
+      constituency: profile.constituency,
+      district: profile.district,
+      state: profile.state
+    };
+    ministerAction.prefetchMinisterData(data);
   }
 
   renderMinister = () => {
@@ -147,14 +157,14 @@ class Minister extends Component {
               </div>
             </div>
             <div className="col-12 col-md-3">
-              <div className="panel">
-                <h2 className="panel__title">Your Counstituency</h2>
+              {/* <div className="panel">
+                <h2 className="panel__title">Rate, {minister.name}</h2>
                 <div className="panel-container">
-                  <CandidateWinner type="cm" data={[minister]} />
+                  <CandidateWinner type="cm" data={minister} />
                 </div>
-              </div>
+              </div> */}
 
-              <CandidateList type="cm" data={[minister]} />
+              <CandidateList type={minister.type} data={minister.ministers} />
             </div>
           </div>
         </div>

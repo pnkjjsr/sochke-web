@@ -140,10 +140,16 @@
 
         li {
           min-width: 30%;
-          font-size: rem(18);
+          font-size: rem(14);
 
           label {
             margin: 0;
+
+            span {
+              color: $color-gray-light;
+              font-size: rem(11);
+              font-weight: $font-weight-bold;
+            }
           }
 
           i {

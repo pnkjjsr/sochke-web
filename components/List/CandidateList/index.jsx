@@ -34,7 +34,7 @@ class CandidateList extends Component {
       if (minister.type == typeUpperCase) {
         return (
           <li key={minister.id}>
-            <Link href={`minister/${minister.userName}`}>
+            <Link href={`/minister/${minister.userName}`}>
               <a>
                 <div className="candidate">
                   <span>{minister.partyShort}</span>
@@ -50,13 +50,13 @@ class CandidateList extends Component {
   };
 
   render() {
-    const { type, view } = this.state;
+    const { type } = this.state;
 
     return (
       <Fragment>
         <div className={`candidate-list`}>
           <h2 className="title">
-            <span>{type}</span>
+            <span>{type}(s)</span>
           </h2>
 
           <ul>{this.loopMinister()}</ul>

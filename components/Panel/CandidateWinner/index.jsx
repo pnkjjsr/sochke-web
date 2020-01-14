@@ -31,8 +31,6 @@ export class CandidateWinner extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    let minister = props.home.ministers;
-
     if (props.data) {
       return {
         ministers: props.data
