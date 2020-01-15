@@ -51,7 +51,7 @@ class RespondBox extends Component {
       userName: profile.userName,
       displayName: profile.displayName,
       photoURL: profile.photoURL,
-      area: profile.area,
+      constituency: profile.constituency,
       pincode: profile.pincode
     };
     homeAction.updateRespond(data);
