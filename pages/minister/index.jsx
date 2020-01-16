@@ -127,7 +127,7 @@ class Minister extends Component {
               {/* Top User Details */}
               <div className={`${mainClass}__top`}>
                 <div className="photo">
-                  <Photo />
+                  <Photo src={minister.photoUrl} />
                 </div>
 
                 <div className="details">
