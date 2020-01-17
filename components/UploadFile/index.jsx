@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import accountActions from "pages/account/actions";
 
 import Storage from "utils/firestoreStorage";
+import ImageModifier from "utils/imageModifier";
 
 import "./style.scss";
 
@@ -21,16 +22,30 @@ class UploadFile extends Component {
   handleUpload = e => {
     const { path, action } = this.state;
     const storage = new Storage();
+    const modifier = new ImageModifier();
     let file = e.target.files[0];
 
-    storage
-      .uploadImage(path, file)
-      .then(res => {
-        action(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (
+      file.type == "image/jpeg" ||
+      file.type == "image/gif" ||
+      file.type == "image/png"
+    ) {
+      modifier
+        .resize(file, 200)
+        .then(async res => {
+          storage
+            .uploadImage(path, res)
+            .then(res => {
+              action(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   render() {
