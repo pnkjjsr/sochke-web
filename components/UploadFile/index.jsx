@@ -37,7 +37,7 @@ class UploadFile extends Component {
     return (
       <Fragment>
         <div className="upload-file">
-          <input type="file" onChange={this.handleUpload} />
+          <input type="file" accept="image/*" onChange={this.handleUpload} />
         </div>
         {this.props.children}
       </Fragment>
