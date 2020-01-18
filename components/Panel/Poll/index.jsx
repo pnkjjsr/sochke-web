@@ -5,7 +5,7 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
-import PageLoader from "components/Loader/page";
+import LoaderPoll from "./LoaderPoll";
 
 import "./style.scss";
 
@@ -106,7 +106,7 @@ export class PanelPoll extends Component {
 
     switch (renderView) {
       case "loading":
-        return <PageLoader />;
+        return <LoaderPoll />;
       case "polls":
         return this.loopPoll();
       case "end":

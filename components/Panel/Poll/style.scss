@@ -48,6 +48,21 @@
       }
     }
   }
+
+  &__loader {
+    .poll {
+      margin-bottom: 10px;
+      height: 20px;
+      background-color: $color-lightest;
+      @include loadingAnimation();
+    }
+    .action {
+      width: 50%;
+      height: 20px;
+      background-color: $color-lightest;
+      @include loadingAnimation();
+    }
+  }
 }
 
 @include media-breakpoint-up(lg) {
