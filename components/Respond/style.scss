@@ -127,6 +127,61 @@
   .opinion {
     padding: 0 15px;
   }
+
+  &__loader {
+    %animate {
+      height: 15px;
+      margin-bottom: 5px;
+      background-color: $color-lightest;
+      @include loadingAnimation();
+    }
+
+    .top {
+      figure {
+        background-color: $color-lightest;
+        border: 0 none;
+      }
+
+      .detail {
+        width: 100%;
+        max-width: 200px;
+        .name {
+          @extend %animate;
+        }
+        .date {
+          max-width: 100px;
+          @extend %animate;
+        }
+      }
+    }
+
+    .respond {
+      height: 30px;
+      @extend %animate;
+    }
+
+    .counts {
+      max-width: 150px;
+      margin-left: 20px;
+      @extend %animate;
+    }
+
+    .bottom {
+      width: 100%;
+
+      .actions {
+        width: 100%;
+        max-width: 200px;
+        @extend %animate;
+      }
+
+      .detail {
+        width: 100%;
+        max-width: 200px;
+        @extend %animate;
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(md) {
