@@ -62,7 +62,8 @@ class CandidateList extends Component {
       <Fragment>
         <div className={mainClass}>
           <h2 className={`${mainClass}__title`}>
-            <span>{type}(s)</span>
+            {type}
+            <span> (s)</span>
           </h2>
 
           <ul>{this.loopMinister()}</ul>

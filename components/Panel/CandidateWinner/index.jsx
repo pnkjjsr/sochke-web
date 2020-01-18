@@ -12,6 +12,7 @@ import VoteMinister from "./VoteMinister";
 import AlertRespond from "./AlertRespond";
 import OptionMinister from "./OptionMinister";
 import ResultMinister from "./ResultMinister";
+import LoaderWinnerMinister from "./LoaderWinnerMinister";
 
 import "./style.scss";
 
@@ -179,7 +180,7 @@ export class CandidateWinner extends Component {
               actionBad={e => this.handleBad(e)}
             />
           ) : (
-            <PageLoader />
+            <LoaderWinnerMinister />
           )}
         </div>
 

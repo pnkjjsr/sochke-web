@@ -279,4 +279,48 @@
       }
     }
   }
+
+  &__loader {
+    text-align: center;
+
+    %animation {
+      height: 10px;
+      margin: auto;
+      @include loadingAnimation();
+    }
+    .photo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+      @include border-radius(100%);
+      @extend %animation;
+    }
+    .title {
+      width: 50%;
+      margin-bottom: 10px;
+      @extend %animation;
+    }
+    .party {
+      width: 70%;
+      margin-bottom: 10px;
+      @extend %animation;
+    }
+    .name {
+      height: 30px;
+      margin-bottom: 10px;
+      border: 0 none;
+      @extend %animation;
+    }
+    .tenure {
+      width: 50%;
+      height: 15px;
+      margin-bottom: 10px;
+      @extend %animation;
+    }
+    .action {
+      width: 70%;
+      height: 30px;
+      @extend %animation;
+    }
+  }
 }
