@@ -110,7 +110,7 @@ class Home extends Component {
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Your Counstituency</h2>
+                  <h2 className="title">Your current MLA</h2>
                   <div className="panel-container">
                     <CandidateWinner type="mla" data={data.mlas} />
                   </div>

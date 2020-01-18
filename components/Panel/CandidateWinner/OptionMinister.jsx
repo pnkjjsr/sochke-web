@@ -5,6 +5,7 @@ import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -55,7 +56,7 @@ export class OptionMinister extends Component {
               <ul>
                 <li>
                   <div className="feature">
-                    <i></i>
+                    <i className="material-icons">gavel</i>
                     <span>
                       <b>{minister.cases}</b>
                       <br />
@@ -65,7 +66,7 @@ export class OptionMinister extends Component {
                 </li>
                 <li>
                   <div className="feature">
-                    <i></i>
+                    <i className="material-icons">money</i>
                     <span>
                       <b>Rs. {minister.assets}</b>
                       <br />
@@ -77,9 +78,7 @@ export class OptionMinister extends Component {
               <div className="link">Click to select</div>
             </div>
 
-            <figure>
-              <i className="material-icons">account_circle</i>
-            </figure>
+            <Photo src={minister.photoUrl} />
             <div className="details">
               {minister.name}
               <span>
