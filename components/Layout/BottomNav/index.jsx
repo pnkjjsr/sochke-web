@@ -9,6 +9,7 @@ import authSession from "utils/authSession";
 import DrawerPage from "components/DrawerPage";
 import Contribution from "components/Contribution";
 import Poll from "components/Panel/Poll";
+import CandidateWinner from "components/Panel/CandidateWinner";
 import PanelMinister from "components/Panel/Minister";
 
 import "./style.scss";
@@ -75,7 +76,7 @@ class BottomNav extends Component {
       pollDrawer,
       constituencyDrawer
     } = this.state;
-    const { homeAction } = this.props;
+    const { homeAction, home } = this.props;
     let viewClass = !view ? "d-none" : "d-block";
 
     return (
@@ -168,7 +169,15 @@ class BottomNav extends Component {
                 open={constituencyDrawer}
                 action={e => this.handleClose("constituency")}
               >
-                <div>
+                <div className={`${mainClass}__panel p-3`}>
+                  <h3 className={`${mainClass}__title`}>Current MLA</h3>
+                  <CandidateWinner type="mla" data={home.mlas} />
+                </div>
+
+                <h3 className={`${mainClass}__title`}>
+                  Your constituency full profile
+                </h3>
+                <div className={`${mainClass}__panel-minister`}>
                   <PanelMinister title="MLA" type="mla" />
                   <PanelMinister title="MP" type="mp" />
                   <PanelMinister title="CM" type="cm" />
