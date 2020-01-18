@@ -78,7 +78,7 @@ class Home extends Component {
 
   render() {
     const { data, profile, polls } = this.state;
-    console.log(data);
+    // console.log(data);
 
     return (
       <Fragment>
