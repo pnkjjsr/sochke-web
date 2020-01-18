@@ -3,13 +3,16 @@
 .candidate-list {
   margin-bottom: 30px;
 
-  .title {
+  &__title {
     margin-bottom: 10px;
     font-size: rem(16);
     font-weight: $font-weight-black;
+    text-transform: uppercase;
 
     span {
-      text-transform: uppercase;
+      font-size: rem(13);
+      font-weight: $font-weight;
+      text-transform: lowercase;
     }
   }
 
@@ -35,7 +38,7 @@
     }
   }
 
-  .candidate {
+  &__candidate {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -63,6 +66,21 @@
       text-overflow: ellipsis;
       overflow: hidden;
       cursor: pointer;
+    }
+  }
+
+  &__loader {
+    .list {
+      height: 15px;
+      margin-bottom: 5px;
+      @include loadingAnimation();
+    }
+
+    .list-sm {
+      width: 60%;
+      height: 15px;
+      margin-bottom: 5px;
+      @include loadingAnimation();
     }
   }
 }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+import "./style.scss";
+
 class Photo extends Component {
   static propTypes = {
     src: PropTypes.string
@@ -20,7 +22,7 @@ class Photo extends Component {
       <i className="material-icons">account_circle</i>
     );
 
-    return <figure>{photo}</figure>;
+    return <figure className="photo-default">{photo}</figure>;
   }
 }
 

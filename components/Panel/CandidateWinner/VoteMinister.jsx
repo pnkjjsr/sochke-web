@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import Button from "components/Form/Button";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -18,10 +19,7 @@ class VoteMinister extends Component {
     return (
       <Fragment>
         <div className="photo">
-          <figure>
-            <i className="material-icons">account_circle</i>
-            {/* <img src={ministerWinner.photoUrl} alt="" /> */}
-          </figure>
+          <Photo src={minister.photoUrl} />
           <figcaption>Defending Minister</figcaption>
         </div>
 

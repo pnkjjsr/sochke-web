@@ -8,20 +8,19 @@
 
   &.active {
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
   p {
     margin: 0;
+    margin-bottom: 50px;
     padding: 5px 10px;
     font-size: rem(16);
     line-height: 100%;
   }
 
   .action {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -49,6 +48,21 @@
       }
     }
   }
+
+  &__loader {
+    .poll {
+      margin-bottom: 10px;
+      height: 20px;
+      background-color: $color-lightest;
+      @include loadingAnimation();
+    }
+    .action {
+      width: 50%;
+      height: 20px;
+      background-color: $color-lightest;
+      @include loadingAnimation();
+    }
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -57,6 +71,7 @@
     flex-direction: column;
 
     p {
+      margin-bottom: 10px;
     }
 
     .action {

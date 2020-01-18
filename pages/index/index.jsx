@@ -11,6 +11,7 @@ import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import Poll from "components/Panel/Poll";
 import Respond from "components/Respond";
+import LoaderRespond from "components/Respond/LoaderRespond";
 import RespondBox from "components/Respond/RespondBox";
 
 import "./style.scss";
@@ -19,19 +20,22 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      respondView: 0,
       profile: "",
       data: {},
       polls: []
     };
   }
+
   static getDerivedStateFromProps(props, state) {
     let data = props.home;
-    let len = Object.keys(data).length;
+    let len = data.mlas.length;
 
     if (len) {
       return {
         data: data,
-        polls: data.polls
+        polls: data.polls,
+        respondView: 1
       };
     } else {
       return null;
@@ -65,20 +69,16 @@ class Home extends Component {
       if (isArrContain) {
         respond.vote = true;
       }
-
       respondFilter.push(respond);
     });
 
-    if (respondFilter) {
-      return respondFilter.map(respond => {
-        return <Respond key={respond.id} respond={respond} />;
-      });
-    }
+    return respondFilter.map(respond => {
+      return <Respond key={respond.id} respond={respond} />;
+    });
   };
 
   render() {
-    const { data, profile, polls } = this.state;
-    console.log(data);
+    const { data, profile, respondView } = this.state;
 
     return (
       <Fragment>
@@ -94,7 +94,7 @@ class Home extends Component {
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
-                {this.loopRespond()}
+                {!respondView ? <LoaderRespond /> : this.loopRespond()}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel contribute">
@@ -110,7 +110,7 @@ class Home extends Component {
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Your Counstituency</h2>
+                  <h2 className="title">Your current MLA</h2>
                   <div className="panel-container">
                     <CandidateWinner type="mla" data={data.mlas} />
                   </div>

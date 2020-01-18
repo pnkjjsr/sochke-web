@@ -32,7 +32,7 @@ class Respond extends Component {
     this.setState({ opinionCount: count + 1 });
   };
 
-  render() {
+  renderRespond = () => {
     const { voteCount, opinionCount } = this.state;
     const { respond, user } = this.props;
     const moment = new Moment();
@@ -96,6 +96,10 @@ class Respond extends Component {
         </div>
       </div>
     );
+  };
+
+  render() {
+    this.renderRespond();
   }
 }
 

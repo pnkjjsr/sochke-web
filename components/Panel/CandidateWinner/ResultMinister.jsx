@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
-import { service } from "apiConnect";
 import authSession from "utils/authSession";
+
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -46,9 +47,7 @@ export class ResultMinister extends Component {
       <Fragment>
         <div className="result">
           <div className="top">
-            <figure>
-              <i className="material-icons">account_circle</i>
-            </figure>
+            <Photo src={ministerDetails.photoUrl} />
 
             <div className="details">
               {ministerDetails.name}
