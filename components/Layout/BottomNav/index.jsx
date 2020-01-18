@@ -131,7 +131,7 @@ class BottomNav extends Component {
                 open={pollDrawer}
                 action={e => this.handleClose("poll")}
               >
-                <div className={`${mainClass}__panel`}>
+                <div className={`${mainClass}__panel mt-5`}>
                   <Poll type="state" />
 
                   <div className="wave">
@@ -168,8 +168,7 @@ class BottomNav extends Component {
                 open={constituencyDrawer}
                 action={e => this.handleClose("constituency")}
               >
-                <div className="p-3">
-                  <PanelMinister title="MCD Councillor" type="councillor" />
+                <div>
                   <PanelMinister title="MLA" type="mla" />
                   <PanelMinister title="MP" type="mp" />
                   <PanelMinister title="CM" type="cm" />

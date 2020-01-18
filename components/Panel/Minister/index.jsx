@@ -6,7 +6,7 @@ import homeActions from "pages/index/action";
 
 import stringModifier from "utils/stringModifier";
 
-import PhotoPanel from "../Photo";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -60,7 +60,7 @@ class PanelMinister extends Component {
                 <div className="row">
                   <div className="col-3 col-lg-12">
                     <div className="photo">
-                      <PhotoPanel />
+                      <Photo src={minister.photoUrl} />
                     </div>
                   </div>
                   <div className="col-9 col-lg-12">

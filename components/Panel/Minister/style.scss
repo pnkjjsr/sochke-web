@@ -1,11 +1,10 @@
 @import "common/styles/global";
 
 .panel-minister {
-  margin-bottom: 20px;
+  margin: 10px;
   padding: 10px;
-  border-radius: 10px;
-  border: solid 1px rgb(207, 217, 230);
-  background-color: rgb(255, 255, 255);
+  @include border-radius(3px);
+  border: 1px solid $border-color;
 
   > a {
     color: $base-color;
@@ -31,9 +30,8 @@
     }
 
     img {
-      width: auto;
-      height: auto;
-      color: $color-gray;
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -42,14 +40,13 @@
       margin: 0;
       color: $color-gray;
       font-size: 14px;
-      font-weight: $font-weight-bold;
+      font-weight: $font-weight-black;
     }
 
     h3.title {
       margin: 0;
-      font-size: 20px;
-      font-weight: $font-weight-bold;
-
+      font-size: 18px;
+      font-weight: $font-weight-light;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -94,6 +91,8 @@
 
 @include media-breakpoint-up(lg) {
   .panel-minister {
+    margin: 0;
+    margin-bottom: 20px;
     padding: 20px;
     border-radius: 20px;
 

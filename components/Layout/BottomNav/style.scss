@@ -26,7 +26,7 @@
     align-items: center;
 
     li {
-      a {
+      > a {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -59,7 +59,7 @@
   }
 
   &__panel {
-    margin: 100px 10px 10px;
+    margin: 10px;
     border: 1px solid $border-color;
     @include border-radius(3px);
 
