@@ -68,6 +68,7 @@ class BottomNav extends Component {
   }
 
   render() {
+    const mainClass = "bottomNav";
     const {
       view,
       contributionDrawer,
@@ -79,8 +80,8 @@ class BottomNav extends Component {
 
     return (
       <Fragment>
-        <div className={`bottomNav ${viewClass}`} role="main">
-          <ul className="links">
+        <div className={`${mainClass} ${viewClass}`} role="main">
+          <ul className={`${mainClass}__links`}>
             <li>
               <Link href="/">
                 <a className="active">
@@ -130,7 +131,22 @@ class BottomNav extends Component {
                 open={pollDrawer}
                 action={e => this.handleClose("poll")}
               >
-                <Poll type="state" />
+                <div className={`${mainClass}__panel`}>
+                  <Poll type="state" />
+
+                  <div className="wave">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 1440 320"
+                    >
+                      <path
+                        fill="#000088"
+                        fill-opacity="1"
+                        d="M0,288L60,266.7C120,245,240,203,360,186.7C480,171,600,181,720,154.7C840,128,960,64,1080,48C1200,32,1320,64,1380,80L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
               </DrawerPage>
             </li>
 

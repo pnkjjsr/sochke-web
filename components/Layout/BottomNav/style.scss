@@ -1,6 +1,6 @@
 @import "common/styles/global";
 
-.bottomNav[role="main"] {
+.bottomNav {
   position: fixed;
   z-index: $bottomNav;
   bottom: 0;
@@ -19,7 +19,7 @@
     list-style-type: none;
   }
 
-  ul.links {
+  &__links {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -55,6 +55,16 @@
           }
         }
       }
+    }
+  }
+
+  &__panel {
+    margin: 100px 10px 10px;
+    border: 1px solid $border-color;
+    @include border-radius(3px);
+
+    .wave {
+      margin-top: 50px;
     }
   }
 }
