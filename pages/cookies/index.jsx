@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 
-import "./style.scss";
+import "common/styles/context.scss";
 
 export default class cookies extends Component {
   render() {

@@ -16,7 +16,7 @@ export default class Footer extends Component {
                 </Link>
               </li>
               <li>
-                <Link href="/Terms">
+                <Link href="/terms">
                   <a>Terms</a>
                 </Link>
               </li>
