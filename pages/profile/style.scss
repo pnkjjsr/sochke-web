@@ -161,6 +161,7 @@
 
         .title {
           width: 70px;
+          margin: auto;
           font-size: rem(13);
           text-align: center;
           overflow: hidden;
@@ -298,6 +299,7 @@
           }
 
           .title {
+            width: 100px;
             font-size: $font-size;
           }
 

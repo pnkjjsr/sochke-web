@@ -17,10 +17,13 @@ const prefetchContributionData = () => {
       .post("/contribution", data)
       .then(res => {
         if (res.data.code == "contribution/empty") {
-          return console.log(res.data.message);
+          return dispatch({
+            type: PREFETCH_CONTRIBUTION_DATA,
+            payload: []
+          });
         }
 
-        return dispatch({
+        dispatch({
           type: PREFETCH_CONTRIBUTION_DATA,
           payload: res.data.contributions
         });
