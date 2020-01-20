@@ -57,7 +57,7 @@ class Layout extends Component {
     return (
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
-        <Header />
+        {/* <Header /> */}
         <div className="main">{this.props.children}</div>
         {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
       </Fragment>

@@ -47,7 +47,7 @@ class Respond extends Component {
 
   componentDidMount() {
     const { homeAction, home } = this.props;
-    // if (!home.responds.length) homeAction.prefetchHomeData();
+    // homeAction.prefetchHomeData();
   }
 
   handleBack = () => {
