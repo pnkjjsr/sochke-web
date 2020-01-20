@@ -87,9 +87,9 @@ class Respond extends Component {
           </div>
         </div>
 
-        {/* <div className="opinion d-none">
+        <div className="opinion">
           <OpinionBox respond={respond} action={this.handleOpinionCount} />
-        </div> */}
+        </div>
       </div>
     );
   };
