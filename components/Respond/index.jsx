@@ -99,7 +99,7 @@ class Respond extends Component {
   };
 
   render() {
-    this.renderRespond();
+    return this.renderRespond();
   }
 }
 

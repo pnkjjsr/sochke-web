@@ -11,6 +11,7 @@ const prefetchHomeData = () => {
     const data = {
       uid: token
     };
+
     service
       .post("/page-home", data)
       .then(res => {
