@@ -41,8 +41,9 @@ class PanelMinister extends Component {
   }
 
   componentDidMount() {
-    const { homeAction } = this.props;
-    homeAction.prefetchHomeData();
+    const { homeAction, home } = this.props;
+    let len = home.pms.length;
+    if (!len) homeAction.prefetchHomeData();
   }
 
   loopMinister = () => {

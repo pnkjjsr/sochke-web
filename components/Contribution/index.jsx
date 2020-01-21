@@ -3,9 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import contributionActions from "pages/contribution/action";
 
-import { service } from "apiConnect";
-import authSession from "utils/authSession";
-
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
 
@@ -26,11 +23,7 @@ class Contribution extends Component {
     const { contributions } = props.contribution;
     let len = contributions.length;
 
-    if (len) {
-      return {
-        contributions: contributions
-      };
-    }
+    if (len) return { contributions: contributions };
 
     return null;
   }
@@ -49,7 +42,6 @@ class Contribution extends Component {
           view: "empty"
         });
       }
-
       this.setState({
         view: "view-contribution"
       });
@@ -147,6 +139,7 @@ class Contribution extends Component {
 
   render() {
     const { view } = this.state;
+    console.log(view);
 
     switch (view) {
       case "loading":

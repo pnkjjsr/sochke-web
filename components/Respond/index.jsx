@@ -7,6 +7,7 @@ import VoteRespond from "./RespondItem/Vote";
 import CirculateRespond from "./RespondItem/Circulate";
 import OpinionRespond from "./RespondItem/Opinion";
 import OpinionBox from "components/Opinion/OpinionBox";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -40,15 +41,10 @@ class Respond extends Component {
     let display = respond.imageUrl ? "" : "d-none";
     let name = respond.displayName ? respond.displayName : respond.userName;
 
-    let userImg = respond.photoURL ? (
-      <img src={respond.photoURL} alt={name} />
-    ) : (
-      <i className="material-icons">account_circle</i>
-    );
     return (
       <div className="respond-item">
         <div className="top">
-          <figure>{userImg}</figure>
+          <Photo src={respond.photoURL} />
           <div className="detail">
             {name}
             <span>{time}</span>
@@ -77,9 +73,9 @@ class Respond extends Component {
                 action={e => this.handleVoteCount(e)}
               />
             </li>
-            <li>
+            {/* <li>
               <CirculateRespond />
-            </li>
+            </li> */}
             <li>
               <OpinionRespond respond={respond} />
             </li>
@@ -99,7 +95,7 @@ class Respond extends Component {
   };
 
   render() {
-    this.renderRespond();
+    return this.renderRespond();
   }
 }
 

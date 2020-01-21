@@ -25,27 +25,21 @@ class UploadFile extends Component {
     const modifier = new ImageModifier();
     let file = e.target.files[0];
 
-    if (
-      file.type == "image/jpeg" ||
-      file.type == "image/gif" ||
-      file.type == "image/png"
-    ) {
-      modifier
-        .resize(file, 200)
-        .then(async res => {
-          storage
-            .uploadImage(path, res)
-            .then(res => {
-              action(res);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    modifier
+      .resize(file, path)
+      .then(res => {
+        storage
+          .uploadImage(path, res)
+          .then(res => {
+            action(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {

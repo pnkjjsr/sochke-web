@@ -43,7 +43,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { homeAction } = this.props;
+    const { homeAction, home } = this.props;
     const session = new authSession();
     const profile = session.getProfile();
     this.setState({

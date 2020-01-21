@@ -295,6 +295,7 @@ class Register extends Component {
                               name="mobile"
                               type="tel"
                               aria-label="mobile"
+                              maxLength="10"
                               placeholder="9210xxxx60"
                               onChange={this.handleChange}
                             />
@@ -312,7 +313,8 @@ class Register extends Component {
                               name="pincode"
                               type="number"
                               aria-label="pincode"
-                              placeholder="110064"
+                              maxLength="10"
+                              placeholder="110001"
                               onChange={this.handleChange}
                             />
                             <small className="form-text">{pincodeMsg}</small>

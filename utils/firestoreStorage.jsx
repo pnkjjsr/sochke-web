@@ -19,6 +19,7 @@ export default class Storage {
   uploadImage(path, file) {
     let storageRef = this.initialize();
     const session = new authSession();
+
     let uid = session.getToken();
     let date = new Date();
     let dateParse = Date.parse(date);
@@ -35,6 +36,7 @@ export default class Storage {
         var uploadTask = storageRef
           .child(`${path}/${uid}/${dateParse}.jpg`)
           .put(file, metadata);
+
         break;
       case "images/responds":
         // Upload file and metadata to the object 'path send via PROPS parameter'
