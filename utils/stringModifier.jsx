@@ -8,7 +8,8 @@ class stringModifier {
       let name;
       await words.map(word => {
         let index = nameBefore.search(word);
-        name = nameBefore.slice(0, index - 2);
+
+        if (index != -1) name = nameBefore.slice(0, index);
       });
 
       let taluk = i.taluk;
