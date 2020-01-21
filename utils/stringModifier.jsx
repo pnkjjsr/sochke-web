@@ -1,12 +1,16 @@
 class stringModifier {
   constructor(props) {}
 
-  removeWord = (e, word) => {
+  removeWord = (e, words) => {
     let arr = [];
-    e.map(i => {
+    e.map(async i => {
       let nameBefore = i.officename;
-      let index = nameBefore.search(word);
-      let name = nameBefore.slice(0, index);
+      let name;
+      await words.map(word => {
+        let index = nameBefore.search(word);
+        name = nameBefore.slice(0, index - 2);
+      });
+
       let taluk = i.taluk;
       let state = i.statename;
       let district = i.districtname;
