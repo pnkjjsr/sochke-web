@@ -10,7 +10,7 @@
     "dev": "NODE_ENV=development node server.js",
     "prod": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
-    "deploy-test": "gcloud app deploy test.yaml",
+    "deploy-staging": "gcloud app deploy staging.yaml",
     "export": "npm run build && next export",
     "clean": "rimraf .next"
   },
