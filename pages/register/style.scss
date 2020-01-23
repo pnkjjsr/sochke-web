@@ -5,10 +5,14 @@
     margin-bottom: 30px;
     padding-top: 10px;
     background: url("https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Ftop.jpg?alt=media&token=4d278bd5-a038-489d-9a6a-97e86af5bdc3")
-      center top no-repeat;
+      center bottom no-repeat;
+    background-size: 100%;
 
     .title {
-      display: none;
+      margin-bottom: 10px;
+      font-size: rem(24);
+      font-weight: $font-weight-light;
+      line-height: rem(30);
     }
 
     figure {
@@ -28,6 +32,8 @@
       display: none;
     }
   }
+
+  @include form;
 
   &__section {
     margin-bottom: 30px;
@@ -63,8 +69,6 @@
     background: url("https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Fbottom.jpg?alt=media&token=ca5aa0c9-03c5-4845-bc44-7a964713ebd0")
       center top no-repeat;
   }
-
-  @include form;
 }
 
 @include media-breakpoint-up(md) {
@@ -72,6 +76,13 @@
     margin-top: 16px;
 
     &__top {
+      margin-bottom: 0;
+      background-position: center top;
+      background-size: auto;
+
+      .title {
+        line-height: unset;
+      }
     }
 
     &__info {
