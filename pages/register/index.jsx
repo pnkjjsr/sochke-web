@@ -386,6 +386,16 @@ class Register extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-12 col-md-8">
+                  {/* About */}
+                  <div className={`${mainClass}__section`}>
+                    <h2 className="title">What is sochke?</h2>
+                    <p className="para">
+                      Sochke is social networking platform between people and
+                      ministers, build on user's feedback. With Sochke you will
+                      get all the information about your constituency ministers.
+                    </p>
+                  </div>
+
                   {/* Feedback */}
                   <div className={`${mainClass}__section`}>
                     <h2 className="title">Your feedback, our development!</h2>
@@ -404,16 +414,6 @@ class Register extends Component {
                       </button> */}
                       <b>Comming Soon</b>
                     </div>
-                  </div>
-
-                  {/* About */}
-                  <div className={`${mainClass}__section`}>
-                    <h2 className="title">What is sochke?</h2>
-                    <p className="para">
-                      Sochke is social networking platform between people and
-                      ministers, build on user's feedback. With Sochke you will
-                      get all the information about your constituency ministers.
-                    </p>
                   </div>
                 </div>
                 <div className="col-12 col-md-4">
