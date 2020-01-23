@@ -1,19 +1,19 @@
-import { SHOW, HIDE } from './constant'
+import { SHOW, HIDE } from "./constant";
 
-const showNotification = (e) => {
-    return {
-        type: SHOW,
-        payload: e
-    };
+const showNotification = e => {
+  return {
+    type: SHOW,
+    payload: e
+  };
 };
 
 const hideNotification = () => {
-    return {
-        type: HIDE
-    };
+  return {
+    type: HIDE
+  };
 };
 
 export default {
-    showNotification,
-    hideNotification
+  showNotification,
+  hideNotification
 };
