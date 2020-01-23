@@ -5,10 +5,10 @@ class stringModifier {
     let arr = [];
     e.map(async i => {
       let nameBefore = i.officename;
-      let name;
+      let name = i.officename;
+
       await words.map(word => {
         let index = nameBefore.search(word);
-
         if (index != -1) name = nameBefore.slice(0, index);
       });
 

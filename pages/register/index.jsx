@@ -396,12 +396,13 @@ class Register extends Component {
                     </p>
 
                     <div className="action">
-                      <button className="btn btn-primary btn-lg">
+                      {/* <button className="btn btn-primary btn-lg">
                         Write your feedback
-                      </button>
-                      <button className="btn btn-link btn-sm">
+                      </button> */}
+                      {/* <button className="btn btn-link btn-sm">
                         Support Sochke
-                      </button>
+                      </button> */}
+                      <b>Comming Soon</b>
                     </div>
                   </div>
 
