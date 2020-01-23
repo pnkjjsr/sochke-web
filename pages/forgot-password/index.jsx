@@ -152,12 +152,9 @@ class ForgotPassword extends Component {
                   </div>
 
                   <div className="form-link">
-                    New to {`${process.env.domain} `}
+                    New to {process.env.domain}
                     <Link href="/">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-primary"
-                      >
+                      <button type="button" className="btn btn-sm btn-link">
                         Join Now
                       </button>
                     </Link>
