@@ -258,9 +258,9 @@ class Register extends Component {
                   {/* Top Text */}
 
                   <h2 className="title">
-                    Welcome to your
+                    Social platform to
                     <br />
-                    polity network platform
+                    contribute in society
                   </h2>
                 </div>
                 <div className="col-12 col-md-12 col-lg-5">
@@ -411,7 +411,7 @@ class Register extends Component {
                     <h2 className="title">What is sochke?</h2>
                     <p className="para">
                       Sochke is social networking platform between people and
-                      minister, build on user's feedback. With Sochke you will
+                      ministers, build on user's feedback. With Sochke you will
                       get all the information about your constituency ministers.
                     </p>
                   </div>
