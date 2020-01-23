@@ -42,7 +42,7 @@ export default class Footer extends Component {
               </li> */}
             </ul>
 
-            <div className="copyright">© 2019 {process.env.domain} .Ltd</div>
+            <div className="copyright">© 2019 {process.env.domain}</div>
           </div>
         </div>
       </Fragment>
