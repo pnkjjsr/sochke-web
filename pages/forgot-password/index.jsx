@@ -37,52 +37,63 @@ class ForgotPassword extends Component {
     const { actionNotification } = this.props;
 
     const auth = new authentication();
-
-    const { valid, errors } = validation({ email });
-    if (!valid) {
-      actionNotification.showNotification({
-        open: "",
-        message: "Please enter the details.",
-        type: "danger"
-      });
-      Object.keys(errors).map(e => {
-        var err = e + "Err";
-        var msg = e + "Msg";
-        this.setState({
-          [err]: "error",
-          [msg]: errors[e]
-        });
-      });
-      return;
-    }
-
-    let data = {
-      email: email
-    };
-    service.post("/registered-email", data).then(res => {
-      if (res.data.code == "email/not-register") {
+    auth
+      .sendPasswordResetEmail(email)
+      .then(res => {
         actionNotification.showNotification({
           open: "",
-          code: res.data.code,
-          message: res.data.message,
+          code: res.code,
+          message: res.message,
+          type: "success"
+        });
+      })
+      .catch(err => {
+        console.log(err);
+
+        actionNotification.showNotification({
+          open: "",
+          code: err.code,
+          message: err.message,
           type: "danger"
         });
+      });
 
-        this.setState({
-          emailErr: "error",
-          emailMsg: res.data.message
-        });
-      } else if (res.data.code == "email/register") {
-        auth
-          .sendPasswordResetEmail(data.email)
-          .then(res => {
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    });
+    // const { valid, errors } = validation({ email });
+    // if (!valid) {
+    //   actionNotification.showNotification({
+    //     open: "",
+    //     message: "Please enter the details.",
+    //     type: "danger"
+    //   });
+    //   Object.keys(errors).map(e => {
+    //     var err = e + "Err";
+    //     var msg = e + "Msg";
+    //     this.setState({
+    //       [err]: "error",
+    //       [msg]: errors[e]
+    //     });
+    //   });
+    //   return;
+    // }
+    // let data = {
+    //   email: email
+    // };
+    // service.post("/registered-email", data).then(res => {
+    //   if (res.data.code == "email/not-register") {
+    //     actionNotification.showNotification({
+    //       open: "",
+    //       code: res.data.code,
+    //       message: res.data.message,
+    //       type: "danger"
+    //     });
+
+    //     this.setState({
+    //       emailErr: "error",
+    //       emailMsg: res.data.message
+    //     });
+    //   } else if (res.data.code == "email/register") {
+    //   }
+    // });
   }
 
   handleChange(e) {
