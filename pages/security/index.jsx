@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import base64 from "base-64";
+import utf8 from "utf8";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -21,7 +23,7 @@ export class Security extends Component {
     this.state = {
       currentPassword: "",
       currentPasswordErr: "",
-      currentPasswordMsg: "",
+      currentPasswordMsg: "Click here",
       newPassword: "",
       newPasswordErr: "",
       newPasswordMsg: "",
@@ -63,7 +65,6 @@ export class Security extends Component {
       .post("verify-password", data)
       .then(res => {
         let obj = {};
-        console.log(res);
         if (res.data.code == "password/not-match") {
           this.setState({
             currentPassword: ""
@@ -127,6 +128,8 @@ export class Security extends Component {
       return notificationAction.showNotification(obj);
     } else {
       const auth = new authentication();
+      const session = new authSession();
+      const token = session.getToken();
       auth
         .updatePassword(newPassword)
         .then(res => {
@@ -137,12 +140,30 @@ export class Security extends Component {
             };
             return notificationAction.showNotification(obj);
           } else {
-            console.log(res);
-            let obj = {
-              message: "Password changed successfully",
-              type: "success"
+            let bytesPassword = utf8.encode(newPassword);
+            let encodedPassword = base64.encode(bytesPassword);
+            const data = {
+              uid: token,
+              password: encodedPassword
             };
-            return notificationAction.showNotification(obj);
+            service
+              .post("/update-password", data)
+              .then(res => {
+                console.log(res);
+                let obj = {
+                  message: res.data.message,
+                  type: "success"
+                };
+                notificationAction.showNotification(obj);
+              })
+              .catch(err => {
+                console.log(err);
+                let obj = {
+                  message: res.data.message,
+                  type: "success"
+                };
+                notificationAction.showNotification(obj);
+              });
           }
         })
         .catch(err => console.log(err));
