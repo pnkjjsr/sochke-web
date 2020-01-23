@@ -221,7 +221,7 @@ class Minister extends Component {
             </div>
           </div>
 
-          <div className={`container disclaimer ${mainClass}__disclaimer`}>
+          <div className={`disclaimer ${mainClass}__disclaimer`}>
             <p>
               Disclaimer: This information is an archive of the candidate's
               self-declared affidavit that was filed during the elections. The

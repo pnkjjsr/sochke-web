@@ -53,19 +53,16 @@ class Account extends Component {
                   <PanelMinister title="MCD Councillor" type="councillor" />
                 </div> */}
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister
-                    title="Member of legislative assembly"
-                    type="mla"
-                  />
+                  <PanelMinister title="MLA" type="mla" />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="Member of parliament" type="mp" />
+                  <PanelMinister title="MP" type="mp" />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="Chief minister" type="cm" />
+                  <PanelMinister title="CM" type="cm" />
                 </div>
                 <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="Prime minister" type="pm" />
+                  <PanelMinister title="PM" type="pm" />
                 </div>
               </div>
             </div>
