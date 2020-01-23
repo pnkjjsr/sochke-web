@@ -27,9 +27,9 @@ class BelieverProfile extends Component {
           Belivers are the person and group of person who believe in your
           thoughts.
         </p>
-        <div className="action">
+        {/* <div className="action">
           <button className="btn btn-lg btn-primary">Invite Now</button>
-        </div>
+        </div> */}
       </div>
     );
   };

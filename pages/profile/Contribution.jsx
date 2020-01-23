@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import Link from "next/link";
 
 import ContributionWeb from "components/Contribution/Web";
 
@@ -50,7 +51,9 @@ export class ContributionProfile extends Component {
           value of Contribution.
         </p>
         <div className="action">
-          <button className="btn btn-lg btn-primary">Contribute Now</button>
+          <Link href="/contribution">
+            <a>Contribute Now</a>
+          </Link>
         </div>
       </div>
     );

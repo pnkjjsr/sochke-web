@@ -26,9 +26,9 @@ class LeaderProfile extends Component {
           Leaders are those <span className="person">{person}</span> believe in.
           Their thoughts and contriubtion is value for you.
         </p>
-        <div className="action">
+        {/* <div className="action">
           <button className="btn btn-lg btn-primary">Show Leaders</button>
-        </div>
+        </div> */}
       </div>
     );
   };

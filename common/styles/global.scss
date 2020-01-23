@@ -49,3 +49,11 @@
   color: $color-danger;
   font-size: rem(13);
 }
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
