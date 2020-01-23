@@ -37,9 +37,9 @@ class LeaderProfile extends Component {
     const { leaders } = this.state;
     return leaders.map(leader => {
       return (
-        <Link href={leader.leaderUserName}>
+        <Link key={leader.id} href={leader.leaderUserName}>
           <div className="connection">
-            <Photo src={leader.photoURL} />
+            <Photo src={leader.leaderPhotoURL} />
             <div className="title">
               {leader.leaderDisplayName || leader.leaderUserName}
             </div>

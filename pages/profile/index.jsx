@@ -11,6 +11,7 @@ import authSession from "utils/authSession";
 
 import Button from "components/Form/Button";
 import PageLoader from "components/Loader/page";
+import Photo from "components/Photo";
 
 import RespondProfile from "./Respond";
 import ContributionProfile from "./Contribution";
@@ -163,18 +164,8 @@ class Profile extends Component {
     }
   };
 
-  renderUserImage = () => {
-    const { userImage } = this.state;
-
-    if (userImage) {
-      return <img src={userImage} alt="" />;
-    } else {
-      return <i className="material-icons">account_circle</i>;
-    }
-  };
-
   renderProfile = () => {
-    const { query, selfProfile } = this.state;
+    const { query, selfProfile, userImage } = this.state;
     const { profile } = this.props;
 
     return (
@@ -183,12 +174,13 @@ class Profile extends Component {
           {/* Top User Details */}
           <div className="top">
             <div className="photo">
-              <figure>{this.renderUserImage()}</figure>
+              <Photo src={userImage} />
             </div>
 
             <div className="details">
               <h1>Welcome, {query}</h1>
               <div className="action">{this.renderAction()}</div>
+
               <div className="count">
                 <ul>
                   <li>{profile.respondCount} responds</li>
