@@ -83,7 +83,7 @@ class Respond extends Component {
           <div className="detail">
             {/* Responsibility: Arvind Kejriwal - CM */}
             {/* <br /> */}
-            Constituency: {respond.area} - {respond.pincode}
+            Constituency: {respond.constituency} - {respond.pincode}
           </div>
         </div>
 
