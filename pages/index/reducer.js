@@ -11,11 +11,7 @@ const initialState = {
   cms: [],
   pms: [],
   polls: [],
-  userName: "",
-  displayName: "",
-  photoURL: "",
-  area: "",
-  pincode: ""
+  pollVoted: []
 };
 
 const home = (state = initialState, action) => {
@@ -32,12 +28,7 @@ const home = (state = initialState, action) => {
         cms: action.payload.cms,
         pms: action.payload.pms,
         polls: action.payload.polls,
-        pollVoted: action.payload.pollVoted,
-        userName: action.payload.userName,
-        displayName: action.payload.displayName,
-        photoURL: action.payload.photoURL,
-        area: action.payload.area,
-        pincode: action.payload.pincode
+        pollVoted: action.payload.pollVoted
       });
     case UPDATE_RESPOND:
       return Object.assign({}, state, {
