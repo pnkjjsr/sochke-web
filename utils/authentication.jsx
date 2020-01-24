@@ -152,6 +152,8 @@ export default class Authentication {
     return new Promise((resolve, reject) => {
       _this.initialize();
       let actionCodeSettings = {
+        // localhost below
+        // url: `http://localhost:3000/login`,
         url: `https://www.${process.env.authDomain}/login`,
         // iOS: {
         //   bundleId: "com.example.ios"
@@ -180,22 +182,18 @@ export default class Authentication {
   };
 
   updatePassword(e) {
-    let _this = this;
+    this.initialize();
+
     return new Promise((resolve, reject) => {
-      _this
-        .initialize()
-        .then(res => {
-          firebase
-            .auth()
-            .currentUser.updatePassword(e)
-            .then(function() {
-              resolve("Update successful.");
-            })
-            .catch(function(error) {
-              resolve(error);
-            });
+      firebase
+        .auth()
+        .currentUser.updatePassword(e)
+        .then(function() {
+          resolve("Update successful.");
         })
-        .catch();
+        .catch(function(error) {
+          resolve(error);
+        });
     });
   }
 }

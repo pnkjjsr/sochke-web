@@ -6,6 +6,15 @@
 
   @include form;
 
+  .form {
+    .form-control {
+      margin-right: 10px;
+    }
+    .form-text {
+      padding-top: 10px;
+    }
+  }
+
   h1 {
     margin-bottom: 20px;
     font-size: rem(24);

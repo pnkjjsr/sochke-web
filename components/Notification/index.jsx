@@ -15,6 +15,18 @@ class Notification extends Component {
     hideNotification();
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const { hideNotification } = this.props;
+    const { open } = this.props.notification;
+    const { notification } = prevProps;
+
+    if (notification.open != open) {
+      setTimeout(() => {
+        hideNotification();
+      }, 5000);
+    }
+  }
+
   render() {
     const { open, message, type } = this.props.notification;
 

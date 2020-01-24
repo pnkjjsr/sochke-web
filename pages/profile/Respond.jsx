@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import Link from "next/link";
 
 import Respond from "components/Respond";
 
@@ -45,7 +46,9 @@ export class RespondProfile extends Component {
           show other people true face of the situation.
         </p>
         <div className="action">
-          <button className="btn btn-lg btn-primary">Respond Now</button>
+          <Link href="/">
+            <a>Respond Now</a>
+          </Link>
         </div>
       </div>
     );

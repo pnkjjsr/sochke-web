@@ -99,6 +99,10 @@
       }
     }
   }
+
+  &__disclaimer {
+    margin-top: rem(20);
+  }
 }
 
 @include media-breakpoint-up(md) {

@@ -26,9 +26,9 @@ class LeaderProfile extends Component {
           Leaders are those <span className="person">{person}</span> believe in.
           Their thoughts and contriubtion is value for you.
         </p>
-        <div className="action">
+        {/* <div className="action">
           <button className="btn btn-lg btn-primary">Show Leaders</button>
-        </div>
+        </div> */}
       </div>
     );
   };
@@ -37,9 +37,9 @@ class LeaderProfile extends Component {
     const { leaders } = this.state;
     return leaders.map(leader => {
       return (
-        <Link href={leader.leaderUserName}>
+        <Link key={leader.id} href={leader.leaderUserName}>
           <div className="connection">
-            <Photo src={leader.photoURL} />
+            <Photo src={leader.leaderPhotoURL} />
             <div className="title">
               {leader.leaderDisplayName || leader.leaderUserName}
             </div>

@@ -44,3 +44,16 @@
   @extend %form-control;
   border: 1px solid #a8a5b3;
 }
+
+.disclaimer {
+  color: $color-danger;
+  font-size: rem(13);
+}
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary;
+  }
+}

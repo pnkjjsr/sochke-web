@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import Link from "next/link";
 
 import Respond from "components/Respond";
 
@@ -46,7 +47,9 @@ export class MediaRespondProfile extends Component {
           negative. Respond just show true face of the situation.
         </p>
         <div className="action">
-          <button className="btn btn-lg btn-primary">Respond Now</button>
+          <Link href="/">
+            <a>Media Respond Now</a>
+          </Link>
         </div>
       </div>
     );

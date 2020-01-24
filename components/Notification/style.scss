@@ -4,12 +4,46 @@
   display: none;
   position: fixed;
   z-index: $notification;
-  bottom: 0;
+  bottom: 50px;
   right: 0;
   width: 100%;
+  opacity: 0;
 
   &.show {
     display: block;
+    opacity: 1;
+    animation: 5s hideShow;
+
+    @-webkit-keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @-moz-keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
   }
 
   .alert {

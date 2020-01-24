@@ -55,7 +55,6 @@ class ForgotPassword extends Component {
       });
       return;
     }
-
     let data = {
       email: email
     };
@@ -74,12 +73,22 @@ class ForgotPassword extends Component {
         });
       } else if (res.data.code == "email/register") {
         auth
-          .sendPasswordResetEmail(data.email)
+          .sendPasswordResetEmail(email)
           .then(res => {
-            console.log(res);
+            actionNotification.showNotification({
+              open: "",
+              code: res.code,
+              message: res.message,
+              type: "success"
+            });
           })
           .catch(err => {
-            console.log(err);
+            actionNotification.showNotification({
+              open: "",
+              code: err.code,
+              message: err.message,
+              type: "danger"
+            });
           });
       }
     });
@@ -141,12 +150,9 @@ class ForgotPassword extends Component {
                   </div>
 
                   <div className="form-link">
-                    New to {`${process.env.domain} `}
+                    New to {process.env.domain}
                     <Link href="/">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-primary"
-                      >
+                      <button type="button" className="btn btn-sm btn-link">
                         Join Now
                       </button>
                     </Link>

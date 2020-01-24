@@ -220,6 +220,17 @@ class Minister extends Component {
               <CandidateList type={minister.type} data={minister.ministers} />
             </div>
           </div>
+
+          <div className={`disclaimer ${mainClass}__disclaimer`}>
+            <p>
+              Disclaimer: This information is an archive of the candidate's
+              self-declared affidavit that was filed during the elections. The
+              current status of this information may be different. For the
+              latest available information, please refer to the affidavit filed
+              by the candidate to the Election Commission in the most recent
+              election.
+            </p>
+          </div>
         </div>
       </Fragment>
     );

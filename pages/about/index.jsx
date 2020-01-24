@@ -15,20 +15,18 @@ export default class cookies extends Component {
 
             <section className={`${mainClass}__section`}>
               <h2>Introduction</h2>
+
               <p>
-                Sochke is a modern social media plateform which enables users to
-                connect with other users, They can connect there congressmen
-                also.
+                Sochke is a social plateform which enable users to connect with
+                different people around them. And its a digital plateform which
+                empower users to contritubte for their constituencies to make it
+                better place.
               </p>
+
               <p>
                 Sochke is a digital plateform which is enables user to
                 contritubte for there constituencies to make a better
                 constituency.
-              </p>
-              <p>
-                Some times we don't know how is responsible for which task or
-                how to measure the credibility of the canditate so that we can
-                make better decision during election.
               </p>
             </section>
           </div>
