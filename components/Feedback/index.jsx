@@ -139,9 +139,8 @@ class feedback extends Component {
                   <option value="">select</option>
                   <option value="design">Design</option>
                   <option value="function">Functionality</option>
-                  <option value="contribution_feature">
-                    Contribution feature
-                  </option>
+                  <option value="respond">Respond</option>
+                  <option value="contribution">Contribution</option>
                   <option value="Current_feature">Current feature</option>
                   <option value="new_feature">New feature</option>
                   <option value="other">Other</option>

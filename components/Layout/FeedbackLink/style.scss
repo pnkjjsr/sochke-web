@@ -1,0 +1,32 @@
+@import "common/styles/global.scss";
+
+.feedback_link {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  right: 10px;
+  bottom: 10px;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    color: $color-primary;
+    cursor: pointer;
+
+    label {
+      margin: 0;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .feedback_link {
+    display: block;
+  }
+}
