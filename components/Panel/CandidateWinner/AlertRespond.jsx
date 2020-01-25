@@ -30,13 +30,19 @@ export class AlertRespond extends Component {
     const { actionCirculate } = this.props;
     const session = new authSession();
     const token = session.getToken();
+    const profile = session.getProfile();
     let data = {
       createdAt: new Date().toISOString(),
       uid: token,
       type: "text",
       respond: `I support ${minister.name}, ${minister.type} from ${minister.constituency}`,
       voteCount: 0,
-      opinionCount: 0
+      opinionCount: 0,
+      userName: profile.userName,
+      displayName: profile.displayName,
+      photoURL: profile.photoURL,
+      constituency: profile.constituency,
+      pincode: profile.pincode
     };
 
     service

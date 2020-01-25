@@ -190,7 +190,7 @@ class Register extends Component {
               session.setProfile(res.data);
               loginAction.authenticate(data);
               auth.sendEmailVerification();
-              Router.push("/");
+              Router.push("/constituency");
             })
             .catch(async error => {
               let data = error.response.data;
