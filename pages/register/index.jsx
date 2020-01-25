@@ -218,6 +218,10 @@ class Register extends Component {
     auth.sendEmailVerification();
   }
 
+  handleFeedback = () => {
+    Router.push("/feedback");
+  };
+
   renderHome = () => {
     return <div className="text-center">HomePage</div>;
   };
@@ -406,13 +410,16 @@ class Register extends Component {
                     </p>
 
                     <div className="action">
-                      {/* <button className="btn btn-primary btn-lg">
+                      <button
+                        className="btn btn-primary btn-lg"
+                        onClick={this.handleFeedback}
+                      >
                         Write your feedback
-                      </button> */}
+                      </button>
                       {/* <button className="btn btn-link btn-sm">
                         Support Sochke
                       </button> */}
-                      <b>Comming Soon</b>
+                      {/* <b>Comming Soon</b> */}
                     </div>
                   </div>
                 </div>

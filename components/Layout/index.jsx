@@ -9,6 +9,7 @@ import authSession from "utils/authSession";
 import Head from "./head";
 import Header from "./Header";
 import BottomNav from "./BottomNav";
+import FeedbackLink from "./FeedbackLink";
 import Footer from "./Footer";
 
 import "./style.scss";
@@ -58,7 +59,12 @@ class Layout extends Component {
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
         <Header />
-        <div className="main">{this.props.children}</div>
+        <div className="main">
+          {this.props.children}
+
+          <FeedbackLink />
+        </div>
+
         {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
       </Fragment>
     );
