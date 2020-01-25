@@ -30,16 +30,11 @@ export default class Footer extends Component {
                   <a>Cookies</a>
                 </Link>
               </li>
-              {/* <li>
-                <Link href="/jobs">
-                  <a>Jobs</a>
+              <li>
+                <Link href="/feedback">
+                  <a>Feedback</a>
                 </Link>
-              </li> */}
-              {/* <li>
-                <Link href="/settings">
-                  <a>Settings</a>
-                </Link>
-              </li> */}
+              </li>
             </ul>
 
             <div className="copyright">© 2019 {process.env.domain}</div>
