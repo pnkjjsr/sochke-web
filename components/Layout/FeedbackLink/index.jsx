@@ -19,7 +19,7 @@ class FeedbackLink extends Component {
       <Fragment>
         <div className={mainClass}>
           <div className={`${mainClass}__link`} onClick={this.handleFeedback}>
-            <i class="material-icons ">feedback</i>
+            <i className="material-icons ">feedback</i>
             <label className={`${mainClass}_label`} htmlFor="feedback">
               Feedback
             </label>
