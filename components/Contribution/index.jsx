@@ -22,9 +22,7 @@ class Contribution extends Component {
   static getDerivedStateFromProps(props, state) {
     const { contributions } = props.contribution;
     let len = contributions.length;
-
     if (len) return { contributions: contributions };
-
     return null;
   }
 
