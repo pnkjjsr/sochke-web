@@ -1,0 +1,7 @@
+@import "common/styles/global.scss";
+@import "common/styles/context.scss";
+@import "components/Form/form";
+
+.feedback_component {
+  @include form;
+}
