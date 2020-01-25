@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import notificationActions from "components/Notification/actions";
+import actionNotifications from "components/Notification/actions";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -9,6 +10,7 @@ import authSession from "utils/authSession";
 import UploadFile from "components/UploadFile";
 import Button from "components/Form/Button";
 
+import validation from "./validation";
 import "./style.scss";
 
 class WriteContribution extends Component {
@@ -39,10 +41,26 @@ class WriteContribution extends Component {
 
   handleSubmit = () => {
     const { title, description, imgUrl } = this.state;
-    const { notificationAction, actionPreview } = this.props;
+    const {
+      actionNotification,
+      notificationAction,
+      actionPreview
+    } = this.props;
+
+    const { valid, errors } = validation({ title, description, imgUrl });
+
+    if (!valid) {
+      Object.keys(errors).map(e => {
+        actionNotification.showNotification({
+          message: errors[e],
+          type: "danger"
+        });
+      });
+      return;
+    }
+
     const session = new authSession();
     const profile = session.getProfile();
-
     const data = {
       createdAt: new Date().toISOString(),
       uid: profile.id,
@@ -140,7 +158,8 @@ class WriteContribution extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  notificationAction: bindActionCreators(notificationActions, dispatch)
+  notificationAction: bindActionCreators(notificationActions, dispatch),
+  actionNotification: bindActionCreators(actionNotifications, dispatch)
 });
 
 export default connect(state => state, mapDispatchToProps)(WriteContribution);
