@@ -83,7 +83,6 @@ class Respond extends Component {
         <div className="container respond">
           <div className="row">
             <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-              <CandidateList type="councillor" data={data.councillors} />
               <CandidateList type="mla" data={data.mlas} />
               <CandidateList type="mp" data={data.mps} />
               <CandidateList type="cm" data={data.cms} />
@@ -100,12 +99,12 @@ class Respond extends Component {
               </div>
             </div>
             <div className="col-lg-3 col-xl-3 d-none d-lg-block">
-              <div className="panel">
+              {/* <div className="panel">
                 <h2 className="title">Your Counstituency</h2>
                 <div className="panel-container">
                   <CandidateWinner type="mla" data={data.mlas} />
                 </div>
-              </div>
+              </div> */}
 
               <div className="panel">
                 <h2 className="title">Delhi want change for?</h2>

@@ -96,7 +96,7 @@ class Login extends Component {
               session.setProfile(result.data);
               user.authenticate(result.data);
               session.setToken(token);
-              Router.push("/");
+              Router.push("/constituency");
             })
             .catch(error => {
               let data = error.response.data;

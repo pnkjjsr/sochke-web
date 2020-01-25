@@ -97,6 +97,41 @@ class BottomNav extends Component {
                 <a>
                   <i
                     className="material-icons"
+                    onClick={e => this.handleOpen("constituency")}
+                  >
+                    map
+                  </i>
+                  <span>Constituency</span>
+                </a>
+              </Link>
+
+              <DrawerPage
+                side="right"
+                open={constituencyDrawer}
+                action={e => this.handleClose("constituency")}
+              >
+                <div className={`${mainClass}__panel p-3`}>
+                  <h3 className={`${mainClass}__title`}>Current MLA</h3>
+                  <CandidateWinner type="mla" data={home.mlas} />
+                </div>
+
+                <h3 className={`${mainClass}__title`}>
+                  Your constituency full profile
+                </h3>
+                <div className={`${mainClass}__panel-minister`}>
+                  <PanelMinister title="MLA" type="mla" />
+                  <PanelMinister title="MP" type="mp" />
+                  <PanelMinister title="CM" type="cm" />
+                  <PanelMinister title="PM" type="pm" />
+                </div>
+              </DrawerPage>
+            </li>
+
+            <li>
+              <Link href="/">
+                <a>
+                  <i
+                    className="material-icons"
                     onClick={e => this.handleOpen("contribution")}
                   >
                     group_work
@@ -147,41 +182,6 @@ class BottomNav extends Component {
                       ></path>
                     </svg>
                   </div>
-                </div>
-              </DrawerPage>
-            </li>
-
-            <li>
-              <Link href="/">
-                <a>
-                  <i
-                    className="material-icons"
-                    onClick={e => this.handleOpen("constituency")}
-                  >
-                    map
-                  </i>
-                  <span>Constituency</span>
-                </a>
-              </Link>
-
-              <DrawerPage
-                side="right"
-                open={constituencyDrawer}
-                action={e => this.handleClose("constituency")}
-              >
-                <div className={`${mainClass}__panel p-3`}>
-                  <h3 className={`${mainClass}__title`}>Current MLA</h3>
-                  <CandidateWinner type="mla" data={home.mlas} />
-                </div>
-
-                <h3 className={`${mainClass}__title`}>
-                  Your constituency full profile
-                </h3>
-                <div className={`${mainClass}__panel-minister`}>
-                  <PanelMinister title="MLA" type="mla" />
-                  <PanelMinister title="MP" type="mp" />
-                  <PanelMinister title="CM" type="cm" />
-                  <PanelMinister title="PM" type="pm" />
                 </div>
               </DrawerPage>
             </li>

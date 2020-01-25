@@ -73,7 +73,7 @@ class ViewContribution extends Component {
             <div className="para">{contribute.description}</div>
             <div className="action">
               <Button
-                text="&#10004;"
+                text="Agree"
                 variant="btn-success"
                 action={() => this.handleVote(contribute.id, true)}
               />
@@ -83,7 +83,7 @@ class ViewContribution extends Component {
                 action={this.handleAdd}
               />
               <Button
-                text="&#10008;"
+                text="Disagree"
                 variant="btn-danger"
                 action={() => this.handleVote(contribute.id, false)}
               />
