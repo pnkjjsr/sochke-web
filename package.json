@@ -1,5 +1,5 @@
 {
-  "name": "sochke-dev",
+  "name": "sochke",
   "version": "v0.1.1",
   "main": "server.js",
   "license": "ISC",
@@ -10,7 +10,6 @@
     "dev": "NODE_ENV=development node server.js",
     "prod": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
-    "deploy-staging": "gcloud app deploy staging.yaml",
     "export": "npm run build && next export",
     "clean": "rimraf .next"
   },

@@ -29,7 +29,7 @@ class Home extends Component {
 
   static getDerivedStateFromProps(props, state) {
     let data = props.home;
-    let len = data.mlas.length;
+    let len = data.pms.length;
 
     if (len) {
       return {

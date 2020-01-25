@@ -23,7 +23,7 @@ export class Security extends Component {
     this.state = {
       currentPassword: "",
       currentPasswordErr: "",
-      currentPasswordMsg: "Click here",
+      currentPasswordMsg: "",
       newPassword: "",
       newPasswordErr: "",
       newPasswordMsg: "",
