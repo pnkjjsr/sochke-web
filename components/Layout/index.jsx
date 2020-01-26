@@ -10,6 +10,7 @@ import Head from "./head";
 import Header from "./Header";
 import BottomNav from "./BottomNav";
 import FeedbackLink from "./FeedbackLink";
+import GlobalNotification from "./GlobalNotification";
 import Footer from "./Footer";
 
 import "./style.scss";
@@ -59,11 +60,10 @@ class Layout extends Component {
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
         <Header />
-        <div className="main">
-          {this.props.children}
+        <div className="main">{this.props.children}</div>
+        <FeedbackLink />
 
-          <FeedbackLink />
-        </div>
+        {loggedIn ? <GlobalNotification /> : ""}
 
         {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
       </Fragment>
