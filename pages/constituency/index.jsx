@@ -7,6 +7,7 @@ import authSession from "utils/authSession";
 
 import AccountNav from "components/Nav/Account/index";
 import PanelMinister from "components/Panel/Minister";
+import CurrentElection from "components/Panel/CurrentElection";
 
 import AccountHead from "pages/account/AccountHead";
 
@@ -43,6 +44,8 @@ class Account extends Component {
             </div>
             <div className="col-lg-9">
               <AccountHead />
+
+              <CurrentElection />
 
               <h1 className="title">
                 <span>Your Constituency,</span> {area} - {state}

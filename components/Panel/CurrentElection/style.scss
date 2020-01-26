@@ -1,0 +1,15 @@
+@import "common/styles/global.scss";
+
+.current_election {
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  border: 1px solid $border-color;
+  background-color: $color-white;
+  font-size: rem(14);
+
+  span {
+    color: $color-safron;
+    font-size: rem(13);
+    font-weight: $font-weight-black;
+  }
+}

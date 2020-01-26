@@ -14,6 +14,10 @@ const Header = props => (
       <title>{`${props.title} | ${props.desc}`}</title>
       <meta name="description" content={props.desc || defaultDescription} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta
+        name="google-site-verification"
+        content="X_UAViRRJK8KBMJtpV6wJmolpk-h5vIn8ooaBt7AHL0"
+      />
 
       <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
       <link rel="apple-touch-icon" href="/static/touch-icon.png" />

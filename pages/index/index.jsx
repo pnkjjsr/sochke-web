@@ -9,6 +9,7 @@ import authSession from "utils/authSession";
 
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
+import CurrentElection from "components/Panel/CurrentElection";
 import Poll from "components/Panel/Poll";
 import Respond from "components/Respond";
 import LoaderRespond from "components/Respond/LoaderRespond";
@@ -87,6 +88,7 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
                 {/* <CandidateList type="councillor" data={data.councillors} /> */}
+                <CurrentElection />
                 <CandidateList type="mla" data={data.mlas} />
                 <CandidateList type="mp" data={data.mps} />
                 <CandidateList type="cm" data={data.cms} />
