@@ -45,6 +45,17 @@
     }
   }
 
+  .form {
+    &__control {
+      height: 30px;
+      padding: 5px 10px;
+      @include border-radius(2px);
+      $color: $base-color;
+      font-size: rem(14);
+      line-height: 30px;
+    }
+  }
+
   .auth {
     .btn {
       min-width: 70px;

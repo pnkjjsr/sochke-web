@@ -157,7 +157,7 @@ class Login extends Component {
                     <div className="header">
                       <h1 className="heading">Login</h1>
                       <div className="sub">
-                        Get access of your account and nation !!
+                        Get access of your account and nation !
                       </div>
                     </div>
 

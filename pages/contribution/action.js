@@ -9,7 +9,8 @@ const prefetchContributionData = () => {
   const data = {
     uid: profile.id,
     constituency: profile.constituency,
-    pincode: profile.pincode
+    pincode: profile.pincode,
+    state: profile.state
   };
 
   return dispatch => {

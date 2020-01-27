@@ -37,8 +37,6 @@ class GlobalNotification extends Component {
 
   render() {
     const { view } = this.state;
-    console.log(view);
-
     return !view ? this.renderNotification() : "";
   }
 }
