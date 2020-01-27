@@ -44,11 +44,12 @@
 
       .type {
         margin-bottom: 10px;
-        text-transform: capitalize;
+        text-transform: uppercase;
 
         span {
           color: $color-gray-light;
           font-size: rem(12);
+          text-transform: capitalize;
         }
       }
 
