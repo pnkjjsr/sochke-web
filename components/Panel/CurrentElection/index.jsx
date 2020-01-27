@@ -7,7 +7,7 @@ class CurrentElection extends Component {
     return (
       <Fragment>
         <div className={mainClass}>
-          <span>Comming Soon</span>, 2020 Delhi Candidate.
+          <span>Coming Soon</span>, 2020 Delhi Candidate.
         </div>
       </Fragment>
     );
