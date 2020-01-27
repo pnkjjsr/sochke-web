@@ -63,11 +63,19 @@ class HeaderUser extends Component {
                 </div>
               </div>
 
-              <div className="col-lg-6">
-                <input className="form-control" type="text" />
+              <div className="col-lg-7 d-none">
+                <form>
+                  <div className="form">
+                    <input
+                      className="form-control form__control"
+                      type="text"
+                      placeholder="Search"
+                    />
+                  </div>
+                </form>
               </div>
 
-              <div className="col-7 col-sm-6 col-lg-4 pr-0 text-right d-flex justify-content-end align-items-center">
+              <div className="col-7 col-sm-6 col-lg-10 pr-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
                   <div onClick={e => this.handleOpen("user")}>
                     <UserImage />
