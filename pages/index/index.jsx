@@ -78,6 +78,14 @@ class Home extends Component {
     });
   };
 
+  renderPromoted = () => {
+    const { data } = this.state;
+
+    return data.respondPromoted.map(respond => {
+      return <Respond key={respond.id} respond={respond} />;
+    });
+  };
+
   render() {
     const { data, profile, respondView } = this.state;
 
@@ -97,6 +105,11 @@ class Home extends Component {
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
                 {!respondView ? <LoaderRespond /> : this.loopRespond()}
+
+                <div>
+                  <small>Promoted</small>
+                </div>
+                {!respondView ? <LoaderRespond /> : this.renderPromoted()}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel contribute">
