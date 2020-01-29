@@ -40,7 +40,7 @@ class HeaderUser extends Component {
 
   handleClick = () => {
     this.setState({
-      classSearch: "form__top__active"
+      classSearch: "search_form__top__active"
     });
   };
 
@@ -94,14 +94,14 @@ class HeaderUser extends Component {
   };
 
   render() {
-    const mainClass = "form";
+    const mainClass = "search_form";
     const { accountDrawer, userDrawer, classSearch, classResult } = this.state;
     return (
       <Fragment>
         <div className="header bg" role="main">
           <div className="container">
             <div className="row">
-              <div className="col-5 col-sm-6 col-lg-2 pl-0 pr-0 d-flex flex-row">
+              <div className="col-5 col-sm-3 col-lg-2 pl-0 pr-0 d-flex flex-row">
                 <div className="menu d-inline-block d-lg-none d-flex align-items-center">
                   <i
                     className="material-icons"
@@ -126,9 +126,12 @@ class HeaderUser extends Component {
                 </div>
               </div>
 
-              <div className="col-lg-7">
-                <form onSubmit={this.handleSubmit}>
-                  <div className={`${mainClass}`}>
+              <div className="col-6 col-sm-8 col-lg-7 d-flex align-items-center">
+                <form className="w-100" onSubmit={this.handleSubmit}>
+                  <div
+                    className={`${mainClass} d-flex justify-content-end`}
+                    onClick={this.handleClick}
+                  >
                     <div className={`${mainClass}__top ${classSearch}`}>
                       <i className="material-icons">search</i>
                       <input
@@ -136,8 +139,8 @@ class HeaderUser extends Component {
                         name="search"
                         type="text"
                         placeholder="Search"
+                        autoComplete="off"
                         onChange={this.handleChange}
-                        onClick={this.handleClick}
                       />
                       <button className="btn btn-sm">Go</button>
                     </div>
@@ -160,7 +163,7 @@ class HeaderUser extends Component {
                 </form>
               </div>
 
-              <div className="col-7 col-sm-6 col-lg-3 pr-0 text-right d-flex justify-content-end align-items-center">
+              <div className="col-1 col-sm-1 col-lg-3 pr-0 pl-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
                   <div onClick={e => this.handleOpen("user")}>
                     <UserImage />

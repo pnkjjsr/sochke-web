@@ -278,6 +278,7 @@ export class PersonalInfo extends Component {
                       name="mobile"
                       className="form-control"
                       aria-label="mobile"
+                      maxLength="10"
                       placeholder="Mobile"
                       value={mobile}
                       onChange={this.handleChange}
