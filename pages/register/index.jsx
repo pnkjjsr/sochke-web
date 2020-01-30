@@ -427,7 +427,7 @@ class Register extends Component {
                   <div className={`${mainClass}__info__banner`}>
                     <figure>
                       <img
-                        src="https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Finfo.png?alt=media&token=abe3240e-0610-404f-9321-7b753482f4d0"
+                        src="https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Finfo.png?alt=media"
                         alt="Sochke Feedback"
                       />
                     </figure>
