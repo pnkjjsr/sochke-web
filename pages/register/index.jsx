@@ -279,7 +279,10 @@ class Register extends Component {
                       <div className="row">
                         <div className="col-12 col-md-6 col-lg-12">
                           <div className={`form-group ${emailErr}`}>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">
+                              {" "}
+                              Email <span>(not changeble)</span>
+                            </label>
                             <input
                               className="form-control"
                               name="email"
@@ -311,7 +314,9 @@ class Register extends Component {
                       <div className="row">
                         <div className="col-6 col-sm-6">
                           <div className={`form-group ${pincodeErr}`}>
-                            <label htmlFor="pincode">Pincode</label>
+                            <label htmlFor="pincode">
+                              Pincode <span>(not changeble)</span>
+                            </label>
                             <input
                               className="form-control"
                               name="pincode"
@@ -326,7 +331,9 @@ class Register extends Component {
                         </div>
                         <div className="col-6 col-sm-6">
                           <div className={`form-group ${areaErr}`}>
-                            <label htmlFor="area">Area</label>
+                            <label htmlFor="area">
+                              Area <span>(not changeble)</span>
+                            </label>
                             <select
                               className="form-control"
                               name="area"

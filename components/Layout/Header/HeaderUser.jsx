@@ -1,13 +1,13 @@
 import React, { Fragment, Component } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
-
-import { service } from "apiConnect";
+import layoutActions from "../actions";
 
 import UserImage from "components/UserImage";
 import Drawer from "components/Drawer";
 import AccountNav from "components/Nav/Account";
 import UserNav from "components/Nav/User";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -15,6 +15,7 @@ class HeaderUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       accountDrawer: "",
       userDrawer: "",
       classSearch: "",
@@ -22,6 +23,39 @@ class HeaderUser extends Component {
       usersData: [],
       ministersData: []
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { searchView, searchMinisters, searchUsers } = props.layout;
+    let usersLen = searchUsers.length;
+    let ministersLen = searchMinisters.length;
+    if (usersLen || ministersLen) {
+      return {
+        classResult: "search_form__result__show",
+        usersData: searchUsers,
+        ministersData: searchMinisters
+      };
+    } else if (searchView) {
+      return {
+        classSearch: "search_form__top__active"
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { searchView } = prevProps.layout;
+    const { layout } = this.props;
+
+    if (searchView != layout.searchView) {
+      this.setState({
+        search: "",
+        classSearch: "",
+        classResult: "",
+        usersData: [],
+        ministersData: []
+      });
+    }
   }
 
   handleOpen = e => {
@@ -39,9 +73,8 @@ class HeaderUser extends Component {
   };
 
   handleClick = () => {
-    this.setState({
-      classSearch: "search_form__top__active"
-    });
+    const { showSearch } = this.props;
+    showSearch();
   };
 
   handleSubmit = e => {
@@ -49,53 +82,91 @@ class HeaderUser extends Component {
   };
 
   handleChange = e => {
+    const { getSearchData } = this.props;
     let keyword = e.target.value;
-
-    service
-      .post("/search", { keyword })
-      .then(res => {
-        let usersLen = res.data.users.length;
-        let ministersLen = res.data.ministers.length;
-
-        if (!usersLen && !ministersLen) return;
-
-        this.setState({
-          classResult: "form__result__show",
-          usersData: res.data.users,
-          ministersData: res.data.ministers
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.setState({
+      search: keyword
+    });
+    getSearchData(keyword);
   };
 
   renderLoopUsers = () => {
     const { usersData } = this.state;
-
-    return usersData.map(user => {
+    let usersLen = usersData.length;
+    if (!usersLen) {
       return (
-        <li>
-          <a href="">{user.displayName}</a>
+        <ul>
+          <li>
+            <span>No user(s) found</span>
+          </li>
+        </ul>
+      );
+    }
+
+    let users = usersData.map(user => {
+      return (
+        <li key={user.id}>
+          <a href="">
+            <Photo src={minister.photoURL} />
+            {user.displayName}
+          </a>
         </li>
       );
     });
+    return (
+      <ul>
+        <li>
+          <span>Users</span>
+        </li>
+        {users}
+      </ul>
+    );
   };
+
   renderLoopMinisters = () => {
     const { ministersData } = this.state;
-
-    return ministersData.map(minister => {
+    let ministersLen = ministersData.length;
+    if (!ministersLen) {
       return (
-        <li>
-          <a href="">{minister.name}</a>
+        <ul>
+          <li>
+            <span>No minister(s) found</span>
+          </li>
+        </ul>
+      );
+    }
+    let ministers = ministersData.map(minister => {
+      return (
+        <li key={minister.id}>
+          <a href={`/profile/${minister.userName}`}>
+            <Photo src={minister.photoURL} />
+            {minister.name}
+          </a>
         </li>
       );
     });
+
+    return (
+      <ul>
+        <li>
+          <span>Ministers</span>
+        </li>
+        {ministers}
+      </ul>
+    );
   };
 
   render() {
     const mainClass = "search_form";
-    const { accountDrawer, userDrawer, classSearch, classResult } = this.state;
+    const {
+      search,
+      accountDrawer,
+      userDrawer,
+      classSearch,
+      classResult
+    } = this.state;
+    console.log(classSearch);
+
     return (
       <Fragment>
         <div className="header bg" role="main">
@@ -138,6 +209,7 @@ class HeaderUser extends Component {
                         className={`${mainClass}__top__control`}
                         name="search"
                         type="text"
+                        value={search}
                         placeholder="Search"
                         autoComplete="off"
                         onChange={this.handleChange}
@@ -146,18 +218,8 @@ class HeaderUser extends Component {
                     </div>
 
                     <div className={`${mainClass}__result ${classResult}`}>
-                      <ul>
-                        <li>
-                          <span>Users</span>
-                        </li>
-                        {this.renderLoopUsers()}
-                      </ul>
-                      <ul>
-                        <li>
-                          <span>Minsters</span>
-                        </li>
-                        {this.renderLoopMinisters()}
-                      </ul>
+                      {this.renderLoopUsers()}
+                      {this.renderLoopMinisters()}
                     </div>
                   </div>
                 </form>
@@ -190,4 +252,4 @@ class HeaderUser extends Component {
   }
 }
 
-export default connect(state => state)(HeaderUser);
+export default connect(state => state, layoutActions)(HeaderUser);
