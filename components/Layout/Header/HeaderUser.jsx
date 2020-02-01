@@ -106,8 +106,8 @@ class HeaderUser extends Component {
     let users = usersData.map(user => {
       return (
         <li key={user.id}>
-          <a href="">
-            <Photo src={minister.photoURL} />
+          <a href={`/profile/${user.userName}`}>
+            <Photo src={user.photoURL} />
             {user.displayName}
           </a>
         </li>
@@ -138,7 +138,7 @@ class HeaderUser extends Component {
     let ministers = ministersData.map(minister => {
       return (
         <li key={minister.id}>
-          <a href={`/profile/${minister.userName}`}>
+          <a href={`/minister/${minister.userName}`}>
             <Photo src={minister.photoURL} />
             {minister.name}
           </a>
