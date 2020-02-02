@@ -12,7 +12,8 @@ const initialState = {
   cms: [],
   pms: [],
   polls: [],
-  pollVoted: []
+  pollVoted: [],
+  currentCandidates: []
 };
 
 const home = (state = initialState, action) => {
@@ -30,7 +31,8 @@ const home = (state = initialState, action) => {
         cms: action.payload.cms,
         pms: action.payload.pms,
         polls: action.payload.polls,
-        pollVoted: action.payload.pollVoted
+        pollVoted: action.payload.pollVoted,
+        currentCandidates: action.payload.currentCandidates
       });
     case UPDATE_RESPOND:
       return Object.assign({}, state, {

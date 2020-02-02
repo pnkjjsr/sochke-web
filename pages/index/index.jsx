@@ -96,11 +96,18 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
                 {/* <CandidateList type="councillor" data={data.councillors} /> */}
-                <CurrentElection />
-                <CandidateList type="mla" data={data.mlas} />
-                <CandidateList type="mp" data={data.mps} />
-                <CandidateList type="cm" data={data.cms} />
-                <CandidateList type="pm" data={data.pms} />
+                <CurrentElection>
+                  <CandidateList
+                    type="mla"
+                    title="2020, your MLA candidate"
+                    data={data.currentCandidates}
+                  />
+                </CurrentElection>
+
+                <CandidateList type="mla" title="MLA" data={data.mlas} />
+                <CandidateList type="mp" title="MP" data={data.mps} />
+                <CandidateList type="cm" title="CM" data={data.cms} />
+                <CandidateList type="pm" title="PM" data={data.pms} />
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />

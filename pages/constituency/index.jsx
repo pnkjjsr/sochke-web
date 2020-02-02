@@ -1,19 +1,20 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import homeActions from "pages/index/action";
 
 import userAuth from "utils/userAuth";
 import authSession from "utils/authSession";
 
 import AccountNav from "components/Nav/Account/index";
 import PanelMinister from "components/Panel/Minister";
-import CurrentElection from "components/Panel/CurrentElection";
 
 import AccountHead from "pages/account/AccountHead";
 
 import "./style.scss";
 
-class Account extends Component {
+class Constituency extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,15 +24,66 @@ class Account extends Component {
   }
 
   componentDidMount() {
+    const { homeAction, home } = this.props;
     const session = new authSession();
     const user = session.getProfile();
+
+    let len = home.pms.length;
+    if (!len) homeAction.prefetchHomeData();
 
     this.setState({
       state: user.state,
       pincode: user.pincode,
-      area: user.area
+      area: user.constituency
     });
   }
+
+  renderCurrent = () => {
+    const { home } = this.props;
+    let ministerArr = home.currentCandidates;
+
+    return ministerArr.map(minister => {
+      return <PanelMinister key={minister.id} data={minister} />;
+    });
+  };
+
+  renderMLA = () => {
+    const { home } = this.props;
+    let ministerArr = home.mlas;
+
+    return ministerArr.map(minister => {
+      if (minister.winner == true)
+        return <PanelMinister key={minister.id} data={minister} />;
+    });
+  };
+  renderMP = () => {
+    const { home } = this.props;
+    let ministerArr = home.mps;
+
+    return ministerArr.map(minister => {
+      if (minister.winner == true)
+        return <PanelMinister key={minister.id} data={minister} />;
+    });
+  };
+  renderCM = () => {
+    const { home } = this.props;
+    let ministerArr = home.cms;
+
+    return ministerArr.map(minister => {
+      if (minister.winner == true)
+        return <PanelMinister key={minister.id} data={minister} />;
+    });
+  };
+
+  renderPM = () => {
+    const { home } = this.props;
+    let ministerArr = home.pms;
+
+    return ministerArr.map(minister => {
+      if (minister.winner == true)
+        return <PanelMinister key={minister.id} data={minister} />;
+    });
+  };
 
   render() {
     const { area, state } = this.state;
@@ -45,28 +97,22 @@ class Account extends Component {
             <div className="col-lg-9">
               <AccountHead />
 
-              <CurrentElection />
+              <h1 className="title">
+                <span>2020, Your constituency MLA candidates ,</span> {area} -{" "}
+                {state}
+              </h1>
+              <div className="constituency__ministers">
+                {this.renderCurrent()}
+              </div>
 
               <h1 className="title">
-                <span>Your Constituency,</span> {area} - {state}
+                <span>Current position holder,</span> {area} - {state}
               </h1>
-
-              <div className="row">
-                {/* <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="MCD Councillor" type="councillor" />
-                </div> */}
-                <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="MLA" type="mla" />
-                </div>
-                <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="MP" type="mp" />
-                </div>
-                <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="CM" type="cm" />
-                </div>
-                <div className="col-12 col-lg-6 col-xl-4">
-                  <PanelMinister title="PM" type="pm" />
-                </div>
+              <div className="constituency__ministers">
+                {this.renderMLA()}
+                {this.renderMP()}
+                {this.renderCM()}
+                {this.renderPM()}
               </div>
             </div>
           </div>
@@ -75,5 +121,10 @@ class Account extends Component {
     );
   }
 }
-
-export default connect(state => state)(userAuth(Account));
+const mapDispatchToProps = dispatch => ({
+  homeAction: bindActionCreators(homeActions, dispatch)
+});
+export default connect(
+  state => state,
+  mapDispatchToProps
+)(userAuth(Constituency));

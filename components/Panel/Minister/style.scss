@@ -1,6 +1,8 @@
 @import "common/styles/global";
 
 .panel-minister {
+  min-width: 268px;
+  max-width: 268px;
   margin-bottom: 10px;
   padding: 10px;
   @include border-radius(3px);
@@ -84,6 +86,11 @@
         margin: 0;
         margin-top: 3px;
         font-size: 14px;
+
+        > small {
+          font-size: rem(12);
+          font-weight: $font-weight-black;
+        }
       }
     }
   }
