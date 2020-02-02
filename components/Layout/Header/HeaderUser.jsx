@@ -165,7 +165,6 @@ class HeaderUser extends Component {
       classSearch,
       classResult
     } = this.state;
-    console.log(classSearch);
 
     return (
       <Fragment>

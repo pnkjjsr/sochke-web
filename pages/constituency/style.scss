@@ -9,7 +9,7 @@
     font-weight: 500;
 
     span {
-      display: block;
+      // display: block;
       color: $color-gray;
       font-size: 16px;
     }
@@ -17,19 +17,7 @@
 
   &__ministers {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-
-    > div {
-      margin: 0;
-      margin-right: 10px;
-      margin-bottom: 20px;
-
-      &:nth-child(3n + 3) {
-        margin-right: 0;
-      }
-    }
+    flex-direction: column;
   }
 }
 
@@ -44,6 +32,23 @@
         display: inline;
         color: $base-color;
         font-size: 20px;
+      }
+    }
+
+    &__ministers {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+      > div {
+        margin: 0;
+        margin-right: 10px;
+        margin-bottom: 20px;
+
+        &:nth-child(3n + 3) {
+          margin-right: 0;
+        }
       }
     }
   }
