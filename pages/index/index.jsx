@@ -78,6 +78,14 @@ class Home extends Component {
     });
   };
 
+  renderPromoted = () => {
+    const { data } = this.state;
+
+    return data.respondPromoted.map(respond => {
+      return <Respond key={respond.id} respond={respond} />;
+    });
+  };
+
   render() {
     const { data, profile, respondView } = this.state;
 
@@ -88,15 +96,27 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
                 {/* <CandidateList type="councillor" data={data.councillors} /> */}
-                <CurrentElection />
-                <CandidateList type="mla" data={data.mlas} />
-                <CandidateList type="mp" data={data.mps} />
-                <CandidateList type="cm" data={data.cms} />
-                <CandidateList type="pm" data={data.pms} />
+                <CurrentElection>
+                  <CandidateList
+                    type="mla"
+                    title="2020, your MLA candidate"
+                    data={data.currentCandidates}
+                  />
+                </CurrentElection>
+
+                <CandidateList type="mla" title="MLA" data={data.mlas} />
+                <CandidateList type="mp" title="MP" data={data.mps} />
+                <CandidateList type="cm" title="CM" data={data.cms} />
+                <CandidateList type="pm" title="PM" data={data.pms} />
               </div>
               <div className="col-lg-9 col-xl-7">
                 <RespondBox />
                 {!respondView ? <LoaderRespond /> : this.loopRespond()}
+
+                <div>
+                  <small>Promoted</small>
+                </div>
+                {!respondView ? <LoaderRespond /> : this.renderPromoted()}
               </div>
               <div className="col-lg-3 col-xl-3 d-none d-lg-block">
                 <div className="panel contribute">

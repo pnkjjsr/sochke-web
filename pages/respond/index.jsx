@@ -10,7 +10,7 @@ import Loader from "components/Loader/page";
 import RespondItem from "components/Respond";
 import OpinionList from "components/Opinion/OpinionList";
 import CandidateList from "components/List/CandidateList";
-import CandidateWinner from "components/Panel/CandidateWinner";
+import CurrentElection from "components/Panel/CurrentElection";
 import Poll from "components/Panel/Poll";
 
 import "./style.scss";
@@ -47,7 +47,8 @@ class Respond extends Component {
 
   componentDidMount() {
     const { homeAction, home } = this.props;
-    // homeAction.prefetchHomeData();
+    let len = home.pms.length;
+    if (!len) homeAction.prefetchHomeData();
   }
 
   handleBack = () => {
@@ -83,10 +84,18 @@ class Respond extends Component {
         <div className="container respond">
           <div className="row">
             <div className="col-lg-2 col-xl-2 d-none d-xl-block">
-              <CandidateList type="mla" data={data.mlas} />
-              <CandidateList type="mp" data={data.mps} />
-              <CandidateList type="cm" data={data.cms} />
-              <CandidateList type="pm" data={data.pms} />
+              <CurrentElection>
+                <CandidateList
+                  type="mla"
+                  title="2020, your MLA candidate"
+                  data={data.currentCandidates}
+                />
+              </CurrentElection>
+
+              <CandidateList type="mla" title="MLA" data={data.mlas} />
+              <CandidateList type="mp" title="MP" data={data.mps} />
+              <CandidateList type="cm" title="CM" data={data.cms} />
+              <CandidateList type="pm" title="PM" data={data.pms} />
             </div>
             <div className="col-lg-9 col-xl-7">
               <div className="center">

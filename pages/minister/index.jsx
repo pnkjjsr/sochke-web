@@ -54,7 +54,8 @@ class Minister extends Component {
       ministerUserName: query,
       constituency: profile.constituency,
       district: profile.district,
-      state: profile.state
+      state: profile.state,
+      uid: profile.id
     };
     ministerAction.prefetchMinisterData(data);
   }
@@ -116,7 +117,7 @@ class Minister extends Component {
     let liabilities = string.currencyFormat(minister.liabilities);
     let liabilitiesCompact = string.currencyFormatCompact(minister.liabilities);
     let edu = string.tillFirstCommaString(minister.education);
-    let type = minister.type.toLowerCase();
+    let type = minister.type;
     let winner = minister.winner ? "Winner" : "Didn't Win";
 
     return (
@@ -217,7 +218,11 @@ class Minister extends Component {
                 </div>
               </div> */}
 
-              <CandidateList type={minister.type} data={minister.ministers} />
+              <CandidateList
+                type={minister.type}
+                title={minister.type}
+                data={minister.ministers}
+              />
             </div>
           </div>
 

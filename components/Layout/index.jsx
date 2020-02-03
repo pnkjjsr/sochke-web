@@ -52,6 +52,11 @@ class Layout extends Component {
       else this.setState({ loggedIn: false });
     }
   }
+  handleGlobalSearch = () => {
+    const { layoutAction } = this.props;
+
+    layoutAction.hideSearch();
+  };
 
   render() {
     const { loggedIn, isMobile } = this.state;
@@ -60,12 +65,15 @@ class Layout extends Component {
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
         <Header />
-        <div className="main">{this.props.children}</div>
-        <FeedbackLink />
 
-        {loggedIn ? <GlobalNotification /> : ""}
+        <div onClick={this.handleGlobalSearch}>
+          <div className="main">{this.props.children}</div>
+          <FeedbackLink />
 
-        {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
+          {loggedIn ? <GlobalNotification /> : ""}
+
+          {!isMobile ? <Footer /> : loggedIn ? <BottomNav /> : ""}
+        </div>
       </Fragment>
     );
   }
