@@ -19,6 +19,7 @@ const nextConfig = {
     storageBucket: process.env.storageBucket,
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId,
+    measurementId: process.env.measurementId,
     secretKey: process.env.SECRET_KEY,
     xAccessKey: process.env.X_ACCESS_TOKEN,
     govKey: process.env.GOV_KEY,
