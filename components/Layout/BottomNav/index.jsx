@@ -9,6 +9,7 @@ import authSession from "utils/authSession";
 import DrawerPage from "components/DrawerPage";
 import Contribution from "components/Contribution";
 import Poll from "components/Panel/Poll";
+import ConstituencyComponent from "components/Constituency";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import PanelMinister from "components/Panel/Minister";
 
@@ -115,14 +116,8 @@ class BottomNav extends Component {
                   <CandidateWinner type="mla" data={home.mlas} />
                 </div>
 
-                <h3 className={`${mainClass}__title`}>
-                  Your constituency full profile
-                </h3>
                 <div className={`${mainClass}__panel-minister`}>
-                  <PanelMinister title="MLA" type="mla" />
-                  <PanelMinister title="MP" type="mp" />
-                  <PanelMinister title="CM" type="cm" />
-                  <PanelMinister title="PM" type="pm" />
+                  <ConstituencyComponent data={home} />
                 </div>
               </DrawerPage>
             </li>

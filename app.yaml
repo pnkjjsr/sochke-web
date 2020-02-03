@@ -1,6 +1,6 @@
 runtime: nodejs10 # For Node.js 8, use runtime: nodejs8
 
-instance_class: F2
+instance_class: F1
 
 env_variables:
   BUCKET_NAME: "sochke"

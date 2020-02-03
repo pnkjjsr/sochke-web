@@ -279,7 +279,10 @@ class Register extends Component {
                       <div className="row">
                         <div className="col-12 col-md-6 col-lg-12">
                           <div className={`form-group ${emailErr}`}>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">
+                              {" "}
+                              Email <span>(not changeble)</span>
+                            </label>
                             <input
                               className="form-control"
                               name="email"
@@ -311,7 +314,9 @@ class Register extends Component {
                       <div className="row">
                         <div className="col-6 col-sm-6">
                           <div className={`form-group ${pincodeErr}`}>
-                            <label htmlFor="pincode">Pincode</label>
+                            <label htmlFor="pincode">
+                              Pincode <span>(not changeble)</span>
+                            </label>
                             <input
                               className="form-control"
                               name="pincode"
@@ -326,7 +331,9 @@ class Register extends Component {
                         </div>
                         <div className="col-6 col-sm-6">
                           <div className={`form-group ${areaErr}`}>
-                            <label htmlFor="area">Area</label>
+                            <label htmlFor="area">
+                              Area <span>(not changeble)</span>
+                            </label>
                             <select
                               className="form-control"
                               name="area"
@@ -427,7 +434,7 @@ class Register extends Component {
                   <div className={`${mainClass}__info__banner`}>
                     <figure>
                       <img
-                        src="https://firebasestorage.googleapis.com/v0/b/sochke-dev.appspot.com/o/cdn%2Fregister%2Finfo.png?alt=media&token=abe3240e-0610-404f-9321-7b753482f4d0"
+                        src="https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Finfo.png?alt=media"
                         alt="Sochke Feedback"
                       />
                     </figure>

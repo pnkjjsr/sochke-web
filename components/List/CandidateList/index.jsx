@@ -12,6 +12,7 @@ class CandidateList extends Component {
     super(props);
     this.state = {
       type: props.type,
+      title: props.title,
       ministers: [],
       view: 0
     };
@@ -56,13 +57,13 @@ class CandidateList extends Component {
 
   render() {
     const mainClass = "candidate-list";
-    const { type } = this.state;
+    const { title } = this.state;
 
     return (
       <Fragment>
         <div className={mainClass}>
           <h2 className={`${mainClass}__title`}>
-            {type}
+            {title}
             <span> (s)</span>
           </h2>
 

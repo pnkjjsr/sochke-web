@@ -4,12 +4,12 @@
   margin-bottom: 20px;
   padding: 5px 10px;
   border: 1px solid $border-color;
+  border-top: 2px solid $color-safron;
+  border-bottom: 2px solid $color-green;
   background-color: $color-white;
   font-size: rem(14);
 
-  span {
-    color: $color-safron;
-    font-size: rem(13);
-    font-weight: $font-weight-black;
+  & > .candidate-list {
+    margin: 0;
   }
 }

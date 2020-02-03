@@ -1,25 +1,23 @@
 import React, { Component, Fragment } from "react";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
+import authSession from "utils/authSession";
 import homeActions from "pages/index/action";
 
-import userAuth from "utils/userAuth";
-import authSession from "utils/authSession";
-
-import AccountNav from "components/Nav/Account/index";
+import CurrentElection from "components/Panel/CurrentElection";
 import PanelMinister from "components/Panel/Minister";
-
-import AccountHead from "pages/account/AccountHead";
 
 import "./style.scss";
 
-class Constituency extends Component {
+class ConstituencyComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       state: "",
-      area: ""
+      area: "",
+      home: props.data
     };
   }
 
@@ -83,46 +81,45 @@ class Constituency extends Component {
     });
   };
 
-  render() {
+  renderView = () => {
+    const classMain = "constituency_components";
     const { area, state } = this.state;
     return (
       <Fragment>
-        <div className="container constituency">
-          <div className="row">
-            <div className="col-lg-3 d-none d-lg-block pt-5">
-              <AccountNav />
-            </div>
-            <div className="col-lg-9">
-              <AccountHead />
+        <div className={classMain}>
+          <CurrentElection>
+            <h2 className={`${classMain}__title`}>
+              <span>2020, Your constituency MLA candidates,</span>
+              <br />
+              {area} - {state}
+            </h2>
+            <div>{this.renderCurrent()}</div>
+          </CurrentElection>
 
-              <h1 className="title">
-                <span>2020, Your constituency MLA candidates,</span> {area} -{" "}
-                {state}
-              </h1>
-              <div className="constituency__ministers">
-                {this.renderCurrent()}
-              </div>
-
-              <h1 className="title">
-                <span>Current position holder,</span> {area} - {state}
-              </h1>
-              <div className="constituency__ministers">
-                {this.renderMLA()}
-                {this.renderMP()}
-                {this.renderCM()}
-                {this.renderPM()}
-              </div>
-            </div>
+          <h2 className={`${classMain}__title mt-5`}>
+            <span>Current position holder,</span> {area} - {state}
+          </h2>
+          <div>
+            {this.renderMLA()}
+            {this.renderMP()}
+            {this.renderCM()}
+            {this.renderPM()}
           </div>
         </div>
       </Fragment>
     );
+  };
+
+  render() {
+    return this.renderView();
   }
 }
+
 const mapDispatchToProps = dispatch => ({
   homeAction: bindActionCreators(homeActions, dispatch)
 });
+
 export default connect(
   state => state,
   mapDispatchToProps
-)(userAuth(Constituency));
+)(ConstituencyComponent);

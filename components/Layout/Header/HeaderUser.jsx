@@ -1,11 +1,13 @@
 import React, { Fragment, Component } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
+import layoutActions from "../actions";
 
 import UserImage from "components/UserImage";
 import Drawer from "components/Drawer";
 import AccountNav from "components/Nav/Account";
 import UserNav from "components/Nav/User";
+import Photo from "components/Photo";
 
 import "./style.scss";
 
@@ -13,9 +15,47 @@ class HeaderUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       accountDrawer: "",
-      userDrawer: ""
+      userDrawer: "",
+      classSearch: "",
+      classResult: "",
+      usersData: [],
+      ministersData: []
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { searchView, searchMinisters, searchUsers } = props.layout;
+    let usersLen = searchUsers.length;
+    let ministersLen = searchMinisters.length;
+    if (usersLen || ministersLen) {
+      return {
+        classResult: "search_form__result__show",
+        usersData: searchUsers,
+        ministersData: searchMinisters
+      };
+    } else if (searchView) {
+      return {
+        classSearch: "search_form__top__active"
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { searchView } = prevProps.layout;
+    const { layout } = this.props;
+
+    if (searchView != layout.searchView) {
+      this.setState({
+        search: "",
+        classSearch: "",
+        classResult: "",
+        usersData: [],
+        ministersData: []
+      });
+    }
   }
 
   handleOpen = e => {
@@ -24,6 +64,7 @@ class HeaderUser extends Component {
       [name]: "open"
     });
   };
+
   handleClose = e => {
     let name = `${e}Drawer`;
     this.setState({
@@ -31,14 +72,106 @@ class HeaderUser extends Component {
     });
   };
 
+  handleClick = () => {
+    const { showSearch } = this.props;
+    showSearch();
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+  };
+
+  handleChange = e => {
+    const { getSearchData } = this.props;
+    let keyword = e.target.value;
+    this.setState({
+      search: keyword
+    });
+    getSearchData(keyword);
+  };
+
+  renderLoopUsers = () => {
+    const { usersData } = this.state;
+    let usersLen = usersData.length;
+    if (!usersLen) {
+      return (
+        <ul>
+          <li>
+            <span>No user(s) found</span>
+          </li>
+        </ul>
+      );
+    }
+
+    let users = usersData.map(user => {
+      return (
+        <li key={user.id}>
+          <a href={`/profile/${user.userName}`}>
+            <Photo src={user.photoURL} />
+            {user.displayName}
+          </a>
+        </li>
+      );
+    });
+    return (
+      <ul>
+        <li>
+          <span>Users</span>
+        </li>
+        {users}
+      </ul>
+    );
+  };
+
+  renderLoopMinisters = () => {
+    const { ministersData } = this.state;
+    let ministersLen = ministersData.length;
+    if (!ministersLen) {
+      return (
+        <ul>
+          <li>
+            <span>No minister(s) found</span>
+          </li>
+        </ul>
+      );
+    }
+    let ministers = ministersData.map(minister => {
+      return (
+        <li key={minister.id}>
+          <a href={`/minister/${minister.userName}`}>
+            <Photo src={minister.photoURL} />
+            {minister.name}
+          </a>
+        </li>
+      );
+    });
+
+    return (
+      <ul>
+        <li>
+          <span>Ministers</span>
+        </li>
+        {ministers}
+      </ul>
+    );
+  };
+
   render() {
-    const { accountDrawer, userDrawer } = this.state;
+    const mainClass = "search_form";
+    const {
+      search,
+      accountDrawer,
+      userDrawer,
+      classSearch,
+      classResult
+    } = this.state;
+
     return (
       <Fragment>
         <div className="header bg" role="main">
           <div className="container">
             <div className="row">
-              <div className="col-5 col-sm-6 col-lg-2 pl-0 pr-0 d-flex flex-row">
+              <div className="col-5 col-sm-3 col-lg-2 pl-0 pr-0 d-flex flex-row">
                 <div className="menu d-inline-block d-lg-none d-flex align-items-center">
                   <i
                     className="material-icons"
@@ -59,23 +192,39 @@ class HeaderUser extends Component {
                   <Link href="/">
                     <a>{process.env.domain}</a>
                   </Link>
-                  <span>Beta</span>
+                  <span>Alpha</span>
                 </div>
               </div>
 
-              <div className="col-lg-7 d-none">
-                <form>
-                  <div className="form">
-                    <input
-                      className="form-control form__control"
-                      type="text"
-                      placeholder="Search"
-                    />
+              <div className="col-6 col-sm-8 col-lg-7 d-flex align-items-center">
+                <form className="w-100" onSubmit={this.handleSubmit}>
+                  <div
+                    className={`${mainClass} d-flex justify-content-end`}
+                    onClick={this.handleClick}
+                  >
+                    <div className={`${mainClass}__top ${classSearch}`}>
+                      <i className="material-icons">search</i>
+                      <input
+                        className={`${mainClass}__top__control`}
+                        name="search"
+                        type="text"
+                        value={search}
+                        placeholder="Search"
+                        autoComplete="off"
+                        onChange={this.handleChange}
+                      />
+                      <button className="btn btn-sm">Go</button>
+                    </div>
+
+                    <div className={`${mainClass}__result ${classResult}`}>
+                      {this.renderLoopUsers()}
+                      {this.renderLoopMinisters()}
+                    </div>
                   </div>
                 </form>
               </div>
 
-              <div className="col-7 col-sm-6 col-lg-10 pr-0 text-right d-flex justify-content-end align-items-center">
+              <div className="col-1 col-sm-1 col-lg-3 pr-0 pl-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
                   <div onClick={e => this.handleOpen("user")}>
                     <UserImage />
@@ -102,4 +251,4 @@ class HeaderUser extends Component {
   }
 }
 
-export default connect(state => state)(HeaderUser);
+export default connect(state => state, layoutActions)(HeaderUser);
