@@ -8,6 +8,7 @@ import Drawer from "components/Drawer";
 import AccountNav from "components/Nav/Account";
 import UserNav from "components/Nav/User";
 import Photo from "components/Photo";
+import Button from "components/Form/Button";
 
 import "./style.scss";
 
@@ -79,15 +80,15 @@ class HeaderUser extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { getSearchData } = this.props;
+    const { search } = this.state;
+    getSearchData(search);
   };
 
   handleChange = e => {
-    const { getSearchData } = this.props;
-    let keyword = e.target.value;
     this.setState({
-      search: keyword
+      search: e.target.value
     });
-    getSearchData(keyword);
   };
 
   renderLoopUsers = () => {
@@ -213,7 +214,9 @@ class HeaderUser extends Component {
                         autoComplete="off"
                         onChange={this.handleChange}
                       />
-                      <button className="btn btn-sm">Go</button>
+                      <button className="btn btn-default btn-sm" type="submit">
+                        Enter
+                      </button>
                     </div>
 
                     <div className={`${mainClass}__result ${classResult}`}>
