@@ -7,6 +7,7 @@
   padding: 10px;
   @include border-radius(3px);
   border: 1px solid $border-color;
+  background-color: $color-white;
 
   > a {
     color: $base-color;
@@ -117,7 +118,6 @@
     margin: 0;
     margin-bottom: 20px;
     padding: 20px;
-    border-radius: 20px;
 
     .photo {
       width: 100px;
