@@ -96,8 +96,10 @@ class Constituency extends Component {
               <AccountHead />
 
               <h1 className="title">
-                <span>2020, Your constituency MLA candidates,</span> {area} -{" "}
-                {state}
+                <span className="highlight">
+                  2020, Your constituency MLA candidates,
+                </span>{" "}
+                {area} - {state}
               </h1>
               <div className="constituency__ministers">
                 {this.renderCurrent()}

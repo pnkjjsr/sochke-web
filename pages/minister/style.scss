@@ -5,16 +5,16 @@
 
   &__top {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid $border-color;
 
     .photo {
-      width: 70px;
-      height: 70px;
-      margin: 0;
-      margin-right: 10px;
+      width: 150px;
+      height: 150px;
+      margin: auto;
       border: 1px solid $border-color;
       @include border-radius(100%);
       overflow: hidden;
@@ -35,6 +35,7 @@
 
     .details {
       padding-top: 5px;
+      text-align: center;
 
       h1 {
         margin-bottom: 0;
