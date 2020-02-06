@@ -17,16 +17,43 @@ export default class cookies extends Component {
               <h2>Introduction</h2>
 
               <p>
-                Sochke is a social plateform which enable users to connect with
-                different people around them. And its a digital plateform which
-                empower users to contritubte for their constituencies to make it
-                better place.
+                Sochke App is a technology &amp; data-driven platform that
+                enables citizens to connect with their area minister and
+                minister’s work.
               </p>
 
               <p>
-                Sochke is a digital plateform which is enables user to
-                contritubte for there constituencies to make a better
-                constituency.
+                Sochke is a social platform that enables users to connect with
+                other users. And it's a digital platform that empowers citizens
+                to contribute to their constituencies to make it a better place.
+              </p>
+
+              <p>
+                Agenda: We’ll make politics transparent for the citizens and we
+                want to change the perspective of politics.
+              </p>
+
+              <p>
+                We want to change the perspective of politics and make politics
+                and minister work transparent and accessible every time for
+                users. Instead of word users would believe in data.
+              </p>
+
+              <p>
+                And want to break the hidden wall between common man and
+                minister. Minister should be accessible all the time.
+              </p>
+
+              <p>
+                All of this makes India a more cohesive, participative and
+                involved democracy.
+              </p>
+
+              <p>
+                You can contact with 'Sochke' via email at{" "}
+                <b>
+                  <a href="mailto:">contact@sochke.com</a>
+                </b>
               </p>
             </section>
           </div>

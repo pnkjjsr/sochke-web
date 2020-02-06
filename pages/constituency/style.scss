@@ -12,6 +12,11 @@
       // display: block;
       color: $color-gray;
       font-size: 16px;
+
+      &.highlight {
+        color: $color-safron;
+        font-weight: $font-weight-bold;
+      }
     }
   }
 
