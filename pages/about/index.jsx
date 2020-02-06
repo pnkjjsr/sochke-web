@@ -48,6 +48,13 @@ export default class cookies extends Component {
                 All of this makes India a more cohesive, participative and
                 involved democracy.
               </p>
+
+              <p>
+                You can contact with 'Sochke' via email at{" "}
+                <b>
+                  <a href="mailto:">contact@sochke.com</a>
+                </b>
+              </p>
             </section>
           </div>
         </div>
