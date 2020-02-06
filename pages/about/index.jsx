@@ -30,7 +30,7 @@ export default class cookies extends Component {
 
               <p>
                 Agenda: We’ll make politics transparent for the citizens and we
-                want to change the perspective of politics i.e.
+                want to change the perspective of politics.
               </p>
 
               <p>
