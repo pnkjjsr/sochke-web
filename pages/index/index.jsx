@@ -7,6 +7,7 @@ import homeActions from "./action";
 import userAuth from "utils/userAuth";
 import authSession from "utils/authSession";
 
+import ComponentCongratMinister from "components/Panel/CongratMinister";
 import CandidateList from "components/List/CandidateList";
 import CandidateWinner from "components/Panel/CandidateWinner";
 import CurrentElection from "components/Panel/CurrentElection";
@@ -86,6 +87,15 @@ class Home extends Component {
     });
   };
 
+  renderCongratMinister = () => {
+    const { data } = this.state;
+    return data.mlas.map(minister => {
+      if (minister.winner == true) {
+        return <ComponentCongratMinister key={minister.id} data={minister} />;
+      }
+    });
+  };
+
   render() {
     const { data, profile, respondView } = this.state;
 
@@ -97,11 +107,11 @@ class Home extends Component {
               <div className="col-lg-2 col-xl-2 d-none d-xl-block">
                 {/* <CandidateList type="councillor" data={data.councillors} /> */}
                 <CurrentElection>
-                  <CandidateList
-                    type="mla"
-                    title="2020, your MLA candidate"
-                    data={data.currentCandidates}
-                  />
+                  {!respondView ? (
+                    <LoaderRespond />
+                  ) : (
+                    this.renderCongratMinister()
+                  )}
                 </CurrentElection>
 
                 <CandidateList type="mla" title="MLA" data={data.mlas} />
@@ -132,9 +142,9 @@ class Home extends Component {
                 </div>
 
                 <div className="panel">
-                  <h2 className="title">Your current MLA</h2>
+                  <h2 className="title">Your current MP</h2>
                   <div className="panel-container">
-                    <CandidateWinner type="mla" data={data.mlas} />
+                    <CandidateWinner type="mp" data={data.mps} />
                   </div>
                 </div>
 

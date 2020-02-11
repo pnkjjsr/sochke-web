@@ -112,8 +112,8 @@ class BottomNav extends Component {
                 action={e => this.handleClose("constituency")}
               >
                 <div className={`${mainClass}__panel p-3`}>
-                  <h3 className={`${mainClass}__title`}>Current MLA</h3>
-                  <CandidateWinner type="mla" data={home.mlas} />
+                  {/* <h3 className={`${mainClass}__title`}>Current MP</h3> */}
+                  <CandidateWinner type="mp" data={home.mps} />
                 </div>
 
                 <div className={`${mainClass}__panel-minister`}>
