@@ -74,7 +74,7 @@ class ComponentCongratMinister extends Component {
     return (
       <Fragment>
         <div className={mainClass}>
-          <h6 className={`${mainClass}__heading`}>Congratulation</h6>
+          <h6 className={`${mainClass}__heading`}>Your New MLA</h6>
 
           <Photo src={minister.photoUrl} />
 
