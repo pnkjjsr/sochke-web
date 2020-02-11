@@ -11,6 +11,9 @@
     width: 100px;
     height: 100px;
     margin: auto;
+    border: 1px solid $color-light;
+    @include border-radius(100%);
+    overflow: hidden;
 
     > i {
       color: $color-light;
