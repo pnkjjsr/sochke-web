@@ -154,6 +154,7 @@ export default class Authentication {
       let actionCodeSettings = {
         // localhost below
         // url: `http://localhost:3000/login`,
+        // Firebase authenticate Domain add 'www.sochke.com'
         url: `https://www.${process.env.authDomain}/login`,
         // iOS: {
         //   bundleId: "com.example.ios"
