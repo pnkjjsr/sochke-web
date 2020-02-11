@@ -51,10 +51,11 @@
   }
 
   .name {
-    padding-bottom: 3px;
+    padding-bottom: 10px;
     margin-bottom: 5px;
     border-bottom: 1px solid $border-color;
     font-size: rem(24);
+    line-height: rem(24);
     text-align: center;
   }
 

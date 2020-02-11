@@ -87,14 +87,14 @@ class ConstituencyComponent extends Component {
     return (
       <Fragment>
         <div className={classMain}>
-          <CurrentElection>
+          {/* <CurrentElection>
             <h2 className={`${classMain}__title`}>
               <span>2020, Your constituency MLA candidates,</span>
               <br />
               {area} - {state}
             </h2>
             <div>{this.renderCurrent()}</div>
-          </CurrentElection>
+          </CurrentElection> */}
 
           <h2 className={`${classMain}__title mt-5`}>
             <span>Current position holder,</span> {area} - {state}

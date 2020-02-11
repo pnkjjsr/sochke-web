@@ -1,0 +1,30 @@
+@import "common/styles/global.scss";
+
+.congratMinister {
+  text-align: center;
+
+  &__heading {
+    font-weight: $font-weight-bold;
+  }
+
+  & > figure {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+
+    > i {
+      color: $color-light;
+      font-size: rem(99);
+    }
+  }
+
+  &__name {
+    font-size: rem(16);
+    font-weight: $font-weight-bold;
+  }
+  &__party {
+    margin-bottom: 10px;
+    font-size: rem(12);
+    font-weight: $font-weight-bold;
+  }
+}

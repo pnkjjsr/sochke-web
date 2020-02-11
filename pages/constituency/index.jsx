@@ -95,7 +95,7 @@ class Constituency extends Component {
             <div className="col-lg-9">
               <AccountHead />
 
-              <h1 className="title">
+              {/* <h1 className="title">
                 <span className="highlight">
                   2020, Your constituency MLA candidates,
                 </span>{" "}
@@ -103,7 +103,7 @@ class Constituency extends Component {
               </h1>
               <div className="constituency__ministers">
                 {this.renderCurrent()}
-              </div>
+              </div> */}
 
               <h1 className="title">
                 <span>Current position holder,</span> {area} - {state}

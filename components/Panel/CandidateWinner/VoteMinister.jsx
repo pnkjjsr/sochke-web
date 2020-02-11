@@ -20,7 +20,7 @@ class VoteMinister extends Component {
       <Fragment>
         <div className="photo">
           <Photo src={minister.photoUrl} />
-          <figcaption>Defending Minister</figcaption>
+          <figcaption>Member of parliament</figcaption>
         </div>
 
         <div className="party">
@@ -30,7 +30,7 @@ class VoteMinister extends Component {
 
         <div className="name">{minister.name}</div>
 
-        <div className="tenure">Last 5 Year?</div>
+        {/* <div className="tenure">Last 5 Year?</div> */}
 
         <div className="action">
           <Button
