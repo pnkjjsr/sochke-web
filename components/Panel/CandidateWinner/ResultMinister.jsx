@@ -63,7 +63,7 @@ export class ResultMinister extends Component {
             <br />
             <b className="success">{happy}%,</b> people found him amazing.
             <br />
-            <b className="error">{sad}%,</b> people not found him good.
+            <b className="error">{sad}%,</b> people not agree.
           </div>
         </div>
       </Fragment>
