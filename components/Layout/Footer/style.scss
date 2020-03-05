@@ -40,6 +40,25 @@
     font-size: 10px;
     font-weight: 300;
   }
+
+  .social {
+    a {
+      margin-left: 20px;
+      color: $color-gray;
+      font-size: rem(16);
+      &:hover {
+        &.facebook {
+          color: #3b5998;
+        }
+        &.twitter {
+          color: #00acee;
+        }
+        &.linkedin {
+          color: #0e76a8;
+        }
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(md) {
