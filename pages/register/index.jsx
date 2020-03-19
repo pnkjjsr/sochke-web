@@ -262,9 +262,7 @@ class Register extends Component {
                   {/* Top Text */}
 
                   <h2 className="title">
-                    Social platform to
-                    <br />
-                    contribute in society
+                    Political networking platform for citizens &amp; leaders.
                   </h2>
                 </div>
                 <div className="col-12 col-md-12 col-lg-5">
@@ -401,33 +399,23 @@ class Register extends Component {
                   <div className={`${mainClass}__section`}>
                     <h2 className="title">What is sochke?</h2>
                     <p className="para">
-                      Sochke is social networking platform between people and
-                      ministers, build on user's feedback. With Sochke you will
-                      get all the information about your constituency ministers.
+                      With Sochke, 'Citizens' can raise their voice on real
+                      issues as unity and get all the information about your
+                      constituency ministers. 'Leaders' can prove their work and
+                      connect with their believers.
                     </p>
                   </div>
 
-                  {/* Feedback */}
+                  {/* Society */}
                   <div className={`${mainClass}__section`}>
-                    <h2 className="title">Your feedback, our development!</h2>
+                    <h2 className="title">Contribution In Society</h2>
                     <p className="para">
-                      We are your developers, your feedback is our first
-                      priority. We build what you want about your constituency,
-                      ministers and area progress.
+                      Raise your area issues, share with your area's citizens.
+                      <br />
+                      As unity, vote and validate the problem.
+                      <br />
+                      Find responsible ministers and track the minister’s work.
                     </p>
-
-                    <div className="action">
-                      <button
-                        className="btn btn-primary btn-lg"
-                        onClick={this.handleFeedback}
-                      >
-                        Write your feedback
-                      </button>
-                      {/* <button className="btn btn-link btn-sm">
-                        Support Sochke
-                      </button> */}
-                      {/* <b>Comming Soon</b> */}
-                    </div>
                   </div>
                 </div>
                 <div className="col-12 col-md-4">
@@ -444,7 +432,49 @@ class Register extends Component {
             </div>
           </div>
 
-          {/* Contribution */}
+          {/* Society Graphic */}
+          <div className={`${mainClass}__society d-none d-md-block`}>
+            <div className="container">
+              <div className={`${mainClass}__section m-0`}>
+                <h2 className="title">Build Society Together</h2>
+              </div>
+            </div>
+          </div>
+
+          {/* How Its Work */}
+          <div className={`${mainClass}__works d-none d-md-block`}>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="item raise">
+                    <div className="title">
+                      <b>Raise</b> the problem
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="item validate">
+                    <div className="title">
+                      <b>Validate</b>
+                      <br />
+                      the problem
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="item ask">
+                    <div className="title">
+                      <b>Ask?</b>
+                      <br />
+                      for development
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Contribution */}
           <div className={`${mainClass}__bottom`}>
             <div className="container">
               <div className={`${mainClass}__section m-0`}>

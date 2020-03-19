@@ -63,9 +63,14 @@
     }
   }
 
+  &__society {
+    padding: 10px;
+    background-color: $color-white;
+    text-align: center;
+  }
+
   &__bottom {
     padding: 10px;
-
     background: url("https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fregister%2Fbottom.jpg?alt=media")
       center top no-repeat;
   }
@@ -119,10 +124,80 @@
       }
     }
 
+    &__society {
+      height: 450px;
+      margin-top: -100px;
+      margin-bottom: 50px;
+      background: $color-white
+        url("https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Ftogether.jpg?alt=media")
+        center bottom no-repeat;
+
+      .title {
+        margin-top: 235px;
+        font-size: rem(50);
+        font-weight: $font-weight-black;
+      }
+    }
+
+    &__works {
+      .item {
+        position: relative;
+        margin: auto;
+        margin-bottom: 50px;
+
+        .title {
+          position: absolute;
+          z-index: 1;
+          font-size: rem(50);
+          font-weight: $font-weight-light;
+          line-height: 100%;
+
+          b {
+            font-weight: $font-weight-black;
+          }
+        }
+
+        &.raise {
+          width: 470px;
+          height: 425px;
+          background: url("https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Fraise.jpg?alt=media")
+            center bottom no-repeat;
+
+          .title {
+            bottom: 50px;
+            left: 30px;
+            text-align: center;
+          }
+        }
+        &.validate {
+          width: 599px;
+          height: 421px;
+          background: url("https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Fvalidate.jpg?alt=media")
+            center bottom no-repeat;
+
+          .title {
+            top: 10px;
+            right: 50px;
+          }
+        }
+        &.ask {
+          width: 725px;
+          height: 360px;
+          margin: auto;
+          margin-bottom: 50px;
+          background: url("https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fregister%2Fask.jpg?alt=media")
+            center bottom no-repeat;
+
+          .title {
+            top: 60px;
+            right: 30px;
+          }
+        }
+      }
+    }
+
     &__bottom {
       position: relative;
-
-      margin-top: -100px;
       padding-top: 30px;
     }
   }
@@ -137,10 +212,9 @@
         display: block;
         padding: 0;
         margin: 0;
-        margin-top: 50px;
         margin-bottom: 20px;
         color: $color-primary;
-        font-size: 60px;
+        font-size: rem(60);
         font-weight: $font-weight-light;
         line-height: 130%;
       }
@@ -154,6 +228,7 @@
       }
       .para {
         font-size: rem(30);
+        text-align: left;
       }
     }
 
