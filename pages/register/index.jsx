@@ -402,7 +402,7 @@ class Register extends Component {
                       With Sochke, 'Citizens' can raise their voice on real
                       issues as unity and get all the information about your
                       constituency ministers. 'Leaders' can prove their work and
-                      connect with their belivers.
+                      connect with their believers.
                     </p>
                   </div>
 
@@ -433,7 +433,7 @@ class Register extends Component {
           </div>
 
           {/* Society Graphic */}
-          <div className={`${mainClass}__society`}>
+          <div className={`${mainClass}__society d-none d-md-block`}>
             <div className="container">
               <div className={`${mainClass}__section m-0`}>
                 <h2 className="title">Build Society Together</h2>
@@ -442,7 +442,7 @@ class Register extends Component {
           </div>
 
           {/* How Its Work */}
-          <div className={`${mainClass}__works`}>
+          <div className={`${mainClass}__works d-none d-md-block`}>
             <div className="container">
               <div className="row">
                 <div className="col-md-6">
