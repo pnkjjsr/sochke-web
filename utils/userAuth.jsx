@@ -17,8 +17,13 @@ export default function withAuth(AuthComponent) {
     }
 
     componentDidMount() {
+      let path = Router.pathname;
+
       if (!Auth.loggedIn()) {
         if (screen.width <= 768) {
+          if (path == "/register") {
+            return Router.push("/register");
+          }
           return Router.push("/intro");
         }
         Router.push("/register");

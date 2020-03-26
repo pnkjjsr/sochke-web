@@ -13,6 +13,10 @@ const Header = props => (
       <meta charSet="UTF-8" />
       <title>{`${props.title} | ${props.desc}`}</title>
       <meta name="description" content={props.desc || defaultDescription} />
+      <meta
+        name="keywords"
+        content="Sochke,SochkeApp,Politics,Political,Politician,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda"
+      ></meta>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="google-site-verification"

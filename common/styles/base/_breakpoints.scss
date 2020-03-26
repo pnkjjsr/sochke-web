@@ -6,13 +6,17 @@ $xl: 1200px;
 $lg: 992px;
 $md: 768px;
 $sm: 568px;
-$xs: 320px;
+$xs: 321px;
 
 // BreakPoint Resolution with mobile first approach.
 
 // Above
 @mixin media-breakpoint-up($breakpoint) {
-  @if $breakpoint== "sm" {
+  @if $breakpoint== "xs" {
+    @media (min-width: $xs) {
+      @content;
+    }
+  } @else if $breakpoint== "sm" {
     @media (min-width: $sm) {
       @content;
     }
