@@ -18,6 +18,9 @@ export default function withAuth(AuthComponent) {
 
     componentDidMount() {
       if (!Auth.loggedIn()) {
+        if (screen.width <= 768) {
+          return Router.push("/intro");
+        }
         Router.push("/register");
       } else {
         this.setState({ isLoading: false });

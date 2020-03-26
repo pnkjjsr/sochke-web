@@ -60,11 +60,12 @@ class Layout extends Component {
 
   render() {
     const { loggedIn, isMobile } = this.state;
+    const { pageTitle } = this.props;
 
     return (
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
-        <Header />
+        {pageTitle == "/intro" ? "" : <Header />}
 
         <div onClick={this.handleGlobalSearch}>
           <div className="main">{this.props.children}</div>
