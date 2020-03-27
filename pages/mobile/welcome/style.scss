@@ -1,6 +1,6 @@
 @import "common/styles/global.scss";
 
-.intro {
+.welcome {
   position: fixed;
   top: 0;
   left: 0;
@@ -117,7 +117,7 @@
 }
 
 @include media-breakpoint-up(xs) {
-  .intro {
+  .welcome {
     &__header {
       .logo {
         margin: 20px 0 10px;

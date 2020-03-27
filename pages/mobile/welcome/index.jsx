@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 
+import Router from "next/router";
 import Link from "next/link";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 
 import "./style.scss";
-import { Router } from "next/dist/client/router";
 
 class Splash extends Component {
   constructor(props) {
@@ -13,16 +13,20 @@ class Splash extends Component {
     this.state = {};
   }
 
-  handleContribute = () => {};
+  handleContribute = () => {
+    Router.push("/mobile/contribute");
+  };
 
   render() {
-    const mainClass = "intro";
+    const mainClass = "welcome";
     return (
       <Fragment>
         <div className={mainClass}>
           <header className={`${mainClass}__header`}>
             <div className="logo">
-              <a>{process.env.domain}</a>
+              <Link href="/">
+                <a>{process.env.domain}</a>
+              </Link>
               <span>Alpha</span>
             </div>
             <small>

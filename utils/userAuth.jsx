@@ -24,7 +24,7 @@ export default function withAuth(AuthComponent) {
           if (path == "/register") {
             return Router.push("/register");
           }
-          return Router.push("/intro");
+          return Router.push("/mobile/welcome");
         }
         Router.push("/register");
       } else {

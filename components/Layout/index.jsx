@@ -61,11 +61,18 @@ class Layout extends Component {
   render() {
     const { loggedIn, isMobile } = this.state;
     const { pageTitle } = this.props;
+    let mobile = false;
+    if (
+      pageTitle == "/mobile/welcome" ||
+      pageTitle == "/mobile/contribute" ||
+      pageTitle == "/mobile/register"
+    )
+      mobile = true;
 
     return (
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
-        {pageTitle == "/intro" ? "" : <Header />}
+        {mobile ? "" : <Header />}
 
         <div onClick={this.handleGlobalSearch}>
           <div className="main">{this.props.children}</div>

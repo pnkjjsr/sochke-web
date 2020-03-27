@@ -1,0 +1,21 @@
+@import "common/styles/global.scss";
+
+.register {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $bg-body;
+
+  &__header {
+  }
+
+  &__footer {
+  }
+}
+
+@include media-breakpoint-up(xs) {
+  .register {
+  }
+}

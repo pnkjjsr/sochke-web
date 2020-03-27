@@ -1,0 +1,94 @@
+@import "common/styles/global.scss";
+
+.contribute {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $bg-body;
+
+  &__header {
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: space-between;
+    margin: 10px 0 10px;
+    padding: 0 10px;
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      color: $color-primary;
+      font-size: rem(24);
+      font-weight: $font-weight-black;
+      text-align: center;
+
+      > a {
+        line-height: 100%;
+      }
+
+      > span {
+        font-size: rem(12);
+        font-weight: $font-weight;
+      }
+    }
+
+    .account {
+      position: absolute;
+      z-index: $header;
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  &__contribution {
+    min-width: 300px;
+    height: 400px;
+    margin: 0 10px 10px 10px;
+    @include border-radius(20px);
+    box-shadow: 3.5px 3.5px 10px 0 rgba(0, 0, 0, 0.3);
+    background-image: linear-gradient(to top, #000000, #ffffff);
+    overflow: hidden;
+  }
+
+  &__footer {
+    .top {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 10px;
+
+      .btn {
+        min-width: 90px;
+        font-size: rem(16);
+        font-weight: $font-weight-bold;
+        text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .bot {
+      text-align: center;
+      .add {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin: auto;
+        @include border-radius(100%);
+        box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+
+        svg {
+          // background-image: linear-gradient(to top, #000088, #8e2de2);
+          font-size: rem(50);
+          line-height: 0;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(xs) {
+  .contribute {
+  }
+}
