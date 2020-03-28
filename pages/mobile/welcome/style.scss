@@ -8,37 +8,6 @@
   height: 100%;
   background-color: $bg-body;
 
-  &__header {
-    text-align: center;
-    .logo {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-start;
-      margin-top: 10px;
-      color: $color-primary;
-      font-size: rem(50);
-      font-weight: $font-weight-black;
-      text-align: center;
-      > a {
-        line-height: 100%;
-      }
-
-      > span {
-        font-size: rem(14);
-        font-weight: $font-weight-light;
-      }
-    }
-
-    > small {
-      display: block;
-      padding: 0 20px;
-      font-size: rem(20);
-      font-weight: $font-weight-light;
-      line-height: 120%;
-    }
-  }
-
   &__photo {
     text-align: center;
 
@@ -76,44 +45,6 @@
       }
     }
   }
-
-  &__footer {
-    position: absolute;
-    z-index: $footer;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 10px;
-    margin-bottom: 5px;
-
-    > .copy {
-      color: $color-gray-light;
-      font-size: rem(14);
-    }
-
-    > .social {
-      a {
-        margin-left: 15px;
-        color: $color-gray;
-        font-size: rem(16);
-        &:hover {
-          &.facebook {
-            color: #3b5998;
-          }
-          &.twitter {
-            color: #00acee;
-          }
-          &.linkedin {
-            color: #0e76a8;
-          }
-        }
-      }
-    }
-  }
 }
 
 @include media-breakpoint-up(xs) {
@@ -131,8 +62,6 @@
       margin-bottom: 20px;
     }
     &__enter {
-    }
-    &__footer {
     }
   }
 }

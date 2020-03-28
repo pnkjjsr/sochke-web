@@ -2,7 +2,9 @@ import React, { Component, Fragment } from "react";
 
 import Router from "next/router";
 import Link from "next/link";
-import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 import "./style.scss";
 
@@ -22,18 +24,7 @@ class Splash extends Component {
     return (
       <Fragment>
         <div className={mainClass}>
-          <header className={`${mainClass}__header`}>
-            <div className="logo">
-              <Link href="/">
-                <a>{process.env.domain}</a>
-              </Link>
-              <span>Alpha</span>
-            </div>
-            <small>
-              Political Networking Platform Contribute, Connect &amp; Build
-              Healthy Democracy.
-            </small>
-          </header>
+          <Header sub="Political Networking Platform Contribute, Connect &amp; Build Healthy Democracy." />
 
           <div className={`${mainClass}__photo`}>
             <figure>
@@ -61,26 +52,7 @@ class Splash extends Component {
             </div>
           </div>
 
-          <footer className={`${mainClass}__footer`}>
-            <div className="copy">© 2019 Sochke</div>
-            <div className="social">
-              <Link href="https://www.facebook.com/sochkeApp">
-                <a className="facebook" target="_blank">
-                  <FaFacebookF />
-                </a>
-              </Link>
-              <Link href="https://www.twitter.com/sochkeApp">
-                <a className="twitter" target="_blank">
-                  <FaTwitter />
-                </a>
-              </Link>
-              <Link href="https://www.linkedin.com/company/sochke">
-                <a className="linkedin" target="_blank">
-                  <FaLinkedinIn />
-                </a>
-              </Link>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </Fragment>
     );

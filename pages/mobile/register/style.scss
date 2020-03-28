@@ -8,10 +8,15 @@
   height: 100%;
   background-color: $bg-body;
 
-  &__header {
-  }
+  &__skip {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 10px;
 
-  &__footer {
+    a {
+      color: $color-gray-light;
+    }
   }
 }
 
