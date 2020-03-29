@@ -50,8 +50,11 @@ class Contribute extends Component {
               <Button text="Pass" variant="btn-outline-primary" />
             </div>
             <div className="bot">
-              <div className="add">
-                <TiPlus onClick={this.handleRegister} />
+              <div className="add" onClick={this.handleRegister}>
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fadd.gif?alt=media"
+                  alt="Add Contribute"
+                />
               </div>
             </div>
           </footer>
