@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { TiPlus } from "react-icons/ti";
+import { FaInfoCircle } from "react-icons/fa";
 import Router from "next/router";
 
 import Link from "next/link";
@@ -41,7 +41,19 @@ class Contribute extends Component {
             </div>
           </header>
 
-          <div className={`${mainClass}__contribution`}></div>
+          <div className={`${mainClass}__contribution`}>
+            <div className="bot">
+              <FaInfoCircle className="info" />
+
+              <div className="detail">
+                <Photo className="photo" />
+                <div>
+                  <h4 className="title">Pankaj jasoria</h4>
+                  <p>Isn’t road side slum is not a problem for goverment?</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <footer className={`${mainClass}__footer`}>
             <div className="top">
