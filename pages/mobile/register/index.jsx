@@ -8,6 +8,12 @@ import RegisterComponent from "../components/Register";
 import "./style.scss";
 
 class Register extends Component {
+  static getDerivedStateFromProps(props, state) {}
+
+  componentDidMount() {
+    if (screen.width >= 768) Router.push("/");
+  }
+
   render() {
     const mainClass = "register";
     return (

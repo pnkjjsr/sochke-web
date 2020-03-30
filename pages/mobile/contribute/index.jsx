@@ -19,6 +19,10 @@ class Contribute extends Component {
     Router.push("/mobile/register");
   };
 
+  componentDidMount() {
+    if (screen.width >= 768) Router.push("/");
+  }
+
   render() {
     const mainClass = "contribute";
     return (

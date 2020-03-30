@@ -6,7 +6,7 @@ import "./style.scss";
 
 export default class Footer extends Component {
   render() {
-    const mainClass = "footer";
+    const mainClass = "component_footer";
     return (
       <footer className={mainClass}>
         <div className="copy">© 2019 Sochke</div>

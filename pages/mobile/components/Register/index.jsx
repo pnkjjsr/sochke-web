@@ -25,7 +25,7 @@ export default class index extends Component {
     this.setState({ showPassword: true });
   };
 
-  handleMouseDownPassword = event => {
+  handleMouseDownPassword = () => {
     this.setState({ showPassword: false });
   };
 

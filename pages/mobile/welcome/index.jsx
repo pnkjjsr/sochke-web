@@ -19,6 +19,10 @@ class Splash extends Component {
     Router.push("/mobile/contribute");
   };
 
+  componentDidMount() {
+    if (screen.width >= 768) Router.push("/");
+  }
+
   render() {
     const mainClass = "welcome";
     return (

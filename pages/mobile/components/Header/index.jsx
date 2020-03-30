@@ -4,7 +4,7 @@ import "./style.scss";
 
 export default class Header extends Component {
   render() {
-    const mainClass = "header";
+    const mainClass = "component_header";
     return (
       <header className={mainClass}>
         <div className="logo">
