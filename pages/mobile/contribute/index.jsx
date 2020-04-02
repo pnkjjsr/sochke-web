@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import Router from "next/router";
 
+import { service } from "apiConnect";
 import Link from "next/link";
 import Photo from "components/Photo";
 import Button from "components/Form/Button";
@@ -12,19 +13,88 @@ class Contribute extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      contributeActive: 0,
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    if (screen.width >= 768) Router.push("/");
+
+    service
+      .get("/page-contributionPublic")
+      .then(res => {
+        this.setState({
+          data: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleRegister = () => {
     Router.push("/mobile/register");
   };
 
-  componentDidMount() {
-    if (screen.width >= 768) Router.push("/");
-  }
+  handleVote = e => {};
+
+  renderContribute = () => {
+    const { data, contributeActive } = this.state;
+    const mainClass = "contribute";
+    let len = data.length;
+    return data.map((contribute, key) => {
+      let classActive = "";
+      if (contributeActive == key) classActive = "active";
+      return (
+        <div
+          key={contribute.id}
+          className={`${mainClass}__contribution ${classActive}`}
+        >
+          <div className={`item`}>
+            <figure className="image">
+              <img src={contribute.imgUrl} alt="" />
+            </figure>
+
+            <div className="bot">
+              <FaInfoCircle className="info" />
+
+              <div className="detail">
+                <Photo className="photo" />
+                <div>
+                  <h4 className="title">Pankaj jasoria</h4>
+                  <p>{contribute.title}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="action">
+            <Button
+              text="Agree"
+              variant="btn-success"
+              action={this.handleVote("true")}
+            />
+            <Button
+              text="Disagree"
+              variant="btn-danger"
+              action={this.handleVote("false")}
+            />
+            <Button
+              text="Pass"
+              variant="btn-outline-primary"
+              action={this.handleVote("pass")}
+            />
+          </div>
+        </div>
+      );
+    });
+  };
 
   render() {
     const mainClass = "contribute";
+
     return (
       <Fragment>
         <div className={mainClass}>
@@ -45,26 +115,9 @@ class Contribute extends Component {
             </div>
           </header>
 
-          <div className={`${mainClass}__contribution`}>
-            <div className="bot">
-              <FaInfoCircle className="info" />
-
-              <div className="detail">
-                <Photo className="photo" />
-                <div>
-                  <h4 className="title">Pankaj jasoria</h4>
-                  <p>Isn’t road side slum is not a problem for goverment?</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {this.renderContribute()}
 
           <footer className={`${mainClass}__footer`}>
-            <div className="top">
-              <Button text="Agree" variant="btn-success" />
-              <Button text="Disagree" variant="btn-danger" />
-              <Button text="Pass" variant="btn-outline-primary" />
-            </div>
             <div className="bot">
               <div className="add" onClick={this.handleRegister}>
                 <img
