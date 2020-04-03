@@ -148,6 +148,11 @@
   }
 
   &__footer {
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+
     .bot {
       text-align: center;
       .add {

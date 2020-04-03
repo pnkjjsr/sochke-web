@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import Router from "next/router";
+import publicIp from "public-ip";
 
 import { service } from "apiConnect";
 import Link from "next/link";
@@ -15,12 +16,24 @@ class Contribute extends Component {
 
     this.state = {
       contributeActive: 0,
-      data: []
+      data: [],
+      userIP: ""
     };
+  }
+
+  static async getInitialProps({ req, res }) {
+    return true;
   }
 
   componentDidMount() {
     if (screen.width >= 768) Router.push("/");
+
+    (async () => {
+      let userIP = await publicIp.v4();
+      this.setState({
+        userIP: userIP
+      });
+    })();
 
     service
       .get("/page-contributionPublic")
@@ -38,7 +51,28 @@ class Contribute extends Component {
     Router.push("/mobile/register");
   };
 
-  handleVote = e => {};
+  handleVote = (id, vote) => {
+    const { userIP, contributeActive } = this.state;
+    let data = {
+      createdAt: new Date().toISOString(),
+      userIP: userIP,
+      cpid: id,
+      vote: vote
+    };
+
+    service
+      .post("/contributionPublic-vote", data)
+      .then(res => {
+        if (res.data.code == "vote/added") {
+          this.setState({
+            contributeActive: contributeActive + 1
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   renderContribute = () => {
     const { data, contributeActive } = this.state;
@@ -74,17 +108,17 @@ class Contribute extends Component {
             <Button
               text="Agree"
               variant="btn-success"
-              action={this.handleVote("true")}
+              action={e => this.handleVote(contribute.id, "agree")}
             />
             <Button
               text="Disagree"
               variant="btn-danger"
-              action={this.handleVote("false")}
+              action={e => this.handleVote(contribute.id, "disagree")}
             />
             <Button
               text="Pass"
               variant="btn-outline-primary"
-              action={this.handleVote("pass")}
+              action={e => this.handleVote(contribute.id, "pass")}
             />
           </div>
         </div>
