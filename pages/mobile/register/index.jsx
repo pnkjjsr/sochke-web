@@ -19,7 +19,7 @@ class Register extends Component {
     return (
       <div className={mainClass}>
         <div className={`${mainClass}__skip`}>
-          <Link href="/register">
+          <Link href="/mobile/contribute">
             <a>Skip</a>
           </Link>
         </div>

@@ -17,7 +17,7 @@ class Contribute extends Component {
     this.state = {
       contributeActive: 0,
       data: [],
-      userIP: ""
+      userIP: "",
     };
   }
 
@@ -31,18 +31,28 @@ class Contribute extends Component {
     (async () => {
       let userIP = await publicIp.v4();
       this.setState({
-        userIP: userIP
+        userIP: userIP,
       });
     })();
 
+    let getTry = sessionStorage.getItem("contributionTry");
+    if (getTry == "done") {
+      this.setState({
+        contributeActive: 3,
+      });
+    }
+    if (getTry == "all-done") {
+      Router.push("/mobile/completed");
+    }
+
     service
       .get("/page-contributionPublic")
-      .then(res => {
+      .then((res) => {
         this.setState({
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -52,24 +62,39 @@ class Contribute extends Component {
   };
 
   handleVote = (id, vote) => {
-    const { userIP, contributeActive } = this.state;
-    let data = {
+    const { data, userIP, contributeActive } = this.state;
+    let cpData = {
       createdAt: new Date().toISOString(),
       userIP: userIP,
       cpid: id,
-      vote: vote
+      vote: vote,
     };
 
     service
-      .post("/contributionPublic-vote", data)
-      .then(res => {
+      .post("/contributionPublic-vote", cpData)
+      .then((res) => {
         if (res.data.code == "vote/added") {
-          this.setState({
-            contributeActive: contributeActive + 1
-          });
+          this.setState(
+            {
+              contributeActive: contributeActive + 1,
+            },
+            () => {
+              let len = data.length;
+              if (len == this.state.contributeActive) {
+                sessionStorage.setItem("contributionTry", "all-done");
+                Router.push("/mobile/completed");
+              }
+
+              if (contributeActive == 2) {
+                Router.push("/mobile/register");
+                sessionStorage.setItem("contributionTry", "done");
+                return true;
+              }
+            }
+          );
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -77,7 +102,7 @@ class Contribute extends Component {
   renderContribute = () => {
     const { data, contributeActive } = this.state;
     const mainClass = "contribute";
-    let len = data.length;
+
     return data.map((contribute, key) => {
       let classActive = "";
       if (contributeActive == key) classActive = "active";
@@ -108,17 +133,17 @@ class Contribute extends Component {
             <Button
               text="Agree"
               variant="btn-success"
-              action={e => this.handleVote(contribute.id, "agree")}
+              action={(e) => this.handleVote(contribute.id, "agree")}
             />
             <Button
               text="Disagree"
               variant="btn-danger"
-              action={e => this.handleVote(contribute.id, "disagree")}
+              action={(e) => this.handleVote(contribute.id, "disagree")}
             />
             <Button
               text="Pass"
               variant="btn-outline-primary"
-              action={e => this.handleVote(contribute.id, "pass")}
+              action={(e) => this.handleVote(contribute.id, "pass")}
             />
           </div>
         </div>
