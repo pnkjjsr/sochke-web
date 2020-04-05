@@ -113,7 +113,7 @@
         @extend %border-none;
       }
       .MuiSelect-root {
-        padding: 15px 0 14px 12px;
+        padding: 18px 0 11px 12px;
       }
 
       &.MuiInputBase-adornedEnd {
@@ -123,7 +123,7 @@
         .MuiInputBase-inputAdornedEnd {
           height: 35px;
           margin-top: 0;
-          padding-left: 12px;
+          padding: 13px 12px 0px;
         }
       }
 

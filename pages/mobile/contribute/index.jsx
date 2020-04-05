@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import Link from "next/link";
 import Router from "next/router";
 import publicIp from "public-ip";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import registerActions from "pages/register/action";
+import layoutActions from "components/Layout/actions";
 
 import { service } from "apiConnect";
-import Link from "next/link";
 import Photo from "components/Photo";
 import Button from "components/Form/Button";
 
@@ -13,7 +17,6 @@ import "./style.scss";
 class Contribute extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       contributeActive: 0,
       data: [],
@@ -21,12 +24,19 @@ class Contribute extends Component {
     };
   }
 
-  static async getInitialProps({ req, res }) {
-    return true;
+  static getDerivedStateFromProps(props, state) {
+    const { register } = props;
+    if (register.view === 1) {
+      Router.push("/");
+    }
+    return null;
   }
 
   componentDidMount() {
     if (screen.width >= 768) Router.push("/");
+    const { registerAction, path, layoutAction } = this.props;
+    layoutAction.update_path(path);
+    registerAction.check_login();
 
     (async () => {
       let userIP = await publicIp.v4();
@@ -192,4 +202,9 @@ class Contribute extends Component {
   }
 }
 
-export default Contribute;
+const mapDispatchToProps = (dispatch) => ({
+  registerAction: bindActionCreators(registerActions, dispatch),
+  layoutAction: bindActionCreators(layoutActions, dispatch),
+});
+
+export default connect((state) => state, mapDispatchToProps)(Contribute);

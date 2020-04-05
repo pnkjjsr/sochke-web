@@ -39,7 +39,7 @@ class Register extends Component {
       pincodeErr: "",
       emailErr: "",
       passwordErr: "",
-      mobileErr: ""
+      mobileErr: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,7 +68,7 @@ class Register extends Component {
     registerAction.check_login();
 
     const data = {
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     // service
@@ -93,7 +93,7 @@ class Register extends Component {
     this.setState({
       [elem]: e.target.value,
       [err]: "",
-      [msg]: ""
+      [msg]: "",
     });
   }
 
@@ -106,21 +106,21 @@ class Register extends Component {
       mobile,
       pincode,
       area,
-      password
+      password,
     });
 
     if (!valid) {
       notification.showNotification({
         code: "",
         message: "Please enter the details.",
-        type: "danger"
+        type: "danger",
       });
-      Object.keys(errors).map(e => {
+      Object.keys(errors).map((e) => {
         var err = e + "Err";
         var msg = e + "Msg";
         this.setState({
           [err]: "error",
-          [msg]: errors[e]
+          [msg]: errors[e],
         });
       });
       return;
@@ -129,23 +129,23 @@ class Register extends Component {
     const auth = new authentication();
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(res => {
+      .then((res) => {
         if (res.code) {
           notification.showNotification({
             code: res.code,
             message: res.message,
-            type: "danger"
+            type: "danger",
           });
 
           if (res.code == "auth/email-already-in-use") {
             this.setState({
               emailErr: "error",
-              emailMsg: res.message
+              emailMsg: res.message,
             });
           } else if (res.code == "auth/weak-password") {
             this.setState({
               passwordErr: "error",
-              passwordMsg: res.message
+              passwordMsg: res.message,
             });
           }
         } else {
@@ -164,7 +164,7 @@ class Register extends Component {
             division: locations[0].division,
             state: locations[0].state,
             pincode: pincode,
-            country: "India"
+            country: "India",
           };
 
           let bytesPassword = utf8.encode(password);
@@ -181,32 +181,32 @@ class Register extends Component {
             division: locations[0].division,
             state: locations[0].state,
             pincode: pincode,
-            country: "India"
+            country: "India",
           };
           service
             .post("/signup", apiData)
-            .then(res => {
+            .then((res) => {
               session.setToken(token);
               session.setProfile(res.data);
               loginAction.authenticate(data);
               auth.sendEmailVerification();
               Router.push("/constituency");
             })
-            .catch(async error => {
+            .catch(async (error) => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]];
               let obj = {
                 message: msg,
-                type: "danger"
+                type: "danger",
               };
               notification.showNotification(obj);
             });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         let obj = {
           message: error,
-          type: "danger"
+          type: "danger",
         };
         notification.showNotification(obj);
       });
@@ -238,7 +238,7 @@ class Register extends Component {
       pincodeErr,
       emailErr,
       passwordErr,
-      mobileErr
+      mobileErr,
     } = this.state;
     const { register } = this.props;
     let locations = register.area;
@@ -513,11 +513,11 @@ class Register extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   registerAction: bindActionCreators(registerActions, dispatch),
   loginAction: bindActionCreators(loginActions, dispatch),
   notification: bindActionCreators(notification, dispatch),
-  layoutAction: bindActionCreators(layoutActions, dispatch)
+  layoutAction: bindActionCreators(layoutActions, dispatch),
 });
 
-export default connect(state => state, mapDispatchToProps)(Register);
+export default connect((state) => state, mapDispatchToProps)(Register);

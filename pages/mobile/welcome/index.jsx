@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react";
-
-import Router from "next/router";
 import Link from "next/link";
+import Router from "next/router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import registerActions from "pages/register/action";
+import layoutActions from "components/Layout/actions";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -15,13 +18,25 @@ class Splash extends Component {
     this.state = {};
   }
 
-  handleContribute = () => {
-    Router.push("/mobile/contribute");
-  };
+  static getDerivedStateFromProps(props, state) {
+    const { register } = props;
+
+    if (register.view === 1) {
+      Router.push("/");
+    }
+    return null;
+  }
 
   componentDidMount() {
     if (screen.width >= 768) Router.push("/");
+    const { registerAction, path, layoutAction } = this.props;
+    layoutAction.update_path(path);
+    registerAction.check_login();
   }
+
+  handleContribute = () => {
+    Router.push("/mobile/contribute");
+  };
 
   render() {
     const mainClass = "welcome";
@@ -62,5 +77,9 @@ class Splash extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  registerAction: bindActionCreators(registerActions, dispatch),
+  layoutAction: bindActionCreators(layoutActions, dispatch),
+});
 
-export default Splash;
+export default connect((state) => state, mapDispatchToProps)(Splash);
