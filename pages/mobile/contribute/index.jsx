@@ -14,6 +14,33 @@ import Button from "components/Form/Button";
 
 import "./style.scss";
 
+const randomData = {
+  0: {
+    name: "Pankaj Jasoria",
+    imgUrl: "/static/dummy/26.jpg",
+  },
+  1: {
+    name: "Pawan",
+    imgUrl: "/static/dummy/58.jpg",
+  },
+  2: {
+    name: "Rahul Kumar",
+    imgUrl: "/static/dummy/65.jpg",
+  },
+  3: {
+    name: "Neha Tyagi",
+    imgUrl: "/static/dummy/15.jpg",
+  },
+  4: {
+    name: "Vinod Sharma",
+    imgUrl: "/static/dummy/69.jpg",
+  },
+  5: {
+    name: "Rakesh Jha",
+    imgUrl: "/static/dummy/77.jpg",
+  },
+};
+
 class Contribute extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +49,8 @@ class Contribute extends Component {
       data: [],
       userIP: "",
       classDesc: "",
+      userName: "",
+      userImg: "",
     };
   }
 
@@ -38,6 +67,8 @@ class Contribute extends Component {
     const { registerAction, path, layoutAction } = this.props;
     layoutAction.update_path(path);
     registerAction.check_login();
+
+    this.renderRandomUser();
 
     (async () => {
       let userIP = await publicIp.v4();
@@ -89,7 +120,9 @@ class Contribute extends Component {
             {
               contributeActive: contributeActive + 1,
             },
+
             () => {
+              this.renderRandomUser();
               let len = data.length;
               if (len == this.state.contributeActive) {
                 sessionStorage.setItem("contributionTry", "all-done");
@@ -122,8 +155,20 @@ class Contribute extends Component {
     });
   };
 
+  renderRandomUser = () => {
+    let len = Object.keys(randomData).length;
+    let getRandom = Math.floor(Math.random() * len);
+    let name = randomData[getRandom].name;
+    let img = randomData[getRandom].imgUrl;
+
+    this.setState({
+      userName: name,
+      userImg: img,
+    });
+  };
+
   renderContribute = () => {
-    const { data, contributeActive, classDesc } = this.state;
+    const { data, contributeActive, classDesc, userName, userImg } = this.state;
     const mainClass = "mobile_contribute";
 
     return data.map((contribute, key) => {
@@ -141,7 +186,7 @@ class Contribute extends Component {
 
             <div className={`desc ${classDesc}`}>
               <div className="hide" onClick={this.handleDescHide}>
-                <span class="material-icons">cancel</span>
+                <span className="material-icons">cancel</span>
               </div>
 
               {contribute.description}
@@ -151,9 +196,9 @@ class Contribute extends Component {
               <FaInfoCircle className="info" onClick={this.handleDescShow} />
 
               <div className="detail">
-                <Photo className="photo" />
+                <Photo className="photo" src={userImg} />
                 <div>
-                  <h4 className="title">Pankaj jasoria</h4>
+                  <h4 className="title">{userName}</h4>
                   <p>{contribute.title}</p>
                 </div>
               </div>
