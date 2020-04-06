@@ -24,7 +24,7 @@ class Register extends Component {
     if (register.view === 1) {
       Router.push("/");
     }
-    return null;
+    return true;
   }
 
   componentDidMount() {
@@ -35,7 +35,7 @@ class Register extends Component {
   }
 
   render() {
-    const mainClass = "register";
+    const mainClass = "mobile_register";
     return (
       <div className={mainClass}>
         <div className={`${mainClass}__skip`}>

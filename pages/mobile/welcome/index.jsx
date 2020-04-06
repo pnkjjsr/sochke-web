@@ -39,7 +39,7 @@ class Splash extends Component {
   };
 
   render() {
-    const mainClass = "welcome";
+    const mainClass = "mobile_welcome";
     return (
       <Fragment>
         <div className={mainClass}>

@@ -21,6 +21,7 @@ class Contribute extends Component {
       contributeActive: 0,
       data: [],
       userIP: "",
+      classDesc: "",
     };
   }
 
@@ -29,7 +30,7 @@ class Contribute extends Component {
     if (register.view === 1) {
       Router.push("/");
     }
-    return null;
+    return true;
   }
 
   componentDidMount() {
@@ -109,9 +110,21 @@ class Contribute extends Component {
       });
   };
 
+  handleDescShow = () => {
+    this.setState({
+      classDesc: "active",
+    });
+  };
+
+  handleDescHide = () => {
+    this.setState({
+      classDesc: "",
+    });
+  };
+
   renderContribute = () => {
-    const { data, contributeActive } = this.state;
-    const mainClass = "contribute";
+    const { data, contributeActive, classDesc } = this.state;
+    const mainClass = "mobile_contribute";
 
     return data.map((contribute, key) => {
       let classActive = "";
@@ -126,8 +139,16 @@ class Contribute extends Component {
               <img src={contribute.imgUrl} alt="" />
             </figure>
 
+            <div className={`desc ${classDesc}`}>
+              <div className="hide" onClick={this.handleDescHide}>
+                <span class="material-icons">cancel</span>
+              </div>
+
+              {contribute.description}
+            </div>
+
             <div className="bot">
-              <FaInfoCircle className="info" />
+              <FaInfoCircle className="info" onClick={this.handleDescShow} />
 
               <div className="detail">
                 <Photo className="photo" />
@@ -162,7 +183,7 @@ class Contribute extends Component {
   };
 
   render() {
-    const mainClass = "contribute";
+    const mainClass = "mobile_contribute";
 
     return (
       <Fragment>

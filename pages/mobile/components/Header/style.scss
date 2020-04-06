@@ -31,3 +31,14 @@
     line-height: 120%;
   }
 }
+
+@include media-breakpoint-up(xs) {
+  .component_header {
+    margin-bottom: 20px;
+
+    .logo {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
+}

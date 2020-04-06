@@ -1,6 +1,6 @@
 @import "common/styles/global.scss";
 
-.register {
+.mobile_register {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,6 +21,6 @@
 }
 
 @include media-breakpoint-up(xs) {
-  .register {
+  .mobile_register {
   }
 }
