@@ -17,31 +17,30 @@ export default class cookies extends Component {
               <h2>Introduction</h2>
 
               <p>
-                Sochke App is a technology &amp; data-driven platform that
-                enables citizens to connect with their area minister and
-                minister’s work.
+                Sochke is a technology and data-driven platform that enables
+                citizens to connect with their area minister and minister’s
+                work, experience and background.
               </p>
 
               <p>
-                Sochke is a social platform that enables users to connect with
-                other users. And it's a digital platform that empowers citizens
-                to contribute to their constituencies to make it a better place.
+                Sochke is a networking platform that enables users to connect
+                with other users. And it's a digital platform that empowers
+                citizens to contribute to their constituencies to make it a
+                better place.
               </p>
 
-              <p>
-                Agenda: We’ll make politics transparent for the citizens and we
-                want to change the perspective of politics.
-              </p>
+              <p>We’ll make politics transparent for the citizens.</p>
 
               <p>
                 We want to change the perspective of politics and make politics
                 and minister work transparent and accessible every time for
-                users. Instead of word users would believe in data.
+                citizens. Instead of the minister's word, citizens will believe
+                in data.
               </p>
 
               <p>
-                And want to break the hidden wall between common man and
-                minister. Minister should be accessible all the time.
+                And want to break the hidden wall between the common man and
+                minister. Ministers should be accessible all the time.
               </p>
 
               <p>
