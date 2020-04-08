@@ -254,6 +254,10 @@ class Contribute extends Component {
 
           <footer className={`${mainClass}__footer`}>
             <div className="bot">
+              <label>
+                <small>Add Your</small>
+                <br /> Contribute
+              </label>
               <div className="add" onClick={this.handleRegister}>
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fadd.gif?alt=media"
