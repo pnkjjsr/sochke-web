@@ -68,8 +68,6 @@ class Contribute extends Component {
     layoutAction.update_path(path);
     registerAction.check_login();
 
-    this.renderRandomUser();
-
     (async () => {
       let userIP = await publicIp.v4();
       this.setState({
@@ -105,13 +103,13 @@ class Contribute extends Component {
 
   handleVote = (id, vote) => {
     const { data, userIP, contributeActive } = this.state;
+
     let cpData = {
       createdAt: new Date().toISOString(),
       userIP: userIP,
       cpid: id,
       vote: vote,
     };
-
     service
       .post("/contributionPublic-vote", cpData)
       .then((res) => {
@@ -120,9 +118,7 @@ class Contribute extends Component {
             {
               contributeActive: contributeActive + 1,
             },
-
             () => {
-              this.renderRandomUser();
               let len = data.length;
               if (len == this.state.contributeActive) {
                 sessionStorage.setItem("contributionTry", "all-done");
@@ -158,20 +154,20 @@ class Contribute extends Component {
   renderRandomUser = () => {
     let len = Object.keys(randomData).length;
     let getRandom = Math.floor(Math.random() * len);
-    let name = randomData[getRandom].name;
-    let img = randomData[getRandom].imgUrl;
-
-    this.setState({
-      userName: name,
-      userImg: img,
-    });
+    return {
+      userName: randomData[getRandom].name,
+      userImg: randomData[getRandom].imgUrl,
+    };
   };
 
   renderContribute = () => {
-    const { data, contributeActive, classDesc, userName, userImg } = this.state;
+    const { data, contributeActive, classDesc } = this.state;
     const mainClass = "mobile_contribute";
 
     return data.map((contribute, key) => {
+      const { userName, userImg } = this.renderRandomUser();
+      // console.log(userName, userImg);
+
       let classActive = "";
       if (contributeActive == key) classActive = "active";
       return (

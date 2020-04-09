@@ -83,7 +83,9 @@
         margin: 0;
 
         > img {
+          width: 100%;
           max-width: 100%;
+          height: 100%;
           max-height: 100%;
         }
       }
@@ -138,12 +140,29 @@
         bottom: 0;
         width: 100%;
         padding: 0 15px 10px;
+        /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+99&0+0,1+99 */
+        background: -moz-linear-gradient(
+          top,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+          top,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 1) 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
         color: $color-white;
 
         .info {
           float: right;
           font-size: rem(24);
-          box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
         }
 
         .detail {
@@ -153,7 +172,7 @@
           align-items: flex-start;
 
           > figure {
-            width: 50px;
+            width: 30px;
             height: 30px;
             margin-right: 10px;
             @include border-radius(100%);
@@ -169,15 +188,17 @@
           }
 
           > div {
+            width: calc(100% - 30px);
+
             .title {
               margin-bottom: 5px;
               font-size: $font-size;
               font-weight: $font-weight-black;
-              text-shadow: 2.1px 2.1px 0 rgba(0, 0, 0, 0.3);
+              text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 1);
             }
             p {
               font-size: rem(14);
-              text-shadow: 2.1px 2.1px 0 rgba(0, 0, 0, 0.3);
+              text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 1);
               line-height: rem(14);
             }
           }

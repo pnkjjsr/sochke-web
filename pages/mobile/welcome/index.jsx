@@ -43,7 +43,13 @@ class Splash extends Component {
     return (
       <Fragment>
         <div className={mainClass}>
-          <Header sub="Raise Social Issues, Contribute, Connect &amp; Build Healthy Democracy." />
+          <Header sub="" />
+
+          <h1 className={`${mainClass}__heading`}>
+            Raise Societal Issues.
+            <br />
+            Contribute, Connect &amp; Build Healthy Democracy.
+          </h1>
 
           <div className={`${mainClass}__photo`}>
             <figure>
