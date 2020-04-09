@@ -256,7 +256,7 @@ class Contribute extends Component {
             <div className="bot">
               <label>
                 <small>Add Your</small>
-                <br /> Contribute
+                <br /> Contribution
               </label>
               <div className="add" onClick={this.handleRegister}>
                 <img

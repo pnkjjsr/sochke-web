@@ -42,23 +42,29 @@ class Completed extends Component {
     return (
       <Fragment>
         <div className={mainClass}>
-          <Header sub="You have completed all the contribution." />
+          <div className={`${mainClass}__heading`}>
+            Hi, you have seen contributions of others.
+          </div>
 
           <div className={`${mainClass}__photo`}>
             <figure>
               <img
-                src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fwhy.gif?alt=media"
+                src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fcomplete.gif?alt=media"
                 alt="Sochke | Why"
               />
             </figure>
           </div>
+
+          <p className={`${mainClass}__para`}>
+            Now, it's your time to contribute to your society. Let's develop our
+            nation "Together"!
+          </p>
 
           <div className={`${mainClass}__enter`}>
             <button
               className="btn btn-lg btn-success"
               onClick={this.handleContribute}
             >
-              <small>I want to contribute to society</small>
               <span>Create My Account</span>
             </button>
 

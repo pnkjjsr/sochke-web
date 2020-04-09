@@ -18,6 +18,15 @@
       color: $color-gray-light;
     }
   }
+
+  &__sub {
+    margin-bottom: 20px;
+    padding: 0 5px;
+    font-size: rem(20);
+    font-weight: $font-weight-light;
+    line-height: 25px;
+    text-align: center;
+  }
 }
 
 @include media-breakpoint-up(xs) {

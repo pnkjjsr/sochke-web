@@ -43,7 +43,12 @@ class Register extends Component {
             <a>Skip</a>
           </Link>
         </div>
-        <Header sub="Sign Up. Contribute societal issues &amp; evaluate political leaders." />
+        <Header sub="" />
+        <div className={`${mainClass}__sub`}>
+          Sign Up. Contribute societal issues.
+          <br />
+          Let's develop our nation "Together"!
+        </div>
 
         <RegisterComponent />
 
