@@ -40,6 +40,10 @@ const randomData = {
     imgUrl: "/static/dummy/77.jpg",
   },
 };
+let len = Object.keys(randomData).length;
+let getRandom = Math.floor(Math.random() * len);
+let userName = randomData[getRandom].name;
+let userImg = randomData[getRandom].imgUrl;
 
 class Contribute extends Component {
   constructor(props) {
@@ -49,8 +53,6 @@ class Contribute extends Component {
       data: [],
       userIP: "",
       classDesc: "",
-      userName: "",
-      userImg: "",
     };
   }
 
@@ -151,23 +153,20 @@ class Contribute extends Component {
     });
   };
 
-  renderRandomUser = () => {
-    let len = Object.keys(randomData).length;
-    let getRandom = Math.floor(Math.random() * len);
-    return {
-      userName: randomData[getRandom].name,
-      userImg: randomData[getRandom].imgUrl,
-    };
-  };
+  // renderRandomUser = () => {
+  //   let len = Object.keys(randomData).length;
+  //   let getRandom = Math.floor(Math.random() * len);
+  //   this.setState({
+  //     userName: randomData[getRandom].name,
+  //     userImg: randomData[getRandom].imgUrl,
+  //   });
+  // };
 
   renderContribute = () => {
     const { data, contributeActive, classDesc } = this.state;
     const mainClass = "mobile_contribute";
 
     return data.map((contribute, key) => {
-      const { userName, userImg } = this.renderRandomUser();
-      // console.log(userName, userImg);
-
       let classActive = "";
       if (contributeActive == key) classActive = "active";
       return (
