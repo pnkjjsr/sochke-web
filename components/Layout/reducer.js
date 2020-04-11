@@ -7,9 +7,9 @@ import {
 } from "./constant";
 
 const initialState = {
-  title: "Sochke",
+  title: "Sochke | Political Networking | Society | Politics | Societal Issues",
   desc:
-    "SochkeApp | Social platform that enables users to connect with different people around them. And it's a digital platform that empowers users to contribute to their constituencies to make it a better place.",
+    "SochKeApp, a political networking platform to enable citizens contribute societal issues, connect political leaders digitally & build a healthy democracy.",
   path: "",
   searchView: false,
   searchMinisters: [],

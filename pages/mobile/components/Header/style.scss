@@ -1,0 +1,44 @@
+@import "common/styles/global.scss";
+
+.component_header {
+  text-align: center;
+  .logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+    color: $color-primary;
+    font-size: rem(50);
+    font-weight: $font-weight-black;
+    text-align: center;
+    > a {
+      line-height: 100%;
+      text-decoration: none;
+    }
+
+    > span {
+      font-size: rem(14);
+      font-weight: $font-weight-light;
+    }
+  }
+
+  > small {
+    display: block;
+    padding: 0 20px;
+    font-size: rem(20);
+    font-weight: $font-weight-light;
+    line-height: 120%;
+  }
+}
+
+@include media-breakpoint-up(xs) {
+  .component_header {
+    margin-bottom: 20px;
+
+    .logo {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
+}

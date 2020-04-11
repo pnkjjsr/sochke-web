@@ -208,7 +208,7 @@ class Login extends Component {
 
                   <div className="form-link">
                     New to {`${process.env.domain} `}
-                    <Link href="/">
+                    <Link href="/register">
                       <button type="button" className="btn btn-sm btn-link">
                         Join Now
                       </button>

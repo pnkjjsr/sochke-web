@@ -22,7 +22,7 @@ class Layout extends Component {
       loggedIn: false,
       isMobile: false,
       user: false,
-      authtoken: props.authtoken
+      authtoken: props.authtoken,
     };
   }
 
@@ -35,7 +35,7 @@ class Layout extends Component {
     this.setState({
       user: user.userType,
       loggedIn: user.uid ? true : false,
-      isMobile: screen.width <= 992 ? true : false
+      isMobile: screen.width <= 992 ? true : false,
     });
 
     if (login.token || token) this.setState({ loggedIn: true });
@@ -60,11 +60,20 @@ class Layout extends Component {
 
   render() {
     const { loggedIn, isMobile } = this.state;
+    const { pageTitle } = this.props;
+    let mobile = false;
+    if (
+      pageTitle == "/mobile/welcome" ||
+      pageTitle == "/mobile/contribute" ||
+      pageTitle == "/mobile/register" ||
+      pageTitle == "/mobile/completed"
+    )
+      mobile = true;
 
     return (
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
-        <Header />
+        {mobile ? "" : <Header />}
 
         <div onClick={this.handleGlobalSearch}>
           <div className="main">{this.props.children}</div>
@@ -79,8 +88,8 @@ class Layout extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  layoutAction: bindActionCreators(layoutActions, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  layoutAction: bindActionCreators(layoutActions, dispatch),
 });
 
-export default connect(state => state, mapDispatchToProps)(Layout);
+export default connect((state) => state, mapDispatchToProps)(Layout);
