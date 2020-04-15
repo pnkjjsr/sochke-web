@@ -28,7 +28,7 @@ class Minister extends Component {
       actionView: 0,
       query: props.queryName,
       minister: {},
-      ministers: {}
+      ministers: {},
     };
   }
 
@@ -40,7 +40,7 @@ class Minister extends Component {
     } else {
       return {
         view: 1,
-        minister: props.minister
+        minister: props.minister,
       };
     }
   }
@@ -55,12 +55,12 @@ class Minister extends Component {
       constituency: profile.constituency,
       district: profile.district,
       state: profile.state,
-      uid: profile.id
+      uid: profile.id,
     };
     ministerAction.prefetchMinisterData(data);
   }
 
-  handleBelieve = e => {
+  handleBelieve = (e) => {
     const { minister } = this.state;
     const session = new authSession();
     const profile = session.getProfile();
@@ -72,14 +72,14 @@ class Minister extends Component {
       believe: e,
       userName: profile.userName,
       displayName: profile.displayName,
-      photoURL: profile.photoURL
+      photoURL: profile.photoURL,
     };
     service
       .post("/minister-connection", data)
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
@@ -94,7 +94,7 @@ class Minister extends Component {
         <Button
           text="I believe"
           variant="btn-success"
-          action={e => this.handleBelieve(true)}
+          action={(e) => this.handleBelieve(true)}
         />
       );
     } else {
@@ -102,7 +102,7 @@ class Minister extends Component {
         <Button
           text="Rethink"
           variant="btn-danger"
-          action={e => this.handleBelieve(false)}
+          action={(e) => this.handleBelieve(false)}
         />
       );
     }
@@ -252,8 +252,8 @@ class Minister extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  ministerAction: bindActionCreators(ministerActions, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  ministerAction: bindActionCreators(ministerActions, dispatch),
 });
 
-export default connect(state => state, mapDispatchToProps)(Minister);
+export default connect((state) => state, mapDispatchToProps)(Minister);

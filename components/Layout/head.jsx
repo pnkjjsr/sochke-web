@@ -3,20 +3,17 @@ import NextHead from "next/head";
 import { string } from "prop-types";
 import { connect } from "react-redux";
 
-const defaultDescription = "";
-const defaultOGURL = "";
-const defaultOGImage = "";
+const defaultOGURL = "https://www.sochke.com";
+const defaultOGImage =
+  "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fintro%2Fsochke.jpg?alt=media";
 
-const Header = props => (
+const Header = (props) => (
   <Fragment>
     <NextHead>
       <meta charSet="UTF-8" />
-      <title>{`${props.title} | ${props.desc}`}</title>
-      <meta name="description" content={props.desc || defaultDescription} />
-      <meta
-        name="keywords"
-        content="Sochke,SochkeApp,Politics,Political,Politician,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda"
-      ></meta>
+      <title>{props.title}</title>
+      <meta name="description" content={props.desc} />
+      <meta name="keywords" content={props.keyword}></meta>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="google-site-verification"
@@ -28,11 +25,12 @@ const Header = props => (
       <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href="/static/favicon.ico" />
       <link rel="manifest" href="static/manifest.json" />
+
       <meta property="og:url" content={props.url || defaultOGURL} />
       <meta property="og:title" content={props.title || ""} />
       <meta
         property="og:description"
-        content={props.des || defaultDescription}
+        content={props.desc || defaultDescription}
       />
       <meta name="twitter:site" content={props.url || defaultOGURL} />
       <meta name="twitter:card" content="summary_large_image" />
@@ -60,13 +58,13 @@ const Header = props => (
 class Head extends React.Component {
   componentDidMount() {
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
+      window.addEventListener("load", function () {
         navigator.serviceWorker
           .register("/service-worker.js", { scope: "/" })
-          .then(function(registration) {
+          .then(function (registration) {
             // console.log("SW registered: ", registration);
           })
-          .catch(function(registrationError) {
+          .catch(function (registrationError) {
             // console.log("SW registration failed: ", registrationError);
           });
       });
@@ -95,7 +93,7 @@ Head.propTypes = {
   title: string,
   description: string,
   url: string,
-  ogImage: string
+  ogImage: string,
 };
 
-export default connect(state => state)(Head);
+export default connect((state) => state)(Head);
