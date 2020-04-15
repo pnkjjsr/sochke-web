@@ -11,6 +11,7 @@ import layoutActions from "components/Layout/actions";
 import { service } from "apiConnect";
 import Photo from "components/Photo";
 import Button from "components/Form/Button";
+import PageLoader from "components/Loader/page";
 
 import "./style.scss";
 
@@ -53,6 +54,7 @@ class Contribute extends Component {
       data: [],
       userIP: "",
       classDesc: "",
+      notificationDisplay: "d-none",
     };
   }
 
@@ -106,6 +108,10 @@ class Contribute extends Component {
   handleVote = (id, vote) => {
     const { data, userIP, contributeActive } = this.state;
 
+    this.setState({
+      notificationDisplay: "active",
+    });
+
     let cpData = {
       createdAt: new Date().toISOString(),
       userIP: userIP,
@@ -119,6 +125,7 @@ class Contribute extends Component {
           this.setState(
             {
               contributeActive: contributeActive + 1,
+              notificationDisplay: "d-none",
             },
             () => {
               let len = data.length;
@@ -224,6 +231,7 @@ class Contribute extends Component {
 
   render() {
     const mainClass = "mobile_contribute";
+    const { notificationDisplay } = this.state;
 
     return (
       <Fragment>
@@ -244,6 +252,19 @@ class Contribute extends Component {
               </Link>
             </div>
           </header>
+
+          <div className={`${mainClass}__notification ${notificationDisplay}`}>
+            {/* <i className="close">
+              <span className="material-icons">cancel</span>
+            </i> */}
+
+            <p>
+              <b>Your opinion is saved.</b>
+              <br />
+              Every vote makes a difference in our society as Unity.
+              <PageLoader />
+            </p>
+          </div>
 
           {this.renderContribute()}
 
