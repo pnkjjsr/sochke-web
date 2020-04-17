@@ -14,7 +14,7 @@ class MyApp extends App {
   constructor(props) {
     super(props);
     this.state = {
-      key: false
+      key: false,
     };
   }
 
@@ -26,7 +26,7 @@ class MyApp extends App {
     if (router.query.key == process.env.secretKey || secretKey) {
       session.setSecretKey(true);
       this.setState({
-        key: true
+        key: true,
       });
     }
   }

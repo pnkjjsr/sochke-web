@@ -7,12 +7,13 @@ const FileStore = require("session-file-store")(session);
 const next = require("next");
 const admin = require("firebase-admin");
 const { join } = require("path");
+var device = require("express-device");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 
 const app = next({
-  dev
+  dev,
 });
 const handle = app.getRequestHandler();
 
@@ -37,15 +38,16 @@ app
         saveUninitialized: true,
         store: new FileStore({
           path: "/tmp/sessions",
-          secret: "geheimnis"
+          secret: "geheimnis",
         }),
         resave: false,
         rolling: true,
         httpOnly: true,
         cookie: {
-          maxAge: 604800000
-        } // week
-      })
+          maxAge: 604800000,
+        }, // week
+      }),
+      device.capture()
     );
 
     server.use((req, res, next) => {
@@ -58,7 +60,7 @@ app
 
     server.get("/minister/:userName", (req, res) => {
       return app.render(req, res, "/minister", {
-        userName: req.params.userName
+        userName: req.params.userName,
       });
     });
 
@@ -68,16 +70,19 @@ app
 
     server.get("/profile/:userName", (req, res) => {
       return app.render(req, res, "/profile", {
-        userName: req.params.userName
+        userName: req.params.userName,
       });
     });
 
     server.get("*", (req, res) => {
       const parsedUrl = parse(req.url, true);
       const { pathname, query } = parsedUrl;
+      let device = req.device.type.toUpperCase();
 
       // Redirecting url before mount
-      // if (pathname === '/') { app.render(req, res, '/account', query); }
+      if (device === "PHONE" && pathname === "/") {
+        app.render(req, res, "/mobile/welcome");
+      }
 
       // handle GET request to /service-worker.js
       if (pathname === "/service-worker.js") {
@@ -88,12 +93,12 @@ app
       }
     });
 
-    server.listen(port, err => {
+    server.listen(port, (err) => {
       if (err) throw err;
       console.log(`> Ready on http://localhost:${port}`);
     });
   })
-  .catch(ex => {
+  .catch((ex) => {
     console.error(ex.stack);
     process.exit(1);
   });

@@ -11,6 +11,7 @@ import layoutActions from "components/Layout/actions";
 import { service } from "apiConnect";
 import Photo from "components/Photo";
 import Button from "components/Form/Button";
+import PageLoader from "components/Loader/page";
 
 import "./style.scss";
 
@@ -53,6 +54,7 @@ class Contribute extends Component {
       data: [],
       userIP: "",
       classDesc: "",
+      notificationDisplay: "d-none",
     };
   }
 
@@ -106,6 +108,10 @@ class Contribute extends Component {
   handleVote = (id, vote) => {
     const { data, userIP, contributeActive } = this.state;
 
+    this.setState({
+      notificationDisplay: "active",
+    });
+
     let cpData = {
       createdAt: new Date().toISOString(),
       userIP: userIP,
@@ -116,24 +122,27 @@ class Contribute extends Component {
       .post("/contributionPublic-vote", cpData)
       .then((res) => {
         if (res.data.code == "vote/added") {
-          this.setState(
-            {
-              contributeActive: contributeActive + 1,
-            },
-            () => {
-              let len = data.length;
-              if (len == this.state.contributeActive) {
-                sessionStorage.setItem("contributionTry", "all-done");
-                Router.push("/mobile/completed");
-              }
+          setTimeout(() => {
+            this.setState(
+              {
+                contributeActive: contributeActive + 1,
+                notificationDisplay: "d-none",
+              },
+              () => {
+                let len = data.length;
+                if (len == this.state.contributeActive) {
+                  sessionStorage.setItem("contributionTry", "all-done");
+                  Router.push("/mobile/completed");
+                }
 
-              if (contributeActive == 2) {
-                Router.push("/mobile/register");
-                sessionStorage.setItem("contributionTry", "done");
-                return true;
+                if (contributeActive == 2) {
+                  Router.push("/mobile/register");
+                  sessionStorage.setItem("contributionTry", "done");
+                  return true;
+                }
               }
-            }
-          );
+            );
+          }, 2000);
         }
       })
       .catch((err) => {
@@ -191,9 +200,9 @@ class Contribute extends Component {
               <FaInfoCircle className="info" onClick={this.handleDescShow} />
 
               <div className="detail">
-                <Photo className="photo" src={userImg} />
+                <Photo className="photo" src={randomData[key].imgUrl} />
                 <div>
-                  <h4 className="title">{userName}</h4>
+                  <h4 className="title">{randomData[key].name}</h4>
                   <p>{contribute.title}</p>
                 </div>
               </div>
@@ -224,6 +233,7 @@ class Contribute extends Component {
 
   render() {
     const mainClass = "mobile_contribute";
+    const { notificationDisplay } = this.state;
 
     return (
       <Fragment>
@@ -244,6 +254,19 @@ class Contribute extends Component {
               </Link>
             </div>
           </header>
+
+          <div className={`${mainClass}__notification ${notificationDisplay}`}>
+            {/* <i className="close">
+              <span className="material-icons">cancel</span>
+            </i> */}
+
+            <p>
+              <b>Your response matters.</b>
+              <br />
+              Each contribution makes a difference as unity.
+              <PageLoader />
+            </p>
+          </div>
 
           {this.renderContribute()}
 

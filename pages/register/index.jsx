@@ -15,6 +15,7 @@ import { service } from "apiConnect";
 import Button from "components/Form/Button";
 import authSession from "utils/authSession";
 import authentication from "utils/authentication";
+import StaticAbout from "components/static/about";
 
 import validation from "./validation";
 
@@ -261,16 +262,16 @@ class Register extends Component {
                 <div className="col-12 col-md-12 col-lg-7">
                   {/* Top Text */}
 
-                  <h2 className="title">
+                  <h1 className="title">
                     Political networking platform for citizens &amp; leaders.
-                  </h2>
+                  </h1>
                 </div>
                 <div className="col-12 col-md-12 col-lg-5">
                   {/* Registration Form */}
                   <form autoComplete="on" onSubmit={this.handleSubmit}>
                     <div className="form">
                       <div className="header">
-                        <h1 className="heading">Create your account</h1>
+                        <h3 className="heading">Create your account</h3>
                         <div className="sub">One quick step for change !!</div>
                       </div>
 
@@ -481,6 +482,11 @@ class Register extends Component {
                 <h2 className="title">Contribute in progress of your area</h2>
               </div>
             </div>
+          </div>
+
+          {/* Hidden Content */}
+          <div className="d-none">
+            <StaticAbout />
           </div>
         </div>
       </Fragment>

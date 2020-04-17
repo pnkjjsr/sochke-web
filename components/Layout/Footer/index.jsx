@@ -40,23 +40,35 @@ export default class Footer extends Component {
                   </li>
                 </ul>
 
-                <div className="copyright">© 2019 {process.env.domain}</div>
+                <div className="copyright">© 2020 {process.env.domain}</div>
               </div>
 
               <div className="col">
                 <div className="social">
                   <Link href="https://www.facebook.com/sochkeApp">
-                    <a className="facebook" target="_blank">
+                    <a
+                      className="facebook"
+                      target="_blank"
+                      aria-label="Sochke Facebook"
+                    >
                       <FaFacebookF />
                     </a>
                   </Link>
                   <Link href="https://www.twitter.com/sochkeApp">
-                    <a className="twitter" target="_blank">
+                    <a
+                      className="twitter"
+                      target="_blank"
+                      aria-label="Sochke Twitter"
+                    >
                       <FaTwitter />
                     </a>
                   </Link>
                   <Link href="https://www.linkedin.com/company/sochke">
-                    <a className="linkedin" target="_blank">
+                    <a
+                      className="linkedin"
+                      target="_blank"
+                      aria-label="Sochke LinkedIn"
+                    >
                       <FaLinkedinIn />
                     </a>
                   </Link>
