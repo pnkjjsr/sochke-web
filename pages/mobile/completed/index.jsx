@@ -56,7 +56,7 @@ class Completed extends Component {
           </div>
 
           <p className={`${mainClass}__para`}>
-            Now, it's your time to contribute to your society. Let's develop our
+            Now, it's your turn to contribute to your society. Let's develop our
             nation "Together"!
           </p>
 
