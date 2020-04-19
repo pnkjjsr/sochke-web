@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const defaultOGURL = "https://www.sochke.com";
 const defaultOGImage =
-  "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fintro%2Fsochke.jpg?alt=media";
+  "https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fsochke.jpg?alt=media";
 
 const Header = (props) => (
   <Fragment>
