@@ -47,13 +47,14 @@ class MapComponent extends Component {
     const { center, zoom } = this.state;
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: "100%", width: "100%" }}>
+      <div>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD8Qlh7nkwzPTUGvSoxMX7YlVfz-ckDRAs" }}
           defaultCenter={center}
           defaultZoom={zoom}
         >
-          <MarkerComponent lat={28.624112} lng={77.114338} text="Marker" />
+          <MarkerComponent lat={28.625256} lng={77.113362} text="Marker" />
+          <MarkerComponent lat={28.630606} lng={77.119706} text="Marker" />
         </GoogleMapReact>
       </div>
     );

@@ -1,10 +1,28 @@
 @import "common/styles/global.scss";
 
 .covid {
-  margin-top: 11px;
+  position: relative;
+  margin-top: 0;
   max-height: 100%;
 
-  > div {
-    height: calc(100vh - 116px) !important;
+  > div:first-child {
+    width: 100%;
+    height: calc(100vh - 105px) !important;
+  }
+
+  &__content {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .covid {
+    > div {
+      height: calc(100vh - 155px) !important;
+    }
   }
 }

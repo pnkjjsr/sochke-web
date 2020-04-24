@@ -11,6 +11,17 @@ class Covid extends Component {
       <Fragment>
         <div className={mainClass}>
           <MapComponent />
+          <div className={`${mainClass}__content`}>
+            <div className="container">
+              <div className="d-none">
+                <label htmlFor="title">
+                  <b>Subscribe for more details</b>
+                </label>
+                <input type="text" placeholder="abc@xyz.com" />
+                <button>submit</button>
+              </div>
+            </div>
+          </div>
         </div>
       </Fragment>
     );
