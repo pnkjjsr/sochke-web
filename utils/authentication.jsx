@@ -9,7 +9,7 @@ export default class Authentication {
     return new Promise((resolve, reject) => {
       if (!firebase.apps.length) {
         firebase.initializeApp(clientCredentials);
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             resolve(user);
           } else {
@@ -22,15 +22,15 @@ export default class Authentication {
 
   createUserWithEmailAndPassword(email, password) {
     let _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       _this.initialize();
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(result => {
+        .then((result) => {
           resolve(result);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           resolve(error);
         });
     });
@@ -38,21 +38,21 @@ export default class Authentication {
 
   signInWithEmail(email, password) {
     let _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       _this.initialize();
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(result => {
+        .then((result) => {
           resolve(result);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           resolve(error);
         });
     });
   }
 
-  getBearerToken = token => {
+  getBearerToken = (token) => {
     const session = new authSession();
     session.setBearerToken(token);
     return token;
@@ -63,10 +63,10 @@ export default class Authentication {
     firebase
       .auth()
       .signOut()
-      .then(function(result) {
+      .then(function (result) {
         console.log("Logout Successfully");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -76,9 +76,9 @@ export default class Authentication {
     let recaptchaVerifier;
     return (recaptchaVerifier = new firebase.auth.RecaptchaVerifier(e, {
       size: "invisible",
-      callback: function(response) {
+      callback: function (response) {
         onSignInSubmit();
-      }
+      },
     }));
   }
 
@@ -87,10 +87,10 @@ export default class Authentication {
     await firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then(function(confirmationResult) {
+      .then(function (confirmationResult) {
         confirm = confirmationResult;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
     return confirm;
@@ -99,14 +99,14 @@ export default class Authentication {
   signInWithCustomToken(token) {
     let user;
     const data = {
-      uid: token
+      uid: token,
     };
     service
       .post("/user", data)
-      .then(result => {
+      .then((result) => {
         user = result;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
     return user;
@@ -118,10 +118,10 @@ export default class Authentication {
       .auth()
       .currentUser.linkWithPhoneNumber(phoneNumber, appVerifier)
       .then(
-        function(confirmationResult) {
+        function (confirmationResult) {
           confirm = confirmationResult;
         },
-        function(err) {
+        function (err) {
           confirm = err;
         }
       );
@@ -131,14 +131,14 @@ export default class Authentication {
   sendEmailVerification() {
     this.initialize();
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         user
           .sendEmailVerification()
-          .then(function() {
+          .then(function () {
             return console.log("Verification email sent.");
           })
-          .catch(function(error) {
+          .catch(function (error) {
             return console.log(error);
           });
       } else {
@@ -147,7 +147,7 @@ export default class Authentication {
     });
   }
 
-  sendPasswordResetEmail = e => {
+  sendPasswordResetEmail = (e) => {
     let _this = this;
     return new Promise((resolve, reject) => {
       _this.initialize();
@@ -164,19 +164,19 @@ export default class Authentication {
         //   installApp: true,
         //   minimumVersion: "12"
         // },
-        handleCodeInApp: true
+        handleCodeInApp: true,
       };
 
       firebase
         .auth()
         .sendPasswordResetEmail(e, actionCodeSettings)
-        .then(function() {
+        .then(function () {
           resolve({
             code: "email/email-sent",
-            message: "Password reset email sent."
+            message: "Password reset email sent.",
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           reject(error);
         });
     });
@@ -189,10 +189,10 @@ export default class Authentication {
       firebase
         .auth()
         .currentUser.updatePassword(e)
-        .then(function() {
+        .then(function () {
           resolve("Update successful.");
         })
-        .catch(function(error) {
+        .catch(function (error) {
           resolve(error);
         });
     });

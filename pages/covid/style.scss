@@ -2,12 +2,12 @@
 
 .covid {
   position: relative;
-  margin-top: 0;
+  margin-top: 11px;
   max-height: 100%;
 
   > div:first-child {
     width: 100%;
-    height: calc(100vh - 105px) !important;
+    height: calc(100vh - 120px);
   }
 
   &__content {
@@ -17,12 +17,77 @@
     left: 0;
     width: 100%;
   }
+
+  &__subscribe {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px 10px;
+    @include border-radius(3px);
+    @include box-shadow;
+  }
+
+  &__footer {
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+
+    .bot {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 10px;
+      text-align: right;
+
+      > label {
+        margin: 0;
+        color: $color-gray-light;
+        line-height: 100%;
+
+        small {
+          font-weight: $font-weight-black;
+        }
+      }
+
+      .add {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-left: 10px;
+        padding-top: 8px;
+        @include border-radius(100%);
+        box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        text-align: center;
+
+        svg {
+          // background-image: linear-gradient(to top, #000088, #8e2de2);
+          font-size: rem(50);
+          line-height: 0;
+        }
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(md) {
   .covid {
-    > div {
-      height: calc(100vh - 155px) !important;
+    position: relative;
+    margin-top: 13px;
+
+    > div:first-child {
+      height: calc(100vh - 160px);
+    }
+
+    &__footer {
+      position: absolute;
+      left: calc(50% - 100px);
+
+      display: inline-block;
+      max-width: 200px;
+      @include box-shadow();
+      @include border-radius(3px);
     }
   }
 }
