@@ -50,6 +50,7 @@ class MapComponent extends Component {
   render() {
     const mainClass = "map_component";
     const { displayLocation, center, zoom } = this.state;
+    // console.log(center);
 
     return (
       // Important! Always set the container height explicitly

@@ -1,4 +1,6 @@
 // utils/authSession.js
+import publicIp from "public-ip";
+
 export default class authSession {
   constructor(domain) {
     this.domain = domain || "http://localhost:3000";
@@ -51,4 +53,15 @@ export default class authSession {
     localStorage.removeItem("profile");
     localStorage.removeItem("bearerToken");
   }
+
+  setIP = () => {
+    (async () => {
+      let userIP = await publicIp.v4();
+      return sessionStorage.setItem("ip", userIP);
+    })();
+  };
+
+  getIP = () => {
+    return sessionStorage.getItem("ip");
+  };
 }
