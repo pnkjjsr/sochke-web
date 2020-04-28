@@ -80,6 +80,13 @@
       height: calc(100vh - 160px);
     }
 
+    &__subscribe {
+      display: block;
+      max-width: 230px;
+      margin: auto;
+      margin-top: 10px;
+    }
+
     &__footer {
       position: absolute;
       left: calc(50% - 100px);

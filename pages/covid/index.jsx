@@ -25,7 +25,7 @@ class Covid extends Component {
           <div className={`${mainClass}__content`}>
             <div className="container">
               {/* Subscription Box */}
-              <div className={`${mainClass}__subscribe`}>
+              <div className={`${mainClass}__subscribe d-none`}>
                 <SubscribeComponent />
               </div>
             </div>

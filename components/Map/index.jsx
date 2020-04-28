@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import GoogleMapReact from "google-map-react";
 
+import { service } from "apiConnect";
+import authSession from "utils/authSession";
+
+import { MyMapComponent } from "./reactGoogleMaps";
 import Button from "components/Form/Button";
 import MarkerComponent from "./marker";
 
@@ -16,9 +19,20 @@ class MapComponent extends Component {
       zoom: 15,
     };
   }
+  componentDidMount() {
+    let checkLocationAccess = sessionStorage.getItem("locationAccess");
+
+    if (checkLocationAccess) {
+      this.setState({
+        displayLocation: "d-none",
+      });
+    }
+  }
 
   handleGetLocation = () => {
+    let session = new authSession();
     let _this = this;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (position) {
@@ -28,10 +42,24 @@ class MapComponent extends Component {
           };
           localStorage.setItem("lastSavedLocation", JSON.stringify(pos));
 
-          _this.setState({
-            center: pos,
-            displayLocation: "d-none",
-          });
+          let userIP = session.getIP();
+          let data = {
+            ip: userIP,
+          };
+          service
+            .post("/covidUser-add", data)
+            .then((res) => {
+              sessionStorage.setItem("locationAccess", true);
+
+              _this.setState({
+                center: pos,
+                displayLocation: "d-none",
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
           //   infoWindow.setPosition(pos);
           //   infoWindow.setContent("Location found.");
           //   infoWindow.open(map);
@@ -45,6 +73,10 @@ class MapComponent extends Component {
       // Browser doesn't support Geolocation
       //   handleLocationError(false, infoWindow, map.getCenter());
     }
+  };
+
+  handleLocation = (address, area) => {
+    console.log(e);
   };
 
   render() {
@@ -82,14 +114,7 @@ class MapComponent extends Component {
           </div>
         </div>
 
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyD8Qlh7nkwzPTUGvSoxMX7YlVfz-ckDRAs" }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-        >
-          <MarkerComponent lat={28.625306} lng={77.113301} text="Marker" />
-          <MarkerComponent lat={28.6262702} lng={77.115835} text="Marker" />
-        </GoogleMapReact>
+        <MyMapComponent isMarkerShown />
       </div>
     );
   }
