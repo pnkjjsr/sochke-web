@@ -18,4 +18,16 @@
       font-size: rem(14);
     }
   }
+
+  &__thank {
+    margin: 0;
+    padding-top: 5px;
+    font-size: rem(14);
+    text-align: center;
+
+    b {
+      color: $color-primary;
+      font-size: rem(16);
+    }
+  }
 }

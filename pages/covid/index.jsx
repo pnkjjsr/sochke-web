@@ -9,15 +9,23 @@ class Covid extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      displaySubscribe: "",
       displayLocation: "",
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let subscribe = sessionStorage.getItem("subscribed");
+    if (subscribe) {
+      this.setState({
+        displaySubscribe: "d-none",
+      });
+    }
+  }
 
   render() {
     const mainClass = "covid";
-    const { displayLocation } = this.state;
+    const { displaySubscribe, displayLocation } = this.state;
     return (
       <Fragment>
         <div className={mainClass}>
@@ -25,7 +33,7 @@ class Covid extends Component {
           <div className={`${mainClass}__content`}>
             <div className="container">
               {/* Subscription Box */}
-              <div className={`${mainClass}__subscribe d-none`}>
+              <div className={`${mainClass}__subscribe ${displaySubscribe}`}>
                 <SubscribeComponent />
               </div>
             </div>

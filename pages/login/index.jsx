@@ -28,7 +28,7 @@ class Login extends Component {
       emailErr: "",
       passwordErr: "",
       emailMsg: "",
-      passwordMsg: ""
+      passwordMsg: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,14 +48,14 @@ class Login extends Component {
       actionNotification.showNotification({
         open: "",
         message: "Please enter the details.",
-        type: "danger"
+        type: "danger",
       });
-      Object.keys(errors).map(e => {
+      Object.keys(errors).map((e) => {
         var err = e + "Err";
         var msg = e + "Msg";
         this.setState({
           [err]: "error",
-          [msg]: errors[e]
+          [msg]: errors[e],
         });
       });
       return;
@@ -65,54 +65,54 @@ class Login extends Component {
     const auth = new authentication();
     auth
       .signInWithEmail(email, password)
-      .then(res => {
+      .then((res) => {
         if (res.code) {
           actionNotification.showNotification({
             code: res.code,
             message: res.message,
-            type: "danger"
+            type: "danger",
           });
 
           if (res.code == "auth/user-not-found") {
             this.setState({
               emailErr: "error",
-              emailMsg: res.message
+              emailMsg: res.message,
             });
           } else if (res.code == "auth/wrong-password") {
             this.setState({
               passwordErr: "error",
-              passwordMsg: res.message
+              passwordMsg: res.message,
             });
           }
         } else {
           let token = res.user.uid;
           let data = {
-            uid: token
+            uid: token,
           };
 
           service
             .post("/login", data)
-            .then(result => {
+            .then((result) => {
               session.setProfile(result.data);
               user.authenticate(result.data);
               session.setToken(token);
               Router.push("/constituency");
             })
-            .catch(error => {
+            .catch((error) => {
               let data = error.response.data;
               let msg = data[Object.keys(data)[0]];
               let obj = {
                 message: msg,
-                type: "danger"
+                type: "danger",
               };
               actionNotification.showNotification(obj);
             });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         let obj = {
           message: error,
-          type: "danger"
+          type: "danger",
         };
         actionNotification.showNotification(obj);
       });
@@ -127,7 +127,7 @@ class Login extends Component {
       {
         [elem]: e.target.value,
         [err]: "",
-        [msg]: ""
+        [msg]: "",
       },
       () => this.state
     );
@@ -225,10 +225,10 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   user: bindActionCreators(actionUser, dispatch),
   actionNotification: bindActionCreators(actionNotifications, dispatch),
-  layoutAction: bindActionCreators(layoutActions, dispatch)
+  layoutAction: bindActionCreators(layoutActions, dispatch),
 });
 
-export default connect(state => state, mapDispatchToProps)(Login);
+export default connect((state) => state, mapDispatchToProps)(Login);
