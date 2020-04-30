@@ -1,9 +1,11 @@
 @import "common/styles/global.scss";
+@import "components/Form/form.scss";
 
 .covid {
   position: relative;
   margin-top: 11px;
   max-height: 100%;
+  overflow: hidden;
 
   > div:first-child {
     width: 100%;
@@ -24,6 +26,58 @@
     padding: 3px 10px 10px;
     @include border-radius(3px);
     @include box-shadow;
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: -280px;
+    padding: 20px;
+    background-color: $color-white;
+    opacity: 0;
+    transition: ease 0.3s all;
+
+    &.hide {
+      margin-bottom: -280px;
+      opacity: 0;
+    }
+    &.show {
+      margin-bottom: 0;
+      opacity: 1;
+    }
+
+    > h2 {
+      margin-bottom: 20px;
+      color: $color-primary;
+      font-size: rem(18);
+      font-weight: $font-weight-black;
+    }
+
+    @include form;
+
+    .MuiFormControl-root {
+      .MuiInputBase-root {
+        border: 1px solid $color-lighter;
+      }
+    }
+
+    .action {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      span {
+        align-self: center;
+        margin-right: 10px;
+        color: $color-gray-light;
+        font-size: rem(12);
+        text-align: right;
+        line-height: 100%;
+      }
+    }
   }
 
   &__footer {

@@ -63,7 +63,7 @@ class subscribeComponent extends Component {
       <Fragment>
         <div className={mainClass}>
           <label htmlFor="title">
-            <b>Subscribe for more details</b>
+            <b>Subscribe for more updates.</b>
           </label>
           <div className="input-group">
             <input

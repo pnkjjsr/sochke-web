@@ -97,13 +97,13 @@ class MapComponent extends Component {
             <figcaption>
               You can check infected
               <br />
-              area near you?
+              area near you.
             </figcaption>
           </figure>
 
           <div className="form">
             <label htmlFor="Can we Access your location?">
-              Can we access your location?
+              Can you tell your location?
             </label>
 
             <Button
