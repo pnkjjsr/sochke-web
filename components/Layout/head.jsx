@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 const defaultOGURL = "https://www.sochke.com";
 const defaultOGImage =
   "https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fsochke.jpg?alt=media";
+const defaultDescription =
+  "Sochke | SochKeApp, a political networking platform to enable citizens contribute societal issues, connect political leaders digitally & build a healthy democracy.";
 
 const Header = (props) => (
   <Fragment>

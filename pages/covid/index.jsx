@@ -4,6 +4,7 @@ import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import actionNotifications from "components/Notification/actions";
+import layoutActions from "components/Layout/actions";
 
 import authSession from "utils/authSession";
 import { service } from "apiConnect";
@@ -28,12 +29,21 @@ class Covid extends Component {
   }
 
   componentDidMount() {
+    const { layoutAction } = this.props;
     let subscribe = sessionStorage.getItem("subscribed");
     if (subscribe) {
       this.setState({
         displaySubscribe: "d-none",
       });
     }
+
+    layoutAction.updateHead({
+      title: "Sochke | Covid-19 | Corona | Sochke Covid Location",
+      desc:
+        "Sochke | SochKeApp, provide covid-19 location near by you. Hari Nagar, citizesn can get details of covid-19 locations nearby.",
+      keyword:
+        "Sochke,SochkeApp,Covid-19,Hari Nagar, Corona, Hari Nagar corona address,Neta,Society Issues,Leaders,Politics,Political,Politician,Political Networking,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda",
+    });
   }
 
   handleSupport = () => {
@@ -190,6 +200,7 @@ class Covid extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   actionNotification: bindActionCreators(actionNotifications, dispatch),
+  layoutAction: bindActionCreators(layoutActions, dispatch),
 });
 
 export default connect((state) => state, mapDispatchToProps)(Covid);
