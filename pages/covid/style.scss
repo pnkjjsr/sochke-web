@@ -1,0 +1,154 @@
+@import "common/styles/global.scss";
+@import "components/Form/form.scss";
+
+.covid {
+  position: relative;
+  margin-top: 11px;
+  max-height: 100%;
+  overflow: hidden;
+
+  > div:first-child {
+    width: 100%;
+    height: calc(100vh - 120px);
+  }
+
+  &__content {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &__subscribe {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px 10px;
+    @include border-radius(3px);
+    @include box-shadow;
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: -280px;
+    padding: 20px;
+    background-color: $color-white;
+    opacity: 0;
+    transition: ease 0.3s all;
+
+    &.hide {
+      margin-bottom: -280px;
+      opacity: 0;
+    }
+    &.show {
+      margin-bottom: 0;
+      opacity: 1;
+    }
+
+    > h2 {
+      margin-bottom: 20px;
+      color: $color-primary;
+      font-size: rem(18);
+      font-weight: $font-weight-black;
+    }
+
+    @include form;
+
+    .MuiFormControl-root {
+      .MuiInputBase-root {
+        border: 1px solid $color-lighter;
+      }
+    }
+
+    .action {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      span {
+        align-self: center;
+        margin-right: 10px;
+        color: $color-gray-light;
+        font-size: rem(12);
+        text-align: right;
+        line-height: 100%;
+      }
+    }
+  }
+
+  &__footer {
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+
+    .bot {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 10px;
+      text-align: right;
+
+      > label {
+        margin: 0;
+        color: $color-gray-light;
+        line-height: 100%;
+
+        small {
+          font-weight: $font-weight-black;
+        }
+      }
+
+      .add {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-left: 10px;
+        padding-top: 8px;
+        @include border-radius(100%);
+        box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        text-align: center;
+
+        svg {
+          // background-image: linear-gradient(to top, #000088, #8e2de2);
+          font-size: rem(50);
+          line-height: 0;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .covid {
+    position: relative;
+    margin-top: 13px;
+
+    > div:first-child {
+      height: calc(100vh - 160px);
+    }
+
+    &__subscribe {
+      display: block;
+      max-width: 230px;
+      margin: auto;
+      margin-top: 10px;
+    }
+
+    &__footer {
+      position: absolute;
+      left: calc(50% - 100px);
+
+      display: inline-block;
+      max-width: 200px;
+      @include box-shadow();
+      @include border-radius(3px);
+    }
+  }
+}

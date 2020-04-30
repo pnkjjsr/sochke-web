@@ -1,0 +1,33 @@
+@import "common/styles/global.scss";
+
+.subscribe_component {
+  > label {
+    margin-bottom: 0;
+    font-size: rem(14);
+    font-weight: $font-weight-light;
+  }
+
+  > .input-group {
+    input {
+      max-width: 150px;
+      height: 35px;
+      font-size: rem(14);
+    }
+
+    button {
+      font-size: rem(14);
+    }
+  }
+
+  &__thank {
+    margin: 0;
+    padding-top: 5px;
+    font-size: rem(14);
+    text-align: center;
+
+    b {
+      color: $color-primary;
+      font-size: rem(16);
+    }
+  }
+}

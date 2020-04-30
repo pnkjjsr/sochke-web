@@ -4,6 +4,7 @@ import {
   HIDE_SEARCH,
   SHOW_SEARCH,
   GET_SEARCH_DATA,
+  UPDATE_HEAD,
 } from "./constant";
 
 const initialState = {
@@ -42,6 +43,12 @@ const auth = (state = initialState, action) => {
       return Object.assign({}, state, {
         searchMinisters: action.payload.ministers,
         searchUsers: action.payload.users,
+      });
+    case UPDATE_HEAD:
+      return Object.assign({}, state, {
+        title: action.payload.title,
+        desc: action.payload.desc,
+        keyword: action.payload.keyword,
       });
 
     default:

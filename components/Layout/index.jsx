@@ -1,9 +1,11 @@
 import React, { Fragment, Component } from "react";
+import publicIp from "public-ip";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import layoutActions from "./actions";
 
+import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
 import Head from "./head";
@@ -21,6 +23,7 @@ class Layout extends Component {
     this.state = {
       loggedIn: false,
       isMobile: false,
+      userIP: "",
       user: false,
       authtoken: props.authtoken,
     };
@@ -31,12 +34,34 @@ class Layout extends Component {
     const session = new authSession();
     let user = session.getProfile();
     let token = session.getToken();
+    let ip = session.getIP();
+    session.setIP();
 
     this.setState({
+      userIP: ip,
       user: user.userType,
       loggedIn: user.uid ? true : false,
       isMobile: screen.width <= 992 ? true : false,
     });
+
+    if (!ip) {
+      (async () => {
+        let ip = await publicIp.v4();
+        let data = {
+          ip: ip,
+        };
+        service
+          .post("/userCounter-add", data)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })();
+    }
+
+    // Counter
 
     if (login.token || token) this.setState({ loggedIn: true });
     else this.setState({ loggedIn: false });

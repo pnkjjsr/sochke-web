@@ -3,54 +3,62 @@ import {
   UPDATE_PATH,
   HIDE_SEARCH,
   SHOW_SEARCH,
-  GET_SEARCH_DATA
+  GET_SEARCH_DATA,
+  UPDATE_HEAD,
 } from "./constant";
 import { service } from "apiConnect";
 
 const update = () => {
   return {
-    type: UPDATE
+    type: UPDATE,
   };
 };
-const update_path = e => {
+const update_path = (e) => {
   return {
     type: UPDATE_PATH,
-    payload: e
+    payload: e,
   };
 };
 
 const hideSearch = () => {
   return {
-    type: HIDE_SEARCH
+    type: HIDE_SEARCH,
   };
 };
 
 const showSearch = () => {
   return {
-    type: SHOW_SEARCH
+    type: SHOW_SEARCH,
   };
 };
 
-const getSearchData = e => {
+const getSearchData = (e) => {
   const data = {
-    keyword: e
+    keyword: e,
   };
-  return dispatch => {
+  return (dispatch) => {
     service
       .post("/search", data)
-      .then(res => {
+      .then((res) => {
         let usersLen = res.data.users.length;
         let ministersLen = res.data.ministers.length;
         if (!usersLen && !ministersLen) return;
 
         dispatch({
           type: GET_SEARCH_DATA,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
+  };
+};
+
+const updateHead = (e) => {
+  return {
+    type: UPDATE_HEAD,
+    payload: e,
   };
 };
 
@@ -59,5 +67,6 @@ export default {
   update_path,
   hideSearch,
   showSearch,
-  getSearchData
+  getSearchData,
+  updateHead,
 };
