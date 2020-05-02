@@ -114,6 +114,7 @@
         box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
         background-color: #ffffff;
         text-align: center;
+        cursor: pointer;
 
         svg {
           // background-image: linear-gradient(to top, #000088, #8e2de2);
@@ -141,14 +142,28 @@
       margin-top: 10px;
     }
 
+    &__overlay {
+      left: calc(50% - 200px);
+      max-width: 400px;
+
+      > .form {
+        padding: 0;
+        border: 0 none;
+        box-shadow: none;
+      }
+    }
+
     &__footer {
       position: absolute;
-      left: calc(50% - 100px);
-
+      left: calc(50% - 110px);
       display: inline-block;
-      max-width: 200px;
+      max-width: 220px;
       @include box-shadow();
       @include border-radius(3px);
+
+      .bot {
+        padding: 10px;
+      }
     }
   }
 }
