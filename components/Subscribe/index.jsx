@@ -7,6 +7,7 @@ import actionNotifications from "components/Notification/actions";
 import { service } from "apiConnect";
 import Button from "components/Form/Button";
 
+import validation from "./validation";
 import "./style.scss";
 
 class subscribeComponent extends Component {
@@ -14,7 +15,7 @@ class subscribeComponent extends Component {
     super(props);
     this.state = {
       view: 0,
-      email_subscribe: "",
+      email: "",
     };
   }
 
@@ -27,10 +28,20 @@ class subscribeComponent extends Component {
   };
 
   handleSubmit = () => {
-    const { email_subscribe } = this.state;
+    const { email } = this.state;
+    const { actionNotification } = this.props;
+    const { valid } = validation({ email });
+
+    if (!valid) {
+      actionNotification.showNotification({
+        message: "Please enter the valid email id.",
+        type: "danger",
+      });
+      return;
+    }
 
     let data = {
-      email: email_subscribe,
+      email: email,
       type: "covid",
     };
     service
@@ -48,7 +59,7 @@ class subscribeComponent extends Component {
 
         this.setState({
           view: 1,
-          email_subscribe: "",
+          email: "",
         });
       })
       .catch((err) => {
@@ -58,7 +69,7 @@ class subscribeComponent extends Component {
 
   renderForm = () => {
     const mainClass = "subscribe_component";
-    const { email_subscribe } = this.state;
+    const { email } = this.state;
     return (
       <Fragment>
         <div className={mainClass}>
@@ -67,13 +78,13 @@ class subscribeComponent extends Component {
           </label>
           <div className="input-group">
             <input
-              name="email_subscribe"
+              name="email"
               type="email"
               className="form-control"
-              value={email_subscribe}
+              value={email}
               placeholder="email: abc@xyz.com"
-              aria-label="email_subscribe"
-              aria-describedby="email_subscribe"
+              aria-label="email"
+              aria-describedby="email"
               onChange={this.handleChange}
             />
             <div className="input-group-append">
