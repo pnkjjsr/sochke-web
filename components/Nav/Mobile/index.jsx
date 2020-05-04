@@ -27,10 +27,17 @@ class MobileNav extends Component {
                 </a>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/mobile/neta">
                 <a>
                   <label htmlFor="Rate your neta">Rate your neta</label>
+                </a>
+              </Link>
+            </li> */}
+            <li>
+              <Link href="/covid">
+                <a>
+                  <label htmlFor="Covid-19">Covid-19</label>
                 </a>
               </Link>
             </li>
@@ -40,13 +47,6 @@ class MobileNav extends Component {
                   <label htmlFor="Validate contribution">
                     Validate contribution
                   </label>
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/covid">
-                <a>
-                  <label htmlFor="Covid-19">Covid-19</label>
                 </a>
               </Link>
             </li>
