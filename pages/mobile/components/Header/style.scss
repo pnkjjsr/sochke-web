@@ -1,13 +1,32 @@
 @import "common/styles/global.scss";
 
 .component_header {
+  position: relative;
   text-align: center;
+
+  &__top {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(100% - 20px);
+    margin: 10px;
+
+    > .navigation {
+    }
+    > .action {
+    }
+  }
+
   .logo {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 10px;
+    padding-top: 20px;
     color: $color-primary;
     font-size: rem(50);
     font-weight: $font-weight-black;
@@ -37,7 +56,7 @@
     margin-bottom: 20px;
 
     .logo {
-      margin-top: 20px;
+      // margin-top: 20px;
       margin-bottom: 10px;
     }
   }

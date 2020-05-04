@@ -1,0 +1,77 @@
+@import "common/styles/global";
+
+.nav-mobile {
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  ul {
+    li {
+      padding-bottom: 10px;
+      color: $color-gray-light;
+      font-size: rem(14);
+      font-weight: $font-weight-bold;
+      text-align: left;
+
+      &.heading {
+        padding-top: 50px;
+      }
+
+      &.nav-logo {
+        margin-bottom: 50px;
+        text-align: center;
+
+        a {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+
+          > figure {
+            margin: 0;
+            margin-right: 10px;
+          }
+          > figcaption {
+            color: $color-primary;
+            font-size: rem(30);
+            font-weight: $font-weight-black;
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: rgb(0, 0, 0);
+        font-size: 18px;
+        font-weight: $font-weight;
+
+        i {
+          margin-right: 15px;
+
+          svg {
+            font-size: 24px;
+          }
+        }
+
+        label {
+          margin: 0;
+          margin-top: 2px;
+          cursor: pointer;
+        }
+
+        &:hover {
+          color: $color-primary;
+          text-decoration: none;
+
+          i {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

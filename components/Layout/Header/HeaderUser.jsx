@@ -22,7 +22,7 @@ class HeaderUser extends Component {
       classSearch: "",
       classResult: "",
       usersData: [],
-      ministersData: []
+      ministersData: [],
     };
   }
 
@@ -34,11 +34,11 @@ class HeaderUser extends Component {
       return {
         classResult: "search_form__result__show",
         usersData: searchUsers,
-        ministersData: searchMinisters
+        ministersData: searchMinisters,
       };
     } else if (searchView) {
       return {
-        classSearch: "search_form__top__active"
+        classSearch: "search_form__top__active",
       };
     }
     return null;
@@ -54,22 +54,22 @@ class HeaderUser extends Component {
         classSearch: "",
         classResult: "",
         usersData: [],
-        ministersData: []
+        ministersData: [],
       });
     }
   }
 
-  handleOpen = e => {
+  handleOpen = (e) => {
     let name = `${e}Drawer`;
     this.setState({
-      [name]: "open"
+      [name]: "open",
     });
   };
 
-  handleClose = e => {
+  handleClose = (e) => {
     let name = `${e}Drawer`;
     this.setState({
-      [name]: ""
+      [name]: "",
     });
   };
 
@@ -78,16 +78,16 @@ class HeaderUser extends Component {
     showSearch();
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { getSearchData } = this.props;
     const { search } = this.state;
     getSearchData(search);
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      search: e.target.value
+      search: e.target.value,
     });
   };
 
@@ -104,7 +104,7 @@ class HeaderUser extends Component {
       );
     }
 
-    let users = usersData.map(user => {
+    let users = usersData.map((user) => {
       return (
         <li key={user.id}>
           <a href={`/profile/${user.userName}`}>
@@ -136,7 +136,7 @@ class HeaderUser extends Component {
         </ul>
       );
     }
-    let ministers = ministersData.map(minister => {
+    let ministers = ministersData.map((minister) => {
       return (
         <li key={minister.id}>
           <a href={`/minister/${minister.userName}`}>
@@ -164,7 +164,7 @@ class HeaderUser extends Component {
       accountDrawer,
       userDrawer,
       classSearch,
-      classResult
+      classResult,
     } = this.state;
 
     return (
@@ -176,14 +176,14 @@ class HeaderUser extends Component {
                 <div className="menu d-inline-block d-lg-none d-flex align-items-center">
                   <i
                     className="material-icons"
-                    onClick={e => this.handleOpen("account")}
+                    onClick={(e) => this.handleOpen("account")}
                   >
                     menu
                   </i>
                   <Drawer
                     side="left"
                     open={accountDrawer}
-                    action={e => this.handleClose("account")}
+                    action={(e) => this.handleClose("account")}
                   >
                     <AccountNav />
                   </Drawer>
@@ -229,7 +229,7 @@ class HeaderUser extends Component {
 
               <div className="col-1 col-sm-1 col-lg-3 pr-0 pl-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">
-                  <div onClick={e => this.handleOpen("user")}>
+                  <div onClick={(e) => this.handleOpen("user")}>
                     <UserImage />
                   </div>
 
@@ -240,7 +240,7 @@ class HeaderUser extends Component {
                   <Drawer
                     side="right"
                     open={userDrawer}
-                    action={e => this.handleClose("user")}
+                    action={(e) => this.handleClose("user")}
                   >
                     <UserNav />
                   </Drawer>
@@ -254,4 +254,4 @@ class HeaderUser extends Component {
   }
 }
 
-export default connect(state => state, layoutActions)(HeaderUser);
+export default connect((state) => state, layoutActions)(HeaderUser);
