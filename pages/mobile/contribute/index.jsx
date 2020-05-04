@@ -200,10 +200,10 @@ class Contribute extends Component {
               <FaInfoCircle className="info" onClick={this.handleDescShow} />
 
               <div className="detail">
-                <Photo className="photo" src={randomData[key].imgUrl} />
-                <div>
+                <p>{contribute.title}</p>
+                <div className="user">
+                  <Photo className="photo" src={randomData[key].imgUrl} />
                   <h4 className="title">{randomData[key].name}</h4>
-                  <p>{contribute.title}</p>
                 </div>
               </div>
             </div>
