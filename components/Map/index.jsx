@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
-import { MyMapComponent } from "./reactGoogleMaps";
+import MyMapComponent from "./googleMapsReact";
 import Button from "components/Form/Button";
 import MarkerComponent from "./marker";
 
@@ -82,7 +82,6 @@ class MapComponent extends Component {
   render() {
     const mainClass = "map_component";
     const { displayLocation, center, zoom } = this.state;
-    // console.log(center);
 
     return (
       // Important! Always set the container height explicitly
@@ -114,7 +113,7 @@ class MapComponent extends Component {
           </div>
         </div>
 
-        <MyMapComponent isMarkerShown />
+        <MyMapComponent pos={center} />
       </div>
     );
   }

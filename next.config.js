@@ -27,16 +27,17 @@ const nextConfig = {
     requestTimeout: process.env.REQUEST_TIMEOUT,
     apiVersion: process.env.API_VERSION,
     requestBaseurl: process.env.REQUEST_BASEURL,
-    requestBaseurlLocal: process.env.REQUEST_BASEURL_LOCAL
+    requestBaseurlLocal: process.env.REQUEST_BASEURL_LOCAL,
+    googleAPIKey: process.env.GOOGLE_API_KEY,
   },
   serverRuntimeConfig: {
     // Will only be available on the server side
     mySecret: "secret",
-    secretKey: process.env.SECRET_KEY
+    secretKey: process.env.SECRET_KEY,
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    secretKey: process.env.SECRET_KEY
+    secretKey: process.env.SECRET_KEY,
   },
   dontAutoRegisterSw: true, // since we want runtime registration,
   webpack(config, { buildId, dev, isServer, defaultLoaders }) {
@@ -53,7 +54,7 @@ const nextConfig = {
     // console.log(dev, isServer)
 
     return config;
-  }
+  },
 };
 
 module.exports = withPlugins(
