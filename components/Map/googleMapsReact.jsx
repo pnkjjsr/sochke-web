@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import React, { Component, Fragment } from "react";
+import { Map, Marker, Circle, GoogleApiWrapper } from "google-maps-react";
 import PageLoader from "components/Loader/page";
 
 export class MapContainer extends Component {
@@ -8,12 +8,12 @@ export class MapContainer extends Component {
 
     this.state = {
       currentPos: {
-        lat: "",
-        lng: "",
+        lat: 28.624827,
+        lng: 77.110883,
       },
       center: {
-        lat: "28.624827",
-        lng: "77.110883",
+        lat: 28.624827,
+        lng: 77.110883,
       },
     };
   }
@@ -35,21 +35,52 @@ export class MapContainer extends Component {
       { lat: 28.625306, lng: 77.113301 },
       { lat: 28.6262702, lng: 77.115835 },
       { lat: 28.626151, lng: 77.114634 },
+      { lat: 28.641375, lng: 77.08708 },
     ];
 
     let marker = pointers.map((point, key) => {
       return <Marker key={key} position={point} />;
     });
+    let circle = pointers.map((point, key) => {
+      return (
+        <Circle
+          key={key}
+          center={point}
+          radius={60}
+          strokeColor="transparent"
+          strokeOpacity={0}
+          strokeWeight={5}
+          fillColor="#c00"
+          fillOpacity={0.5}
+        />
+      );
+    });
 
+    const coords = currentPos;
     return (
       <Map
         google={this.props.google}
         zoom={14}
         initialCenter={center}
         center={currentPos}
+        mapTypeControl={false}
+        streetViewControl={false}
       >
         {/* <Marker position={currentPos} /> */}
+        <Circle
+          radius={1200}
+          center={coords}
+          onMouseover={() => {}}
+          onClick={() => {}}
+          onMouseout={() => {}}
+          strokeColor="transparent"
+          strokeOpacity={0}
+          strokeWeight={5}
+          fillColor="#000088"
+          fillOpacity={0.2}
+        />
         {marker}
+        {circle}
       </Map>
     );
   }
