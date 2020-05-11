@@ -83,6 +83,8 @@ class MapComponent extends Component {
     return (
       // Important! Always set the container height explicitly
       <div className={mainClass}>
+        <MyMapComponent pos={center} />
+
         {/* Get Location Access */}
         <div className={`${mainClass}__location ${displayLocation}`}>
           <figure>
@@ -109,8 +111,6 @@ class MapComponent extends Component {
             />
           </div>
         </div>
-
-        <MyMapComponent pos={center} />
       </div>
     );
   }
