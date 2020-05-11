@@ -30,6 +30,7 @@ export class MapContainer extends Component {
 
   render() {
     const { currentPos, center } = this.state;
+    const { pos } = this.props;
 
     let pointers = [
       { lat: 28.625306, lng: 77.113301 },
@@ -56,13 +57,13 @@ export class MapContainer extends Component {
       );
     });
 
-    const coords = currentPos;
+    const coords = pos || currentPos;
     return (
       <Map
         google={this.props.google}
         zoom={14}
         initialCenter={center}
-        center={currentPos}
+        center={coords}
         mapTypeControl={false}
         streetViewControl={false}
       >

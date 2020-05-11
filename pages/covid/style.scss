@@ -112,6 +112,7 @@
         margin-left: 10px;
         padding-top: 8px;
         color: $color-primary;
+        cursor: pointer;
 
         span {
           margin-right: 5px;
@@ -153,7 +154,7 @@
   }
 
   &__social {
-    position: fixed;
+    position: absolute;
     z-index: 1;
     left: 0;
     bottom: 0;
@@ -162,6 +163,10 @@
     background-color: $color-white;
     opacity: 0;
     transition: ease 0.3s all;
+
+    .close {
+      cursor: pointer;
+    }
 
     > .handles {
       display: flex;
@@ -219,6 +224,10 @@
       .bot {
         padding: 10px;
       }
+    }
+    &__social {
+      width: 400px;
+      margin-left: calc(50% - 200px);
     }
   }
 }

@@ -12,10 +12,7 @@ class MapComponent extends Component {
     super(props);
     this.state = {
       displayLocation: "",
-      center: {
-        lat: 28.6232186,
-        lng: 77.1121557,
-      },
+      center: "",
       zoom: 15,
     };
   }
