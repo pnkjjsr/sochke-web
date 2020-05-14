@@ -1,6 +1,14 @@
 import React, { Component, Fragment } from "react";
 import TextField from "@material-ui/core/TextField";
-import Router from "next/router";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
+
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import actionNotifications from "components/Notification/actions";
@@ -10,7 +18,7 @@ import authSession from "utils/authSession";
 import { service } from "apiConnect";
 
 import Button from "components/Form/Button";
-import MapComponent from "components/Map";
+// import MapComponent from "components/Map";
 import SubscribeComponent from "components/Subscribe";
 
 import validation from "./validation";
@@ -23,8 +31,10 @@ class Covid extends Component {
       displaySubscribe: "",
       displayLocation: "",
       displayOverlay: "hide",
+      displaySocial: "hide",
       email: "",
       location: "",
+      shareUrl: "https://www.sochke.com/covid",
     };
   }
 
@@ -108,14 +118,38 @@ class Covid extends Component {
       });
   };
 
+  handleShare = (e) => {
+    if (!navigator.share) {
+      return this.setState({
+        displaySocial: e,
+      });
+    }
+
+    const shareData = {
+      title: "Sochke | Political Networking Platform",
+      text:
+        "Sochke | SochKeApp, a political networking platform to enable citizens contribute societal issues, connect political leaders digitally &amp; build a healthy democracy.",
+      url: "https://www.sochke.com",
+    };
+    return navigator
+      .share(shareData)
+      .then(() => console.log("Successful share"))
+      .catch((error) => console.log("Error sharing", error));
+  };
+
   render() {
     const mainClass = "covid";
-    const { displaySubscribe, displayLocation, displayOverlay } = this.state;
+    const {
+      displaySubscribe,
+      displayOverlay,
+      displaySocial,
+      shareUrl,
+    } = this.state;
     return (
       <Fragment>
         <div className={mainClass}>
           {/* Map Component */}
-          <MapComponent />
+          {/* <MapComponent /> */}
 
           {/* Page Content */}
           <div className={`${mainClass}__content`}>
@@ -177,18 +211,48 @@ class Covid extends Component {
             </form>
           </div>
 
+          <div className={`${mainClass}__social ${displaySocial}`}>
+            <div className="close" onClick={(e) => this.handleShare("hide")}>
+              <span className="material-icons">cancel</span>
+            </div>
+
+            <div className="handles">
+              <FacebookShareButton url={shareUrl}>
+                <FacebookIcon size="40" round={true} />
+              </FacebookShareButton>
+
+              <LinkedinShareButton url={shareUrl}>
+                <LinkedinIcon size="40" round={true} />
+              </LinkedinShareButton>
+
+              <TwitterShareButton url={shareUrl}>
+                <TwitterIcon size="40" round={true} />
+              </TwitterShareButton>
+            </div>
+          </div>
+
           <footer className={`${mainClass}__footer`}>
             <div className="bot">
-              <label>
-                <small>I want to add Covid-19</small>
-                <br />
-                Location
-              </label>
-              <div className="add" onClick={this.handleSupport}>
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fcovid%2Fsupport.gif?alt=media"
-                  alt="Add Contribute"
-                />
+              <div
+                className="action-share"
+                onClick={(e) => this.handleShare("show")}
+              >
+                <span className="material-icons">share</span>
+                <label htmlFor="Share">Share</label>
+              </div>
+
+              <div className="action-add">
+                <label>
+                  <small>I want to add Covid-19</small>
+                  <br />
+                  Location
+                </label>
+                <div className="add" onClick={this.handleSupport}>
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fcovid%2Fsupport.gif?alt=media"
+                    alt="Add Contribute"
+                  />
+                </div>
               </div>
             </div>
           </footer>

@@ -35,13 +35,6 @@ class MobileNav extends Component {
               </Link>
             </li> */}
             <li>
-              <Link href="/covid">
-                <a>
-                  <label htmlFor="Covid-19">Covid-19</label>
-                </a>
-              </Link>
-            </li>
-            <li>
               <Link href="/mobile/contribute">
                 <a>
                   <label htmlFor="Validate contribution">

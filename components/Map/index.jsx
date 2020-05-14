@@ -3,19 +3,16 @@ import React, { Component } from "react";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
-import { MyMapComponent } from "./reactGoogleMaps";
+// import MyMapComponent from "./googleMapsReact";
 import Button from "components/Form/Button";
-import MarkerComponent from "./marker";
+// import MarkerComponent from "./marker";
 
 class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayLocation: "",
-      center: {
-        lat: 28.6232186,
-        lng: 77.1121557,
-      },
+      center: "",
       zoom: 15,
     };
   }
@@ -82,11 +79,12 @@ class MapComponent extends Component {
   render() {
     const mainClass = "map_component";
     const { displayLocation, center, zoom } = this.state;
-    // console.log(center);
 
     return (
       // Important! Always set the container height explicitly
       <div className={mainClass}>
+        {/* <MyMapComponent pos={center} /> */}
+
         {/* Get Location Access */}
         <div className={`${mainClass}__location ${displayLocation}`}>
           <figure>
@@ -113,8 +111,6 @@ class MapComponent extends Component {
             />
           </div>
         </div>
-
-        <MyMapComponent isMarkerShown />
       </div>
     );
   }

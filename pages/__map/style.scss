@@ -83,45 +83,108 @@
   &__footer {
     position: fixed;
     left: 0;
-    bottom: 10px;
+    bottom: 0;
     width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: $bg-body;
 
     .bot {
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       padding-right: 10px;
       text-align: right;
 
-      > label {
-        margin: 0;
-        color: $color-gray-light;
-        line-height: 100%;
+      %actionBG {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        @include border-radius(100%);
+        box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        color: $color-primary;
+        text-align: center;
+        cursor: pointer;
+      }
 
-        small {
+      > .action-share {
+        display: flex;
+        justify-content: center;
+        margin-left: 10px;
+        padding-top: 8px;
+        color: $color-primary;
+        cursor: pointer;
+
+        span {
+          margin-right: 5px;
+          font-size: rem(20);
+        }
+        label {
+          font-size: rem(14);
           font-weight: $font-weight-black;
         }
       }
 
-      .add {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        margin-left: 10px;
-        padding-top: 8px;
-        @include border-radius(100%);
-        box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.1);
-        background-color: #ffffff;
-        text-align: center;
-        cursor: pointer;
+      > .action-add {
+        display: flex;
+        align-items: center;
 
-        svg {
-          // background-image: linear-gradient(to top, #000088, #8e2de2);
-          font-size: rem(50);
-          line-height: 0;
+        label {
+          margin: 0;
+          color: $color-gray-light;
+          line-height: 100%;
+
+          small {
+            font-weight: $font-weight-black;
+          }
+        }
+
+        .add {
+          margin-left: 10px;
+          padding-top: 8px;
+          @extend %actionBG;
+
+          svg {
+            // background-image: linear-gradient(to top, #000088, #8e2de2);
+            font-size: rem(50);
+            line-height: 0;
+          }
         }
       }
+    }
+  }
+
+  &__social {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 10px 20px;
+    background-color: $color-white;
+    opacity: 0;
+    transition: ease 0.3s all;
+
+    .close {
+      cursor: pointer;
+    }
+
+    > .handles {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding-top: 30px;
+    }
+
+    &.hide {
+      opacity: 0;
+      bottom: -100px;
+    }
+    &.show {
+      opacity: 1;
+      bottom: 0;
     }
   }
 }
@@ -155,15 +218,20 @@
 
     &__footer {
       position: absolute;
-      left: calc(50% - 110px);
+      left: calc(50% - 175px);
       display: inline-block;
-      max-width: 220px;
+      max-width: 350px;
+      padding: 0;
       @include box-shadow();
       @include border-radius(3px);
 
       .bot {
         padding: 10px;
       }
+    }
+    &__social {
+      width: 400px;
+      margin-left: calc(50% - 200px);
     }
   }
 }
