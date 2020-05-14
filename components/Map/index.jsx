@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
 
-import MyMapComponent from "./googleMapsReact";
+// import MyMapComponent from "./googleMapsReact";
 import Button from "components/Form/Button";
-import MarkerComponent from "./marker";
+// import MarkerComponent from "./marker";
 
 class MapComponent extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class MapComponent extends Component {
     return (
       // Important! Always set the container height explicitly
       <div className={mainClass}>
-        <MyMapComponent pos={center} />
+        {/* <MyMapComponent pos={center} /> */}
 
         {/* Get Location Access */}
         <div className={`${mainClass}__location ${displayLocation}`}>

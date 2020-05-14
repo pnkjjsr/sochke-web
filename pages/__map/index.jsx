@@ -18,7 +18,7 @@ import authSession from "utils/authSession";
 import { service } from "apiConnect";
 
 import Button from "components/Form/Button";
-import MapComponent from "components/Map";
+// import MapComponent from "components/Map";
 import SubscribeComponent from "components/Subscribe";
 
 import validation from "./validation";
@@ -149,7 +149,7 @@ class Covid extends Component {
       <Fragment>
         <div className={mainClass}>
           {/* Map Component */}
-          <MapComponent />
+          {/* <MapComponent /> */}
 
           {/* Page Content */}
           <div className={`${mainClass}__content`}>
