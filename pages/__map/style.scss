@@ -85,7 +85,8 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     background-color: $bg-body;
 
     .bot {
@@ -220,6 +221,7 @@
       left: calc(50% - 175px);
       display: inline-block;
       max-width: 350px;
+      padding: 0;
       @include box-shadow();
       @include border-radius(3px);
 

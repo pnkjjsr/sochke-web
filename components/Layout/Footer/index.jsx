@@ -38,11 +38,6 @@ export default class Footer extends Component {
                       <a>Feedback</a>
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/covid">
-                      <a>Covid-19</a>
-                    </Link>
-                  </li>
                 </ul>
 
                 <div className="copyright">© 2020 {process.env.domain}</div>
