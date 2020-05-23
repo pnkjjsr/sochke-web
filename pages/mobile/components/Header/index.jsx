@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Link from "next/link";
+import Router from "next/router";
 
 import Button from "components/Form/Button";
 import Drawer from "components/Drawer";
@@ -30,6 +31,10 @@ export default class Header extends Component {
     });
   };
 
+  handleNeta = () => {
+    Router.push("/neta/narendra-modi");
+  };
+
   render() {
     const mainClass = "component_header";
     const { openDrawer } = this.state;
@@ -52,8 +57,12 @@ export default class Header extends Component {
             </Drawer>
           </div>
 
-          <div className="action d-none">
-            <Button text="Vote Neta" variant="btn-sm btn-outline-primary" />
+          <div className="action">
+            <Button
+              text="Vote Neta"
+              variant="btn-sm btn-outline-primary"
+              action={this.handleNeta}
+            />
           </div>
         </div>
 

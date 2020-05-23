@@ -1,4 +1,4 @@
-import { PREFETCH_MINISTER_DATA } from "./constant";
+import { PREFETCH_MINISTER_DATA, PREFETCH_NETA_DATA } from "./constant";
 
 const initialState = {
   year: "",
@@ -21,7 +21,7 @@ const initialState = {
   id: "",
   createdAt: "",
   constituencyArea: [],
-  ministers: []
+  ministers: [],
 };
 
 const minister = (state = initialState, action) => {
@@ -48,7 +48,29 @@ const minister = (state = initialState, action) => {
         id: action.payload.winnerMinister.id,
         createdAt: action.payload.winnerMinister.createdAt,
         constituencyArea: action.payload.winnerMinister.constituencyArea,
-        ministers: action.payload.ministers
+        ministers: action.payload.ministers,
+      });
+    case PREFETCH_NETA_DATA:
+      return Object.assign({}, state, {
+        year: action.payload.year,
+        age: action.payload.age,
+        cases: action.payload.cases,
+        userName: action.payload.userName,
+        type: action.payload.type,
+        education: action.payload.education,
+        party: action.payload.party,
+        constituency: action.payload.constituency,
+        partyShort: action.payload.partyShort,
+        liabilities: action.payload.liabilities,
+        address: action.payload.address,
+        state: action.payload.state,
+        photoUrl: action.payload.photoUrl,
+        name: action.payload.name,
+        assets: action.payload.assets,
+        winner: action.payload.winner,
+        pincode: action.payload.pincode,
+        id: action.payload.id,
+        createdAt: action.payload.createdAt,
       });
     default:
       return state;

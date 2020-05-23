@@ -21,7 +21,7 @@ const nextConfig = {
     appId: process.env.appId,
     measurementId: process.env.measurementId,
     secretKey: process.env.SECRET_KEY,
-    xAccessKey: process.env.X_ACCESS_TOKEN,
+    xAccessKey: process.env.X_ACCESS_KEY,
     govKey: process.env.GOV_KEY,
     apiProtocol: process.env.API_PROTOCOL,
     requestTimeout: process.env.REQUEST_TIMEOUT,

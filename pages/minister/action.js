@@ -1,24 +1,41 @@
-import { PREFETCH_MINISTER_DATA } from "./constant";
+import { PREFETCH_MINISTER_DATA, PREFETCH_NETA_DATA } from "./constant";
 
 import { service } from "apiConnect";
 
-const prefetchMinisterData = e => {
-  return dispatch => {
+const prefetchMinisterData = (e) => {
+  return (dispatch) => {
     const data = e;
     service
       .post("/page-minister", data)
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: PREFETCH_MINISTER_DATA,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+const prefetchNetaData = (e) => {
+  return (dispatch) => {
+    service
+      .get(`/getNeta?neta=${e}`)
+      .then((res) => {
+        dispatch({
+          type: PREFETCH_NETA_DATA,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
 export default {
-  prefetchMinisterData
+  prefetchMinisterData,
+  prefetchNetaData,
 };
