@@ -171,6 +171,7 @@
       > .hide {
         float: right;
         color: $color-gray-light;
+        cursor: pointer;
       }
       > .details {
         .heading {
@@ -242,15 +243,30 @@
       .info {
         float: right;
         font-size: rem(24);
+        cursor: pointer;
       }
 
       .detail {
         > p {
-          margin: 0;
+          margin-bottom: 30px;
           font-size: rem(18);
           font-weight: $font-weight-black;
           text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 1);
           line-height: 100%;
+        }
+
+        > .feature {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+          }
         }
       }
     }
@@ -259,6 +275,8 @@
   &__action {
     display: flex;
     justify-content: space-evenly;
+    max-width: 400px;
+    margin: auto;
     margin-bottom: 10px;
 
     .btn {

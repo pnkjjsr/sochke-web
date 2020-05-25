@@ -28,7 +28,7 @@ class MobileNav extends Component {
               </Link>
             </li>
             <li>
-              <Link href="/mobile/neta">
+              <Link href="/neta/narendra-modi">
                 <a>
                   <label htmlFor="Rate your neta">Rate your neta</label>
                 </a>

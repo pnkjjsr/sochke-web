@@ -23,7 +23,7 @@ class Neta extends Component {
 
     this.state = {
       query: props.queryName,
-      classDesc: "show",
+      classDesc: "",
     };
   }
 
@@ -131,7 +131,7 @@ class Neta extends Component {
                   <ul className="list">
                     <li>
                       <i class="material-icons">map</i>
-                      <label htmlFor="">
+                      <label htmlFor="constituency">
                         {constituency} - constituency
                         <br />
                         <small>{state}</small>
@@ -139,7 +139,7 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">access_time</i>
-                      <label htmlFor="">
+                      <label htmlFor="election">
                         {year} - Election
                         <br />
                         <small>{type}</small>
@@ -147,7 +147,7 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">flag</i>
-                      <label htmlFor="">
+                      <label htmlFor="party">
                         {party}
                         <br />
                         <small>{partyShort}</small>
@@ -155,11 +155,11 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">gavel</i>
-                      <label htmlFor="">{cases} cases(s)</label>
+                      <label htmlFor="cases">{cases} cases(s)</label>
                     </li>
                     <li>
                       <i class="material-icons">money</i>
-                      <label htmlFor="">
+                      <label htmlFor="assets">
                         {assetsCompact} ~ Assets
                         <br />
                         <small>{assetsFull}</small>
@@ -167,7 +167,7 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">money</i>
-                      <label htmlFor="">
+                      <label htmlFor="liabilities">
                         {liabilitiesCompact} ~ Liabilities
                         <br />
                         <small>{liabilitiesFull}</small>
@@ -175,11 +175,11 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">portrait</i>
-                      <label htmlFor="">{age} ~ Age</label>
+                      <label htmlFor="age">{age} ~ Age</label>
                     </li>
                     <li>
                       <i class="material-icons">menu_book</i>
-                      <label htmlFor="">
+                      <label htmlFor="education">
                         {edu} - Education
                         <br />
                         <small>{education}</small>
@@ -187,7 +187,7 @@ class Neta extends Component {
                     </li>
                     <li>
                       <i class="material-icons">home</i>
-                      <label htmlFor="">
+                      <label htmlFor="address">
                         {pincode} - Address
                         <br />
                         <small>
@@ -217,6 +217,21 @@ class Neta extends Component {
 
                 <div className="detail">
                   <p>{name}</p>
+
+                  <div className="feature">
+                    <div>
+                      <span className="material-icons">favorite</span>
+                      <label htmlFor="favorite">10</label>
+                    </div>
+                    <div>
+                      <span className="material-icons">comment</span>
+                      <label htmlFor="comment">100</label>
+                    </div>
+                    <div>
+                      <span className="material-icons">share</span>
+                      <label htmlFor="share">1000</label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
