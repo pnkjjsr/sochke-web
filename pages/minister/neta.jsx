@@ -4,10 +4,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 
+import stringModifier from "utils/stringModifier";
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
 
 import "./style.scss";
+const imgAsk =
+  "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fneta%2Fask.png?alt=media";
 
 class Neta extends Component {
   static async getInitialProps({ query }) {
@@ -20,6 +23,7 @@ class Neta extends Component {
 
     this.state = {
       query: props.queryName,
+      classDesc: "show",
     };
   }
 
@@ -72,7 +76,34 @@ class Neta extends Component {
 
   render() {
     const mainClass = "neta";
-    const { name, photoDisplay, party, type, classDesc } = this.state;
+    const {
+      name,
+      photoDisplay,
+      constituency,
+      state,
+      year,
+      party,
+      partyShort,
+      cases,
+      type,
+      assets,
+      liabilities,
+      age,
+      education,
+      pincode,
+      address,
+      classDesc,
+    } = this.state;
+    let typeFull;
+    if (type === "PM") typeFull = "Prime Minister";
+    if (type === "CM") typeFull = "Chief Minister";
+
+    const string = new stringModifier();
+    let assetsFull = string.currencyFormat(assets);
+    let assetsCompact = string.currencyFormatCompact(assets);
+    let liabilitiesFull = string.currencyFormat(liabilities);
+    let liabilitiesCompact = string.currencyFormatCompact(liabilities);
+    let edu = string.tillFirstCommaString(education);
 
     if (!name) {
       return <PageLoader />;
@@ -89,7 +120,96 @@ class Neta extends Component {
                 <div className="hide" onClick={this.handleDescHide}>
                   <span className="material-icons">cancel</span>
                 </div>
-                PJ
+
+                <div className="details">
+                  <h1 className="heading">
+                    {name}
+                    <br />
+                    <small>{typeFull}</small>
+                  </h1>
+
+                  <ul className="list">
+                    <li>
+                      <i class="material-icons">map</i>
+                      <label htmlFor="">
+                        {constituency} - constituency
+                        <br />
+                        <small>{state}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">access_time</i>
+                      <label htmlFor="">
+                        {year} - Election
+                        <br />
+                        <small>{type}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">flag</i>
+                      <label htmlFor="">
+                        {party}
+                        <br />
+                        <small>{partyShort}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">gavel</i>
+                      <label htmlFor="">{cases} cases(s)</label>
+                    </li>
+                    <li>
+                      <i class="material-icons">money</i>
+                      <label htmlFor="">
+                        {assetsCompact} ~ Assets
+                        <br />
+                        <small>{assetsFull}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">money</i>
+                      <label htmlFor="">
+                        {liabilitiesCompact} ~ Liabilities
+                        <br />
+                        <small>{liabilitiesFull}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">portrait</i>
+                      <label htmlFor="">{age} ~ Age</label>
+                    </li>
+                    <li>
+                      <i class="material-icons">menu_book</i>
+                      <label htmlFor="">
+                        {edu} - Education
+                        <br />
+                        <small>{education}</small>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="material-icons">home</i>
+                      <label htmlFor="">
+                        {pincode} - Address
+                        <br />
+                        <small>
+                          {address}, {state} - {pincode}
+                        </small>
+                      </label>
+                    </li>
+                    <li>
+                      <div className={`disclaimer`}>
+                        <p>
+                          Disclaimer: This information is an archive of the
+                          candidate's self-declared affidavit that was filed
+                          during the elections. The current status of this
+                          information may be different. For the latest available
+                          information, please refer to the affidavit filed by
+                          the candidate to the Election Commission in the most
+                          recent election.
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               <div className="bot">
@@ -126,10 +246,7 @@ class Neta extends Component {
                   <br /> Neta Se
                 </label>
                 <div className="add" onClick={this.handleRegister}>
-                  <img
-                    src="https://firebasestorage.googleapis.com/v0/b/sochke-web.appspot.com/o/cdn%2Fintro%2Fadd.gif?alt=media"
-                    alt="Add Contribute"
-                  />
+                  <img src={imgAsk} alt="Add Contribute" />
                 </div>
               </div>
             </div>
