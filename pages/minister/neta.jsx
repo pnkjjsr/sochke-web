@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import publicIp from "public-ip";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 
+import { service } from "apiConnect";
 import stringModifier from "utils/stringModifier";
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
@@ -24,6 +26,7 @@ class Neta extends Component {
     this.state = {
       query: props.queryName,
       classDesc: "",
+      userIP: "",
     };
   }
 
@@ -60,6 +63,13 @@ class Neta extends Component {
     const { query } = this.state;
     const { ministerAction } = this.props;
     ministerAction.prefetchNetaData(query);
+
+    (async () => {
+      let userIP = await publicIp.v4();
+      this.setState({
+        userIP: userIP,
+      });
+    })();
   }
 
   handleDescShow = () => {
@@ -72,6 +82,47 @@ class Neta extends Component {
     this.setState({
       classDesc: "hide",
     });
+  };
+
+  handleVote = (id, vote) => {
+    const { userIP } = this.state;
+
+    let nData = {
+      createdAt: new Date().toISOString(),
+      userIP: userIP,
+      mid: id,
+      vote: vote,
+    };
+    service
+      .post("/neta", nData)
+      .then((res) => {
+        if (res.data.code == "vote/added") {
+          setTimeout(() => {
+            this.setState(
+              {
+                contributeActive: contributeActive + 1,
+                notificationDisplay: "d-none",
+              },
+              () => {
+                let len = data.length;
+                if (len == this.state.contributeActive) {
+                  sessionStorage.setItem("contributionTry", "all-done");
+                  Router.push("/mobile/completed");
+                }
+
+                if (contributeActive == 2) {
+                  Router.push("/mobile/register");
+                  sessionStorage.setItem("contributionTry", "done");
+                  return true;
+                }
+              }
+            );
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -92,6 +143,7 @@ class Neta extends Component {
       education,
       pincode,
       address,
+      id,
       classDesc,
     } = this.state;
     let typeFull;
@@ -240,17 +292,17 @@ class Neta extends Component {
               <Button
                 text="I Believe"
                 variant="btn-success"
-                // action={(e) => this.handleVote(contribute.id, "agree")}
+                action={(e) => this.handleVote(id, "true")}
               />
               <Button
                 text="I Won't"
                 variant="btn-danger"
-                // action={(e) => this.handleVote(contribute.id, "disagree")}
+                action={(e) => this.handleVote(id, "false")}
               />
               <Button
                 text="Pass"
                 variant="btn-outline-primary"
-                // action={(e) => this.handleVote(contribute.id, "pass")}
+                action={(e) => this.handleVote(id, "pass")}
               />
             </div>
 

@@ -19,10 +19,10 @@ const prefetchMinisterData = (e) => {
   };
 };
 
-const prefetchNetaData = (e) => {
+const prefetchNetaData = () => {
   return (dispatch) => {
     service
-      .get(`/getNeta?neta=${e}`)
+      .get("/neta")
       .then((res) => {
         dispatch({
           type: PREFETCH_NETA_DATA,
