@@ -288,10 +288,10 @@
   }
 
   &__bot {
-    position: fixed;
+    position: absolute;
     z-index: 1;
     left: 0;
-    bottom: 10px;
+    bottom: -40px;
     width: 100%;
 
     .action {

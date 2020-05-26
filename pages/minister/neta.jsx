@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 
 import { service } from "apiConnect";
+import authSession from "utils/authSession";
 import stringModifier from "utils/stringModifier";
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
@@ -62,14 +63,19 @@ class Neta extends Component {
   componentDidMount() {
     const { query } = this.state;
     const { ministerAction } = this.props;
-    ministerAction.prefetchNetaData(query);
+    const session = new authSession();
+    let token = session.getToken();
 
-    (async () => {
-      let userIP = await publicIp.v4();
-      this.setState({
-        userIP: userIP,
-      });
-    })();
+    if (!token) {
+      (async () => {
+        token = await publicIp.v4();
+        this.setState({
+          userIP: token,
+        });
+      })();
+    }
+    this.setState({ userIP: token });
+    ministerAction.prefetchNetaData(query);
   }
 
   handleDescShow = () => {
@@ -89,7 +95,7 @@ class Neta extends Component {
 
     let nData = {
       createdAt: new Date().toISOString(),
-      userIP: userIP,
+      uid: userIP,
       mid: id,
       vote: vote,
     };
