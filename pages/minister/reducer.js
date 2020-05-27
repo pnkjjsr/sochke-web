@@ -23,6 +23,7 @@ const initialState = {
   createdAt: "",
   constituencyArea: [],
   ministers: [],
+  likeCount: "",
 };
 
 const minister = (state = initialState, action) => {
@@ -73,6 +74,7 @@ const minister = (state = initialState, action) => {
         pincode: action.payload.pincode,
         id: action.payload.id,
         createdAt: action.payload.createdAt,
+        likeCount: action.payload.likeCount,
       });
     default:
       return state;

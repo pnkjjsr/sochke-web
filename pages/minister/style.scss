@@ -266,6 +266,16 @@
             flex-direction: column;
             justify-content: center;
             text-align: center;
+
+            &.active {
+              span {
+                color: $color-white;
+              }
+            }
+
+            span {
+              color: rgba(255, 255, 255, 0.3);
+            }
           }
         }
       }

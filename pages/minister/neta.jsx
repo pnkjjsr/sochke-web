@@ -28,11 +28,14 @@ class Neta extends Component {
       query: props.queryName,
       classDesc: "",
       userIP: "",
+      like: false,
+      likeActive: "",
+      likeCount: 0,
     };
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.minister.name) {
+    if (state.name != props.minister.name) {
       return {
         year: props.minister.year,
         age: props.minister.age,
@@ -54,6 +57,7 @@ class Neta extends Component {
         pincode: props.minister.pincode,
         id: props.minister.id,
         createdAt: props.minister.createdAt,
+        likeCount: props.minister.likeCount,
       };
     }
 
@@ -131,6 +135,54 @@ class Neta extends Component {
       });
   };
 
+  handleLike = () => {
+    const { likeActive, likeCount, userIP, id } = this.state;
+    const data = {
+      createdAt: new Date().toISOString(),
+      mid: id,
+      uid: userIP,
+    };
+    if (likeActive == "active") {
+      data.like = false;
+      service
+        .post("/neta-like", data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return this.setState({
+        likeActive: "",
+        likeCount: likeCount - 1,
+      });
+    }
+
+    data.like = true;
+    service
+      .post("/neta-like", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.setState({
+      likeActive: "active",
+      likeCount: likeCount + 1,
+    });
+  };
+  renderLike = () => {
+    const { likeCount, likeActive } = this.state;
+    return (
+      <div className={likeActive} onClick={this.handleLike}>
+        <span className="material-icons">favorite</span>
+        <label htmlFor="favorite">{likeCount}</label>
+      </div>
+    );
+  };
+
   render() {
     const mainClass = "neta";
     const {
@@ -188,7 +240,7 @@ class Neta extends Component {
 
                   <ul className="list">
                     <li>
-                      <i class="material-icons">map</i>
+                      <i className="material-icons">map</i>
                       <label htmlFor="constituency">
                         {constituency} - constituency
                         <br />
@@ -196,7 +248,7 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">access_time</i>
+                      <i className="material-icons">access_time</i>
                       <label htmlFor="election">
                         {year} - Election
                         <br />
@@ -204,7 +256,7 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">flag</i>
+                      <i className="material-icons">flag</i>
                       <label htmlFor="party">
                         {party}
                         <br />
@@ -212,11 +264,11 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">gavel</i>
+                      <i className="material-icons">gavel</i>
                       <label htmlFor="cases">{cases} cases(s)</label>
                     </li>
                     <li>
-                      <i class="material-icons">money</i>
+                      <i className="material-icons">money</i>
                       <label htmlFor="assets">
                         {assetsCompact} ~ Assets
                         <br />
@@ -224,7 +276,7 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">money</i>
+                      <i className="material-icons">money</i>
                       <label htmlFor="liabilities">
                         {liabilitiesCompact} ~ Liabilities
                         <br />
@@ -232,11 +284,11 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">portrait</i>
+                      <i className="material-icons">portrait</i>
                       <label htmlFor="age">{age} ~ Age</label>
                     </li>
                     <li>
-                      <i class="material-icons">menu_book</i>
+                      <i className="material-icons">menu_book</i>
                       <label htmlFor="education">
                         {edu} - Education
                         <br />
@@ -244,7 +296,7 @@ class Neta extends Component {
                       </label>
                     </li>
                     <li>
-                      <i class="material-icons">home</i>
+                      <i className="material-icons">home</i>
                       <label htmlFor="address">
                         {pincode} - Address
                         <br />
@@ -277,10 +329,8 @@ class Neta extends Component {
                   <p>{name}</p>
 
                   <div className="feature">
-                    <div>
-                      <span className="material-icons">favorite</span>
-                      <label htmlFor="favorite">10</label>
-                    </div>
+                    {this.renderLike()}
+
                     <div>
                       <span className="material-icons">comment</span>
                       <label htmlFor="comment">100</label>
