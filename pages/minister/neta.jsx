@@ -69,6 +69,9 @@ class Neta extends Component {
     const { ministerAction } = this.props;
     const session = new authSession();
     let token = session.getToken();
+    let liked = sessionStorage.getItem("netaLike");
+
+    if (liked == "true") this.setState({ likeActive: "active" });
 
     if (!token) {
       (async () => {
@@ -103,6 +106,7 @@ class Neta extends Component {
       mid: id,
       vote: vote,
     };
+
     service
       .post("/neta", nData)
       .then((res) => {
@@ -148,6 +152,7 @@ class Neta extends Component {
         .post("/neta-like", data)
         .then((res) => {
           console.log(res);
+          sessionStorage.setItem("netaLike", false);
         })
         .catch((err) => {
           console.log(err);
@@ -163,6 +168,8 @@ class Neta extends Component {
       .post("/neta-like", data)
       .then((res) => {
         console.log(res);
+
+        sessionStorage.setItem("netaLike", true);
       })
       .catch((err) => {
         console.log(err);
