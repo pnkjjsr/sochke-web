@@ -14,6 +14,7 @@ const initialState = {
   keyword:
     "Sochke,SochkeApp,Neta,Society Issues,Leaders,Politics,Political,Politician,Political Networking,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda",
   path: "",
+  ogImage: "",
   searchView: false,
   searchMinisters: [],
   searchUsers: [],
@@ -49,6 +50,7 @@ const auth = (state = initialState, action) => {
         title: action.payload.title,
         desc: action.payload.desc,
         keyword: action.payload.keyword,
+        ogImage: action.payload.ogImage,
       });
 
     default:

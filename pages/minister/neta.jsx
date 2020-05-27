@@ -1,9 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 import publicIp from "public-ip";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./action";
+import layoutActions from "components/Layout/actions";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -31,6 +40,10 @@ class Neta extends Component {
       like: false,
       likeActive: "",
       likeCount: 0,
+      shareCount: 0,
+      shareUrl: "https://www.sochke.com/neta/narendra-modi",
+      displaySocial: "hide",
+      shareActive: "",
     };
   }
 
@@ -58,15 +71,15 @@ class Neta extends Component {
         id: props.minister.id,
         createdAt: props.minister.createdAt,
         likeCount: props.minister.likeCount,
+        shareCount: props.minister.shareCount,
       };
     }
-
     return null;
   }
 
   componentDidMount() {
     const { query } = this.state;
-    const { ministerAction } = this.props;
+    const { ministerAction, layoutAction } = this.props;
     const session = new authSession();
     let token = session.getToken();
     let liked = sessionStorage.getItem("netaLike");
@@ -83,6 +96,15 @@ class Neta extends Component {
     }
     this.setState({ userIP: token });
     ministerAction.prefetchNetaData(query);
+
+    layoutAction.updateHead({
+      title: "Sochke | Vote Your PM | Narendra Modi | Rate Neta",
+      desc:
+        "Sochke | SochKeApp, now you can like your PM and share your though with your PM",
+      keyword:
+        "Sochke,SochkeApp,Prime Minister,Narendra Modi,Rate Neta,Vote Neta,Neta,Society Issues,Leaders,Politics,Political,Politician,Political Networking,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda",
+      ogImage: imgAsk,
+    });
   }
 
   handleDescShow = () => {
@@ -137,6 +159,57 @@ class Neta extends Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  handleShare = (e) => {
+    if (!navigator.share) {
+      return this.setState({
+        shareActive: "active",
+        displaySocial: e,
+      });
+    }
+
+    const shareData = {
+      title: "Sochke | Vote Narendra Modi",
+      text: "Sochke | share your though for your Prime Minister.",
+      url: "https://www.sochke.com/neta/narendra-modi",
+    };
+    return navigator
+      .share(shareData)
+      .then(() => console.log("Successful share"))
+      .catch((error) => console.log("Error sharing", error));
+  };
+  getShareCount = () => {
+    const { shareCount } = this.state;
+    this.setState({
+      shareCount: shareCount + 1,
+    });
+  };
+  renderSocial = () => {
+    const { displaySocial, shareUrl } = this.state;
+    const mainClass = "neta";
+
+    return (
+      <div className={`${mainClass}__social ${displaySocial}`}>
+        <div className="close" onClick={(e) => this.handleShare("hide")}>
+          <span className="material-icons">cancel</span>
+        </div>
+
+        <div className="handles">
+          <FacebookShareButton url={shareUrl} onClick={this.getShareCount}>
+            <FacebookIcon size="40" round={true} />
+          </FacebookShareButton>
+
+          <LinkedinShareButton url={shareUrl} onClick={this.getShareCount}>
+            <LinkedinIcon size="40" round={true} />
+          </LinkedinShareButton>
+
+          <TwitterShareButton url={shareUrl} onClick={this.getShareCount}>
+            <TwitterIcon size="40" round={true} />
+          </TwitterShareButton>
+        </div>
+      </div>
+    );
   };
 
   handleLike = () => {
@@ -210,6 +283,8 @@ class Neta extends Component {
       address,
       id,
       classDesc,
+      shareCount,
+      shareActive,
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -342,9 +417,12 @@ class Neta extends Component {
                       <span className="material-icons">comment</span>
                       <label htmlFor="comment">100</label>
                     </div>
-                    <div>
+                    <div
+                      className={shareActive}
+                      onClick={(e) => this.handleShare("show")}
+                    >
                       <span className="material-icons">share</span>
-                      <label htmlFor="share">1000</label>
+                      <label htmlFor="share">{shareCount}</label>
                     </div>
                   </div>
                 </div>
@@ -380,6 +458,8 @@ class Neta extends Component {
                 </div>
               </div>
             </div>
+
+            {this.renderSocial()}
           </div>
         </Fragment>
       );
@@ -389,6 +469,7 @@ class Neta extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   ministerAction: bindActionCreators(ministerActions, dispatch),
+  layoutAction: bindActionCreators(layoutActions, dispatch),
 });
 
 export default connect((state) => state, mapDispatchToProps)(Neta);
