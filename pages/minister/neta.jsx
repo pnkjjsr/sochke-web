@@ -179,11 +179,24 @@ class Neta extends Component {
       .then(() => console.log("Successful share"))
       .catch((error) => console.log("Error sharing", error));
   };
-  getShareCount = () => {
-    const { shareCount } = this.state;
-    this.setState({
-      shareCount: shareCount + 1,
-    });
+  handleShareCount = (e) => {
+    const { shareCount, userIP, id } = this.state;
+    const data = {
+      createdAt: new Date().toISOString(),
+      mid: id,
+      uid: userIP,
+      type: e,
+    };
+    service
+      .post("/neta-share", data)
+      .then((res) => {
+        this.setState({
+          shareCount: shareCount + 1,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   renderSocial = () => {
     const { displaySocial, shareUrl } = this.state;
@@ -196,15 +209,24 @@ class Neta extends Component {
         </div>
 
         <div className="handles">
-          <FacebookShareButton url={shareUrl} onClick={this.getShareCount}>
+          <FacebookShareButton
+            url={shareUrl}
+            onClick={(e) => this.handleShareCount("facebook")}
+          >
             <FacebookIcon size="40" round={true} />
           </FacebookShareButton>
 
-          <LinkedinShareButton url={shareUrl} onClick={this.getShareCount}>
+          <LinkedinShareButton
+            url={shareUrl}
+            onClick={(e) => this.handleShareCount("linkedin")}
+          >
             <LinkedinIcon size="40" round={true} />
           </LinkedinShareButton>
 
-          <TwitterShareButton url={shareUrl} onClick={this.getShareCount}>
+          <TwitterShareButton
+            url={shareUrl}
+            onClick={(e) => this.handleShareCount("twitter")}
+          >
             <TwitterIcon size="40" round={true} />
           </TwitterShareButton>
         </div>
