@@ -10,6 +10,8 @@ function validation(data) {
   }
 
   if (isEmpty(data.comment)) errors.comment = "Comment must not be empty";
+  if (isEmpty(data.displayName))
+    errors.displayName = "Display name must not be empty";
 
   return {
     errors,

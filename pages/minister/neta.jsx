@@ -93,16 +93,18 @@ class Neta extends Component {
     const session = new authSession();
     let token = session.getToken();
     let liked = sessionStorage.getItem("netaLike");
+    let getIP = sessionStorage.getItem("ip");
 
     if (liked == "true") this.setState({ likeActive: "active" });
 
     if (!token) {
-      (async () => {
-        token = await publicIp.v4();
-        this.setState({
-          userIP: token,
-        });
-      })();
+      if (!getIP) {
+        (async () => {
+          token = await publicIp.v4();
+        })();
+      } else {
+        token = getIP;
+      }
     }
     this.setState({ userIP: token });
     ministerAction.prefetchNetaData(query);
@@ -197,6 +199,7 @@ class Neta extends Component {
       .then(() => console.log("Successful share"))
       .catch((error) => console.log("Error sharing", error));
   };
+
   handleShareCount = (e) => {
     const { shareCount, userIP, id } = this.state;
     const data = {
@@ -216,6 +219,7 @@ class Neta extends Component {
         console.log(err);
       });
   };
+
   renderSocial = () => {
     const { displaySocial, shareUrl } = this.state;
     const mainClass = "neta";
@@ -293,38 +297,17 @@ class Neta extends Component {
       likeCount: likeCount + 1,
     });
   };
-  renderLike = () => {
-    const { likeCount, likeActive } = this.state;
-    return (
-      <div className={likeActive} onClick={this.handleLike}>
-        <span className="material-icons">favorite</span>
-        <label htmlFor="favorite">{likeCount}</label>
-      </div>
-    );
-  };
 
   handleComment = (e) => {
     const { commentActive } = this.state;
     let newState = commentActive == "" ? "active" : "";
+
+    service.post().then().catch();
+
     this.setState({
       commentActive: newState,
       displayComment: e,
     });
-  };
-  renderCommentShow = () => {
-    const { displayComment } = this.state;
-    const mainClass = "neta";
-
-    return (
-      <div className={`${mainClass}__comment ${displayComment}`}>
-        <div className="close" onClick={(e) => this.handleComment("hide")}>
-          <span className="material-icons">cancel</span>
-        </div>
-        <h2>Comments</h2>
-
-        <div>Read Comment</div>
-      </div>
-    );
   };
 
   handleCommentSubmit = (e) => {
@@ -338,7 +321,7 @@ class Neta extends Component {
       commentCount,
     } = this.state;
     const { actionNotification } = this.props;
-    const { valid, errors } = validation({ email, comment });
+    const { valid, errors } = validation({ email, comment, displayName });
 
     if (!valid) {
       return actionNotification.showNotification({
@@ -377,11 +360,39 @@ class Neta extends Component {
         console.log(err);
       });
   };
+
   handleCommentWrite = (e) => {
     this.setState({
       displayWriteComment: e,
     });
   };
+
+  renderLike = () => {
+    const { likeCount, likeActive } = this.state;
+    return (
+      <div className={likeActive} onClick={this.handleLike}>
+        <span className="material-icons">favorite</span>
+        <label htmlFor="favorite">{likeCount}</label>
+      </div>
+    );
+  };
+
+  renderCommentShow = () => {
+    const { displayComment } = this.state;
+    const mainClass = "neta";
+
+    return (
+      <div className={`${mainClass}__comment ${displayComment}`}>
+        <div className="close" onClick={(e) => this.handleComment("hide")}>
+          <span className="material-icons">cancel</span>
+        </div>
+        <h2>Comments</h2>
+
+        <div>Read Comment</div>
+      </div>
+    );
+  };
+
   renderCommentWrite = () => {
     const { displayWriteComment, name } = this.state;
     const mainClass = "neta";
@@ -483,7 +494,9 @@ class Neta extends Component {
       shareActive,
       commentCount,
       commentActive,
+      userIP,
     } = this.state;
+    console.log(userIP);
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
     if (type === "CM") typeFull = "Chief Minister";
