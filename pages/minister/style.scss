@@ -1,4 +1,5 @@
 @import "common/styles/global.scss";
+@import "components/Form/form.scss";
 
 // Minister Page
 .minister {
@@ -112,6 +113,18 @@
 .neta {
   margin-top: 15px;
   padding: 0 10px;
+
+  %drawer-lg {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 10px 20px;
+    background-color: $color-white;
+    opacity: 0;
+    transition: ease 0.3s all;
+  }
 
   &__item {
     position: relative;
@@ -275,6 +288,7 @@
 
             span {
               color: rgba(255, 255, 255, 0.3);
+              cursor: pointer;
             }
           }
         }
@@ -343,15 +357,7 @@
   }
 
   &__social {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 10px 10px 20px;
-    background-color: $color-white;
-    opacity: 0;
-    transition: ease 0.3s all;
+    @extend %drawer-lg;
 
     .close {
       cursor: pointer;
@@ -379,6 +385,54 @@
       bottom: 0;
     }
   }
+
+  &__comment {
+    @extend %drawer-lg;
+    height: 400px;
+
+    .close {
+      cursor: pointer;
+    }
+
+    &.hide {
+      opacity: 0;
+      bottom: -400px;
+    }
+    &.show {
+      opacity: 1;
+      bottom: 0;
+    }
+
+    > h2 {
+      margin-bottom: 20px;
+      color: $color-primary;
+      font-size: rem(18);
+      font-weight: $font-weight-black;
+    }
+
+    > .form {
+      @include form;
+      .form {
+        border: 0 none;
+        box-shadow: none;
+      }
+
+      .action {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        span {
+          align-self: center;
+          margin-right: 10px;
+          color: $color-gray-light;
+          font-size: rem(12);
+          text-align: right;
+          line-height: 100%;
+        }
+      }
+    }
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -387,9 +441,16 @@
       min-height: 480px;
     }
 
-    &__social {
+    %drawer {
       width: 400px;
       margin-left: calc(50% - 200px);
+    }
+
+    &__social {
+      @extend %drawer;
+    }
+    &__comment {
+      @extend %drawer;
     }
   }
 

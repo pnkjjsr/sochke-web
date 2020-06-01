@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import TextField from "@material-ui/core/TextField";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -13,6 +14,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ministerActions from "./action";
 import layoutActions from "components/Layout/actions";
+import actionNotifications from "components/Notification/actions";
 
 import { service } from "apiConnect";
 import authSession from "utils/authSession";
@@ -20,6 +22,7 @@ import stringModifier from "utils/stringModifier";
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
 
+import validation from "./validation";
 import "./style.scss";
 const imgAsk =
   "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fneta%2Fask.png?alt=media";
@@ -44,6 +47,11 @@ class Neta extends Component {
       shareUrl: "https://www.sochke.com/neta/narendra-modi",
       displaySocial: "hide",
       shareActive: "",
+      commentActive: "",
+      displayComment: "hide",
+      displayWriteComment: "hide",
+      email: "",
+      comment: "",
     };
   }
 
@@ -72,6 +80,7 @@ class Neta extends Component {
         createdAt: props.minister.createdAt,
         likeCount: props.minister.likeCount,
         shareCount: props.minister.shareCount,
+        commentCount: props.minister.commentCount,
       };
     }
     return null;
@@ -106,6 +115,14 @@ class Neta extends Component {
       ogImage: imgAsk,
     });
   }
+
+  handleChange = (e) => {
+    let name = e.target.name;
+    let val = e.target.value;
+    this.setState({
+      [name]: val,
+    });
+  };
 
   handleDescShow = () => {
     this.setState({
@@ -285,6 +302,136 @@ class Neta extends Component {
     );
   };
 
+  handleComment = (e) => {
+    const { commentActive } = this.state;
+    let newState = commentActive == "" ? "active" : "";
+    this.setState({
+      commentActive: newState,
+      displayComment: e,
+    });
+  };
+  renderCommentShow = () => {
+    const { displayComment } = this.state;
+    const mainClass = "neta";
+
+    return (
+      <div className={`${mainClass}__comment ${displayComment}`}>
+        <div className="close" onClick={(e) => this.handleComment("hide")}>
+          <span className="material-icons">cancel</span>
+        </div>
+        <h2>Comments</h2>
+
+        <div>Read Comment</div>
+      </div>
+    );
+  };
+
+  handleCommentSubmit = (e) => {
+    e.preventDefault();
+    const { email, comment, userIP, id } = this.state;
+    const { actionNotification } = this.props;
+    const { valid, errors } = validation({ email, comment });
+
+    if (!valid) {
+      return actionNotification.showNotification({
+        message: "Please enter the details.",
+        type: "danger",
+      });
+    }
+
+    let data = {
+      createdAt: new Date().toISOString(),
+      uid: userIP,
+      mid: id,
+      email: email,
+      comment: comment,
+    };
+
+    service
+      .post("/neta-comment", data)
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          displayWriteComment: "hide",
+          email: "",
+          comment: "",
+        });
+
+        actionNotification.showNotification({
+          message: "Thank you for your valuable comment.",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  handleCommentWrite = (e) => {
+    this.setState({
+      displayWriteComment: e,
+    });
+  };
+  renderCommentWrite = () => {
+    const { displayWriteComment, name } = this.state;
+    const mainClass = "neta";
+
+    return (
+      <div className={`${mainClass}__comment ${displayWriteComment}`}>
+        <div className="close" onClick={(e) => this.handleCommentWrite("hide")}>
+          <span className="material-icons">cancel</span>
+        </div>
+
+        <h2>I want to say {name},</h2>
+        <div className="form">
+          <form
+            className="form"
+            autoComplete="off"
+            onSubmit={this.handleCommentSubmit}
+          >
+            <TextField
+              name="email"
+              label="Email"
+              type="email"
+              InputLabelProps={{
+                htmlFor: "email",
+              }}
+              inputProps={{
+                "aria-label": "email",
+              }}
+              variant="filled"
+              onChange={this.handleChange}
+            />
+            <TextField
+              name="comment"
+              label="Comment"
+              type="text"
+              rows="5"
+              multiline
+              InputLabelProps={{
+                htmlFor: "comment",
+              }}
+              inputProps={{
+                "aria-label": "comment",
+                maxLength: "175",
+              }}
+              variant="filled"
+              onChange={this.handleChange}
+            />
+
+            <div className="action">
+              <span>
+                By clicking
+                <br />
+                You comment and Subscribe
+              </span>
+              <Button text="Add Comment" variant="btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  };
+
   render() {
     const mainClass = "neta";
     const {
@@ -307,6 +454,8 @@ class Neta extends Component {
       classDesc,
       shareCount,
       shareActive,
+      commentCount,
+      commentActive,
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -435,9 +584,12 @@ class Neta extends Component {
                   <div className="feature">
                     {this.renderLike()}
 
-                    <div>
+                    <div
+                      className={commentActive}
+                      onClick={(e) => this.handleComment("show")}
+                    >
                       <span className="material-icons">comment</span>
-                      <label htmlFor="comment">100</label>
+                      <label htmlFor="comment">{commentCount}</label>
                     </div>
                     <div
                       className={shareActive}
@@ -475,13 +627,18 @@ class Neta extends Component {
                   <small>I want say</small>
                   <br /> Neta Se
                 </label>
-                <div className="add" onClick={this.handleRegister}>
+                <div
+                  className="add"
+                  onClick={(e) => this.handleCommentWrite("show")}
+                >
                   <img src={imgAsk} alt="Add Contribute" />
                 </div>
               </div>
             </div>
 
             {this.renderSocial()}
+            {this.renderCommentShow()}
+            {this.renderCommentWrite()}
           </div>
         </Fragment>
       );
@@ -492,6 +649,7 @@ class Neta extends Component {
 const mapDispatchToProps = (dispatch) => ({
   ministerAction: bindActionCreators(ministerActions, dispatch),
   layoutAction: bindActionCreators(layoutActions, dispatch),
+  actionNotification: bindActionCreators(actionNotifications, dispatch),
 });
 
 export default connect((state) => state, mapDispatchToProps)(Neta);

@@ -25,6 +25,7 @@ const initialState = {
   ministers: [],
   likeCount: "",
   shareCount: "",
+  commentCount: "",
 };
 
 const minister = (state = initialState, action) => {
@@ -77,6 +78,7 @@ const minister = (state = initialState, action) => {
         createdAt: action.payload.createdAt,
         likeCount: action.payload.likeCount,
         shareCount: action.payload.shareCount,
+        commentCount: action.payload.commentCount,
       });
     default:
       return state;
