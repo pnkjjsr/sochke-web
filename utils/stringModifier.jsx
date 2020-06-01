@@ -3,11 +3,11 @@ class stringModifier {
 
   removeWord = (e, words) => {
     let arr = [];
-    e.map(async i => {
+    e.map(async (i) => {
       let nameBefore = i.officename;
       let name = i.officename;
 
-      await words.map(word => {
+      await words.map((word) => {
         let index = nameBefore.search(word);
         if (index != -1) name = nameBefore.slice(0, index);
       });
@@ -26,35 +26,35 @@ class stringModifier {
         state: state,
         taluk: taluk,
         regionName: regionName,
-        circleName: circleName
+        circleName: circleName,
       });
     });
     return arr;
   };
 
-  currencyFormat = e => {
+  currencyFormat = (e) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
-      compactDisplay: "long"
+      compactDisplay: "long",
     }).format(e);
   };
 
-  currencyFormatCompact = e => {
+  currencyFormatCompact = (e) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       notation: "compact",
-      compactDisplay: "long"
+      compactDisplay: "long",
     }).format(e);
   };
 
-  tillFirstCommaString = e => {
+  tillFirstCommaString = (e) => {
     var string = /[^,]*/.exec(e)[0];
     return string;
   };
 
-  hyphenatedName = e => {
+  hyphenatedName = (e) => {
     var string = e.replace(/ /g, "-");
     return string;
   };

@@ -17,8 +17,10 @@ import layoutActions from "components/Layout/actions";
 import actionNotifications from "components/Notification/actions";
 
 import { service } from "apiConnect";
+import Moment from "utils/moment";
 import authSession from "utils/authSession";
 import stringModifier from "utils/stringModifier";
+
 import PageLoader from "components/Loader/page";
 import Button from "components/Form/Button";
 
@@ -53,6 +55,7 @@ class Neta extends Component {
       email: "",
       displayName: "",
       comment: "",
+      comments: [],
     };
   }
 
@@ -299,10 +302,26 @@ class Neta extends Component {
   };
 
   handleComment = (e) => {
-    const { commentActive } = this.state;
+    const { commentActive, id } = this.state;
     let newState = commentActive == "" ? "active" : "";
 
-    service.post().then().catch();
+    if (newState == "active") {
+      const data = {
+        params: {
+          id: id,
+        },
+      };
+      service
+        .get("/neta-comment", data)
+        .then((res) => {
+          this.setState({
+            comments: res.data,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     this.setState({
       commentActive: newState,
@@ -377,18 +396,32 @@ class Neta extends Component {
     );
   };
 
-  renderCommentShow = () => {
-    const { displayComment } = this.state;
+  renderComments = () => {
+    const { displayComment, comments } = this.state;
     const mainClass = "neta";
+    let len = comments.length;
+
+    let renderComment = comments.map((comment) => {
+      const moment = new Moment();
+      const time = moment.format(comment.createdAt);
+      return (
+        <div key={comment.id} className="comment">
+          <div>
+            <b>{comment.displayName}</b> {time}
+          </div>
+          <p>{comment.comment}</p>
+        </div>
+      );
+    });
 
     return (
-      <div className={`${mainClass}__comment ${displayComment}`}>
+      <div className={`${mainClass}__comments ${displayComment}`}>
         <div className="close" onClick={(e) => this.handleComment("hide")}>
           <span className="material-icons">cancel</span>
         </div>
         <h2>Comments</h2>
 
-        <div>Read Comment</div>
+        <div>{!len ? <PageLoader /> : renderComment}</div>
       </div>
     );
   };
@@ -398,7 +431,7 @@ class Neta extends Component {
     const mainClass = "neta";
 
     return (
-      <div className={`${mainClass}__comment ${displayWriteComment}`}>
+      <div className={`${mainClass}__comments ${displayWriteComment}`}>
         <div className="close" onClick={(e) => this.handleCommentWrite("hide")}>
           <span className="material-icons">cancel</span>
         </div>
@@ -494,9 +527,7 @@ class Neta extends Component {
       shareActive,
       commentCount,
       commentActive,
-      userIP,
     } = this.state;
-    console.log(userIP);
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
     if (type === "CM") typeFull = "Chief Minister";
@@ -677,7 +708,7 @@ class Neta extends Component {
             </div>
 
             {this.renderSocial()}
-            {this.renderCommentShow()}
+            {this.renderComments()}
             {this.renderCommentWrite()}
           </div>
         </Fragment>

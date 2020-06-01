@@ -386,9 +386,9 @@
     }
   }
 
-  &__comment {
+  &__comments {
     @extend %drawer-lg;
-    height: 400px;
+    height: 450px;
 
     .close {
       cursor: pointer;
@@ -396,7 +396,7 @@
 
     &.hide {
       opacity: 0;
-      bottom: -400px;
+      bottom: -450px;
     }
     &.show {
       opacity: 1;
@@ -408,6 +408,31 @@
       color: $color-primary;
       font-size: rem(18);
       font-weight: $font-weight-black;
+    }
+    > div {
+      max-height: 400px;
+      overflow: auto;
+
+      > .comment {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $color-lighter;
+
+        div {
+          margin-bottom: 5px;
+          font-size: rem(12);
+          b {
+            font-size: rem(13);
+          }
+        }
+
+        p {
+          margin: 0;
+          color: $color-gray;
+          font-size: rem(13);
+          line-height: 130%;
+        }
+      }
     }
 
     > .form {
@@ -449,7 +474,7 @@
     &__social {
       @extend %drawer;
     }
-    &__comment {
+    &__comments {
       @extend %drawer;
     }
   }
