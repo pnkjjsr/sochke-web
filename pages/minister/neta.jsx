@@ -51,6 +51,7 @@ class Neta extends Component {
       displayComment: "hide",
       displayWriteComment: "hide",
       email: "",
+      displayName: "",
       comment: ""
     };
   }
@@ -328,7 +329,14 @@ class Neta extends Component {
 
   handleCommentSubmit = e => {
     e.preventDefault();
-    const { email, comment, userIP, id, commentCount } = this.state;
+    const {
+      email,
+      displayName,
+      comment,
+      userIP,
+      id,
+      commentCount
+    } = this.state;
     const { actionNotification } = this.props;
     const { valid, errors } = validation({ email, comment });
 
@@ -344,6 +352,7 @@ class Neta extends Component {
       uid: userIP,
       mid: id,
       email: email,
+      displayName: displayName,
       comment: comment
     };
 
@@ -354,6 +363,7 @@ class Neta extends Component {
         this.setState({
           displayWriteComment: "hide",
           email: "",
+          displayName: "",
           comment: "",
           commentCount: commentCount + 1
         });
@@ -398,6 +408,19 @@ class Neta extends Component {
               }}
               inputProps={{
                 "aria-label": "email"
+              }}
+              variant="filled"
+              onChange={this.handleChange}
+            />
+            <TextField
+              name="displayName"
+              label="Name"
+              type="text"
+              InputLabelProps={{
+                htmlFor: "name"
+              }}
+              inputProps={{
+                "aria-label": "name"
               }}
               variant="filled"
               onChange={this.handleChange}
