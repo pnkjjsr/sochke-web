@@ -7,7 +7,7 @@ import {
   LinkedinIcon,
   LinkedinShareButton,
   TwitterIcon,
-  TwitterShareButton,
+  TwitterShareButton
 } from "react-share";
 import publicIp from "public-ip";
 import { connect } from "react-redux";
@@ -55,7 +55,7 @@ class Neta extends Component {
       email: "",
       displayName: "",
       comment: "",
-      comments: [],
+      comments: []
     };
   }
 
@@ -84,7 +84,7 @@ class Neta extends Component {
         createdAt: props.minister.createdAt,
         likeCount: props.minister.likeCount,
         shareCount: props.minister.shareCount,
-        commentCount: props.minister.commentCount,
+        commentCount: props.minister.commentCount
       };
     }
     return null;
@@ -114,31 +114,31 @@ class Neta extends Component {
 
     layoutAction.updateHead({
       title: "Sochke | Vote Your PM | Narendra Modi | Rate Neta",
-      desc:
-        "Sochke | SochKeApp, now you can like your PM and share your though with your PM",
+      desc:ƒ
+        "Sochke | SochKeApp, now you can like your PM and share your thoughts with your PM",
       keyword:
         "Sochke,SochkeApp,Prime Minister,Narendra Modi,Rate Neta,Vote Neta,Neta,Society Issues,Leaders,Politics,Political,Politician,Political Networking,Minister,Election,Vote,Citizne,Problem,Issue,Development,India,Growth,Agenda,Propganda",
-      ogImage: imgAsk,
+      ogImage: imgAsk
     });
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     let name = e.target.name;
     let val = e.target.value;
     this.setState({
-      [name]: val,
+      [name]: val
     });
   };
 
   handleDescShow = () => {
     this.setState({
-      classDesc: "show",
+      classDesc: "show"
     });
   };
 
   handleDescHide = () => {
     this.setState({
-      classDesc: "hide",
+      classDesc: "hide"
     });
   };
 
@@ -149,18 +149,18 @@ class Neta extends Component {
       createdAt: new Date().toISOString(),
       uid: userIP,
       mid: id,
-      vote: vote,
+      vote: vote
     };
 
     service
       .post("/neta", nData)
-      .then((res) => {
+      .then(res => {
         if (res.data.code == "vote/added") {
           setTimeout(() => {
             this.setState(
               {
                 contributeActive: contributeActive + 1,
-                notificationDisplay: "d-none",
+                notificationDisplay: "d-none"
               },
               () => {
                 let len = data.length;
@@ -179,46 +179,46 @@ class Neta extends Component {
           }, 2000);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  handleShare = (e) => {
+  handleShare = e => {
     if (!navigator.share) {
       return this.setState({
         shareActive: "active",
-        displaySocial: e,
+        displaySocial: e
       });
     }
 
     const shareData = {
       title: "Sochke | Vote Narendra Modi",
       text: "Sochke | share your though for your Prime Minister.",
-      url: "https://www.sochke.com/neta/narendra-modi",
+      url: "https://www.sochke.com/neta/narendra-modi"
     };
     return navigator
       .share(shareData)
       .then(() => console.log("Successful share"))
-      .catch((error) => console.log("Error sharing", error));
+      .catch(error => console.log("Error sharing", error));
   };
 
-  handleShareCount = (e) => {
+  handleShareCount = e => {
     const { shareCount, userIP, id } = this.state;
     const data = {
       createdAt: new Date().toISOString(),
       mid: id,
       uid: userIP,
-      type: e,
+      type: e
     };
     service
       .post("/neta-share", data)
-      .then((res) => {
+      .then(res => {
         this.setState({
-          shareCount: shareCount + 1,
+          shareCount: shareCount + 1
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -229,28 +229,28 @@ class Neta extends Component {
 
     return (
       <div className={`${mainClass}__social ${displaySocial}`}>
-        <div className="close" onClick={(e) => this.handleShare("hide")}>
+        <div className="close" onClick={e => this.handleShare("hide")}>
           <span className="material-icons">cancel</span>
         </div>
 
         <div className="handles">
           <FacebookShareButton
             url={shareUrl}
-            onClick={(e) => this.handleShareCount("facebook")}
+            onClick={e => this.handleShareCount("facebook")}
           >
             <FacebookIcon size="40" round={true} />
           </FacebookShareButton>
 
           <LinkedinShareButton
             url={shareUrl}
-            onClick={(e) => this.handleShareCount("linkedin")}
+            onClick={e => this.handleShareCount("linkedin")}
           >
             <LinkedinIcon size="40" round={true} />
           </LinkedinShareButton>
 
           <TwitterShareButton
             url={shareUrl}
-            onClick={(e) => this.handleShareCount("twitter")}
+            onClick={e => this.handleShareCount("twitter")}
           >
             <TwitterIcon size="40" round={true} />
           </TwitterShareButton>
@@ -264,72 +264,72 @@ class Neta extends Component {
     const data = {
       createdAt: new Date().toISOString(),
       mid: id,
-      uid: userIP,
+      uid: userIP
     };
     if (likeActive == "active") {
       data.like = false;
       service
         .post("/neta-like", data)
-        .then((res) => {
+        .then(res => {
           console.log(res);
           sessionStorage.setItem("netaLike", false);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
       return this.setState({
         likeActive: "",
-        likeCount: likeCount - 1,
+        likeCount: likeCount - 1
       });
     }
 
     data.like = true;
     service
       .post("/neta-like", data)
-      .then((res) => {
+      .then(res => {
         console.log(res);
 
         sessionStorage.setItem("netaLike", true);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
     this.setState({
       likeActive: "active",
-      likeCount: likeCount + 1,
+      likeCount: likeCount + 1
     });
   };
 
-  handleComment = (e) => {
+  handleComment = e => {
     const { commentActive, id } = this.state;
     let newState = commentActive == "" ? "active" : "";
 
     if (newState == "active") {
       const data = {
         params: {
-          id: id,
-        },
+          id: id
+        }
       };
       service
         .get("/neta-comment", data)
-        .then((res) => {
+        .then(res => {
           this.setState({
-            comments: res.data,
+            comments: res.data
           });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     }
 
     this.setState({
       commentActive: newState,
-      displayComment: e,
+      displayComment: e
     });
   };
 
-  handleCommentSubmit = (e) => {
+  handleCommentSubmit = e => {
     e.preventDefault();
     const {
       email,
@@ -337,7 +337,7 @@ class Neta extends Component {
       comment,
       userIP,
       id,
-      commentCount,
+      commentCount
     } = this.state;
     const { actionNotification } = this.props;
     const { valid, errors } = validation({ email, comment, displayName });
@@ -345,7 +345,7 @@ class Neta extends Component {
     if (!valid) {
       return actionNotification.showNotification({
         message: "Please enter the details.",
-        type: "danger",
+        type: "danger"
       });
     }
 
@@ -355,34 +355,34 @@ class Neta extends Component {
       mid: id,
       email: email,
       displayName: displayName,
-      comment: comment,
+      comment: comment
     };
 
     service
       .post("/neta-comment", data)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         this.setState({
           displayWriteComment: "hide",
           email: "",
           displayName: "",
           comment: "",
-          commentCount: commentCount + 1,
+          commentCount: commentCount + 1
         });
 
         actionNotification.showNotification({
           message: "Thank you for your valuable comment.",
-          type: "success",
+          type: "success"
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  handleCommentWrite = (e) => {
+  handleCommentWrite = e => {
     this.setState({
-      displayWriteComment: e,
+      displayWriteComment: e
     });
   };
 
@@ -401,7 +401,7 @@ class Neta extends Component {
     const mainClass = "neta";
     let len = comments.length;
 
-    let renderComment = comments.map((comment) => {
+    let renderComment = comments.map(comment => {
       const moment = new Moment();
       const time = moment.format(comment.createdAt);
       return (
@@ -416,7 +416,7 @@ class Neta extends Component {
 
     return (
       <div className={`${mainClass}__comments ${displayComment}`}>
-        <div className="close" onClick={(e) => this.handleComment("hide")}>
+        <div className="close" onClick={e => this.handleComment("hide")}>
           <span className="material-icons">cancel</span>
         </div>
         <h2>Comments</h2>
@@ -432,7 +432,7 @@ class Neta extends Component {
 
     return (
       <div className={`${mainClass}__comments ${displayWriteComment}`}>
-        <div className="close" onClick={(e) => this.handleCommentWrite("hide")}>
+        <div className="close" onClick={e => this.handleCommentWrite("hide")}>
           <span className="material-icons">cancel</span>
         </div>
 
@@ -448,11 +448,11 @@ class Neta extends Component {
               label="Email"
               type="email"
               InputLabelProps={{
-                htmlFor: "email",
+                htmlFor: "email"
               }}
               inputProps={{
                 "aria-label": "email",
-                autoComplete: "off",
+                autoComplete: "off"
               }}
               variant="filled"
               onChange={this.handleChange}
@@ -462,11 +462,11 @@ class Neta extends Component {
               label="Name"
               type="text"
               InputLabelProps={{
-                htmlFor: "name",
+                htmlFor: "name"
               }}
               inputProps={{
                 "aria-label": "name",
-                autoComplete: "off",
+                autoComplete: "off"
               }}
               variant="filled"
               onChange={this.handleChange}
@@ -478,12 +478,12 @@ class Neta extends Component {
               rows="5"
               multiline
               InputLabelProps={{
-                htmlFor: "comment",
+                htmlFor: "comment"
               }}
               inputProps={{
                 "aria-label": "comment",
                 maxLength: "175",
-                autoComplete: "off",
+                autoComplete: "off"
               }}
               variant="filled"
               onChange={this.handleChange}
@@ -526,7 +526,7 @@ class Neta extends Component {
       shareCount,
       shareActive,
       commentCount,
-      commentActive,
+      commentActive
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -657,14 +657,14 @@ class Neta extends Component {
 
                     <div
                       className={commentActive}
-                      onClick={(e) => this.handleComment("show")}
+                      onClick={e => this.handleComment("show")}
                     >
                       <span className="material-icons">comment</span>
                       <label htmlFor="comment">{commentCount}</label>
                     </div>
                     <div
                       className={shareActive}
-                      onClick={(e) => this.handleShare("show")}
+                      onClick={e => this.handleShare("show")}
                     >
                       <span className="material-icons">share</span>
                       <label htmlFor="share">{shareCount}</label>
@@ -678,17 +678,17 @@ class Neta extends Component {
               <Button
                 text="I Believe"
                 variant="btn-success"
-                action={(e) => this.handleVote(id, "true")}
+                action={e => this.handleVote(id, "true")}
               />
               <Button
                 text="I Won't"
                 variant="btn-danger"
-                action={(e) => this.handleVote(id, "false")}
+                action={e => this.handleVote(id, "false")}
               />
               <Button
                 text="Pass"
                 variant="btn-outline-primary"
-                action={(e) => this.handleVote(id, "pass")}
+                action={e => this.handleVote(id, "pass")}
               />
             </div>
 
@@ -700,7 +700,7 @@ class Neta extends Component {
                 </label>
                 <div
                   className="add"
-                  onClick={(e) => this.handleCommentWrite("show")}
+                  onClick={e => this.handleCommentWrite("show")}
                 >
                   <img src={imgAsk} alt="Add Contribute" />
                 </div>
@@ -717,10 +717,10 @@ class Neta extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   ministerAction: bindActionCreators(ministerActions, dispatch),
   layoutAction: bindActionCreators(layoutActions, dispatch),
-  actionNotification: bindActionCreators(actionNotifications, dispatch),
+  actionNotification: bindActionCreators(actionNotifications, dispatch)
 });
 
-export default connect((state) => state, mapDispatchToProps)(Neta);
+export default connect(state => state, mapDispatchToProps)(Neta);
