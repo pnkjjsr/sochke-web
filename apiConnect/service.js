@@ -25,7 +25,7 @@ export default class Service {
 
     this.defaultConfig = {
       baseURL: this.getBaseURL(),
-      timeout: this.requestTimeout
+      timeout: this.requestTimeout,
     };
 
     this.axios = axios.create(
@@ -89,9 +89,9 @@ export default class Service {
       if (!firebase.apps.length) firebase.initializeApp(clientCredentials);
 
       const auth = firebase.auth();
-      auth.onAuthStateChanged(user => {
+      auth.onAuthStateChanged((user) => {
         if (user) {
-          auth.currentUser.getIdToken().then(token => {
+          auth.currentUser.getIdToken().then((token) => {
             resolve(token);
           });
         } else {
@@ -107,30 +107,30 @@ export default class Service {
 export const service = Service.create();
 
 service.interceptRequest(
-  async config => {
+  async (config) => {
     // if (NODE && Service.req && Service.req.header) {
     //   config.headers.Cookie = Service.req.header("cookie") || "";
     //   Service.req = null;
     // }
 
-    await service.getAuthorizationToken().then(res => {
+    await service.getAuthorizationToken().then((res) => {
       config.headers["authorization"] = res;
       config.headers["x-access-token"] = res;
     });
 
     return config;
   },
-  err => Promise.reject(err)
+  (err) => Promise.reject(err)
 );
 
 service.interceptResponse(
-  res => {
+  (res) => {
     // we may do something here before returning response data
     return res;
   },
   // we may do something with response error
   // say, when user authentication failure occured
-  err => Promise.reject(err)
+  (err) => Promise.reject(err)
 );
 
 // set the cookie header for server

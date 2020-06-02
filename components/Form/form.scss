@@ -134,6 +134,10 @@
       .MuiInput-underline {
         @extend %border-none;
       }
+
+      &.MuiInputBase-multiline {
+        padding-top: 10px;
+      }
     }
   }
 

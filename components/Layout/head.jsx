@@ -86,6 +86,7 @@ class Head extends React.Component {
         title={layout.title}
         pageTitle={newPageTitle}
         desc={layout.desc}
+        ogImage={layout.ogImage}
       />
     );
   }

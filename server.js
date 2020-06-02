@@ -1,5 +1,5 @@
 const express = require("express");
-var compression = require("compression");
+const compression = require("compression");
 const bodyParser = require("body-parser");
 const { parse } = require("url");
 const session = require("express-session");
@@ -7,7 +7,7 @@ const FileStore = require("session-file-store")(session);
 const next = require("next");
 const admin = require("firebase-admin");
 const { join } = require("path");
-var device = require("express-device");
+const device = require("express-device");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -16,14 +16,6 @@ const app = next({
   dev,
 });
 const handle = app.getRequestHandler();
-
-// const serviceAccount = require("./serviceAccountKey.json");
-// const firebase = admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: "https://neta-62fcb.firebaseio.com" // TODO database URL goes here
-//   },
-//   'server'
-// )
 
 app
   .prepare()
@@ -54,8 +46,10 @@ app
       next();
     });
 
-    server.get("/minister", (req, res) => {
-      return app.render(req, res, "/");
+    server.get("/neta/:userName", (req, res) => {
+      return app.render(req, res, "/minister/neta", {
+        userName: req.params.userName,
+      });
     });
 
     server.get("/minister/:userName", (req, res) => {
