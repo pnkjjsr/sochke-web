@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import {
   FacebookIcon,
@@ -29,6 +32,21 @@ import "./style.scss";
 const imgAsk =
   "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fneta%2Fask.png?alt=media";
 
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
 class Neta extends Component {
   static async getInitialProps({ query }) {
     let queryName = await query.userName;
@@ -56,6 +74,9 @@ class Neta extends Component {
       displayName: "",
       comment: "",
       comments: [],
+      notificationDisplay: "d-none",
+      displayAction: "",
+      displayRatio: "",
     };
   }
 
@@ -144,6 +165,11 @@ class Neta extends Component {
 
   handleVote = (id, vote) => {
     const { userIP } = this.state;
+    const { actionNotification } = this.props;
+
+    this.setState({
+      notificationDisplay: "active",
+    });
 
     let nData = {
       createdAt: new Date().toISOString(),
@@ -151,31 +177,19 @@ class Neta extends Component {
       mid: id,
       vote: vote,
     };
-
     service
       .post("/neta", nData)
       .then((res) => {
-        if (res.data.code == "vote/added") {
+        if (res.data.code == "minister/vote-added") {
           setTimeout(() => {
-            this.setState(
-              {
-                contributeActive: contributeActive + 1,
-                notificationDisplay: "d-none",
-              },
-              () => {
-                let len = data.length;
-                if (len == this.state.contributeActive) {
-                  sessionStorage.setItem("contributionTry", "all-done");
-                  Router.push("/mobile/completed");
-                }
-
-                if (contributeActive == 2) {
-                  Router.push("/mobile/register");
-                  sessionStorage.setItem("contributionTry", "done");
-                  return true;
-                }
-              }
-            );
+            this.setState({
+              notificationDisplay: "d-none",
+              displayAction: "d-none",
+            });
+            actionNotification.showNotification({
+              message: "Thank you for your valuable vote.",
+              type: "success",
+            });
           }, 2000);
         }
       })
@@ -527,6 +541,9 @@ class Neta extends Component {
       shareActive,
       commentCount,
       commentActive,
+      notificationDisplay,
+      displayAction,
+      displayRatio,
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -545,6 +562,21 @@ class Neta extends Component {
       return (
         <Fragment>
           <div className={mainClass}>
+            <div
+              className={`${mainClass}__notification ${notificationDisplay}`}
+            >
+              {/* <i className="close">
+              <span className="material-icons">cancel</span>
+            </i> */}
+
+              <p>
+                <b>Your vote matters.</b>
+                <br />
+                Each vote makes a difference as unity.
+                <PageLoader />
+              </p>
+            </div>
+
             <div className={`${mainClass}__item`}>
               <figure className="image">
                 <img src={photoDisplay} alt="" />
@@ -674,14 +706,14 @@ class Neta extends Component {
               </div>
             </div>
 
-            <div className={`${mainClass}__action`}>
+            <div className={`${mainClass}__action ${displayAction}`}>
               <Button
                 text="I Believe"
                 variant="btn-success"
                 action={(e) => this.handleVote(id, "true")}
               />
               <Button
-                text="I Won't"
+                text="I Don't"
                 variant="btn-danger"
                 action={(e) => this.handleVote(id, "false")}
               />
@@ -690,6 +722,9 @@ class Neta extends Component {
                 variant="btn-outline-primary"
                 action={(e) => this.handleVote(id, "pass")}
               />
+            </div>
+            <div className={`${mainClass}__ratio ${displayRatio}`}>
+              <LinearProgressWithLabel value={70} />
             </div>
 
             <div className={`${mainClass}__bot`}>

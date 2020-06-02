@@ -114,6 +114,39 @@
   margin-top: 15px;
   padding: 0 10px;
 
+  &__notification {
+    position: fixed;
+    z-index: 2;
+    top: 100px;
+    left: calc(50% - 140px);
+    display: none;
+    max-width: 280px;
+    padding: 10px;
+    background-color: $color-white;
+    box-shadow: 3.5px 3.5px 10px 0 rgba(0, 0, 0, 0.3);
+    @include border-radius(3px);
+    opacity: 1;
+
+    &.active {
+      display: block;
+      animation: note_show 0.5s ease;
+    }
+    @keyframes note_show {
+      0% {
+        top: 80px;
+        opacity: 0;
+      }
+      100% {
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+  &__ratio {
+  }
+
   %drawer-lg {
     position: fixed;
     z-index: 1;
