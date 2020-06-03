@@ -145,6 +145,19 @@
     }
   }
   &__ratio {
+    max-width: 350px;
+    margin: auto;
+    margin-bottom: 10px;
+
+    > p {
+      margin-bottom: 5px;
+      font-size: rem(14);
+
+      b {
+        color: $color-green;
+        font-weight: $font-weight-black;
+      }
+    }
   }
 
   %drawer-lg {

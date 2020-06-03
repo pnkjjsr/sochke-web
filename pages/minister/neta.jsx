@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import { Progress } from "reactstrap";
+
 import TextField from "@material-ui/core/TextField";
 import {
   FacebookIcon,
@@ -31,21 +30,6 @@ import validation from "./validation";
 import "./style.scss";
 const imgAsk =
   "https://firebasestorage.googleapis.com/v0/b/sochke-test.appspot.com/o/cdn%2Fneta%2Fask.png?alt=media";
-
-function LinearProgressWithLabel(props) {
-  return (
-    <Box display="flex" alignItems="center">
-      <Box width="100%" mr={1}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box minWidth={35}>
-        <Typography variant="body2" color="textSecondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}
 
 class Neta extends Component {
   static async getInitialProps({ query }) {
@@ -76,7 +60,7 @@ class Neta extends Component {
       comments: [],
       notificationDisplay: "d-none",
       displayAction: "",
-      displayRatio: "",
+      displayRatio: "d-none",
     };
   }
 
@@ -106,6 +90,9 @@ class Neta extends Component {
         likeCount: props.minister.likeCount,
         shareCount: props.minister.shareCount,
         commentCount: props.minister.commentCount,
+        voteTrueCount: props.minister.voteTrueCount,
+        voteFalseCount: props.minister.voteFalseCount,
+        votePassCount: props.minister.votePassCount,
       };
     }
     return null;
@@ -118,6 +105,7 @@ class Neta extends Component {
     let token = session.getToken();
     let liked = sessionStorage.getItem("netaLike");
     let getIP = sessionStorage.getItem("ip");
+    let getVote = sessionStorage.getItem("vote");
 
     if (liked == "true") this.setState({ likeActive: "active" });
 
@@ -131,8 +119,13 @@ class Neta extends Component {
       }
     }
     this.setState({ userIP: token });
+    if (getVote) {
+      this.setState({
+        displayRatio: "d-block",
+        displayAction: "d-none",
+      });
+    }
     ministerAction.prefetchNetaData(query);
-
     layoutAction.updateHead({
       title: "Sochke | Vote Your PM | Narendra Modi | Rate Neta",
       desc:
@@ -185,7 +178,10 @@ class Neta extends Component {
             this.setState({
               notificationDisplay: "d-none",
               displayAction: "d-none",
+              displayRatio: "d-block",
             });
+            sessionStorage.setItem("vote", true);
+
             actionNotification.showNotification({
               message: "Thank you for your valuable vote.",
               type: "success",
@@ -517,6 +513,57 @@ class Neta extends Component {
     );
   };
 
+  renderNotification = () => {
+    const mainClass = "neta";
+    const { notificationDisplay } = this.state;
+    return (
+      <div className={`${mainClass}__notification ${notificationDisplay}`}>
+        <p>
+          <b>Your vote matters.</b>
+          <br />
+          Each vote makes a difference as unity.
+        </p>
+        <PageLoader />
+      </div>
+    );
+  };
+
+  renderRatio = () => {
+    const mainClass = "neta";
+    const {
+      displayRatio,
+      voteTrueCount,
+      voteFalseCount,
+      votePassCount,
+      name,
+    } = this.state;
+
+    let totalCount = voteTrueCount + voteFalseCount + votePassCount;
+    let truePercent = (voteTrueCount * 100) / totalCount;
+    let falsePercent = (voteFalseCount * 100) / totalCount;
+    let passPercent = (votePassCount * 100) / totalCount;
+    let believePercent = truePercent.toFixed(2);
+
+    return (
+      <div className={`${mainClass}__ratio ${displayRatio}`}>
+        <p>
+          <b>{believePercent}%</b>, people believe in {name}
+        </p>
+        <Progress multi>
+          <Progress bar color="success" value={truePercent}>
+            I Believe
+          </Progress>
+          <Progress bar color="danger" value={falsePercent}>
+            I Don't
+          </Progress>
+          <Progress bar color="info" value={passPercent}>
+            Pass
+          </Progress>
+        </Progress>
+      </div>
+    );
+  };
+
   render() {
     const mainClass = "neta";
     const {
@@ -541,9 +588,7 @@ class Neta extends Component {
       shareActive,
       commentCount,
       commentActive,
-      notificationDisplay,
       displayAction,
-      displayRatio,
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -562,20 +607,7 @@ class Neta extends Component {
       return (
         <Fragment>
           <div className={mainClass}>
-            <div
-              className={`${mainClass}__notification ${notificationDisplay}`}
-            >
-              {/* <i className="close">
-              <span className="material-icons">cancel</span>
-            </i> */}
-
-              <p>
-                <b>Your vote matters.</b>
-                <br />
-                Each vote makes a difference as unity.
-                <PageLoader />
-              </p>
-            </div>
+            {this.renderNotification()}
 
             <div className={`${mainClass}__item`}>
               <figure className="image">
@@ -723,9 +755,8 @@ class Neta extends Component {
                 action={(e) => this.handleVote(id, "pass")}
               />
             </div>
-            <div className={`${mainClass}__ratio ${displayRatio}`}>
-              <LinearProgressWithLabel value={70} />
-            </div>
+
+            {this.renderRatio()}
 
             <div className={`${mainClass}__bot`}>
               <div className="action">
