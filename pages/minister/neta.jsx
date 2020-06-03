@@ -761,7 +761,7 @@ class Neta extends Component {
             <div className={`${mainClass}__bot`}>
               <div className="action">
                 <label>
-                  <small>I want say</small>
+                  <small>I want to say</small>
                   <br /> Neta Se
                 </label>
                 <div
