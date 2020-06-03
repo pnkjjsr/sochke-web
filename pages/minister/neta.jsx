@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import { Progress } from "reactstrap";
+
 import TextField from "@material-ui/core/TextField";
 import {
   FacebookIcon,
@@ -56,6 +58,9 @@ class Neta extends Component {
       displayName: "",
       comment: "",
       comments: [],
+      notificationDisplay: "d-none",
+      displayAction: "",
+      displayRatio: "d-none",
     };
   }
 
@@ -85,6 +90,9 @@ class Neta extends Component {
         likeCount: props.minister.likeCount,
         shareCount: props.minister.shareCount,
         commentCount: props.minister.commentCount,
+        voteTrueCount: props.minister.voteTrueCount,
+        voteFalseCount: props.minister.voteFalseCount,
+        votePassCount: props.minister.votePassCount,
       };
     }
     return null;
@@ -97,6 +105,7 @@ class Neta extends Component {
     let token = session.getToken();
     let liked = sessionStorage.getItem("netaLike");
     let getIP = sessionStorage.getItem("ip");
+    let getVote = sessionStorage.getItem("vote");
 
     if (liked == "true") this.setState({ likeActive: "active" });
 
@@ -110,8 +119,13 @@ class Neta extends Component {
       }
     }
     this.setState({ userIP: token });
+    if (getVote) {
+      this.setState({
+        displayRatio: "d-block",
+        displayAction: "d-none",
+      });
+    }
     ministerAction.prefetchNetaData(query);
-
     layoutAction.updateHead({
       title: "Sochke | Vote Your PM | Narendra Modi | Rate Neta",
       desc:
@@ -144,6 +158,11 @@ class Neta extends Component {
 
   handleVote = (id, vote) => {
     const { userIP } = this.state;
+    const { actionNotification } = this.props;
+
+    this.setState({
+      notificationDisplay: "active",
+    });
 
     let nData = {
       createdAt: new Date().toISOString(),
@@ -151,31 +170,22 @@ class Neta extends Component {
       mid: id,
       vote: vote,
     };
-
     service
       .post("/neta", nData)
       .then((res) => {
-        if (res.data.code == "vote/added") {
+        if (res.data.code == "minister/vote-added") {
           setTimeout(() => {
-            this.setState(
-              {
-                contributeActive: contributeActive + 1,
-                notificationDisplay: "d-none",
-              },
-              () => {
-                let len = data.length;
-                if (len == this.state.contributeActive) {
-                  sessionStorage.setItem("contributionTry", "all-done");
-                  Router.push("/mobile/completed");
-                }
+            this.setState({
+              notificationDisplay: "d-none",
+              displayAction: "d-none",
+              displayRatio: "d-block",
+            });
+            sessionStorage.setItem("vote", true);
 
-                if (contributeActive == 2) {
-                  Router.push("/mobile/register");
-                  sessionStorage.setItem("contributionTry", "done");
-                  return true;
-                }
-              }
-            );
+            actionNotification.showNotification({
+              message: "Thank you for your valuable vote.",
+              type: "success",
+            });
           }, 2000);
         }
       })
@@ -503,6 +513,57 @@ class Neta extends Component {
     );
   };
 
+  renderNotification = () => {
+    const mainClass = "neta";
+    const { notificationDisplay } = this.state;
+    return (
+      <div className={`${mainClass}__notification ${notificationDisplay}`}>
+        <p>
+          <b>Your vote matters.</b>
+          <br />
+          Each vote makes a difference as unity.
+        </p>
+        <PageLoader />
+      </div>
+    );
+  };
+
+  renderRatio = () => {
+    const mainClass = "neta";
+    const {
+      displayRatio,
+      voteTrueCount,
+      voteFalseCount,
+      votePassCount,
+      name,
+    } = this.state;
+
+    let totalCount = voteTrueCount + voteFalseCount + votePassCount;
+    let truePercent = (voteTrueCount * 100) / totalCount;
+    let falsePercent = (voteFalseCount * 100) / totalCount;
+    let passPercent = (votePassCount * 100) / totalCount;
+    let believePercent = truePercent.toFixed(2);
+
+    return (
+      <div className={`${mainClass}__ratio ${displayRatio}`}>
+        <p>
+          <b>{believePercent}%</b>, people believe in {name}
+        </p>
+        <Progress multi>
+          <Progress bar color="success" value={truePercent}>
+            I Believe
+          </Progress>
+          <Progress bar color="danger" value={falsePercent}>
+            I Don't
+          </Progress>
+          <Progress bar color="info" value={passPercent}>
+            Pass
+          </Progress>
+        </Progress>
+      </div>
+    );
+  };
+
   render() {
     const mainClass = "neta";
     const {
@@ -527,6 +588,7 @@ class Neta extends Component {
       shareActive,
       commentCount,
       commentActive,
+      displayAction,
     } = this.state;
     let typeFull;
     if (type === "PM") typeFull = "Prime Minister";
@@ -545,6 +607,8 @@ class Neta extends Component {
       return (
         <Fragment>
           <div className={mainClass}>
+            {this.renderNotification()}
+
             <div className={`${mainClass}__item`}>
               <figure className="image">
                 <img src={photoDisplay} alt="" />
@@ -674,14 +738,14 @@ class Neta extends Component {
               </div>
             </div>
 
-            <div className={`${mainClass}__action`}>
+            <div className={`${mainClass}__action ${displayAction}`}>
               <Button
                 text="I Believe"
                 variant="btn-success"
                 action={(e) => this.handleVote(id, "true")}
               />
               <Button
-                text="I Won't"
+                text="I Don't"
                 variant="btn-danger"
                 action={(e) => this.handleVote(id, "false")}
               />
@@ -692,10 +756,12 @@ class Neta extends Component {
               />
             </div>
 
+            {this.renderRatio()}
+
             <div className={`${mainClass}__bot`}>
               <div className="action">
                 <label>
-                  <small>I want say</small>
+                  <small>I want to say</small>
                   <br /> Neta Se
                 </label>
                 <div

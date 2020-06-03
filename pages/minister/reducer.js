@@ -26,6 +26,9 @@ const initialState = {
   likeCount: "",
   shareCount: "",
   commentCount: "",
+  voteTrueCount: "",
+  voteFalseCount: "",
+  votePassCount: "",
 };
 
 const minister = (state = initialState, action) => {
@@ -79,6 +82,9 @@ const minister = (state = initialState, action) => {
         likeCount: action.payload.likeCount,
         shareCount: action.payload.shareCount,
         commentCount: action.payload.commentCount,
+        voteTrueCount: action.payload.voteTrueCount,
+        voteFalseCount: action.payload.voteFalseCount,
+        votePassCount: action.payload.votePassCount,
       });
     default:
       return state;
